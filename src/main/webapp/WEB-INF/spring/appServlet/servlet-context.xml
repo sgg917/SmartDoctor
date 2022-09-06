@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model >>>>>얘랑-->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+	
+	
+	
+	<resources mapping="/smartdocTemplate/**" location="/smartdocTemplate/" />
+	<resources mapping="/css/**" location="/smartdocTemplate/assets/css/" />
+	<resources mapping="/js/**" location="/smartdocTemplate/assets/js/" />
+	<resources mapping="/scss/**" location="/smartdocTemplate/assets/scss/" />
+	<resources mapping="/images/**" location="/smartdocTemplate/assets/images/" />
+	<resources mapping="/vendors/**" location="/smartdocTemplate/assets/vendors/" />
+	
+	<resources mapping="/assets/**" location="/assets/" />
+	<resources mapping="/css/**" location="/assets/css/" />
+	<resources mapping="/js/**" location="/assets/js/" />
+	<resources mapping="/scss/**" location="/assets/scss/" />
+	<resources mapping="/images/**" location="/assets/images/" />
+	<resources mapping="/vendors/**" location="/assets/vendors/" />
+
+	
+	
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	
+	<!-- 얘가 어노테이션 등록을 가능하게 해준다 com.br.spring 을 스캔, 어노테이션이 붙은 것들을 자동으로 빈 등록-->
+	<context:component-scan base-package="com.fp.smartDoctor" />
+	
+	<!-- 
+		*sevlet-context.xml파일
+		 url로 요청시 DispatcherServlet 객체가 생성되어 모든 요청을 받아줌
+		 이때 servlet-context.xml 파일이 읽혀짐
+		 
+		 각각 요청마다 처리할 내용이 다르기 때문에 그 요청을 처리해주는 Controller 만들긴 해야됨
+		 어떤 url로 요청시 어떤 controller 실행시킬건지
+		 "handlerMapping"이라는 걸 등록
+	 -->
+	 
+	 <!-- 1)controller 클래스들을 bean으로 등록해야됨 -->
+	 <!-- 2)HandlerMapping등록 -->
+	<!-- xml 방식 단점: 다수의 개발자가 이용시 충돌 빈번, 장점: 관리의 편의성 상승  -->
+	
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/myPage.me"/>
+			<mapping path="/enrollForm.bo"/>
+			<beans:bean class="com.fp.smartDoctor.common.interceptor.LoginInterceptor" id="loginInterceptor"/>
+		</interceptor>
+	</interceptors>
+</beans:beans>

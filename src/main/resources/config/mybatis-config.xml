@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.fp.smartDoctor.sign.vo.Sign" alias="Sign"/>
+		<typeAlias type="com.fp.smartDoctor.messenger.vo.Mail" alias="Mail"/>
+		<typeAlias type="com.fp.smartDoctor.attendance.vo.Attendance" alias="Attendance"/>
+		<typeAlias type="com.fp.smartDoctor.member.vo.Member" alias="Member"/>
+		<typeAlias type="com.fp.smartDoctor.timeTable.vo.TimeTable" alias="TimeTable"/>
+		<typeAlias type="com.fp.smartDoctor.treatment.vo.Treatment" alias="Treatment"/>
+		
+	</typeAliases>
+	<!-- 유의사항 : 미리 등록해 두려면 해당 클래스가 진짜 존재해야함, 미리 클래스가 존재하지 않으면 서버 스타트 자체가 안됨 -->
+	
+	<!-- 
+		spring 쓰기 전 : 이곳에 environment 태그로 dataSource(연결할 db정보) 등록
+		spring 사용 후 : root-context.xml
+	 -->
+	 
+	 <mappers>
+
+	 	<!-- 유의사항 : 미리 등록해 두려면 해당 mapper파일이 진짜 존재해야함(이 매퍼도 미리 만들어 둬야만 등록이 가능하다)
+	 					또한 namespace가 지정되어있어야함 -->
+	 	<mapper resource="/mappers/sign-mapper.xml"/>
+	 	<mapper resource="/mappers/messenger-mapper.xml"/>
+	 	<mapper resource="/mappers/attendance-mapper.xml"/>
+	 	<mapper resource="/mappers/member-mapper.xml"/>
+	 	<mapper resource="/mappers/timeTable-mapper.xml"/>
+	 	<mapper resource="/mappers/treatment-mapper.xml"/>
+	 </mappers>
+</configuration>
