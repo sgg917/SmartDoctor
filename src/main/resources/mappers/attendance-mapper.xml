@@ -2,4 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="attendanceMapper">
 
+	<resultMap id="attendanceResult" type="Attendance">
+		<result column="att_no" property="attNo"/>
+		<result column="emp_no" property="empNo"/>
+		<result column="att_date" property="attDate"/>
+		<result column="start_time" property="startTime"/>
+		<result column="end_time" property="endTime"/>
+		<result column="status" property="status"/>
+		<result column="total_time" property="totalTIme"/>
+		<result column="over_time" property="overTime"/>
+		<result column="modify_date" property="modifyDate"/>
+		<result column="modify_no" property="modifyNo"/>
+	</resultMap>
+	
+	<select id="selectListCount" resultType="_int">
+		select count(*)
+		  from attendance
+		 where emp_no = #{no}
+	</select>
+
+	<select id="selectAttendance" resultMap="attendanceResult">
+		select
+			   att_no
+			 , att_date
+			 , start_time
+			 , end_time
+			 , status
+		  from attendance
+		 where status in ('Y', 'L', 'E', 'N')
+		   and emp_no = #{no}
+		 order
+		    by att_no desc
+	</select>
 </mapper>

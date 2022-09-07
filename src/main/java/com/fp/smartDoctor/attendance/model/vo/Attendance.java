@@ -12,5 +12,14 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Attendance {
-	private String userId;
+	private int attNo;
+	private int empNo;
+	private String attDate;
+	private String startTime;
+	private String endTime;
+	private String status;
+	private int totalTime;
+	private int overTime;
+	private String modifyDate;
+	private int modifyNo;
 }
