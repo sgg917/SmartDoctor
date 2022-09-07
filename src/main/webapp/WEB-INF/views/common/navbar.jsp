@@ -1,29 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Purple Admin</title>
-	<!-- plugins:css -->
-	<link rel="stylesheet" href="resources/vendors/mdi/css/materialdesignicons.min.css">
-	<link rel="stylesheet" href="resources/vendors/css/vendor.bundle.base.css">
-	<!-- endinject -->
-	<!-- Plugin css for this page -->
-	<!-- End plugin css for this page -->
-	<!-- inject:css -->
-	<!-- endinject -->
-	<!-- Layout styles -->
-	<link rel="stylesheet" href="resources/css/style.css">
-	<!-- End layout styles -->
-	<link rel="shortcut icon" href="resources/images/favicon2.ico" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
-	<link rel="icon" href="resources/images/favicon2.ico" type="image/x-icon">
-	
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Purple Admin</title>
+<!-- plugins:css -->
+<link rel="stylesheet"
+	href="resources/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet"
+	href="resources/vendors/css/vendor.bundle.base.css">
+<!-- endinject -->
+<!-- Plugin css for this page -->
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<!-- endinject -->
+<!-- Layout styles -->
+<link rel="stylesheet" href="resources/css/style.css">
+<!-- End layout styles -->
+<link rel="shortcut icon" href="resources/images/favicon2.ico" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
+<link rel="icon" href="resources/images/favicon2.ico"
+	type="image/x-icon">
+
 </head>
 <body>
+
 
 
 
@@ -239,6 +245,22 @@
               </div>
             </li>
             <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#number5" aria-expanded="false" aria-controls="ui-basic">
+                  <span class="menu-title">근태관리</span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-alarm-check menu-icon"></i>
+                </a>
+                <div class="collapse" id="number5">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="">출퇴근 관리</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">휴가 관리</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">월간 근태 체크</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">사원 근태 관리</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">사원 휴가 관리</a></li>
+                  </ul>
+                </div>
+              </li>
+            <li class="nav-item">
               <a class="nav-link" href="#number6">
                 <span class="menu-title">공지사항</span>
                 <i class="mdi mdi-hospital menu-icon"></i>
@@ -252,18 +274,18 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#number5">
-                <span class="menu-title">조직도</span>
-                <i class="mdi mdi-clipboard-account menu-icon"></i>
-              </a>
-              <div class="collapse" id="number5">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">메일쓰기</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">메일조회</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">보관함</a></li>
-                </ul>
-              </div>
-            </li>
+                <a class="nav-link" data-bs-toggle="collapse" href="#number7" aria-expanded="false" aria-controls="ui-basic">
+                  <span class="menu-title">조직도</span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-clipboard-account menu-icon"></i>
+                </a>
+                <div class="collapse" id="number7">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="">조직도 조회</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">조직도 수정</a></li>
+                  </ul>
+                </div>
+              </li>
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#number7" aria-expanded="false" aria-controls="general-pages">
                 <span class="menu-title">전자결재</span>
@@ -298,5 +320,6 @@
 	<script src="resources/js/dashboard.js"></script>
 	<script src="resources/js/todolist.js"></script>
 	<!-- End custom js for this page -->
+
 </body>
 </html>

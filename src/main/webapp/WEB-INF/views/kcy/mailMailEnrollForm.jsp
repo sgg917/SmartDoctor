@@ -1,215 +1,281 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Smart Doctor</title>
-	<!-- plugins:css -->
-	<link rel="stylesheet" href="resources/vendors/mdi/css/materialdesignicons.min.css">
-	<link rel="stylesheet" href="resources/vendors/css/vendor.bundle.base.css">
-	<!-- endinject -->
-	<!-- Plugin css for this page -->
-	<!-- End plugin css for this page -->
-	<!-- inject:css -->
-	<!-- endinject -->
-	<!-- Layout styles -->
-	<link rel="stylesheet" href="resources/css/style.css">
-	<!-- End layout styles -->
-	<link rel="shortcut icon" href="resources/images/favicon.ico" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
-  
-  
-  	<!--써머노트로 추정~-->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-  	
-  	<style>
-  	.content11{
-	  	height:500px;
-	  	width:100%;
-	  	background-color:#F2F2F2;
-	  	border:1px solid blue;
-  	}
-  
-  	.wrap11{
-        width: 100%;
-        background-color: white;
-        border-radius: 30px 10px;
-        box-shadow: 3px 3px 3px 3px lightgray;
-        text-align: center;
-      }
-
-      .tb1{
-        margin: auto;
-        font-size: 0.7em;
-        width: 90%;
-        font-size: 0.8em;
-        font-weight: 300;
-        text-align: left;
-      }
-
-      .btn1{
-        font-size: 1em;
-        height: 25px;
-        width: 70px; 
-        padding:0%; 
-        background-color: rgb(65, 125, 122);
-        border: 0;
-      }
-      .btn1:hover {
-        color: white;
-        background-color: rgba(65, 125, 122, 0.41);
-
-      }
-
-      .smallbtn1{
-        border-radius: 10px 10px 10px 10px;
-        width:50px; 
-        height:20px; 
-        background-color:rgb(26, 188, 156);
-        font-size: 0.8em;
-        display: inline-block;
-        
-      }
-
-      th{
-        height: 50px;
-        text-align: left;
-        
-      }
-
-      .left1{
-        display: inline-block;
-        font-size: 0.7em;
-        float: left;
-      }
-
-      .right1{
-        display: inline-block;
-        font-size: 0.7em;
-        float: right;
-      }
-
-      .wrap22{
-        margin: auto;
-        width: 90%;
-      }
-    
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Smart Doctor</title>
+<!-- plugins:css -->
+<link rel="stylesheet"
+	href="resources/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet"
+	href="resources/vendors/css/vendor.bundle.base.css">
+<!-- endinject -->
+<!-- Plugin css for this page -->
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<!-- endinject -->
+<!-- Layout styles -->
+<link rel="stylesheet" href="resources/css/style.css">
+<!-- End layout styles -->
+<link rel="shortcut icon" href="resources/images/favicon.ico" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
 
 
-      .btn-box .btn-open {
-            display: block;
-            width: 200px;
-            height: 50px;
-            margin: 80px auto 0;
-            line-height: 50px;
-            background: #333;
-            text-align: center;
-        }
+<!--써머노트로 추정~-->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
 
-        .btn-box .btn-open span {
-            color: #fff;
-        }
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
 
-        /* 팝업 스타일 */
-        .modal-bg {display:none;width:100%;height:110%;position:fixed;top:0;left:0;right:0;background: rgba(0, 0, 0, 0.6);z-index:999;}
-    	.modal-wrap {display:none;position:absolute;top:70%;left:50%;transform:translate(-50%,-50%);width:800px;height:750px;background:#fff;z-index:1000;}
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
-  	
-  
-  	</style>
+<style>
+.content11 {
+	height: 500px;
+	width: 100%;
+	background-color: #F2F2F2;
+	border: 1px solid blue;
+}
+
+.wrap11 {
+	width: 100%;
+	background-color: white;
+	border-radius: 30px 10px;
+	box-shadow: 3px 3px 3px 3px lightgray;
+	text-align: center;
+}
+
+.tb1 {
+	margin: auto;
+	font-size: 0.7em;
+	width: 90%;
+	font-size: 0.8em;
+	font-weight: 300;
+	text-align: left;
+}
+
+.btn1 {
+	font-size: 1em;
+	height: 25px;
+	width: 70px;
+	padding: 0%;
+	background-color: rgb(65, 125, 122);
+	border: 0;
+}
+
+.btn1:hover {
+	color: white;
+	background-color: rgba(65, 125, 122, 0.41);
+}
+
+.smallbtn1 {
+	border-radius: 10px 10px 10px 10px;
+	width: 50px;
+	height: 20px;
+	background-color: rgb(26, 188, 156);
+	font-size: 0.8em;
+	display: inline-block;
+}
+
+th {
+	height: 50px;
+	text-align: left;
+}
+
+.left1 {
+	display: inline-block;
+	font-size: 0.7em;
+	float: left;
+}
+
+.right1 {
+	display: inline-block;
+	font-size: 0.7em;
+	float: right;
+}
+
+.wrap22 {
+	margin: auto;
+	width: 90%;
+}
+
+.btn-box .btn-open {
+	display: block;
+	width: 200px;
+	height: 50px;
+	margin: 80px auto 0;
+	line-height: 50px;
+	background: #333;
+	text-align: center;
+}
+
+.btn-box .btn-open span {
+	color: #fff;
+}
+
+/* 팝업 스타일 */
+.modal-bg {
+	display: none;
+	width: 100%;
+	height: 110%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.6);
+	z-index: 999;
+}
+
+.modal-wrap {
+	display: none;
+	position: absolute;
+	top: 70%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 800px;
+	height: 750px;
+	background: #fff;
+	z-index: 1000;
+}
+</style>
 
 
 </head>
 <body>
 
 	<div class="container-scroller">
-	
+
 		<!-- 이부분은 팝업 배너입니다 작업하실때는 제외 하셔도 됩니다! -->
 		<div class="row p-0 m-0 proBanner" id="proBanner">
-	        <div class="col-md-12 p-0 m-0">
-	          <div class="card-body card-body-padding d-flex align-items-center justify-content-between">
-	            <div class="ps-lg-1">
-	              <div class="d-flex align-items-center justify-content-between">
-	                <p class="mb-0 font-weight-medium me-3 buy-now-text">공지 넣으면 좋을것같아요</p>
-	              </div>
-	            </div>
-	            <div class="d-flex align-items-center justify-content-between">
-	              <button id="bannerClose" class="btn border-0 p-0">
-	                <i class="mdi mdi-close text-white me-0"></i>
-	              </button>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
+			<div class="col-md-12 p-0 m-0">
+				<div
+					class="card-body card-body-padding d-flex align-items-center justify-content-between">
+					<div class="ps-lg-1">
+						<div class="d-flex align-items-center justify-content-between">
+							<p class="mb-0 font-weight-medium me-3 buy-now-text">공지 넣으면
+								좋을것같아요</p>
+						</div>
+					</div>
+					<div class="d-flex align-items-center justify-content-between">
+						<button id="bannerClose" class="btn border-0 p-0">
+							<i class="mdi mdi-close text-white me-0"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<!--팝업배너 끝-->
-		
-		<jsp:include page="common/navbar.jsp"/>
-		
-			<div class="main-panel">
-	          <div class="content-wrapper"><!-- 이 안에서 작업해 주세요 -->
+
+		<jsp:include page="common/navbar.jsp" />
+
+		<div class="main-panel">
+			<div class="content-wrapper">
+				<!-- 이 안에서 작업해 주세요 -->
 				<div class="wrap11">
-              <br><br>
-              <div class="wrap22">
-                <div class="left1"><button type="submit" class="btn btn-danger btn1">보내기<div class="mdi mdi-arrow-right-bold" style="font-size: 1.2em; display:inline-block; color: red;"></div></button> <button type="button" class="btn btn-danger btn1" onClick="javascript:popOpen();">미리보기</button> <button type="button" class="btn btn-danger btn1">임시저장</button> <button type="button" class="btn btn-danger btn1">다시쓰기</button></div>
-                <div class="right1"><a type="button" class="toggler btn btn-danger btn1" data-prod-cat="1"style="background-color: lightgray; color:black; width: 25px;" id="hide" ><div class="mdi mdi-arrow-up"></div><!-- <div class="mdi mdi-arrow-down">아래 아이콘</div>--></a> <button type="button" class="btn btn-danger btn1 mdi mdi-vector-arrange-above" style="background-color: lightgray; color:black; width: 25px;" onclick="pop1();">
-                  </button> <button type="button" class="btn btn-danger btn1 mdi mdi-settings" style="background-color: lightgray; color:black; width: 25px;"></button></div>
-                  
-              </div>
-                
+					<br>
+					<br>
+					<div class="wrap22">
+						<div class="left1">
+							<button type="submit" class="btn btn-danger btn1">
+								보내기
+								<div class="mdi mdi-arrow-right-bold"
+									style="font-size: 1.2em; display: inline-block; color: red;"></div>
+							</button>
+							<button type="button" class="btn btn-danger btn1"
+								onClick="javascript:popOpen();">미리보기</button>
+							<button type="button" class="btn btn-danger btn1">임시저장</button>
+							<button type="button" class="btn btn-danger btn1">다시쓰기</button>
+						</div>
+						<div class="right1">
+							<a type="button" class="toggler btn btn-danger btn1"
+								data-prod-cat="1"
+								style="background-color: lightgray; color: black; width: 25px;"
+								id="hide"><div class="mdi mdi-arrow-up"></div>
+								<!-- <div class="mdi mdi-arrow-down">아래 아이콘</div>--></a>
+							<button type="button"
+								class="btn btn-danger btn1 mdi mdi-vector-arrange-above"
+								style="background-color: lightgray; color: black; width: 25px;"
+								onclick="pop1();"></button>
+							<button type="button"
+								class="btn btn-danger btn1 mdi mdi-settings"
+								style="background-color: lightgray; color: black; width: 25px;"></button>
+						</div>
 
-              <!-- modal 영역 -->
-              <div class="modal-bg" onClick="javascript:popClose();"></div>
-                <div class="modal-wrap">
-                  <br>
-                  <div style="float: left; width:100px; height:100px;">미리보기</div><a style="float: right; width:100px; height:100px;" class="modal-close mdi mdi-close" onClick="javascript:popClose();"></a>
-                  <br><hr>
-                  <div style="border: 1px solid lightgray; width: 90%; height: 85%; margin: auto;">
-                    <table style="text-align: left; width: 90%; height: 80%; font-size: 0.8em; margin: auto;" >
-                      <tr style="height: 50px;">
-                        <td colspan="2"><b>제목란, 공란시 빨간색으로 제목을 입력해주세요</b></td>
-                      </tr>
-                      <tr>
-                        <td width="100px" height="50px">  보낸사람</td>
-                        <td>: 보내는 사람 이메일로 고정</td>
-                      </tr>
-                      <tr>
-                        <td height="50px">받는사람</td>
-                        <td>: honggildong@smartdoctor.com</td>
-                      </tr>
-                      <tr>
-                        <td height="50px">참조</td>
-                        <td>: parkgildong@smartdoctor.com</td>
-                      </tr>
-                      <tr>
-                        <td height="50px">첨부파일</td>
-                        <td>: 2022090234345353.jpg</td>
-                      </tr>
-                      <tr>
-                        <td colspan="2"><textarea cols="110" rows="14" name="content" style="resize: none" readonly></textarea></td>
-                      </tr>
+					</div>
 
-                    </table>
-                    <button type="button" class="btn btn-danger btn1" onClick="javascript:popClose();" style="font-size: 0.8em;">수정하기</button> <button type="submit" class="btn btn-danger btn1" style="font-size: 0.8em;">전송하기</button>
-                    <br>
-                  </div>
-                </div>
-              <!-- //modal 영역 -->
 
-              
+					<!-- modal 영역 -->
+					<div class="modal-bg" onClick="javascript:popClose();"></div>
+					<div class="modal-wrap">
+						<br>
+						<div style="float: left; width: 100px; height: 100px;">미리보기</div>
+						<a style="float: right; width: 100px; height: 100px;"
+							class="modal-close mdi mdi-close"
+							onClick="javascript:popClose();"></a> <br>
+						<hr>
+						<div
+							style="border: 1px solid lightgray; width: 90%; height: 85%; margin: auto;">
+							<table
+								style="text-align: left; width: 90%; height: 80%; font-size: 0.8em; margin: auto;">
+								<tr style="height: 50px;">
+									<td colspan="2"><b>제목란, 공란시 빨간색으로 제목을 입력해주세요</b></td>
+								</tr>
+								<tr>
+									<td width="100px" height="50px">보낸사람</td>
+									<td>: 보내는 사람 이메일로 고정</td>
+								</tr>
+								<tr>
+									<td height="50px">받는사람</td>
+									<td>: honggildong@smartdoctor.com</td>
+								</tr>
+								<tr>
+									<td height="50px">참조</td>
+									<td>: parkgildong@smartdoctor.com</td>
+								</tr>
+								<tr>
+									<td height="50px">첨부파일</td>
+									<td>: 2022090234345353.jpg</td>
+								</tr>
+								<tr>
+									<td colspan="2"><textarea cols="110" rows="14"
+											name="content" style="resize: none" readonly></textarea></td>
+								</tr>
 
-              <!--모달-->
-              <script>
+							</table>
+							<button type="button" class="btn btn-danger btn1"
+								onClick="javascript:popClose();" style="font-size: 0.8em;">수정하기</button>
+							<button type="submit" class="btn btn-danger btn1"
+								style="font-size: 0.8em;">전송하기</button>
+							<br>
+						</div>
+					</div>
+					<!-- //modal 영역 -->
+
+
+
+					<!--모달-->
+					<script>
                 function popOpen() {
 
                 var modalPop = $('.modal-wrap');
@@ -231,8 +297,8 @@
               </script>
 
 
-              <!-- 창 분리 -->
-              <script>
+					<!-- 창 분리 -->
+					<script>
                 function pop1(){
             // window.open();
             /*
@@ -260,54 +326,66 @@
         }
               </script>
 
-                <table class="tb1">
-                  <tr class="cat1">
-                    <td width="100px" height="50px">받는사람</td>
-                    <td width="100px"><input type="checkbox">내게쓰기</td>
-                    <td colspan="2"><input type="text" style="width: 100%;"></td>
-                    <td width="50px"><button type="button" class="btn btn-danger btn1">주소록</button</td>
-                  </tr>
-                  <tr class="cat1">
-                    <td height="50px">참조</td>
-                    <td></td>
-                    <td colspan="2"><input type="text" style="width: 100%;"></td>
-                    <td width="50px"><button type="button" class="btn btn-danger btn1">주소록</button></td>
-                  </tr>
-                  <tr class="cat1">
-                    <td height="50px">제목</td>
-                    <td><input type="checkbox">중요!</td>
-                    <td colspan="3"><input type="text" style="width: 100%;"></td>
-                  </tr>
-                  <tr class="cat1">
-                    <td height="50px">파일첨부</td>
-                    <td><a type="button" class="btn btn-danger btn1 toggler " data-prod-cat="2" style="background-color: lightgray; color:black; width: 25px;"><div class="mdi mdi-arrow-up"></div><!-- <div class="mdi mdi-arrow-down">아래 아이콘</div>--></a></td>
-                    <td colspan="3"><button type="button" class="btn btn-danger btn1">파일첨부</button></td>
-                  </tr>      
-                  <tr class="cat2" style="display:none">
-                    <td height="100px"></td>
-                    <td></td>
-                    <td colspan="3">
-                      <section id="upload-section" style="width:100%; height:100%;">
-                        <div class="upload-box" style="width:100%; height:100%; display:table;">
-                            <input class="btn-file d-none" type="file" style="display:none;" id="testFile"/>
-                            
-                            <span id="testFileNm" style="font-size: 1em; text-align:center; border:1px solid gainsboro; width: 100%; height: 100px;  display:table-cell; vertical-align:middle;">
-                                <div class="mdi mdi-paperclip" style="display: inline-block;"></div>이곳에 첨부파일을 끌어오세요 또는 <a href="">파일선택</a>
-                            </span>
-                        </div>
-                      </section>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="5"><textarea class="yui3-cssreset" id="summernote" name="editcontent"></textarea></td>
-                  </tr>
-                  <tr>
-                    <td colspan="5"><button type="submit" class="btn btn-danger btn1">템플릿</button> <button type="submit" class="btn btn-danger btn1">예약발송</button></td>
-                  </tr>
-                </table>
+					<table class="tb1">
+						<tr class="cat1">
+							<td width="100px" height="50px">받는사람</td>
+							<td width="100px"><input type="checkbox">내게쓰기</td>
+							<td colspan="2"><input type="text" style="width: 100%;"></td>
+							<td width="50px"><button type="button"
+									class="btn btn-danger btn1">주소록</button</td>
+						</tr>
+						<tr class="cat1">
+							<td height="50px">참조</td>
+							<td></td>
+							<td colspan="2"><input type="text" style="width: 100%;"></td>
+							<td width="50px"><button type="button"
+									class="btn btn-danger btn1">주소록</button></td>
+						</tr>
+						<tr class="cat1">
+							<td height="50px">제목</td>
+							<td><input type="checkbox">중요!</td>
+							<td colspan="3"><input type="text" style="width: 100%;"></td>
+						</tr>
+						<tr class="cat1">
+							<td height="50px">파일첨부</td>
+							<td><a type="button" class="btn btn-danger btn1 toggler "
+								data-prod-cat="2"
+								style="background-color: lightgray; color: black; width: 25px;"><div
+										class="mdi mdi-arrow-up"></div>
+									<!-- <div class="mdi mdi-arrow-down">아래 아이콘</div>--></a></td>
+							<td colspan="3"><button type="button"
+									class="btn btn-danger btn1">파일첨부</button></td>
+						</tr>
+						<tr class="cat2" style="display: none">
+							<td height="100px"></td>
+							<td></td>
+							<td colspan="3">
+								<section id="upload-section" style="width: 100%; height: 100%;">
+									<div class="upload-box"
+										style="width: 100%; height: 100%; display: table;">
+										<input class="btn-file d-none" type="file"
+											style="display: none;" id="testFile" /> <span id="testFileNm"
+											style="font-size: 1em; text-align: center; border: 1px solid gainsboro; width: 100%; height: 100px; display: table-cell; vertical-align: middle;">
+											<div class="mdi mdi-paperclip" style="display: inline-block;"></div>이곳에
+											첨부파일을 끌어오세요 또는 <a href="">파일선택</a>
+										</span>
+									</div>
+								</section>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="5"><textarea class="yui3-cssreset"
+									id="summernote" name="editcontent"></textarea></td>
+						</tr>
+						<tr>
+							<td colspan="5"><button type="submit"
+									class="btn btn-danger btn1">템플릿</button>
+								<button type="submit" class="btn btn-danger btn1">예약발송</button></td>
+						</tr>
+					</table>
 
 
-                <script>
+					<script>
                     $(document).ready(function(){
                         $(".toggler").click(function(e){
                             e.preventDefault();
@@ -326,8 +404,8 @@
 
 
 
-              <!--drag&drop-->
-              <script>
+					<!--drag&drop-->
+					<script>
               
 
                 //초기화
@@ -382,7 +460,7 @@
 
 
 
-              <script>
+					<script>
                 $('#summernote').summernote({
                   spellCheck: true,
                   disableDragAndDrop: true,
@@ -436,29 +514,28 @@
                 // $(".note-editable").change( console.log( $(this).html() ) )
                 
               </script>
-			  </div>
-			  <jsp:include page="common/footer.jsp"/>
+				</div>
+				<jsp:include page="common/footer.jsp" />
 			</div>
-	
-	
-	</div>
-	
-	 <!-- plugins:js -->
-    <script src="resources/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="resources/vendors/chart.js/Chart.min.js"></script>
-    <script src="resources/js/jquery.cookie.js" type="text/javascript"></script>
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="resources/js/off-canvas.js"></script>
-    <script src="resources/js/hoverable-collapse.js"></script>
-    <script src="resources/js/misc.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <script src="resources/js/dashboard.js"></script>
-    <script src="resources/js/todolist.js"></script>
-    <!-- End custom js for this page -->
-	
+
+
+		</div>
+
+		<!-- plugins:js -->
+		<script src="resources/vendors/js/vendor.bundle.base.js"></script>
+		<!-- endinject -->
+		<!-- Plugin js for this page -->
+		<script src="resources/vendors/chart.js/Chart.min.js"></script>
+		<script src="resources/js/jquery.cookie.js" type="text/javascript"></script>
+		<!-- End plugin js for this page -->
+		<!-- inject:js -->
+		<script src="resources/js/off-canvas.js"></script>
+		<script src="resources/js/hoverable-collapse.js"></script>
+		<script src="resources/js/misc.js"></script>
+		<!-- endinject -->
+		<!-- Custom js for this page -->
+		<script src="resources/js/dashboard.js"></script>
+		<script src="resources/js/todolist.js"></script>
+		<!-- End custom js for this page -->
 </body>
 </html>
