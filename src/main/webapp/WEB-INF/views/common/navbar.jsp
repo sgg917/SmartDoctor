@@ -30,7 +30,7 @@
 
 	<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo goodeelogo" href="index.jsp"><img src="resources/images/twitter_header_photo_1.png" alt="logo" style="width:250px; height:57px;"/></a>
+          <a class="navbar-brand brand-logo goodeelogo" href="index.jsp"><img src="resources/images/logo.png" alt="logo" style="width:250px; height:57px;"/></a>
           <a class="navbar-brand brand-logo-mini" href="index.jsp"><img src="resources/images/favicon2.jpg" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -282,19 +282,10 @@
               </li>
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
-                <span class="menu-title">페이지 예시</span>
-                <i class="menu-arrow"></i>
+                <span class="menu-title">전자결재</span>
                 <i class="mdi mdi-medical-bag menu-icon"></i>
               </a>
-              <div class="collapse" id="general-pages">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-                </ul>
-              </div>
+      
             </li>
           </ul>
         </nav>
