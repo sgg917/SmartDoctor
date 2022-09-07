@@ -12,5 +12,5 @@ public class SignServiceImpl implements SignService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;	
 	@Autowired
-	private SignDao sDao;
+	private SignDao aDao;
 }

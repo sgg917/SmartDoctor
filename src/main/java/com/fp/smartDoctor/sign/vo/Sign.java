@@ -12,5 +12,20 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Sign {
-	private String userId;
+	private int apprNo;
+	private String apprTitle;
+	private String apprContent;
+	private String enrollDate;
+	private String apprStatus;
+	private String apprStorage;
+	private String originName;
+	private String changeName;
+	private int apprTotal;
+	private int empNo;
+	private int formNo;
+
+	
+	
+	
+
 }

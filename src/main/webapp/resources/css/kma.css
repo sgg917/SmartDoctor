@@ -1,0 +1,224 @@
+@charset "UTF-8";
+
+  /* 메인페이지 */
+  /* .appr-table th{
+    background:#f7f7f7;
+    color:rgb(72, 72, 72);
+    border-width: 2px;
+  } */
+  .table th{font-weight:550 !important;}
+  .wrap11{
+    width: 100%;
+    height: 90%;
+    background-color: white;
+    border-radius: 30px 10px;
+    box-shadow: 3px 3px 3px 3px lightgray;
+  }
+  
+    
+  /* 결재문 작성 */
+  .appr-table th{
+    font-weight:550; 
+    text-align: center; 
+    background:#f7f7f7;
+    color:rgb(72, 72, 72);
+    border-width: 2px;
+  }
+  .appr-table input{border:none;}
+  .menu-icon{color:RGB(65, 125, 122) !important;}
+  .btn-green{
+    border-color:RGB(29, 92, 99); 
+    color:RGB(29, 92, 99);
+    float:right; 
+    width:100px; 
+    height:35px; 
+    display: flex; 
+    justify-content: center; 
+    line-height:8px;
+    margin-bottom:15px;
+    margin-right:5px;
+  }
+  .btn-green:hover{
+    background:RGB(29, 92, 99);
+    border-color:RGB(29, 92, 99); 
+    color:white;
+  }
+  .appr-menu-btn{  /* 새 결재 진행 버튼 */
+    background:RGB(29, 92, 99); 
+    color:white;
+    width:200px; 
+    height:50px; 
+    border:none; 
+    margin-left:30px;
+  }
+  .appr-write-btn{ /* 결재요청 버튼 */
+    background:RGB(29, 92, 99); 
+    color:white;
+    border:none; 
+    float:right; 
+    width:100px; 
+    height:35px; 
+    display:flex; 
+    justify-content:center; 
+    line-height:8px;
+  }
+  .appr-write-btn:hover{
+    background:RGB(26, 60, 64); 
+    color:white;
+    border:none; 
+  }
+  .appr-table-wrapper{
+    width:1050px; 
+    padding-left:40px;
+  }
+  .btn>span{white-space:nowrap;}
+  .appr-modal-tb th{
+    /* font-weight:550;  */
+    /* text-align: center;  */
+    background:#f7f7f7;
+    color:rgb(72, 72, 72);
+    border-width: 2px;
+  }
+  .appr-modal-tb .mdi-chevron-double-right{
+    color:dimgray; 
+    font-size:20px;
+  }
+  .appr-modal-tb .mdi-delete-forever{
+    color:gray; 
+    font-size:18px;
+  }
+
+  #form-modal-th{
+    height:40px; 
+    line-height:2;
+  }
+  #formModalLabel{
+    margin-left:160px; 
+    line-height:1.5; 
+    font-weight:600px;
+  }
+  #appr-oz{
+    float:left; 
+    width:250px; 
+    margin-right:10px;
+  }
+
+  /* 전체문서함 */
+  .appr-search-div{
+    float:right; 
+    width:400px; 
+    margin-bottom:20px;
+  }
+  .appr-search-div select{
+    width:80px; 
+    height:34px; 
+    margin-right:5px; 
+    font-size:13px;
+  }
+  .appr-search-div input{
+    height:35px; 
+    border-color:lightgray;
+  }
+  .appr-search-div button{
+    height:35px; 
+    width:70px; 
+    display:flex; 
+    justify-content:center;
+  }
+  .appr-search-div img{
+    white-space:nowrap;
+    width:20px;
+    height:20px;
+  }
+  .appr-table-wrapper{
+    width:1050px; 
+    padding-left:40px;
+  }
+  .appr-page{
+    padding-left:400px; 
+    margin-top:50px;
+  }
+  .appr-page a{color:RGB(29, 92, 99);}
+  .appr-page a:hover{
+    background:RGB(29, 92, 99);
+    color:white;
+  }
+  #appr-all-table th{font-weight:550;}
+  #appr-all-table>tbody>tr>td{
+    height:50px;
+  }
+  #appr-manage-table>thead>tr{border-top: 1px solid lightgray;}
+  #appr-manage-select{
+    width:100px; 
+    height:34px; 
+    margin-right:5px; 
+    font-size:14px; 
+    float:right; 
+    margin-bottom:10px;
+  }
+  #appr-manage-btn{
+    float:right; 
+    width:100px; 
+    height:30x; 
+    display: flex; 
+    justify-content: center;
+  }
+
+  /* 결재대기문서 상세페이지 */
+  .appr-inner-table th{
+    border-width: 1px;
+    width:100px;
+    font-size:13px;
+  }
+  .appr-inner-table img{
+    width:40px; 
+    height:40px; 
+    display: block; 
+    margin-bottom:5px;
+  }
+
+  /* 휴가 신청 */
+  .appr-table input[type="date"], input[type="number"], input[type="time"]{
+    border:1px solid lightgray; 
+    height:25px; 
+    font-size:13px;
+  }
+
+  /* 결재대기 문서함 */
+  .appr-doc-btn{
+    background:RGB(29, 92, 99);
+    color:white;
+    border:none; 
+    width:100px; 
+    height:35px; 
+    display:flex; 
+    justify-content:center; 
+    line-height:8px;
+  }
+
+  /* 결재진행문서_상세 */
+  #appr-comment th{
+    text-align:left; 
+    height:60px;
+  }
+  #appr-comment td{
+    height:40px;
+    border-width: 2px;
+  }
+  #appr-comment span{
+    font-size:15px; 
+    color:gray;
+  }
+  #appr-comment p{
+    margin:0;
+    padding:0;
+    margin-bottom:2px;
+    font-size:13.5px;
+  }
+  #appr-comment b{
+    color:dimgray; 
+    margin-left:3px;
+  }
+  .mdi-paperclip{
+    color:gray;
+  }

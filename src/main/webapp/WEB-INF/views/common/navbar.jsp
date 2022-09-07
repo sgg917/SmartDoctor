@@ -265,11 +265,16 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+              <a class="nav-link" data-bs-toggle="collapse" href="#number7" aria-expanded="false" aria-controls="general-pages">
                 <span class="menu-title">전자결재</span>
                 <i class="mdi mdi-medical-bag menu-icon"></i>
               </a>
-      
+              <div class="collapse" id="number7">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="">결재문작성</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="fullListView.si">결재보관함</a></li>
+                </ul>
+              </div>
             </li>
           </ul>
         </nav>
