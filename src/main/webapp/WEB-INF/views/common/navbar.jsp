@@ -198,7 +198,7 @@
               <div class="collapse" id="numberone">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="">진료 접수</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">진료 대기</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="exercise.jy">진료 대기</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.op">수술실 예약(지워야함)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">수술실 예약 조회</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.pr">입원실 예약(지워야됨)</a></li>

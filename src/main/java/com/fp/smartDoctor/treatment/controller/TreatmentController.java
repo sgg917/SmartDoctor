@@ -13,6 +13,11 @@ public class TreatmentController {
 	 * @Autowired private TreatmentService tService;
 	 */
 	
+	@RequestMapping("exercise.jy")
+	public String exercise() {
+		return "ljy/page";
+	}
+	
 	
 	@RequestMapping("enrollForm.op")
 	public String opEnrollForm() {
