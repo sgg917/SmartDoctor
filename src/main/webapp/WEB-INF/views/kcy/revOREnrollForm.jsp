@@ -8,20 +8,20 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Purple Admin</title>
+<title>SMART DOCTOR</title>
 <!-- plugins:css -->
 <link rel="stylesheet"
-	href="assets/vendors/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+	href="resources/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="resources/vendors/css/vendor.bundle.base.css">
 <!-- endinject -->
 <!-- Plugin css for this page -->
 <!-- End plugin css for this page -->
 <!-- inject:css -->
 <!-- endinject -->
 <!-- Layout styles -->
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="resources/css/style.css">
 <!-- End layout styles -->
-<link rel="shortcut icon" href="assets/images/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -68,7 +68,7 @@
 <style>
 .wrap11 {
 	width: 100%;
-	height: 90%;
+	height: 100%;
 	background-color: white;
 	border-radius: 30px 10px;
 	box-shadow: 3px 3px 3px 3px lightgray;
@@ -103,7 +103,7 @@ th {
 	width: 48%;
 	height: 650px;
 	float: right;
-	padding-left: 10px;
+	margin-right: 10px;
 	color: rgb(65, 125, 122);
 }
 
@@ -111,6 +111,8 @@ th {
 	width: 95%;
 	margin: auto;
 }
+
+
 </style>
 
 
@@ -126,18 +128,25 @@ th {
 
 
 
-		<jsp:include page="common/navbar.jsp" />
+		<jsp:include page="../common/navbar.jsp" />
 
 		<div class="main-panel">
+		
 			<div class="content-wrapper">
+			<div class="wrap11">
+			<form id="enrollForm" method="post" action="insert.op">
+				<input type="hidden" id="opNo" class="form-control" value="${ op.bookingNo }" name="bookingNo">
+				<input type="hidden" id="cNo" class="form-control" value="${ c.clinicNo }" name="clinicNo">
+				<input type="hidden" id="sNo" class="form-control" value="${ s.surgeryNo }" name="surNo">
+				<br>
 				<!-- 이 안에서 작업해 주세요 -->
 				<h3>
-					<b>차트번호 0321-0987 수술실 수정</b>
+					<b>차트번호 수술실 예약</b>
 				</h3>
 				<hr>
 				<br>
 
-				<div class="wrap11">
+				
 					<br>
 					<div class="wrap22">
 						<div class="part1">
@@ -153,16 +162,16 @@ th {
 								</tr>
 								<tr>
 									<th>차트번호</th>
-									<td><input type="text" style="width: 300px;"></td>
+									<td><input readonly name="clinic_no" value="202293" type="text" style="width: 300px;"></td>
 								</tr>
 								<tr>
 									<th>수진자명</th>
-									<td><input type="text" style="width: 300px;"></td>
+									<td><input type="text" style="width: 300px;" readonly value=""></td>
 								</tr>
 								<tr>
 									<th>수술실</th>
 									<td>
-									<select name="OProom" id="" style="width: 300px;">
+									<select name="roomName" id="roomName" style="width: 300px;">
 											<option value="x">선택안함</option>
 											<option value="a">operatingA</option>
 											<option value="b">operatingB</option>
@@ -185,68 +194,50 @@ th {
 								</tr>
 								<tr>
 									<th>예약날짜</th>
-									<td><input type="date" style="width: 300px;"><br></td>
+									<td><input type="date" style="width: 300px;" name="surDate"><br></td>
 								</tr>
 								<tr>
 									<th>예약시각</th>
-									<td><input type="time" style="width: 300px;"></td>
+									<td><input type="time" style="width: 300px;" name="surTime"></td>
 								</tr>
 								<tr>
 									<th>예상완료시각</th>
 									<td><input type="text" readonly
-										value="차트에서 소요시간 가져와서 + 로 완료시각 만들기" style="width: 300px;"></td>
-								</tr>
-								<tr>
-									<th>진료과</th>
-									<td><select name="OProom" id="" style="width: 300px;">
-											<option value="x">선택안함</option>
-											<option value="gd">외과</option>
-											<option value="med">내과</option>
-											<option value="np">이비인후과</option>
-											<option value="ent">정신과</option>
-									</select> <!--
-			                    <button onclick="test();">확인</button>
-			                    <br>
-			                    선택한 나라: <span id="result">선택안함</span> --> <script>
-			                        function test(){
-			                            //현재 선택된(selected 상태) option 요소 가져오기
-			                            console.log($("option:selected").val());
-			                            console.log($("option:selected").html());
-			                
-			                            $("#result").html($("option:selected").html());
-			                
-			                        }
-			                    </script></td>
+										value="차트에서 소요시간 가져와서 + 로 완료시각 만들기" style="width: 300px;" name="surEnd"></td>
 								</tr>
 								<tr>
 									<th>담당의</th>
-									<td><input type="text" style="width: 300px;"></td>
+									<td><input type="text" style="width: 300px;" readOnly value="${ t.doctorName }" name="docName"></td>
 								</tr>
 								<tr>
 									<th>특이사항</th>
-									<td><textarea type="text"
-											style="width: 300px; height: 100px; resize: none;"></textarea></td>
+									<td><textarea type="text" style="width: 300px; height: 100px; resize: none;" name="memo"></textarea></td>
 								</tr>
 
 
 							</table>
-						</div>
-						<br> <br>
-						<button type="button" class="btn btn-danger"
-							style="height: 30px; width: 100px; padding: 0%; color: black; background-color: rgb(65, 125, 122);">수정</button>
-						<button type="button" class="btn btn-danger"
-							style="height: 30px; width: 100px; padding: 0%; color: black;">수술취소</button>
-						<button type="button" class="btn btn-secondary"
-							style="height: 30px; width: 100px; padding: 0%; color: black;">뒤로가기</button>
+						
+						<br><br>
+						
+						<button type="submit" class="btn btn-danger"
+							style="height: 30px; width: 100px; padding: 0%; color: black; border:0; background-color: rgb(65, 125, 122);">예약</button>
+					
 						<br> <br> <br>
+						</div>
 					</div>
 					<div id='calendar' class="calender1"></div>
+					
+					
+					</form>
 				</div>
-				<jsp:include page="common/footer.jsp" />
+				</div>
+				
+				
+				<jsp:include page="../common/footer.jsp" />
 			</div>
+</div>
 
-
-		</div>
+		
 
 		<!-- plugins:js -->
 		<script src="resources/vendors/js/vendor.bundle.base.js"></script>
