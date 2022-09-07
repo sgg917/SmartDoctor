@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.common.template.Pagination;
 import com.fp.smartDoctor.sign.model.service.SignService;
-import com.fp.smartDoctor.sign.model.vo.Sign;
+import com.fp.smartDoctor.sign.model.vo.Form;
 
 @Controller
 public class FormListViewController {
@@ -25,7 +25,7 @@ public class FormListViewController {
 		int listCount = sService.selectListCount();
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		ArrayList<Sign> list = sService.selectFormList(pi);
+		ArrayList<Form> list = sService.selectFormList(pi);
 		
 		mv.addObject("pi", pi)
 		  .addObject("list", list)
