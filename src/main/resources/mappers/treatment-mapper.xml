@@ -2,4 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="treatementMapper">
 
+	<insert id="insertOP">
+		insert
+		  into surgery_booking
+		  (
+		    booking_no
+		  , clinic_no
+		  , surgery_no
+		  , room_name
+		  , surgery_date
+		  , sur_starttime
+		  , memo
+		  , surgery_status
+		  , doctor_name
+		  , sur_endtime
+		  )
+		  values
+		  (
+		    seq_sbno.nextval
+		  , #{clinicNo}
+		  , #{surNo}
+		  , #{roomName}
+		  , #{surDate}
+		  , #{surTime}
+		  , #{memo}
+		  , default
+		  , #{docName}
+		  , #{surEnd}
+		  )
+	</insert>
 </mapper>

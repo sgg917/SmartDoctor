@@ -24,8 +24,7 @@
 <link rel="shortcut icon" href="resources/images/favicon2.ico" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
-<link rel="icon" href="resources/images/favicon2.ico"
-	type="image/x-icon">
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 
 </head>
 <body>
@@ -199,8 +198,11 @@
               <div class="collapse" id="numberone">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="">진료 접수</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">진료 대기</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">등등등</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="exercise.jy">진료 대기</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="enrollForm.op">수술실 예약(지워야함)</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">수술실 예약 조회</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="enrollForm.pr">입원실 예약(지워야됨)</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">입원실 예약 조회</a></li>
                 </ul>
               </div>
             </li>
@@ -252,7 +254,7 @@
                 </a>
                 <div class="collapse" id="number5">
                   <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="">출퇴근 관리</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="list.att?cpage=1&no=21015860">출퇴근 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">휴가 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">월간 근태 체크</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">사원 근태 관리</a></li>
@@ -287,11 +289,12 @@
                 </div>
               </li>
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#number7" aria-expanded="false" aria-controls="general-pages">
+              <a class="nav-link" data-bs-toggle="collapse" href="#number8" aria-expanded="false" aria-controls="general-pages">
                 <span class="menu-title">전자결재</span>
+                <i class="menu-arrow"></i>
                 <i class="mdi mdi-medical-bag menu-icon"></i>
               </a>
-              <div class="collapse" id="number7">
+              <div class="collapse" id="number8">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="">결재문 작성</a></li>
                   <li class="nav-item"> <a class="nav-link" href="fullListView.si">결재대기 문서</a></li>
