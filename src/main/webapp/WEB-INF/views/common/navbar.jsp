@@ -1,29 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Purple Admin</title>
-	<!-- plugins:css -->
-	<link rel="stylesheet" href="resources/vendors/mdi/css/materialdesignicons.min.css">
-	<link rel="stylesheet" href="resources/vendors/css/vendor.bundle.base.css">
-	<!-- endinject -->
-	<!-- Plugin css for this page -->
-	<!-- End plugin css for this page -->
-	<!-- inject:css -->
-	<!-- endinject -->
-	<!-- Layout styles -->
-	<link rel="stylesheet" href="resources/css/style.css">
-	<!-- End layout styles -->
-	<link rel="shortcut icon" href="resources/images/favicon2.ico" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
-	<link rel="icon" href="resources/images/favicon2.ico" type="image/x-icon">
-	
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Purple Admin</title>
+<!-- plugins:css -->
+<link rel="stylesheet"
+	href="resources/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet"
+	href="resources/vendors/css/vendor.bundle.base.css">
+<!-- endinject -->
+<!-- Plugin css for this page -->
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<!-- endinject -->
+<!-- Layout styles -->
+<link rel="stylesheet" href="resources/css/style.css">
+<!-- End layout styles -->
+<link rel="shortcut icon" href="resources/images/favicon2.ico" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
+<link rel="icon" href="resources/images/favicon2.ico"
+	type="image/x-icon">
+
 </head>
 <body>
+
 
 
 
@@ -309,5 +315,6 @@
 	<script src="resources/js/dashboard.js"></script>
 	<script src="resources/js/todolist.js"></script>
 	<!-- End custom js for this page -->
+
 </body>
 </html>
