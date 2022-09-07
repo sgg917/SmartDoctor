@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/kma.css">
 </head>
 <body>
 
@@ -20,18 +20,18 @@
 						전자결재 &nbsp;|&nbsp; <b>전체 문서함</b>
 					</p>
 					<hr>
-					<br>
-					<br>
+					<br><br>
 					<div class="appr-table-wrapper">
 
 						<div class="input-group appr-search-div">
 							<select name="">
 								<option>제목</option>
 								<option>결재양식</option>
-							</select> <input type="text" class="form-control"
-								placeholder="검색어를 입력해주세요">
+							</select> 
+							<input type="text" class="form-control"
+									placeholder="검색어를 입력해주세요">
 							<button class="btn appr-write-btn btn-sm" type="button">
-								<img src="search.png" alt="">
+								<img src="resources/images/kma/search.png" alt="">
 							</button>
 						</div>
 						<table class="table" id="appr-all-table">

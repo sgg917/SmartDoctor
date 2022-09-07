@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="signMapper">
-  
+	
+	<resultMap id="signResult" type="Sign">
+		<result column="form_no" property="formNo" />
+		<result column="form_title" property="formTitle" />
+		<result column="form_type" property="formType" />
+		<result column="form_status" property="formStatus" />
+		<result column="form_info" property="formInfo" />
+		<result column="enroll_date" property="enrollDate" />
+	</resultMap>
+	
+	<select id="selectListCount" resultType="_int">
+		select
+			   count(*)
+		  from appr_form
+		 where form_del = 'N'
+	</select>
 
+	<select id="selectFormList" resultMap="signResult">
+		select 
+			   form_no
+			 , form_title
+			 , form_type
+			 , form_status
+			 , form_info
+			 , to_char(enroll_date, 'YYYY-MM-DD') AS "enroll_date"
+		  from appr_form
+		 where form_del = 'N'
+		 order
+		    by form_no desc
+	</select>
 </mapper>

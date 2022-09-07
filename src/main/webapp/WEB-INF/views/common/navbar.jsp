@@ -293,8 +293,16 @@
               </a>
               <div class="collapse" id="number7">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">결재문작성</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="fullListView.si">결재보관함</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">결재문 작성</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="fullListView.si">결재대기 문서</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">결재예정 문서</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">기안문서함</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">결재문서함</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">참조문서함</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">반려문서함</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">임시저장함</a></li>
+                  <!-- 관리자만 볼 수 있는 기능 -->
+                  <li class="nav-item"> <a class="nav-link" href="formList.si">결재양식 관리</a></li>
                 </ul>
               </div>
             </li>
