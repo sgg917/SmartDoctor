@@ -1,54 +1,74 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Purple Admin</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
-  </head>
-  <body>
-    <div class="container-scroller">
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:../../partials/_sidebar.html -->
-        <!-- partial -->
-        <div>
-          <div class="content-wrapper">
-            
-            <div class="">
-              
-              <div class="stretch-card">
-                <div style="background: white; border-radius: 10px;">
+<html>
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Smart Doctor</title>
+<!-- plugins:css -->
+<link rel="stylesheet"
+	href="resources/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet"
+	href="resources/vendors/css/vendor.bundle.base.css">
+<!-- endinject -->
+<!-- Plugin css for this page -->
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<!-- endinject -->
+<!-- Layout styles -->
+<link rel="stylesheet" href="resources/css/style.css">
+<!-- End layout styles -->
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
+
+<style>
+.wrap11 {
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	border-radius: 30px 10px;
+	box-shadow: 3px 3px 3px 3px lightgray;
+	text-align: center;
+}
+</style>
+
+
+</head>
+<body>
+
+	<div class="container-scroller">
+
+		
+
+		<jsp:include page="../common/navbar.jsp" />
+
+		<div class="main-panel">
+			<div class="content-wrapper">
+				<!-- 이 안에서 작업해 주세요 -->
+			<div class="stretch-card">
+                <div class="wrap11">
                   <div class="card-body">
 
                     <!-- style="border: 2px solid blue;" -->
                     <form action="">
-                      <table>
+                    <br><br>
+                      <table style="text-align: center; margin:auto;">
 
                         <tr>
                           <td colspan="2">
+                          
                             <h5 style="font-weight: bold;">환자정보</h5>
                           </td>
                         </tr>
 
                         <tr>
                           <td colspan="2">
-                            <table class="table table-hover table-bordered " style="text-align: center;">
+                            <table class="table table-hover table-bordered " style="text-align: center; margin:auto;">
                               <thead>
                                 <tr>
                                   <th style="background: lightgray;">차트번호</th>
@@ -355,32 +375,29 @@
                 </div>
                 
               </div>
+			</div>
+			<jsp:include page="../common/footer.jsp" />
+		</div>
 
-              
-              
-              
-            </div>
-          </div>
-          
-          <!-- partial -->
-        </div>
-        <!-- main-panel ends -->
-      </div>
-      <!-- page-body-wrapper ends -->
-    </div>
 
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="../../assets/js/off-canvas.js"></script>
-    <script src="../../assets/js/hoverable-collapse.js"></script>
-    <script src="../../assets/js/misc.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <!-- End custom js for this page -->
-  </body>
+	</div>
+
+	<!-- plugins:js -->
+	<script src="resources/vendors/js/vendor.bundle.base.js"></script>
+	<!-- endinject -->
+	<!-- Plugin js for this page -->
+	<script src="resources/vendors/chart.js/Chart.min.js"></script>
+	<script src="resources/js/jquery.cookie.js" type="text/javascript"></script>
+	<!-- End plugin js for this page -->
+	<!-- inject:js -->
+	<script src="resources/js/off-canvas.js"></script>
+	<script src="resources/js/hoverable-collapse.js"></script>
+	<script src="resources/js/misc.js"></script>
+	<!-- endinject -->
+	<!-- Custom js for this page -->
+	<script src="resources/js/dashboard.js"></script>
+	<script src="resources/js/todolist.js"></script>
+	<!-- End custom js for this page -->
+
+</body>
 </html>
