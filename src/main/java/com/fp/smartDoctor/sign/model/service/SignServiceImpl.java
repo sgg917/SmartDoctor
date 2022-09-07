@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.sign.model.dao.SignDao;
-import com.fp.smartDoctor.sign.model.vo.Sign;
+import com.fp.smartDoctor.sign.model.vo.Form;
 
 @Service
 public class SignServiceImpl implements SignService {
@@ -23,7 +23,7 @@ public class SignServiceImpl implements SignService {
 		return sDao.selectListCount(sqlSession);
 	}
 	@Override
-	public ArrayList<Sign> selectFormList(PageInfo pi) {
+	public ArrayList<Form> selectFormList(PageInfo pi) {
 		return sDao.selectFormList(sqlSession, pi);
 	}
 }

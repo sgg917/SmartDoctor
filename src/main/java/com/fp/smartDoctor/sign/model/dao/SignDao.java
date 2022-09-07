@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
-import com.fp.smartDoctor.sign.model.vo.Sign;
+import com.fp.smartDoctor.sign.model.vo.Form;
 
 @Repository
 public class SignDao {
@@ -16,7 +16,7 @@ public class SignDao {
 		return sqlSession.selectOne("signMapper.selectListCount");
 	}
 	
-	public ArrayList<Sign> selectFormList(SqlSessionTemplate sqlSession, PageInfo pi){
+	public ArrayList<Form> selectFormList(SqlSessionTemplate sqlSession, PageInfo pi){
 		
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;

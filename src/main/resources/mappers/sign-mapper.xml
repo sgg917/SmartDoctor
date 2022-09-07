@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="signMapper">
 	
-	<resultMap id="signResult" type="Sign">
+	<resultMap id="formResult" type="Form">
 		<result column="form_no" property="formNo" />
 		<result column="form_title" property="formTitle" />
 		<result column="form_type" property="formType" />
@@ -18,7 +18,7 @@
 		 where form_del = 'N'
 	</select>
 
-	<select id="selectFormList" resultMap="signResult">
+	<select id="selectFormList" resultMap="formResult">
 		select 
 			   form_no
 			 , form_title
