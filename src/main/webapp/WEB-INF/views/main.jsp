@@ -22,7 +22,7 @@
 <!-- Layout styles -->
 <link rel="stylesheet" href="resources/css/style.css">
 <!-- End layout styles -->
-<link rel="shortcut icon" href="resources/images/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
 

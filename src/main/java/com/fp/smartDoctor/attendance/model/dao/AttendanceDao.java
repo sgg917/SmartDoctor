@@ -1,4 +1,4 @@
-package com.fp.smartDoctor.attendance.dao;
+package com.fp.smartDoctor.attendance.model.dao;
 
 import org.springframework.stereotype.Repository;
 

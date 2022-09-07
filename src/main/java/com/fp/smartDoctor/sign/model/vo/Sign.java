@@ -1,4 +1,4 @@
-package com.fp.smartDoctor.attendance.model.vo;
+package com.fp.smartDoctor.sign.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +11,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Attendance {
+public class Sign {
 	private String userId;
 }

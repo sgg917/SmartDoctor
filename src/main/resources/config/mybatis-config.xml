@@ -6,12 +6,12 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="com.fp.smartDoctor.sign.vo.Sign" alias="Sign"/>
-		<typeAlias type="com.fp.smartDoctor.messenger.vo.Mail" alias="Mail"/>
-		<typeAlias type="com.fp.smartDoctor.attendance.vo.Attendance" alias="Attendance"/>
-		<typeAlias type="com.fp.smartDoctor.member.vo.Member" alias="Member"/>
-		<typeAlias type="com.fp.smartDoctor.timeTable.vo.TimeTable" alias="TimeTable"/>
-		<typeAlias type="com.fp.smartDoctor.treatment.vo.Treatment" alias="Treatment"/>
+		<typeAlias type="com.fp.smartDoctor.sign.model.vo.Sign" alias="Sign"/>
+		<typeAlias type="com.fp.smartDoctor.messenger.model.vo.Mail" alias="Mail"/>
+		<typeAlias type="com.fp.smartDoctor.attendance.model.vo.Attendance" alias="Attendance"/>
+		<typeAlias type="com.fp.smartDoctor.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.fp.smartDoctor.timeTable.model.vo.TimeTable" alias="TimeTable"/>
+		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.Treatment" alias="Treatment"/>
 		
 	</typeAliases>
 	<!-- 유의사항 : 미리 등록해 두려면 해당 클래스가 진짜 존재해야함, 미리 클래스가 존재하지 않으면 서버 스타트 자체가 안됨 -->
