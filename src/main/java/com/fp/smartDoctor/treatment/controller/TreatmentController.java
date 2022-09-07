@@ -15,11 +15,14 @@ public class TreatmentController {
 	
 	
 	@RequestMapping("enrollForm.op")
-	public String enrollForm() {
+	public String opEnrollForm() {
 		return "kcy/revOREnrollForm";
 	}
 	
-	 
+	@RequestMapping("enrollForm.pr")
+	public String prEnrollForm() {
+		return "kcy/revPREnrollForm";
+	}
 
 
 }

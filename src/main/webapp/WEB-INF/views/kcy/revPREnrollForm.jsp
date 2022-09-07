@@ -169,14 +169,14 @@ th {
 									<td><input type="text" style="width: 300px;" readonly value=""></td>
 								</tr>
 								<tr>
-									<th>수술실</th>
+									<th>입원실</th>
 									<td>
 									<select name="roomName" id="roomName" style="width: 300px;">
 											<option value="x">선택안함</option>
-											<option value="a">operatingA</option>
-											<option value="b">operatingB</option>
-											<option value="c">operatingC</option>
-											<option value="d">operatingD</option>
+											<option value="a">2인실A</option>
+											<option value="b">2인실B</option>
+											<option value="c">4인실A</option>
+											<option value="d">4인실B</option>
 									</select> <!--
 				                    <button onclick="test();">확인</button>
 				                    <br>
@@ -193,17 +193,8 @@ th {
 				                    </td>
 								</tr>
 								<tr>
-									<th>예약날짜</th>
+									<th>입원날짜</th>
 									<td><input type="date" style="width: 300px;" name="surDate"><br></td>
-								</tr>
-								<tr>
-									<th>예약시각</th>
-									<td><input type="time" style="width: 300px;" name="surTime"></td>
-								</tr>
-								<tr>
-									<th>예상완료시각</th>
-									<td><input type="text" readonly
-										value="차트에서 소요시간 가져와서 + 로 완료시각 만들기" style="width: 300px;" name="surEnd"></td>
 								</tr>
 								<tr>
 									<th>담당의</th>
