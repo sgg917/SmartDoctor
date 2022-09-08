@@ -104,7 +104,7 @@ th {
 							<input type="checkbox" id="n" name="status" value="N"> <label for="n">결근</label> &nbsp;&nbsp;
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							
-							<button class="small-btn green-btn">조회</button>
+							<button class="small-btn green-btn" onclick="attSearch();">조회</button>
 						</form>
 
 						<br>
@@ -259,6 +259,10 @@ th {
 			</div>
 			<!-- 퇴근 Modal 끝 -->
 		</div>
+		
+		<script>
+			
+		</script>
 		<!-- content-wrapper ends -->
 		<!-- partial:partials/_footer.html -->
 
