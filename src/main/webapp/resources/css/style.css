@@ -14455,7 +14455,7 @@ dl {
   }
   .appr-table-wrapper{
     width:1050px; 
-    padding-left:40px;
+    margin-left:40px;
   }
   .btn>span{white-space:nowrap;}
   .appr-modal-tb th{

@@ -25,4 +25,8 @@ public class SignDao {
 		return (ArrayList)sqlSession.selectList("signMapper.selectFormList", null, rowBounds);
 	}
 	
+	public Form selectFormDetail(SqlSessionTemplate sqlSession, int formNo) {
+		return sqlSession.selectOne("signMapper.selectFormDetail", formNo);
+	}
+	
 }

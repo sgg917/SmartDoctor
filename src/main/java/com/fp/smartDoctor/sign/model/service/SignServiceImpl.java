@@ -26,4 +26,8 @@ public class SignServiceImpl implements SignService {
 	public ArrayList<Form> selectFormList(PageInfo pi) {
 		return sDao.selectFormList(sqlSession, pi);
 	}
+	@Override
+	public Form selectFormDetail(int formNo) {
+		return sDao.selectFormDetail(sqlSession, formNo);
+	}
 }

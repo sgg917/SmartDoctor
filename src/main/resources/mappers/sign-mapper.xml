@@ -5,6 +5,7 @@
 	<resultMap id="formResult" type="Form">
 		<result column="form_no" property="formNo" />
 		<result column="form_title" property="formTitle" />
+		<result column="form_content" property="formContent" />
 		<result column="form_type" property="formType" />
 		<result column="form_status" property="formStatus" />
 		<result column="form_info" property="formInfo" />
@@ -30,5 +31,15 @@
 		 where form_del = 'N'
 		 order
 		    by form_no desc
+	</select>
+	
+	<select id="selectFormDetail" resultMap="formResult">
+		select
+			   form_title
+			 , form_content
+			 , form_status
+			 , form_info
+		  from appr_form
+		 where form_no = #{formNo}
 	</select>
 </mapper>

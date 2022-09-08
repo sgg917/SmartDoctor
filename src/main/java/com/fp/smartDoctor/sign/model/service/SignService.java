@@ -7,7 +7,10 @@ import com.fp.smartDoctor.sign.model.vo.Form;
 
 public interface SignService {
 	
-	// 관리자_결재양식 관리
+	// 관리자_결재양식조회
 	int selectListCount();
 	ArrayList<Form> selectFormList(PageInfo pi);
+	
+	// 관리자_결재양식 상세조회
+	Form selectFormDetail(int formNo);
 }

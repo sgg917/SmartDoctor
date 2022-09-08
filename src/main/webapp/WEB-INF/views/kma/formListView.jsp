@@ -19,7 +19,7 @@
 					<hr>
 					<br>
 					<br>
-					<div class="appr-table-wrapper">
+					<div class="appr-table-wrapper" style="margin-left:100px;">
 						<select name="" id="appr-manage-select">
 							<option>전체</option>
 							<option>양식종류</option>
@@ -29,6 +29,7 @@
 						<table class="table " id="appr-manage-table">
 							<thead align="center">
 								<tr>
+									<th>번호</th>
 									<th>사용여부</th>
 									<th>양식종류</th>
 									<th>양식명</th>
@@ -45,7 +46,15 @@
 									<c:otherwise>
 										<c:forEach var="f" items="${ list }">
 											<tr>
-												<td>${ f.formStatus }</td>
+												<td class="formNo">${ f.formNo }</td>
+												<c:choose>
+													<c:when test="${ f.formStatus eq 'Y' }">
+														<td>사용</td>
+													</c:when>
+													<c:otherwise>
+														<td>미사용</td>
+													</c:otherwise>
+												</c:choose>
 												<td>${ f.formType }</td>
 												<td>${ f.formTitle }</td>
 												<td>${ f.formInfo }</td>
@@ -59,6 +68,14 @@
 						<button class="btn appr-write-btn" id="appr-manage-btn">
 							<span style="white-space: nowrap;">양식추가</span>
 						</button>
+						
+						<script>
+							$(function(){
+			            		$("#appr-manage-table>tbody>tr").click(function(){
+			            			location.href = 'formDetail.si?formNo=' + $(this).find(".formNo").text();
+			            		})
+			            	})
+						</script>
 						
 						<!-- 페이징 -->
 						<nav aria-label="Page navigation example" class="appr-page">
