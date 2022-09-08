@@ -2,8 +2,11 @@ package com.fp.smartDoctor.sign.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,5 +46,20 @@ public class SignController {
 		mv.addObject("f", f).setViewName("kma/formDetailView");
 		
 		return mv;
+	}
+	
+	// 관리자_결재양식 수정
+	@RequestMapping("formUpdate.si")
+	public String updateForm(Form f, HttpSession session) {
+		
+		int result = sService.updateForm(f);
+		
+		if(result > 0) { // 수정 성공
+			session.setAttribute("alertMsg", "결재양식이 수정되었습니다.");
+			return "redirect:formDetail.si?formNo=" + f.getFormNo();
+		}else {
+			session.setAttribute("alertMsg", "결재양식 수정에 실패하였습니다.");
+			return "redirect:formDetail.si?formNo=" + f.getFormNo();
+		}
 	}
 }

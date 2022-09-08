@@ -13,4 +13,7 @@ public interface SignService {
 	
 	// 관리자_결재양식 상세조회
 	Form selectFormDetail(int formNo);
+	
+	// 관리자_결재양식 수정
+	int updateForm(Form f);
 }

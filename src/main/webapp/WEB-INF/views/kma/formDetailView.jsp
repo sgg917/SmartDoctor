@@ -77,62 +77,64 @@
 					</p>
 					<hr>
 					<br><br>
-					<div class="appr-table-wrapper" style="margin-left:100px;">
-						<button type="button" class="btn btn-success appr-write-btn">
-							<i class="mdi mdi-pencil" style="color: white;"></i>&nbsp; <span>수정하기</span>
-						</button>
-						<button type="button" class="btn btn-outline-success btn-green">
-							<i class="mdi mdi-subdirectory-arrow-left menu-icon"></i>&nbsp; <span>이전목록</span>
-						</button>
-						<table class="table table-bordered appr-table">
-							<tr>
-								<th width="250px;">양식종류</th>
-								<td>일반</td>
-							</tr>
-							<tr>
-								<th>사용여부</th>
-								<td>
-									<input type="radio" name="formStatus" id="use">사용 &nbsp; 
-									<input type="radio" name="formStatus" id="notUse">미사용
-								</td>
-							</tr>
-							<tr>
-								<th>제목</th>
-								<td>
-									<input type="text" value="${ f.formTitle }">
-								</td>
-							</tr>
-							<tr>
-								<th>설명</th>
-								<td>
-									<input type="text" value="${ f.formInfo }"
-									style="width: 800px;">
-								</td>
-							</tr>
-						</table>
-						
-						<c:choose>
-							<c:when test="${ f.formStatus eq 'Y' }">
-								<script>
-									$(function(){
-										$("#use").attr("checked", true);
-									})
-								</script>
-							</c:when>
-							<c:otherwise>
-								<script>
-									$(function(){
-										$("#notUse").attr("checked", true);
-									})
-								</script>
-							</c:otherwise>
-						</c:choose>
-                    	
-						<div>
-							<textarea class="yui3-cssreset" id="summernote" name="editcontent">${ f.formContent }</textarea>
+					<form action="formUpdate.si" method="post">
+						<input type="hidden" id="formNo" name="formNo" value="${ f.formNo }">
+						<div class="appr-table-wrapper" style="margin-left:100px;">
+							<button type="submit" class="btn btn-success appr-write-btn">
+								<i class="mdi mdi-pencil" style="color: white;"></i>&nbsp; <span>수정하기</span>
+							</button>
+							<button type="button" class="btn btn-outline-success btn-green" onclick="location.href='formList.si'">
+								<i class="mdi mdi-subdirectory-arrow-left menu-icon"></i>&nbsp; <span>이전목록</span>
+							</button>
+							<table class="table table-bordered appr-table">
+								<tr>
+									<th width="250px;">양식종류</th>
+									<td>일반</td>
+								</tr>
+								<tr>
+									<th>사용여부</th>
+									<td>
+										<input type="radio" name="formStatus" id="use" value="Y">사용 &nbsp; 
+										<input type="radio" name="formStatus" id="notUse" value="N">미사용
+									</td>
+								</tr>
+								<tr>
+									<th>제목</th>
+									<td>
+										<input type="text" name="formTitle" value="${ f.formTitle }">
+									</td>
+								</tr>
+								<tr>
+									<th>설명</th>
+									<td>
+										<input type="text" name="formInfo" value="${ f.formInfo }"
+										style="width: 800px;">
+									</td>
+								</tr>
+							</table>
+							
+							<c:choose>
+								<c:when test="${ f.formStatus eq 'Y' }">
+									<script>
+										$(function(){
+											$("#use").attr("checked", true);
+										})
+									</script>
+								</c:when>
+								<c:otherwise>
+									<script>
+										$(function(){
+											$("#notUse").attr("checked", true);
+										})
+									</script>
+								</c:otherwise>
+							</c:choose>
+	                    	
+							<div>
+								<textarea class="yui3-cssreset" id="summernote" name="formContent">${ f.formContent }</textarea>
+							</div>
 						</div>
-					</div>
-					
+					</form>	
 				</div>
 			</div>
 

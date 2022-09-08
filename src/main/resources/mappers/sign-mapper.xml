@@ -35,11 +35,23 @@
 	
 	<select id="selectFormDetail" resultMap="formResult">
 		select
-			   form_title
+			   form_no
+			 , form_title
 			 , form_content
 			 , form_status
 			 , form_info
 		  from appr_form
 		 where form_no = #{formNo}
 	</select>
+	
+	<update id="updateForm">
+		update
+		       appr_form
+		   set form_title = #{formTitle}
+		     , form_content = #{formContent}
+		     , form_status = #{formStatus}
+		     , form_info = #{formInfo}
+		     , modify_date = sysdate
+		 where form_no = #{formNo}
+	</update>
 </mapper>

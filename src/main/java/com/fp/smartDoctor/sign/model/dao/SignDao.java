@@ -29,4 +29,7 @@ public class SignDao {
 		return sqlSession.selectOne("signMapper.selectFormDetail", formNo);
 	}
 	
+	public int updateForm(SqlSessionTemplate sqlSession, Form f) {
+		return sqlSession.update("signMapper.updateForm", f);
+	}
 }
