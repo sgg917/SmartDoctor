@@ -65,7 +65,7 @@
 							</tbody>
 						</table>
 						<br>
-						<button class="btn appr-write-btn" id="appr-manage-btn">
+						<button class="btn appr-write-btn" id="appr-manage-btn" onclick="location.href='formEnrollForm.si'">
 							<span style="white-space: nowrap;">양식추가</span>
 						</button>
 						

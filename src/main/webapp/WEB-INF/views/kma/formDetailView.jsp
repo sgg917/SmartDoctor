@@ -169,8 +169,6 @@
 												[ 'view', [ 'fullscreen' ] ] ]
 									});
 				 });
-				
-				//$('#summernote').summernote('pasteHTML');
 			</script>
 
 

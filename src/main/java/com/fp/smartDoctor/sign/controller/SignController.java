@@ -62,4 +62,10 @@ public class SignController {
 			return "redirect:formDetail.si?formNo=" + f.getFormNo();
 		}
 	}
+	
+	// 관리자_결재양식 추가
+	@RequestMapping("formEnrollForm.si")
+	public String formEnrollForm() {
+		return "kma/formInsertView";
+	}
 }

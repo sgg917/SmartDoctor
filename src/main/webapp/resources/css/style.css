@@ -14549,6 +14549,9 @@ dl {
     display: flex; 
     justify-content: center;
   }
+  #appr-manage-table>tbody>tr:hover{
+  	cursor: pointer;
+  }
 
   /* 결재대기문서 상세페이지 */
   .appr-inner-table th{
