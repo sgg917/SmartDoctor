@@ -20,13 +20,13 @@ public class AttendanceServiceImpl implements AttendanceService {
 	
 	
 	@Override
-	public int selectListCount(int no) {
-		return aDao.selectListCount(sqlSession, no);
+	public int selectListCount(Attendance a) {
+		return aDao.selectListCount(sqlSession, a);
 	}
 	
 	@Override
-	public ArrayList<Attendance> selectAttendance(PageInfo pi, int no) {
-		return aDao.selectAttendance(sqlSession, pi, no);
+	public ArrayList<Attendance> selectAttendance(PageInfo pi, Attendance a) {
+		return aDao.selectAttendance(sqlSession, pi, a);
 	}
 
 }
