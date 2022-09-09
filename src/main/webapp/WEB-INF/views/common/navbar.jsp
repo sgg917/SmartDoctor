@@ -29,9 +29,13 @@
 </head>
 <body>
 
-
-
-
+	<!-- alert -->
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alert("${ alertMsg }");
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
 
 	<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -310,8 +314,8 @@
               </a>
               <div class="collapse" id="number8">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">결재문 작성</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="fullListView.si">결재대기 문서</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="apprEnrollForm.si">결재문 작성</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">결재대기 문서</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">결재예정 문서</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">기안문서함</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">결재문서함</a></li>

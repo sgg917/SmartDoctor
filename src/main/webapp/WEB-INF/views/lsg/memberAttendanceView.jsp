@@ -94,23 +94,22 @@ th {
 						<h5><b>조건별 근태 조회</b></h5>
 						<br>
 						<br>
-						<!-- 날짜 조회는 ajax -->
-						<form action="" method="post">
-							<input type="date" id="" name=""> ~ <input type="date" id="" name=""> <br><br>
-							<input type="checkbox" id="y" name="status" value="Y">
-							<label for="y">정상</label> &nbsp;&nbsp; 
-							<input type="checkbox" id="l" name="status" value="L"> <label for="l">지각</label> &nbsp;&nbsp;
-							<input type="checkbox" id="e" name="status" value="E"> <label for="e">조퇴</label> &nbsp;&nbsp; 
-							<input type="checkbox" id="n" name="status" value="N"> <label for="n">결근</label> &nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							
-							<button class="small-btn green-btn" onclick="attSearch();">조회</button>
-						</form>
+						
+						<!-- 날짜, 상태 조회는 ajax -->
+						<input type="date" id="startDate" name="startDate"> ~ <input type="date" id="endDate" name="endDate">
+						<br><br>
+						<input type="checkbox" id="y" name="status" value="Y"> <label for="y">정상</label> &nbsp;&nbsp; 
+						<input type="checkbox" id="l" name="status" value="L"> <label for="l">지각</label> &nbsp;&nbsp;
+						<input type="checkbox" id="e" name="status" value="E"> <label for="e">조퇴</label> &nbsp;&nbsp; 
+						<input type="checkbox" id="n" name="status" value="N"> <label for="n">결근</label> &nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						
+						<button type="button" onclick="searchAtt(1);" class="small-btn green-btn">조회</button>
 
 						<br>
 						<br>
 
-						<table class="table" style="width: 550px;">
+						<table class="table" id="attTable" style="width: 550px;">
 							<thead>
 								<tr style="background: #f2f2f2;">
 									<th>날짜</th>
@@ -160,7 +159,7 @@ th {
 
 						<!-- 테이블 페이징 -->
 						<div class="pagination" style="width: 550px;">
-							<ul class="pagination" style="margin: auto;">
+							<ul class="pagination" id="pageArea" style="margin: auto;">
 							
 								<c:if test="${ pi.currentPage ne 1 }">
 									<li class="page-item"><a class="page-link" href="list.att?cpage=${pi.currentPage-1}&no=21015860">&lt;</a></li>
@@ -261,7 +260,114 @@ th {
 		</div>
 		
 		<script>
-			
+			/* 근태 검색 함수 */
+			function searchAtt(page){
+				
+				// 선택한 체크박스(정상/지각/조퇴/결근)를 담을 배열
+				var status = new Array();
+				
+				// 체크된 체크박스 배열에 담기
+				$('input[name="status"]:checked').each(function(){
+					status.push($(this).val()); // ['Y', 'L', 'E']
+				})
+				
+				// 콘솔창에 배열 출력해보기
+				//console.log(status);
+				
+				// 근태 검색 ajax
+				$.ajax({
+					url:"search.att",
+					data:{
+						cpage:page,
+						empNo:21015860,
+						startDate:$('input[name=startDate]').val(),
+						endDate:$('input[name=endDate]').val(),
+						statusArr:status
+					},
+					type:"POST",
+					success:function(map){
+						
+						console.log(map);
+						
+						// map에서 페이징/근태 정보 꺼내서 변수에 담기
+						const newPi = map.pi;
+						const newList = map.newList;
+						
+						// 검색 결과를 담을 변수
+						var txt = "";
+						// 검색 결과 페이징 처리 변수
+						var ptxt = "";
+						
+						// 검색 결과 담기
+						if(newList.length == 0){ // 리스트 비어있으면 '조회 결과가 없습니다.'
+							
+							txt +=  	"<tr>";
+							txt += 			'<td colspan="4" style="text-align:center;">조회 결과가 없습니다.</td>';
+							txt +=		"</tr>";
+							
+						}else{ // 리스트 비어있지 않으면 조회 결과 보여주기
+							
+							for(var i=0; i<newList.length; i++){
+								
+								txt +=	'<tr>' +
+											'<td>' + newList[i].attDate + '</td>' + 
+											'<td>' + newList[i].startTime + '</td>' + 
+											'<td>' + newList[i].endTime + '</td>';
+												
+								if(newList[i].status == 'Y'){
+									
+									txt += '<td>정상</td>';
+									
+								}else if(newList[i].status == 'L'){
+									
+									txt += '<td>지각</td>';
+									
+								}else if(newList[i].status == 'E'){
+									
+									txt += '<td>조퇴</td>';
+									
+								}else{
+									
+									txt += '<td>결근</td>';
+								}
+								
+								txt += '</tr>';
+							}	
+						}
+						
+						// 검색 결과 페이징 처리
+						if(newPi.currentPage != 1){
+							
+							ptxt += '<li class="page-item"><a class="page-link" href="searchAtt(' + newPi.currentPage-1 + ')">&lt;</a></li>';
+						}
+						
+						for(var p = newPi.startPage; p <= newPi.endPage; p++){
+							
+							if(p == newPi.currentPage){
+								
+								ptxt += '<li class="page-item active"><a class="page-link" href="searchAtt(' + p + '">' + p + '</a></li>';
+								
+							}else{
+								ptxt += '<li class="page-item"><a class="page-link" href="searchAtt(' + p + ')">' + p + '</a></li>';
+							}
+							
+						}
+						
+						if(newPi.currentPage != newPi.maxPage){
+							
+							ptxt += '<li class="page-item"><a class="page-link" href="searchAtt(' + newPi.currentPage+1 + ')">&gt;</a></li>';
+						}
+						
+						// 각 영역에 코드 넣어주기
+						$('#attTable>tbody').empty().append(txt);
+						$('#pageArea').empty().append(ptxt);
+						
+					},
+					error:function(){
+						console.log("근태 검색용 ajax 통신 실패");
+					}
+				})
+			}
 		</script>
 		<!-- content-wrapper ends -->
 		<!-- partial:partials/_footer.html -->

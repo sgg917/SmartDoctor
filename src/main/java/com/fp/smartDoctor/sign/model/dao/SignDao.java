@@ -29,4 +29,23 @@ public class SignDao {
 		return sqlSession.selectOne("signMapper.selectFormDetail", formNo);
 	}
 	
+	public int updateForm(SqlSessionTemplate sqlSession, Form f) {
+		return sqlSession.update("signMapper.updateForm", f);
+	}
+	
+	public int insertForm(SqlSessionTemplate sqlSession, Form f) {
+		return sqlSession.insert("signMapper.insertForm", f);
+	}
+	
+	public int deleteForm(SqlSessionTemplate sqlSession, int formNo) {
+		return sqlSession.update("signMapper.deleteForm", formNo);
+	}
+	public ArrayList<Form> selectApprFormList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("signMapper.selectApprFormList");
+	}
+	public Form selectApprFormDetail(SqlSessionTemplate sqlSession, int formNo) {
+		return sqlSession.selectOne("signMapper.selectApprFormDetail", formNo);
+	}
+	
+	
 }

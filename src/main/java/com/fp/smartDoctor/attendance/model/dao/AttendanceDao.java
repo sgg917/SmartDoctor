@@ -12,17 +12,17 @@ import com.fp.smartDoctor.common.model.vo.PageInfo;
 @Repository
 public class AttendanceDao {
 	
-	public int selectListCount(SqlSessionTemplate sqlSession, int no) {
-		return sqlSession.selectOne("attendanceMapper.selectListCount", no);
+	public int selectListCount(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.selectOne("attendanceMapper.selectListCount", a);
 	}
 
-	public ArrayList<Attendance> selectAttendance(SqlSessionTemplate sqlSession, PageInfo pi, int no){
+	public ArrayList<Attendance> selectAttendance(SqlSessionTemplate sqlSession, PageInfo pi, Attendance a){
 		
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttendance", no, rowBounds);
+		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttendance", a, rowBounds);
 		
 	}
 }

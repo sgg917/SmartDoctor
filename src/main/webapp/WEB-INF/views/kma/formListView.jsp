@@ -19,7 +19,7 @@
 					<hr>
 					<br>
 					<br>
-					<div class="appr-table-wrapper" style="margin-left:100px;">
+					<div class="appr-table-wrapper" style="margin-left:20px;">
 						<select name="" id="appr-manage-select">
 							<option>전체</option>
 							<option>양식종류</option>
@@ -65,7 +65,7 @@
 							</tbody>
 						</table>
 						<br>
-						<button class="btn appr-write-btn" id="appr-manage-btn">
+						<button class="btn appr-write-btn" id="appr-manage-btn" onclick="location.href='formEnrollForm.si'">
 							<span style="white-space: nowrap;">양식추가</span>
 						</button>
 						

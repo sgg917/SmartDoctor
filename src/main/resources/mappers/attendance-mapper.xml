@@ -18,19 +18,41 @@
 	<select id="selectListCount" resultType="_int">
 		select count(*)
 		  from attendance
-		 where emp_no = #{no}
+		 where emp_no = #{empNo}
+		 <if test="startDate != null and endDate != null and !startDate.equals('') and !endDate.equals('')">
+		   and to_date(att_date) between to_date(#{startDate}) and to_date(#{endDate})
+		 </if>
+		 <if test='statusArr != null'>
+		   and status in 
+		   <foreach item="item" index="index" collection="statusArr" open="(" separator="," close=")">
+		   	#{item}
+		   </foreach>
+		 </if>
 	</select>
 
 	<select id="selectAttendance" resultMap="attendanceResult">
 		select
 			   att_no
 			 , att_date
-			 , start_time
-			 , end_time
+			 , NVL(start_time, '') as "start_time"
+			 , NVL(end_time, '') as "end_time"
 			 , status
 		  from attendance
-		 where status in ('Y', 'L', 'E', 'N')
-		   and emp_no = #{no}
+		 where emp_no = #{empNo}
+	 	 <if test='startDate != null and endDate != null and !startDate.equals("") and !endDate.equals("")'>
+	 	   and to_date(att_date) between to_date(#{startDate}) and to_date(#{endDate})
+	 	 </if>
+		 <choose>
+			 <when test="statusArr != null">
+			 	and status in 
+			   <foreach item="item" index="index" collection="statusArr" open="(" separator="," close=")">
+			   	#{item}
+			   </foreach>
+			 </when>
+		 	 <otherwise>
+		 		and status in ('Y', 'L', 'E', 'N')
+		 	 </otherwise>
+		 </choose>
 		 order
 		    by att_no desc
 	</select>

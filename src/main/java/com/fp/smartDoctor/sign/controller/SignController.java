@@ -2,16 +2,21 @@ package com.fp.smartDoctor.sign.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.common.template.Pagination;
 import com.fp.smartDoctor.sign.model.service.SignService;
 import com.fp.smartDoctor.sign.model.vo.Form;
+import com.google.gson.Gson;
 
 @Controller
 public class SignController {
@@ -43,5 +48,85 @@ public class SignController {
 		mv.addObject("f", f).setViewName("kma/formDetailView");
 		
 		return mv;
+	}
+	
+	// 관리자_결재양식 수정
+	@RequestMapping("formUpdate.si")
+	public String updateForm(Form f, HttpSession session) {
+		
+		int result = sService.updateForm(f);
+		
+		if(result > 0) { // 수정 성공
+			session.setAttribute("alertMsg", "결재양식이 수정되었습니다.");
+			return "redirect:formDetail.si?formNo=" + f.getFormNo();
+		}else {
+			session.setAttribute("alertMsg", "결재양식 수정에 실패하였습니다.");
+			return "redirect:formDetail.si?formNo=" + f.getFormNo();
+		}
+	}
+	
+	// 관리자_결재양식 추가페이지
+	@RequestMapping("formEnrollForm.si")
+	public String formEnrollForm() {
+		return "kma/formInsertView";
+	}
+	
+	// 관리자_결재양식 추가
+	@RequestMapping("formInsert.si")
+	public String insertForm(Form f, HttpSession session) {
+		
+		int result = sService.insertForm(f);
+		
+		if(result > 0) { // 추가 성공
+			session.setAttribute("alertMsg", "결재양식이 추가되었습니다.");
+			return "redirect:formList.si";
+		}else { // 실패
+			session.setAttribute("alertMsg", "결재양식 추가에 실패하였습니다.");
+			return "redirect:formList.si";
+		}
+	}
+	
+	// 관리자_결재양식 삭제
+	@RequestMapping("formDelete.si")
+	public String deleteForm(int formNo, HttpSession session) {
+		
+		int result = sService.deleteForm(formNo);
+		
+		if(result > 0) { // 삭제 성공
+			session.setAttribute("alertMsg", "결재양식이 삭제되었습니다.");
+			return "redirect:formList.si";
+		}else {
+			session.setAttribute("alertMsg", "결재양식 삭제에 실패하였습니다.");
+			return "redirect:formList.si";
+		}
+	}
+	
+	
+	
+	/*------------------------ 사용자 --------------------------------*/
+	
+	
+	// 사용자_결재문 작성페이지
+	@RequestMapping("apprEnrollForm.si")
+	public String apprEnrollForm() {
+		return "kma/apprEnrollForm";
+	}
+	
+	// 사용자_결재양식 리스트 조회 (ajax)
+	@ResponseBody
+	@RequestMapping(value="apprFormList.si", produces="application/json; charset=UTF-8")
+	public String selectApprFormList() {
+		
+		ArrayList<Form> list = sService.selectApprFormList();
+		return new Gson().toJson(list);
+	}
+	
+	// 사용자_결재양식 불러오기 (ajax)
+	@ResponseBody
+	@RequestMapping(value="apprFormDetail.si", produces="application/json; charset=UTF-8")
+	public String selectApprFormDetail(int formNo) {
+		
+		Form f = sService.selectFormDetail(formNo);
+		return new Gson().toJson(f);
 	}
 }
