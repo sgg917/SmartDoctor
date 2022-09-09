@@ -4,7 +4,7 @@
 
 	<resultMap id="calendarResult" type="Calendar">
 		<result column="calendar_no" property="calendarNo" />
-		<result column="calendear_title" property="calendarTitle" />
+		<result column="calendar_title" property="calendarTitle" />
 		<result column="calendar_start" property="calendarStart" />
 		<result column="calendar_end" property="calendarEnd" />
 		<result column="textcolor" property="textColor" />
@@ -38,6 +38,28 @@
 		, default
 		, #{docName}
 		, #{surEnd}
+		)
+	</insert>
+	
+	<insert id="insertOP">
+		insert
+		into sur_calendar
+		(
+		   calendar_no
+		 , calendar_title
+		 , calendar_start
+		 , calendar_end
+		 , textcolor
+		 , backgroundcolor
+		)
+		values
+		(
+		seq_rca.nextval
+		, #{clinicNo}
+		, #{surDate}
+		, #{surDate}
+		, 'white'
+		, 'navy'
 		)
 	</insert>
 

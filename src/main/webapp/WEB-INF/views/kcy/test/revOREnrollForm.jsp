@@ -41,15 +41,20 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--@@ fullcalendar CDN 가져가세용~-->
-<link href='resources/fullcalendar/lib/main.css' rel='stylesheet' />
-<script src='resources/fullcalendar/lib/main.js'></script>
+<!-- fullcalendar CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
+<link href='fullcalendar/main.css' rel='stylesheet' />
+<script src='fullcalendar/main.js'></script>
+
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
 
 
 <style>
-.wrap111 {
+.wrap11 {
 	width: 100%;
 	height: 100%;
 	background-color: white;
@@ -95,21 +100,6 @@ th {
 	margin: auto;
 }
 
-/* 풀캘린더  */
-#calendar{
-	color:black;
-}
-
-.fc .fc-button{
-	height:30px;
-	padding:1;
-	font-size:0.8em;
-}
-
-.fc .fc-toolbar-title{
-	font-size:1.5em;
-}
-
 
 </style>
 
@@ -131,7 +121,7 @@ th {
 		<div class="main-panel">
 
 			<div class="content-wrapper">
-				<div class="wrap111">
+				<div class="wrap11">
 					<form id="enrollForm" method="post" action="insert.op">
 						<input type="hidden" id="opNo" class="form-control"
 							value="${ op.bookingNo }" name="bookingNo"> <input
@@ -159,7 +149,7 @@ th {
 									</tr>
 									<tr>
 										<th>차트번호</th>
-										<td><input readonly name="clinicNo" value="${c. }" type="text"
+										<td><input readonly name="clinic_no" value="" type="text"
 											style="width: 300px;"></td>
 									</tr>
 									<tr>
@@ -228,25 +218,26 @@ th {
 								<button type="submit" class="btn btn-danger"
 									style="height: 30px; width: 100px; padding: 0%; color: black; border: 0; background-color: rgb(65, 125, 122);">예약</button>
 
-								<br><br><br><br><br><br><br><br>
+								<br><br>
 								
 							</div>
 							<div id='calendar' class="calender1"></div>
-							
+							<br> <br> <br>
 						</div>
-						<br><br><br><br><br><br>
-						
+
 
 					</form>
 				</div>
-				
 			</div>
-			
+
 
 			<jsp:include page="../common/footer.jsp" />
 		</div>
 	</div>
-
+<script src="js/main.js"></script>
+<script src="js/locales-all.min.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
 
 	<script>
 		$(function() {
@@ -271,15 +262,15 @@ th {
 					}
 
 					// -------------------- 캘린더 렌더링 --------------------
-					var initialLocaleCode = 'ko';
 					var calendarEl = document.getElementById('calendar');
 					var calendar = new FullCalendar.Calendar(calendarEl, {
 						initialView : 'dayGridMonth',
 						locale : 'ko', // 한국어 설정
-						 headerToolbar: {
-						    left: 'prev,next today',
-						    center: 'title',
-						    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+						headerToolbar : {
+							start : "",
+							center : "prev title next",
+							end : 'dayGridMonth,dayGridWeek,dayGridDay'
+							
 						},
 						selectable : true,
 						droppable : true,
@@ -300,7 +291,7 @@ th {
 		});
 	</script>
 
-<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음 : 아직안함-->
+<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음 -->
 
 </body>
 </html>

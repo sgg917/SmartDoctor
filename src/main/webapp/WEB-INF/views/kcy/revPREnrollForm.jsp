@@ -110,6 +110,7 @@ th {
 }
 
 
+
 </style>
 
 
@@ -213,7 +214,7 @@ th {
 						<br> <br> <br>
 						</div>
 					</div>
-					<div id='calendar' class="calender1"></div>
+					<div id='calendar' class="calender1" ></div>
 					
 					
 					</form>

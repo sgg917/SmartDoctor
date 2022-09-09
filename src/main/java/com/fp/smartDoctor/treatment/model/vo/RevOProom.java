@@ -23,4 +23,5 @@ public class RevOProom {
 	private String surStatus;
 	private String doctorName;//수술 담당 의사 이름
 	private String surEndTime;//시작시간+소요시간=수술 끝시간
+	
 }
