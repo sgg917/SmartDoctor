@@ -87,4 +87,19 @@
 		     , form_del = 'Y'
 		 where form_no = #{formNo}
 	</update>
+	
+	<!-- 사용자_결재양식선택 리스트 조회 -->
+	<select id="selectApprFormList" resultMap="formResult">
+		select 
+			   form_no
+			 , form_title
+			 , form_info
+		  from appr_form
+		 where form_del = 'N'
+		   and form_type = '일반'
+		   and form_status = 'Y'
+		 order
+		    by form_no desc
+	</select>
+
 </mapper>

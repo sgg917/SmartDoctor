@@ -40,5 +40,12 @@ public class SignDao {
 	public int deleteForm(SqlSessionTemplate sqlSession, int formNo) {
 		return sqlSession.update("signMapper.deleteForm", formNo);
 	}
+	public ArrayList<Form> selectApprFormList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("signMapper.selectApprFormList");
+	}
+	public Form selectApprFormDetail(SqlSessionTemplate sqlSession, int formNo) {
+		return sqlSession.selectOne("signMapper.selectApprFormDetail", formNo);
+	}
+	
 	
 }

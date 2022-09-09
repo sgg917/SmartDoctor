@@ -312,8 +312,8 @@
               </a>
               <div class="collapse" id="number8">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">결재문 작성</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="fullListView.si">결재대기 문서</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="apprEnrollForm.si">결재문 작성</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">결재대기 문서</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">결재예정 문서</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">기안문서함</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">결재문서함</a></li>
