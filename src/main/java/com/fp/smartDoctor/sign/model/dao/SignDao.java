@@ -32,4 +32,13 @@ public class SignDao {
 	public int updateForm(SqlSessionTemplate sqlSession, Form f) {
 		return sqlSession.update("signMapper.updateForm", f);
 	}
+	
+	public int insertForm(SqlSessionTemplate sqlSession, Form f) {
+		return sqlSession.insert("signMapper.insertForm", f);
+	}
+	
+	public int deleteForm(SqlSessionTemplate sqlSession, int formNo) {
+		return sqlSession.update("signMapper.deleteForm", formNo);
+	}
+	
 }

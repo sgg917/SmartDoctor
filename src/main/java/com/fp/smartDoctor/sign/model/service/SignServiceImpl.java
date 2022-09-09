@@ -34,4 +34,12 @@ public class SignServiceImpl implements SignService {
 	public int updateForm(Form f) {
 		return sDao.updateForm(sqlSession, f);
 	}
+	@Override
+	public int insertForm(Form f) {
+		return sDao.insertForm(sqlSession, f);
+	}
+	@Override
+	public int deleteForm(int formNo) {
+		return sDao.deleteForm(sqlSession, formNo);
+	}
 }

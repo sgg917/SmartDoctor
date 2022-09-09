@@ -76,39 +76,43 @@
 					</p>
 					<hr>
 					<br>
-					<div class="appr-table-wrapper" style="margin-left:100px;">
-						<button type="button" class="btn btn-success appr-write-btn">
-							<i class="mdi mdi-note-plus" style="color: white;"></i>&nbsp; <span>추가하기</span>
-						</button>
-						<button type="button" class="btn btn-outline-success btn-green">
-							<i class="mdi mdi-subdirectory-arrow-left menu-icon"></i>&nbsp; <span>이전목록</span>
-						</button>
-						<table class="table table-bordered appr-table">
-							<tr>
-								<th width="250px;">양식종류</th>
-								<td>일반</td>
-							</tr>
-							<tr>
-								<th>사용여부</th>
-								<td><input type="radio" name="use">사용 &nbsp; <input
-									type="radio" name="use">미사용</td>
-							</tr>
-							<tr>
-								<th>제목</th>
-								<td><input type="text" placeholder="제목을 입력해주세요"></td>
-							</tr>
-							<tr>
-								<th>설명</th>
-								<td><input type="text" placeholder="설명을 입력해주세요"
-									style="width: 800px;"></td>
-							</tr>
-						</table>
-						<div>
-							<textarea class="yui3-cssreset" id="summernote" name="formContent"></textarea>
+					<form action="formInsert.si" method="post">
+						<div class="appr-table-wrapper" style="margin-left:20px;">
+							<button type="submit" class="btn btn-success appr-write-btn">
+								<i class="mdi mdi-note-plus" style="color: white;"></i>&nbsp; <span>추가하기</span>
+							</button>
+							<button type="button" class="btn btn-outline-success btn-green" onclick="location.href='formList.si'">
+								<i class="mdi mdi-subdirectory-arrow-left menu-icon"></i>&nbsp; <span>이전목록</span>
+							</button>
+							<table class="table table-bordered appr-table">
+								<tr>
+									<th width="250px;">양식종류</th>
+									<td>일반</td>
+								</tr>
+								<tr>
+									<th>사용여부</th>
+									<td>
+										<input type="radio" name="formStatus" value="Y">사용 &nbsp; 
+										<input type="radio" name="formStatus" value="N">미사용
+									</td>
+								</tr>
+								<tr>
+									<th>제목</th>
+									<td><input type="text" placeholder="제목을 입력해주세요" name="formTitle"></td>
+								</tr>
+								<tr>
+									<th>설명</th>
+									<td>
+										<input type="text" placeholder="설명을 입력해주세요"
+										style="width: 800px;" name="formInfo">
+									</td>
+								</tr>
+							</table>
+							<div>
+								<textarea class="yui3-cssreset" id="summernote" name="formContent"></textarea>
+							</div>
 						</div>
-					</div>
-					
-
+					</form>
 				</div>
 			</div>
 			

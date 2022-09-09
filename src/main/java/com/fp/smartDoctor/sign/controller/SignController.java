@@ -63,9 +63,39 @@ public class SignController {
 		}
 	}
 	
-	// 관리자_결재양식 추가
+	// 관리자_결재양식 추가페이지
 	@RequestMapping("formEnrollForm.si")
 	public String formEnrollForm() {
 		return "kma/formInsertView";
+	}
+	
+	// 관리자_결재양식 추가
+	@RequestMapping("formInsert.si")
+	public String insertForm(Form f, HttpSession session) {
+		
+		int result = sService.insertForm(f);
+		
+		if(result > 0) { // 추가 성공
+			session.setAttribute("alertMsg", "결재양식이 추가되었습니다.");
+			return "redirect:formList.si";
+		}else { // 실패
+			session.setAttribute("alertMsg", "결재양식 추가에 실패하였습니다.");
+			return "redirect:formList.si";
+		}
+	}
+	
+	// 관리자_결재양식 삭제
+	@RequestMapping("formDelete.si")
+	public String deleteForm(int formNo, HttpSession session) {
+		
+		int result = sService.deleteForm(formNo);
+		
+		if(result > 0) { // 삭제 성공
+			session.setAttribute("alertMsg", "결재양식이 삭제되었습니다.");
+			return "redirect:formList.si";
+		}else {
+			session.setAttribute("alertMsg", "결재양식 삭제에 실패하였습니다.");
+			return "redirect:formList.si";
+		}
 	}
 }

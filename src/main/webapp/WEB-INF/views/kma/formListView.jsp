@@ -19,7 +19,7 @@
 					<hr>
 					<br>
 					<br>
-					<div class="appr-table-wrapper" style="margin-left:100px;">
+					<div class="appr-table-wrapper" style="margin-left:20px;">
 						<select name="" id="appr-manage-select">
 							<option>전체</option>
 							<option>양식종류</option>

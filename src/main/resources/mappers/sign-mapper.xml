@@ -12,6 +12,7 @@
 		<result column="enroll_date" property="enrollDate" />
 	</resultMap>
 	
+	<!-- 관리자_결재양식 리스트 조회 -->
 	<select id="selectListCount" resultType="_int">
 		select
 			   count(*)
@@ -33,6 +34,7 @@
 		    by form_no desc
 	</select>
 	
+	<!-- 관리자_결재양식 상세조회 -->
 	<select id="selectFormDetail" resultMap="formResult">
 		select
 			   form_no
@@ -44,6 +46,7 @@
 		 where form_no = #{formNo}
 	</select>
 	
+	<!-- 관리자_결재양식 수정 -->
 	<update id="updateForm">
 		update
 		       appr_form
@@ -52,6 +55,36 @@
 		     , form_status = #{formStatus}
 		     , form_info = #{formInfo}
 		     , modify_date = sysdate
+		 where form_no = #{formNo}
+	</update>
+	
+	<!-- 관리자_결재양식 추가 -->
+	<insert id="insertForm">
+		insert 
+		  into appr_form
+		  (
+		    form_no
+		  , form_title
+		  , form_content
+		  , form_status
+		  , form_info
+		  )
+		  values
+		  (
+		    seq_afno.nextval
+		  , #{formTitle}
+		  , #{formContent}
+		  , #{formStatus}
+		  , #{formInfo}
+		  )
+	</insert>
+	
+	<!-- 관리자_결재양식 삭제 -->
+	<update id="deleteForm">
+		update
+			   appr_form
+		   set modify_date = sysdate
+		     , form_del = 'Y'
 		 where form_no = #{formNo}
 	</update>
 </mapper>

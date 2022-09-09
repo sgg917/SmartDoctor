@@ -62,7 +62,13 @@
        padding-left:40px;
      }
      .btn>span{white-space:nowrap;}
-	
+	 #del-btn{
+	 	background:crimson; 
+	 	margin-right:5px;
+	 }
+	 #del-btn>i{
+	 	color: white; 
+	 }
 </style>
 </head>
 <body>
@@ -79,13 +85,23 @@
 					<br><br>
 					<form action="formUpdate.si" method="post">
 						<input type="hidden" id="formNo" name="formNo" value="${ f.formNo }">
-						<div class="appr-table-wrapper" style="margin-left:100px;">
+						<div class="appr-table-wrapper" style="margin-left:20px;">
 							<button type="submit" class="btn btn-success appr-write-btn">
 								<i class="mdi mdi-pencil" style="color: white;"></i>&nbsp; <span>수정하기</span>
+							</button>
+							<button type="button" class="btn btn-danger appr-write-btn" id="del-btn" onclick="deleteForm();">
+								<i class="mdi mdi-delete-forever"></i><span>삭제하기</span>
 							</button>
 							<button type="button" class="btn btn-outline-success btn-green" onclick="location.href='formList.si'">
 								<i class="mdi mdi-subdirectory-arrow-left menu-icon"></i>&nbsp; <span>이전목록</span>
 							</button>
+							
+							<script>
+								function deleteForm(){
+									location.href='formDelete.si?formNo=${f.formNo}';
+								}
+							</script>
+							
 							<table class="table table-bordered appr-table">
 								<tr>
 									<th width="250px;">양식종류</th>
