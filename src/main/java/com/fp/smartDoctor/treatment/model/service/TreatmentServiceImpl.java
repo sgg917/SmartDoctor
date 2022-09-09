@@ -1,13 +1,17 @@
 package com.fp.smartDoctor.treatment.model.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fp.smartDoctor.treatment.model.dao.TreatmentDao;
+import com.fp.smartDoctor.treatment.model.vo.Calendar;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 
 
-
+@Service
 public class TreatmentServiceImpl implements TreatmentService{
 
 	@Autowired
@@ -31,5 +35,11 @@ public class TreatmentServiceImpl implements TreatmentService{
 	public int updateRevOProom(RevOProom op) {
 		return 0;
 	}
+	@Override
+	public List<Calendar> getCalendar() {
+		return tDao.getCalendar(sqlSession);
+	}
+	
+	
 
 }

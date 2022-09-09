@@ -12,7 +12,8 @@
 <!-- plugins:css -->
 <link rel="stylesheet"
 	href="resources/vendors/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="resources/vendors/css/vendor.bundle.base.css">
+<link rel="stylesheet"
+	href="resources/vendors/css/vendor.bundle.base.css">
 <!-- endinject -->
 <!-- Plugin css for this page -->
 <!-- End plugin css for this page -->
@@ -21,7 +22,8 @@
 <!-- Layout styles -->
 <link rel="stylesheet" href="resources/css/style.css">
 <!-- End layout styles -->
-<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="resources/images/favicon-16x16.png">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -40,31 +42,14 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- fullcalendar CDN -->
-<link
-	href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css'
-	rel='stylesheet' />
-<script
-	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
-<!-- fullcalendar 언어 CDN -->
-<script
-	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
+ <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
 
-<link href='/resources/fullcalendar-5.6.0/lib/main.css' rel='stylesheet' />
-<script src='/resources/fullcalendar-5.6.0/lib/main.js'></script>
-<script>
-   
-         document.addEventListener('DOMContentLoaded', function() {
-           var calendarEl = document.getElementById('calendar');
-           var calendar = new FullCalendar.Calendar(calendarEl, {
-             initialView: 'dayGridMonth'
-           });
-           calendar.render();
-         });
-   
-   </script>
-
-<!--아래는 내가 먹인 스타일임 다 가져가야함-->
 <style>
 .wrap11 {
 	width: 100%;
@@ -131,129 +116,176 @@ th {
 		<jsp:include page="../common/navbar.jsp" />
 
 		<div class="main-panel">
-		
-			<div class="content-wrapper">
-			<div class="wrap11">
-			<form id="enrollForm" method="post" action="insert.op">
-				<input type="hidden" id="opNo" class="form-control" value="${ op.bookingNo }" name="bookingNo">
-				<input type="hidden" id="cNo" class="form-control" value="${ c.clinicNo }" name="clinicNo">
-				<input type="hidden" id="sNo" class="form-control" value="${ s.surgeryNo }" name="surNo">
-				<br>
-				<!-- 이 안에서 작업해 주세요 -->
-				<h3>
-					<b>차트번호 수술실 예약</b>
-				</h3>
-				<hr>
-				<br>
 
-				
-					<br>
-					<div class="wrap22">
-						<div class="part1">
-							<table class="table1">
-								<tr>
-									<td colspan="2" width="600px">
-										<div class="smallbtn1">입력</div>
-										<div style="display: inline-block; margin-left: 30px;">
-											<h3>2022-08-30</h3>
-										</div>
-										<hr>
-									</td>
-								</tr>
-								<tr>
-									<th>차트번호</th>
-									<td><input readonly name="clinic_no" value="" type="text" style="width: 300px;"></td>
-								</tr>
-								<tr>
-									<th>수진자명</th>
-									<td><input type="text" style="width: 300px;" readonly value=""></td>
-								</tr>
-								<tr>
-									<th>수술실</th>
-									<td>
-									<select name="roomName" id="roomName" style="width: 300px;">
-											<option value="x">선택안함</option>
-											<option value="a">operatingA</option>
-											<option value="b">operatingB</option>
-											<option value="c">operatingC</option>
-											<option value="d">operatingD</option>
-									</select> <!--
+			<div class="content-wrapper">
+				<div class="wrap11">
+					<form id="enrollForm" method="post" action="insert.op">
+						<input type="hidden" id="opNo" class="form-control"
+							value="${ op.bookingNo }" name="bookingNo"> <input
+							type="hidden" id="cNo" class="form-control"
+							value="${ c.clinicNo }" name="clinicNo"> <input
+							type="hidden" id="sNo" class="form-control"
+							value="${ s.surgeryNo }" name="surNo"> <br>
+						<!-- 이 안에서 작업해 주세요 -->
+						<h3>
+							<b>차트번호 수술실 예약</b>
+						</h3>
+						<hr>
+						<br> <br>
+						<div class="wrap22">
+							<div class="part1">
+								<table class="table1">
+									<tr>
+										<td colspan="2" width="600px">
+											<div class="smallbtn1">입력</div>
+											<div style="display: inline-block; margin-left: 30px;">
+												<h3>2022-08-30</h3>
+											</div>
+											<hr>
+										</td>
+									</tr>
+									<tr>
+										<th>차트번호</th>
+										<td><input readonly name="clinic_no" value="" type="text"
+											style="width: 300px;"></td>
+									</tr>
+									<tr>
+										<th>수진자명</th>
+										<td><input type="text" style="width: 300px;" readonly
+											value=""></td>
+									</tr>
+									<tr>
+										<th>수술실</th>
+										<td><select name="roomName" id="roomName"
+											style="width: 300px;">
+												<option value="x">선택안함</option>
+												<option value="a">operatingA</option>
+												<option value="b">operatingB</option>
+												<option value="c">operatingC</option>
+												<option value="d">operatingD</option>
+										</select> <!--
 				                    <button onclick="test();">확인</button>
 				                    <br>
 				                    선택한 나라: <span id="result">선택안함</span> --> <script>
-				                        function test(){
-				                            //현재 선택된(selected 상태) option 요소 가져오기
-				                            console.log($("option:selected").val());
-				                            console.log($("option:selected").html());
-				                
-				                            $("#result").html($("option:selected").html());
-				                
-				                        }
-				                    </script>
-				                    </td>
-								</tr>
-								<tr>
-									<th>예약날짜</th>
-									<td><input type="date" style="width: 300px;" name="surDate"><br></td>
-								</tr>
-								<tr>
-									<th>예약시각</th>
-									<td><input type="time" style="width: 300px;" name="surTime"></td>
-								</tr>
-								<tr>
-									<th>예상완료시각</th>
-									<td><input type="text" readonly
-										value="차트에서 소요시간 가져와서 + 로 완료시각 만들기" style="width: 300px;" name="surEnd"></td>
-								</tr>
-								<tr>
-									<th>담당의</th>
-									<td><input type="text" style="width: 300px;" readOnly value="${ t.doctorName }" name="docName"></td>
-								</tr>
-								<tr>
-									<th>특이사항</th>
-									<td><textarea type="text" style="width: 300px; height: 100px; resize: none;" name="memo"></textarea></td>
-								</tr>
+									function test() {
+										//현재 선택된(selected 상태) option 요소 가져오기
+										console.log($("option:selected").val());
+										console.log($("option:selected").html());
+
+										$("#result").html(
+										$("option:selected").html());
+
+									}
+								</script></td>
+									</tr>
+									<tr>
+										<th>예약날짜</th>
+										<td><input type="date" style="width: 300px;"
+											name="surDate"><br></td>
+									</tr>
+									<tr>
+										<th>예약시각</th>
+										<td><input type="time" style="width: 300px;"
+											name="surTime"></td>
+									</tr>
+									<tr>
+										<th>예상완료시각</th>
+										<td><input type="text" readonly
+											value="차트에서 소요시간 가져와서 + 로 완료시각 만들기" style="width: 300px;"
+											name="surEnd"></td>
+									</tr>
+									<tr>
+										<th>담당의</th>
+										<td><input type="text" style="width: 300px;" readOnly
+											value="${ t.doctorName }" name="docName"></td>
+									</tr>
+									<tr>
+										<th>특이사항</th>
+										<td><textarea type="text"
+												style="width: 300px; height: 100px; resize: none;"
+												name="memo"></textarea></td>
+									</tr>
 
 
-							</table>
-						
-						<br><br>
-						
-						<button type="submit" class="btn btn-danger"
-							style="height: 30px; width: 100px; padding: 0%; color: black; border:0; background-color: rgb(65, 125, 122);">예약</button>
-					
-						<br> <br> <br>
+								</table>
+
+								<br>
+								<br>
+
+								<button type="submit" class="btn btn-danger"
+									style="height: 30px; width: 100px; padding: 0%; color: black; border: 0; background-color: rgb(65, 125, 122);">예약</button>
+
+								<br><br>
+								
+							</div>
+							<div id='calendar' class="calender1"></div>
+							<br> <br> <br>
 						</div>
-					</div>
-					<div id='calendar' class="calender1"></div>
-					
-					
+
+
 					</form>
 				</div>
-				</div>
-				
-				
-				<jsp:include page="../common/footer.jsp" />
 			</div>
-</div>
 
-		
 
-		<!-- plugins:js -->
-		<script src="resources/vendors/js/vendor.bundle.base.js"></script>
-		<!-- endinject -->
-		<!-- Plugin js for this page -->
-		<script src="resources/vendors/chart.js/Chart.min.js"></script>
-		<script src="resources/js/jquery.cookie.js" type="text/javascript"></script>
-		<!-- End plugin js for this page -->
-		<!-- inject:js -->
-		<script src="resources/js/off-canvas.js"></script>
-		<script src="resources/js/hoverable-collapse.js"></script>
-		<script src="resources/js/misc.js"></script>
-		<!-- endinject -->
-		<!-- Custom js for this page -->
-		<script src="resources/js/dashboard.js"></script>
-		<script src="resources/js/todolist.js"></script>
-		<!-- End custom js for this page -->
+			<jsp:include page="../common/footer.jsp" />
+		</div>
+	</div>
+
+
+	<script>
+		$(function() {
+
+			$.ajax({
+				url : "list.ca",
+				//data : {no:${c.calendarNo}},
+				success : function(list) {
+
+					//console.log(list);
+
+					let data = [];/* 내가 넘겨주고자 하는 값을 리스트로 다시 담아줘야함! */
+					for (let i = 0; i < list.length; i++) {
+						let obj = {
+							title : list[i].calendarTitle,
+							start : list[i].calendarStart,
+							end : list[i].calenderEnd,
+							textColor : list[i].textColor,
+							backgroundColor : list[i].backgroundColor
+						};
+						data.push(obj);
+					}
+
+					// -------------------- 캘린더 렌더링 --------------------
+					var calendarEl = document.getElementById('calendar');
+					var calendar = new FullCalendar.Calendar(calendarEl, {
+						initialView : 'dayGridMonth',
+						locale : 'ko', // 한국어 설정
+						headerToolbar : {
+							start : "",
+							center : "prev title next",
+							end : 'dayGridMonth,dayGridWeek,dayGridDay'
+							
+						},
+						selectable : true,
+						droppable : true,
+						editable : true,
+						events : data
+					});
+
+					calendar.render();
+					// ------------------------------------------------------------
+
+				},
+				error : function() {
+					console.log("통신 실패")
+				}
+
+			})
+
+		});
+	</script>
+
+<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음 -->
+
 </body>
 </html>

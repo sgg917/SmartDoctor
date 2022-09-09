@@ -46,10 +46,7 @@
 <script
 	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
 <!-- fullcalendar 언어 CDN -->
-<script
-	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
-
-
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
 <link href='/resources/fullcalendar-5.6.0/lib/main.css' rel='stylesheet' />
 <script src='/resources/fullcalendar-5.6.0/lib/main.js'></script>
 <script>

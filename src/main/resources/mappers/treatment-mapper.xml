@@ -1,34 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="treatementMapper">
+<mapper namespace="treatmentMapper">
+
+	<resultMap id="calendarResult" type="Calendar">
+		<result column="calendar_no" property="calendarNo" />
+		<result column="calendear_title" property="calendarTitle" />
+		<result column="calendar_start" property="calendarStart" />
+		<result column="calendar_end" property="calendarEnd" />
+		<result column="textcolor" property="textColor" />
+		<result column="backgroundcolor" property="backgroundColor" />
+	</resultMap>
 
 	<insert id="insertOP">
 		insert
-		  into surgery_booking
-		  (
-		    booking_no
-		  , clinic_no
-		  , surgery_no
-		  , room_name
-		  , surgery_date
-		  , sur_starttime
-		  , memo
-		  , surgery_status
-		  , doctor_name
-		  , sur_endtime
-		  )
-		  values
-		  (
-		    seq_sbno.nextval
-		  , #{clinicNo}
-		  , #{surNo}
-		  , #{roomName}
-		  , #{surDate}
-		  , #{surTime}
-		  , #{memo}
-		  , default
-		  , #{docName}
-		  , #{surEnd}
-		  )
+		into surgery_booking
+		(
+		booking_no
+		, clinic_no
+		, surgery_no
+		, room_name
+		, surgery_date
+		, sur_starttime
+		, memo
+		, surgery_status
+		, doctor_name
+		, sur_endtime
+		)
+		values
+		(
+		seq_sbno.nextval
+		, #{clinicNo}
+		, #{surNo}
+		, #{roomName}
+		, #{surDate}
+		, #{surTime}
+		, #{memo}
+		, default
+		, #{docName}
+		, #{surEnd}
+		)
 	</insert>
+
+	<select id="calendarList" resultMap="calendarResult">
+		select
+			   calendar_no
+			 , calendar_title
+			 , calendar_start
+			 , calendar_end
+			 , textcolor
+			 , backgroundcolor
+		  from sur_calendar
+
+	</select>
+
+
 </mapper>

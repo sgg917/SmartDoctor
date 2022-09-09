@@ -189,20 +189,22 @@
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
+            <!-- 화면 테스트용 네비바 -->
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#numberzero" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">화면테스트용</span>
+                <span class="menu-title">화면테스트용(지워야됨)</span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-cat"></i>
               </a>
-              <div class="collapse" id="numberone">
+              <div class="collapse" id="numberzero">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="exercise.jy">진료 대기</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="exercise.jy">진료 대기(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.op">수술실 예약(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.pr">입원실 예약(지워야됨)</a></li>
                 </ul>
               </div>
             </li>
+            <!-- 테스트용네비바 끝 -->
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#numberone" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">진료</span>
