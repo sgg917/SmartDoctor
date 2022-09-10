@@ -41,7 +41,7 @@
 		)
 	</insert>
 	
-	<insert id="insertOP">
+	<insert id="insertOP2">
 		insert
 		into sur_calendar
 		(
