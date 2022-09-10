@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
+import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.dao.SignDao;
 import com.fp.smartDoctor.sign.model.vo.Form;
 
@@ -49,5 +50,9 @@ public class SignServiceImpl implements SignService {
 	@Override
 	public Form selectApprFormDetail(int formNo) {
 		return sDao.selectApprFormDetail(sqlSession, formNo);
+	}
+	@Override
+	public ArrayList<Member> selectApprLineList() {
+		return sDao.selectApprLineList(sqlSession);
 	}
 }

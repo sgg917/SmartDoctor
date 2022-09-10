@@ -6,8 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>결재문 작성</title>
+<!-- summernote -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+
+<!-- fancyTree -->
+<link href="//cdn.jsdelivr.net/npm/jquery.fancytree@2.27/dist/skin-win8/ui.fancytree.min.css" rel="stylesheet">
 <style>
 	.appr-table th {
 		font-weight: 550;
@@ -75,7 +79,12 @@
 	.btn>span {
 		white-space: nowrap;
 	}
-	
+	#ap-md-tr{
+		border: 2px solid #DFDFDF;
+	}
+	#ap-md-tr>th{
+		border:none;
+	}
 </style>
 </head>
 <body>
@@ -97,7 +106,7 @@
 						</button>
 						<button type="button" class="btn btn-outline-success btn-green"
 							data-bs-toggle="modal" data-bs-target="#lineModal"
-							style="width: 130px;">
+							style="width: 130px;" onclick="selectLineList();">
 							<i class="mdi mdi-account-plus menu-icon"></i>&nbsp; <span>결재라인
 								지정</span>
 						</button>
@@ -199,7 +208,7 @@
 						</div>
 						<table class="table table-bordered appr-table" id="appr-comment">
 							<thead>
-								<tr>
+								<tr style="border: 2px solid #DFDFDF;">
 									<th id="form-modal-th" >&nbsp;결재양식 &nbsp;<span id="formCount"></span></th>
 								</tr>
 							</thead>
@@ -249,7 +258,7 @@
 				
 			}
 			
-			function selectFormDetail(){
+			function selectFormDetail(){ // 결재양식 불러오기용 ajax함수
 				
 				$.ajax({
 					url: "apprFormDetail.si",
@@ -259,6 +268,7 @@
 						
 						$('#summernote').summernote('reset');
 						$('#summernote').summernote('pasteHTML', f.formContent);
+						$('#formModal').modal('hide');
 					},
 					error:function(){
 						console.log("결재양식선택 불러오기용 ajax통신 실패");
@@ -266,21 +276,15 @@
 				})
 			}
 			
-			$(function(){
-				
-				$("#select-btn").click(function(){
-					location.href='apprFormDetail.si?formNo=' + $("input:radio[name=form]:checked").val();
-				})
-			
-			})
-			
 		</script>
-
+		
+		
+		<script src="//cdn.jsdelivr.net/npm/jquery.fancytree@2.27/dist/jquery.fancytree-all-deps.min.js"></script>
 		<!-- 결재라인 모달창 -->
 		<div class="modal fade" id="lineModal" tabindex="-1"
 			aria-labelledby="lineModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered modal-lg">
-				<div class="modal-content">
+				<div class="modal-content" style="background:white; width:800px; margin:auto;">
 					<div class="modal-header">
 						<h5 class="modal-title" id="lineModalLabel">결재라인 지정</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -292,82 +296,115 @@
 								<th>조직도</th>
 							</tr>
 							<tr>
-								<td style="overflow-y: scroll;"></td>
+								<td style="overflow-y: scroll; height:392px;">
+									<div id="tree">
+									  <ul id="treeData">
+									    
+									  </ul>
+									</div>
+								</td>
 							</tr>
 						</table>
-						<table class="table table-bordered appr-modal-tb"
-							style="width: 500px;">
-							<tr>
+						<table class="table table-bordered appr-modal-tb" style="width: 500px;">
+							<tr id="ap-md-tr">
 								<th></th>
 								<th>이름</th>
 								<th>부서</th>
 								<th>직급</th>
-								<th style="text-align: center;"><i
-									class="mdi mdi-delete-forever"></i></th>
+								<th style="text-align: center;">
+									<i class="mdi mdi-delete-forever"></i>
+								</th>
 							</tr>
 							<tr>
 								<th colspan="5" style="background: rgb(244, 244, 244);">결재자</th>
 							</tr>
-							<tr>
-								<td width="40" rowspan="3"><i
+							<tr style="border: 1px solid #DFDFDF;">
+								<td width="40" rowspan="3" ><i
 									class="mdi mdi-chevron-double-right"></i></td>
-								<td>강동원</td>
-								<td>총무팀</td>
-								<td>팀장</td>
-								<td style="text-align: center;"><i
-									class="mdi mdi-delete-forever"></i></td>
+								<td style="border:none;">강동원</td>
+								<td style="border:none;">총무팀</td>
+								<td style="border:none;">팀장</td>
+								<td style="text-align: center; border:none;"><i
+									class="mdi mdi-delete-forever" ></i></td>
 							</tr>
-							<tr>
-								<td>강동원</td>
-								<td>총무팀</td>
-								<td>팀장</td>
-								<td style="text-align: center;"><i
-									class="mdi mdi-delete-forever"></i></td>
+							<tr style="border: 1px solid #DFDFDF;">
+								<td style="border:none;">강동원</td>
+								<td style="border:none;">총무팀</td>
+								<td style="border:none;">팀장</td>
+								<td style="text-align: center; border:none;"><i
+									class="mdi mdi-delete-forever" ></i></td>
 							</tr>
-							<tr>
-								<td>강동원</td>
-								<td>총무팀</td>
-								<td>팀장</td>
-								<td style="text-align: center;"><i
-									class="mdi mdi-delete-forever"></i></td>
+							<tr style="border: 1px solid #DFDFDF;">
+								<td style="border:none;">강동원</td>
+								<td style="border:none;">총무팀</td>
+								<td style="border:none;">팀장</td>
+								<td style="text-align: center; border:none;"><i
+									class="mdi mdi-delete-forever" ></i></td>
 							</tr>
 							<tr>
 								<th colspan="5">참조자</th>
 							</tr>
-							<tr>
-								<td width="40" rowspan="3"><i
+							<tr style="border: 1px solid #DFDFDF;">
+								<td width="40" rowspan="3" ><i
 									class="mdi mdi-chevron-double-right"></i></td>
-								<td>강동원</td>
-								<td>총무팀</td>
-								<td>팀장</td>
-								<td style="text-align: center;"><i
-									class="mdi mdi-delete-forever"></i></td>
+								<td style="border:none;">강동원</td>
+								<td style="border:none;">총무팀</td>
+								<td style="border:none;">팀장</td>
+								<td style="text-align: center; border:none;"><i
+									class="mdi mdi-delete-forever" ></i></td>
 							</tr>
-							<tr>
-								<td>강동원</td>
-								<td>총무팀</td>
-								<td>팀장</td>
-								<td style="text-align: center;"><i
-									class="mdi mdi-delete-forever"></i></td>
+							<tr style="border: 1px solid #DFDFDF;">
+								<td style="border:none;">강동원</td>
+								<td style="border:none;">총무팀</td>
+								<td style="border:none;">팀장</td>
+								<td style="text-align: center; border:none;"><i
+									class="mdi mdi-delete-forever" ></i></td>
 							</tr>
-							<tr>
-								<td>강동원</td>
-								<td>총무팀</td>
-								<td>팀장</td>
-								<td style="text-align: center;"><i
-									class="mdi mdi-delete-forever"></i></td>
+							<tr style="border: 1px solid #DFDFDF;">
+								<td style="border:none;">강동원</td>
+								<td style="border:none;">총무팀</td>
+								<td style="border:none;">팀장</td>
+								<td style="text-align: center; border:none;"><i
+									class="mdi mdi-delete-forever" ></i></td>
 							</tr>
 						</table>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">취소</button>
-						<button type="button" class="btn btn-success"
-							style="background: RGB(29, 92, 99);">확인</button>
+						<button type="button" class="btn btn-secondary btn-sm"
+							data-bs-dismiss="modal" style="width:100px; height:40px;">취소하기</button>
+						<button type="button" class="btn btn-success btn-sm"
+							style="background: RGB(29, 92, 99); color:white; width:100px; height:40px;">선택하기</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		
+		<script>
+			function selectLineList(){ // 결재라인 조직도 리스트 조회용 ajax함수
+				
+				$.ajax({
+					url: "apprLineList.si",
+					async:false,
+					success:function(list){
+						
+						console.log(list);
+						
+						let value = "";
+						for(let i=0; i<list.length; i++){
+							 value += "<li id=" + 'i' + "class='folder'>" + list[i].empName;
+							 console.log(list[i].jobName);
+						}
+						
+						$("#treeData").html(value);
+						
+						
+					},
+					error:function(){
+						console.log("결재라인 조직도 리스트 조회용 ajax통신 실패");
+					}
+				})
+			}
+		</script>
 		
 		
 		<jsp:include page="../common/footer.jsp" />
