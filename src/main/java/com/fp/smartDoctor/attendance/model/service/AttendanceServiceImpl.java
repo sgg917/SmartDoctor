@@ -29,4 +29,24 @@ public class AttendanceServiceImpl implements AttendanceService {
 		return aDao.selectAttendance(sqlSession, pi, a);
 	}
 
+	@Override
+	public int insertAttendance(int empNo) {
+		return aDao.insertAttendance(sqlSession, empNo);
+	}
+
+	@Override
+	public String selectStartTime(int empNo) {
+		return aDao.selectStartTime(sqlSession, empNo);
+	}
+
+	@Override
+	public String checkStartTime(int empNo) {
+		return aDao.checkStartTime(sqlSession, empNo);
+	}
+
+	@Override
+	public String checkEndTime(int empNo) {
+		return aDao.checkEndTime(sqlSession, empNo);
+	}
+
 }

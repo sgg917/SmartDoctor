@@ -28,4 +28,6 @@ public class Attendance {
 	private String endDate;
 	// 근태 상태 검색용 필드
 	private String[] statusArr;
+	// 출퇴근 여부 확인용 필드
+	private String attResult;
 }

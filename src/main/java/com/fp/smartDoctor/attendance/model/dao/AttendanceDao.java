@@ -25,4 +25,21 @@ public class AttendanceDao {
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttendance", a, rowBounds);
 		
 	}
+	
+	public int insertAttendance(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.insert("attendanceMapper.insertAttendance", empNo);
+	}
+	
+	public String selectStartTime(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("attendanceMapper.selectStartTime", empNo);
+	}
+	
+	public String checkStartTime(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("attendanceMapper.checkStartTime", empNo);
+	}
+	
+	public String checkEndTime(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("attendanceMapper.checkEndTime", empNo);
+	}
+	
 }
