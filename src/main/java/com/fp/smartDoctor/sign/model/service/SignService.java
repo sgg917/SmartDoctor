@@ -3,6 +3,7 @@ package com.fp.smartDoctor.sign.model.service;
 import java.util.ArrayList;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
+import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.vo.Form;
 
@@ -35,4 +36,7 @@ public interface SignService {
 	
 	// 사용자_결재라인 조직도 조회 (ajax)
 	ArrayList<Member> selectApprLineList();
+	
+	// 사용자_결재라인 조직도 부서 조회 (ajax)
+	ArrayList<Dept> selectApprLineDept();
 }

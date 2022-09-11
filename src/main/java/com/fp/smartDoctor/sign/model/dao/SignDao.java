@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
+import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.vo.Form;
 
@@ -52,6 +53,10 @@ public class SignDao {
 	
 	public ArrayList<Member> selectApprLineList(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("memberMapper.selectApprLineList");
+	}
+	
+	public ArrayList<Dept> selectApprLineDept(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectApprLineDept");
 	}
 	
 	

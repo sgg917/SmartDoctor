@@ -8,11 +8,12 @@
 		<result column="status" property="status" />
 		<result column="job_no" property="jobNo" />
 		<result column="dept_no" property="deptNo" />
-		<result column="dept_name" property="deptName" />
 	</resultMap>
 	
 	<resultMap id="deptResult" type="Dept">
+		<result column="dept_no" property="deptNo" />
 		<result column="upper_no" property="upperNo" />
+		<result column="dept_name" property="deptName" />
 	</resultMap>
 	
 	<!-- 사용자_결재라인 조직도 리스트 조회 -->
@@ -29,5 +30,14 @@
 		 where status = 'Y'
 		 order
 		    by job_no
+	</select>
+	
+	<!-- 사용자_결재라인 조직도 부서 조회 -->
+	<select id="selectApprLineDept" resultMap="deptResult">
+		select
+			   dept_no
+			 , upper_no
+			 , dept_name
+		  from department
 	</select>
 </mapper>

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.common.template.Pagination;
+import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.service.SignService;
 import com.fp.smartDoctor.sign.model.vo.Form;
@@ -136,6 +137,15 @@ public class SignController {
 	public String selectApprLineList() {
 		
 		ArrayList<Member> list = sService.selectApprLineList();
+		return new Gson().toJson(list);
+	}
+	
+	// 사용자_결재라인 조직도 부서 조회 (ajax)
+	@ResponseBody
+	@RequestMapping(value="apprLineDept.si", produces="application/json; charset=UTF-8")
+	public String selectApprLineDept() {
+		
+		ArrayList<Dept> list = sService.selectApprLineDept();
 		return new Gson().toJson(list);
 	}
 }
