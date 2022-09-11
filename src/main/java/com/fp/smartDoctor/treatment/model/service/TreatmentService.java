@@ -21,5 +21,8 @@ public interface TreatmentService {
 	int updateRevOProom(RevOProom op);
 	
 	//수술예약 풀캘린더
-	List<Calendar> getCalendar();
+	//List<Calendar> getCalendar();
+	
+	//수술예약 풀캘린더
+	List<RevOProom> getCalendar();
 }

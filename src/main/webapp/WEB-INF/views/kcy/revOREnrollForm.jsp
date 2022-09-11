@@ -24,28 +24,21 @@
 <!-- End layout styles -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="resources/images/favicon-16x16.png">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 
-<!-- Popper JS -->
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!--@@ fullcalendar CDN 가져가세용~-->
 <link href='resources/fullcalendar/lib/main.css' rel='stylesheet' />
 <script src='resources/fullcalendar/lib/main.js'></script>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
 <style>
@@ -133,16 +126,14 @@ th {
 			<div class="content-wrapper">
 				<div class="wrap111">
 					<form id="enrollForm" method="post" action="insert.op">
-						<input type="hidden" id="opNo" class="form-control"
-							value="${ op.bookingNo }" name="bookingNo"> <input
-							type="hidden" id="cNo" class="form-control"
-							value="${ c.clinicNo }" name="clinicNo"> <input
-							type="hidden" id="sNo" class="form-control"
-							value="${ s.surgeryNo }" name="surNo"> <br>
-						<!-- 이 안에서 작업해 주세요 -->
-						<h3>
-							<b>차트번호 수술실 예약</b>
-						</h3>
+					
+						<input type="hidden" id="bookingNo" class="form-control" value="${ op.bookingNo }" name="bookingNo">
+						<input type="hidden" id="clinicNo" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
+						<input type="hidden" id="surgeryNo" class="form-control" value="${ s.surgeryNo }" name="surgeryNo"> 
+						<input type="hidden" id="calendarNo" class="form-control" value="${ s.calendarNo }" name="calendarNo"> 
+						<input type="hidden" id="leadTime" class="form-control" value="${ s.leadTime }" name="leadTime"> 
+						<br>
+						<h3> <b>차트번호 수술실 예약</b> </h3>
 						<hr>
 						<br> <br>
 						<div class="wrap22">
@@ -159,23 +150,21 @@ th {
 									</tr>
 									<tr>
 										<th>차트번호</th>
-										<td><input readonly name="clinicNo" value="${c. }" type="text"
+										<td><input readonly name="clinicNo" value="${ c.clinicNo }" type="text"
 											style="width: 300px;"></td>
 									</tr>
 									<tr>
 										<th>수진자명</th>
-										<td><input type="text" style="width: 300px;" readonly
-											value=""></td>
+										<td><input type="text" style="width: 300px;" readonly value="${p.patientName }"></td>
 									</tr>
 									<tr>
 										<th>수술실</th>
-										<td><select name="roomName" id="roomName"
-											style="width: 300px;">
+										<td><select name="roomName" id="roomName" style="width: 300px;">
 												<option value="x">선택안함</option>
-												<option value="a">operatingA</option>
-												<option value="b">operatingB</option>
-												<option value="c">operatingC</option>
-												<option value="d">operatingD</option>
+												<option value="operatingA">operatingA</option>
+												<option value="operatingB">operatingB</option>
+												<option value="operatingC">operatingC</option>
+												<option value="operatingD">operatingD</option>
 										</select> <!--
 				                    <button onclick="test();">확인</button>
 				                    <br>
@@ -193,19 +182,15 @@ th {
 									</tr>
 									<tr>
 										<th>예약날짜</th>
-										<td><input type="date" style="width: 300px;"
-											name="surDate"><br></td>
+										<td><input type="date" style="width: 300px;" name="surDate"><br></td>
 									</tr>
 									<tr>
 										<th>예약시각</th>
-										<td><input type="time" style="width: 300px;"
-											name="surTime"></td>
+										<td><input type="time" style="width: 300px;" name="surStartTime" id="surStartTime"></td>
 									</tr>
 									<tr>
 										<th>예상완료시각</th>
-										<td><input type="text" readonly
-											value="차트에서 소요시간 가져와서 + 로 완료시각 만들기" style="width: 300px;"
-											name="surEnd"></td>
+										<td><input type="text" readonly value="${ op.surEndTime }" style="width: 300px;" name="surEndTime" id="surEndTime"></td>
 									</tr>
 									<tr>
 										<th>담당의</th>
@@ -214,9 +199,9 @@ th {
 									</tr>
 									<tr>
 										<th>특이사항</th>
-										<td><textarea type="text"
-												style="width: 300px; height: 100px; resize: none;"
-												name="memo"></textarea></td>
+										<td>
+										<textarea style="width: 300px; height: 100px; resize: none;"name="memo">${op.memo}</textarea>
+												</td>
 									</tr>
 
 
@@ -232,7 +217,6 @@ th {
 								
 							</div>
 							<div id='calendar' class="calender1"></div>
-							
 						</div>
 						<br><br><br><br><br><br>
 						
@@ -248,7 +232,14 @@ th {
 	</div>
 
 
+
+
+
+
+
+
 	<script>
+	
 		$(function() {
 
 			$.ajax({
@@ -261,9 +252,9 @@ th {
 					let data = [];/* 내가 넘겨주고자 하는 값을 리스트로 다시 담아줘야함! */
 					for (let i = 0; i < list.length; i++) {
 						let obj = {
-							title : list[i].calendarTitle,
-							start : list[i].calendarStart,
-							end : list[i].calenderEnd,
+							title : list[i].clinicNo,
+							start : list[i].surDate,
+							end : list[i].surDate,
 							textColor : list[i].textColor,
 							backgroundColor : list[i].backgroundColor
 						};
@@ -284,6 +275,9 @@ th {
 						selectable : true,
 						droppable : true,
 						editable : true,
+						eventClick: function(arg) {
+							ModalOpen(arg);	//이벤트 클릭 시 모달 호출
+					    },
 						events : data
 					});
 
@@ -298,9 +292,20 @@ th {
 			})
 
 		});
+	
+		function ModalOpen(arg){
+			alert("왜안됨?");
+		  }
 	</script>
+	<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음-->
 
-<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음 : 아직안함-->
-
+	<script>
+		var Sum = function(){			
+			var date1 = document.getElementsById("surStartTime").value;			
+			var date2 = document.getElementsById("leadTime").value;			
+			var result = Date.parse(date1) + Date.parse(date2);			
+			document.getElementsById("surEndTime").value=result;		
+			}	
+	</script>
 </body>
 </html>

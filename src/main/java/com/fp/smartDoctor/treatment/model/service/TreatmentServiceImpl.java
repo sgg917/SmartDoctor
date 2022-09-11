@@ -36,7 +36,7 @@ public class TreatmentServiceImpl implements TreatmentService{
 		return 0;
 	}
 	@Override
-	public List<Calendar> getCalendar() {
+	public List<RevOProom> getCalendar() {
 		return tDao.getCalendar(sqlSession);
 	}
 	

@@ -15,8 +15,8 @@ public class TreatmentDao {
 		return sqlSession.insert("treatmentMapper.insertOP", op);
 	}
 	
-	public List<Calendar> getCalendar(SqlSessionTemplate sqlSession)  {
-		List<Calendar> calendar = sqlSession.selectList("treatmentMapper.calendarList");
+	public List<RevOProom> getCalendar(SqlSessionTemplate sqlSession)  {
+		List<RevOProom> calendar = sqlSession.selectList("treatmentMapper.calendarList");
 		return calendar;
 	}
 }

@@ -25,7 +25,10 @@
 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 .wrap11 {
 	width: 100%;
@@ -382,22 +385,7 @@
 
 	</div>
 
-	<!-- plugins:js -->
-	<script src="resources/vendors/js/vendor.bundle.base.js"></script>
-	<!-- endinject -->
-	<!-- Plugin js for this page -->
-	<script src="resources/vendors/chart.js/Chart.min.js"></script>
-	<script src="resources/js/jquery.cookie.js" type="text/javascript"></script>
-	<!-- End plugin js for this page -->
-	<!-- inject:js -->
-	<script src="resources/js/off-canvas.js"></script>
-	<script src="resources/js/hoverable-collapse.js"></script>
-	<script src="resources/js/misc.js"></script>
-	<!-- endinject -->
-	<!-- Custom js for this page -->
-	<script src="resources/js/dashboard.js"></script>
-	<script src="resources/js/todolist.js"></script>
-	<!-- End custom js for this page -->
+
 
 </body>
 </html>

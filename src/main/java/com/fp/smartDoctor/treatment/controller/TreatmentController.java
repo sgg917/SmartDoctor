@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.smartDoctor.treatment.model.service.TreatmentService;
-import com.fp.smartDoctor.treatment.model.vo.Calendar;
+import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 import com.google.gson.Gson;
 
 @Controller
@@ -55,7 +55,7 @@ public class TreatmentController {
  	@ResponseBody
  	@RequestMapping(value="list.ca", produces="application/json; charset=utf-8")
  	public String selectCalendarList() {
- 		List<Calendar> calendar = tService.getCalendar();
+ 		List<RevOProom> calendar = tService.getCalendar();
  		return new Gson().toJson(calendar);
  	}
 

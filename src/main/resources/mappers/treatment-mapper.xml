@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="treatmentMapper">
-
+	<!-- 캘린더 조회용 result
 	<resultMap id="calendarResult" type="Calendar">
 		<result column="calendar_no" property="calendarNo" />
 		<result column="calendar_title" property="calendarTitle" />
@@ -10,7 +10,26 @@
 		<result column="textcolor" property="textColor" />
 		<result column="backgroundcolor" property="backgroundColor" />
 	</resultMap>
-
+	-->
+	
+	<!-- 수술실 result -->
+	<resultMap id="OPResult" type="RevOProom">
+		<result column="booking_no" property="bookingNo" />
+		<result column="clinic_no" property="clinicNo" />
+		<result column="surgery_no" property="surgeryNo" />
+		<result column="room_name" property="roomName" />
+		<result column="surgery_date" property="surDate" />
+		<result column="sur_starttime" property="surStartTime" />
+		<result column="memo" property="memo" />
+		<result column="surgery_status" property="surStatus" />
+		<result column="doctor_name" property="doctorName" />
+		<result column="sur_endtime" property="surEndTime" />
+		<result column="calendar_no" property="calendarNo" />
+		<result column="textcolor" property="textColor" />
+		<result column="backgroundcolor" property="backgroundColor" />
+	</resultMap>
+	
+	<!-- 수술실 예약 insert -->
 	<insert id="insertOP">
 		insert
 		into surgery_booking
@@ -18,6 +37,7 @@
 		booking_no
 		, clinic_no
 		, surgery_no
+		, calendar_no
 		, room_name
 		, surgery_date
 		, sur_starttime
@@ -25,12 +45,15 @@
 		, surgery_status
 		, doctor_name
 		, sur_endtime
+		, textcolor
+		, backgroundcolor
 		)
 		values
 		(
 		seq_sbno.nextval
 		, #{clinicNo}
 		, #{surNo}
+		, seq_rca.nextval
 		, #{roomName}
 		, #{surDate}
 		, #{surTime}
@@ -38,31 +61,13 @@
 		, default
 		, #{docName}
 		, #{surEnd}
-		)
-	</insert>
-	
-	<insert id="insertOP2">
-		insert
-		into sur_calendar
-		(
-		   calendar_no
-		 , calendar_title
-		 , calendar_start
-		 , calendar_end
-		 , textcolor
-		 , backgroundcolor
-		)
-		values
-		(
-		seq_rca.nextval
-		, #{clinicNo}
-		, #{surDate}
-		, #{surDate}
 		, 'white'
 		, 'navy'
 		)
 	</insert>
-
+	
+	
+	<!-- 캘린더 조회 mapper 예시
 	<select id="calendarList" resultMap="calendarResult">
 		select
 			   calendar_no
@@ -74,6 +79,19 @@
 		  from sur_calendar
 
 	</select>
+	-->
+	
+	<!-- 수술실 캘린더 조회 select -->
+	<select id="calendarList" resultMap="OPResult">
+		select
+			   calendar_no
+			 , clinic_no
+			 , surgery_date
+			 , surgery_date
+			 , textcolor
+			 , backgroundcolor
+		  from surgery_booking
 
+	</select>
 
 </mapper>
