@@ -3,6 +3,7 @@ package com.fp.smartDoctor.member.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +18,7 @@ public class MemberController {
 	@Autowired 
 	private MemberService mService;
 	
-	/*
+	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
@@ -26,15 +27,13 @@ public class MemberController {
 	public String loginMember() {
 		return "ljy/loginMember";
 	}
-	*/
 	
 	
-	
-	
-	@RequestMapping("login.me")
+	@RequestMapping("enter.me")
 	public ModelAndView loginMember(Member m, HttpSession session, ModelAndView mv) {
 		
 		Member loginUser = mService.loginMember(m);
+		System.out.println(loginUser);
 		
 		if(loginUser == null) { //로그인실패
 			System.out.println("로그인 실패");

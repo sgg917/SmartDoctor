@@ -30,7 +30,7 @@
             
             			<h2 align="center" style="color: rgb(29, 92, 99); font-weight:bold;">LOGIN</h2>
             
-			            <form class="pt-3" action="login.me">
+			            <form class="pt-3" action="enter.me">
 			            <div class="form-group">
 			                <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" name="empNo" placeholder="사번을 입력해주세요">
 			            </div>
