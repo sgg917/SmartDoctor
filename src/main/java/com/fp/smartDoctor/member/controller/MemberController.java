@@ -30,6 +30,7 @@ public class MemberController {
 	
 	
 	
+	
 	@RequestMapping("login.me")
 	public ModelAndView loginMember(Member m, HttpSession session, ModelAndView mv) {
 		
