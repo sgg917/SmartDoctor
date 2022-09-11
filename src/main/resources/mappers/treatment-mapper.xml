@@ -151,7 +151,7 @@
 
 	</select>
 
-
+	<!-- 수술실 정보 조회 select-->
 	<select id="selectOProom" resultMap="OPResult">
 		select
 			   booking_no
@@ -169,6 +169,7 @@
 		 where booking_no = #{bookingNo} 
 	</select>
 	
+	<!-- 수술실 중복 체크 -->
 	<select id="checkOverlapRsv" resultType="_int">
 		select count(*)
 		  from
@@ -180,6 +181,7 @@
 		    )
 	</select>
 	
+	<!-- 수술실 예약 insert -->
 	<insert id="insertReservation">
 		INSERT INTO RESOURCES_RESERVE
         ( RESERVE_NO, USER_NO, RESOURCES_NO, CATEGORY_NO, CATEGORY_NAME, START_DATE, END_DATE, RESERVE_DATE, RESERVE_CONTENT)
@@ -199,7 +201,7 @@
 	</insert>
 	
 
-	
+	<!-- 수술실 예약 취소 -->
 	<delete id="rsvCancel">
 		delete from resources_reserve
 		 where reserve_no = #{reserveNo}
