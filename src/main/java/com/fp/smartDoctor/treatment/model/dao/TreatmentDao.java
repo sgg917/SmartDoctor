@@ -1,5 +1,6 @@
 package com.fp.smartDoctor.treatment.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -22,5 +23,17 @@ public class TreatmentDao {
 	
 	public ListSurgeryBooking selectRevOProom(SqlSessionTemplate sqlSession, int bookingNo) {
 		return sqlSession.selectOne("treatmentMapper.selectOProom", bookingNo);
+	}
+	
+	public int checkOverlapRsv(SqlSessionTemplate sqlSession, HashMap<String, String> paraMap) {
+		return sqlSession.selectOne("treatmentMapper.checkOverlapRsv", paraMap);
+	}
+	
+	public int insertReservation(SqlSessionTemplate sqlSession, HashMap<String, String> paraMap) {
+		return sqlSession.insert("treatmentMapper.insertReservation", paraMap);
+	}
+
+	public int rsvCancel(SqlSessionTemplate sqlSession, HashMap<String, String> paraMap) {
+		return sqlSession.delete("treatmentMapper.rsvCancel", paraMap);
 	}
 }

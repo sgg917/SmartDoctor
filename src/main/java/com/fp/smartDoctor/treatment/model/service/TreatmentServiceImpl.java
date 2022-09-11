@@ -25,27 +25,31 @@ public class TreatmentServiceImpl implements TreatmentService{
 	public ListSurgeryBooking selectRevOProom(int bookingNo) {
 		return tDao.selectRevOProom(sqlSession, bookingNo);
 	}
-	
+	// 수술실 캘린더 조회
 	@Override
 	public List<RevOProom> getCalendar() {
 		return tDao.getCalendar(sqlSession);
 	}
 
+	//입력받은 날짜 중복여부 체크
 	@Override
 	public int checkOverlapRsv(HashMap<String, String> paraMap) {
-		return 0;
+		return tDao.checkOverlapRsv(sqlSession, paraMap);
 	}
 
+	//수술실 예약
 	@Override
 	public int insertReservation(HashMap<String, String> paraMap) {
-		return 0;
+		return tDao.insertReservation(sqlSession, paraMap);
 	}
 
+	//수술실 예약 취소
 	@Override
 	public int rsvCancel(HashMap<String, String> paraMap) {
-		return 0;
+		return tDao.rsvCancel(sqlSession, paraMap);
 	}
 
+	//수술실 예약 업데이트
 	@Override
 	public int updateRevOProom(RevOProom op) {
 		return 0;
