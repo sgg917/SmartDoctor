@@ -37,7 +37,7 @@ public class MemberController {
 			System.out.println("로그인 실패");
 		}else { //로그인성공
 			session.setAttribute("loginUser", loginUser);
-			mv.setViewName("ljy/login");
+			mv.setViewName("redirect:/");
 		}
 		return mv;
 	}

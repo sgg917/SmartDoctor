@@ -157,7 +157,7 @@
               </div>
             </li>
             <li class="nav-item nav-logout d-none d-lg-block">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="logout.me">
                 <i class="mdi mdi-power"></i>
               </a>
             </li>
@@ -173,7 +173,7 @@
         <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
-            <li class="nav-item nav-profile">
+            
               <!-- 로그인 전 -->
               <c:choose>
               	<c:when test="${ empty loginUser }">
@@ -181,6 +181,7 @@
               	</c:when>
               	
               	<c:otherwise>
+              	<li class="nav-item nav-profile">
               		<a href="#" class="nav-link">
 	                <div class="nav-profile-image">
 	                  <img src="resources/profile_images/eunwoo.jpg" alt="profile"><!--사용자 프로필사진-->
@@ -190,18 +191,18 @@
 	                <div class="nav-profile-text d-flex flex-column">
 	                  <span class="font-weight-bold mb-2">사용자 이름자리</span>
 	                  <span class="text-secondary text-small">사용자 직함자리</span>
-	                  <a href="logout.me" style="text-decoration: none;	color: black">로그아웃</a>
 	                </div>
 	                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
 	              </a>
-              	
+	              <a href="logout.me" class="btn btn-block btn-gradient-primary btn-sm auth-form-btn font-weight-medium" style="background: RGB(29, 92, 99); color: white; width: 100%; height: 50px; font-weight: bold; line-height: 40px; font-size: 15px;" href="">로그아웃</a>
+              	</li>
               	</c:otherwise>
               
               </c:choose>
               
-            </li>
+
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="redirect:/">
                 <span class="menu-title">메인화면</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
