@@ -177,24 +177,26 @@
               <!-- 로그인 전 -->
               <c:choose>
               	<c:when test="${ empty loginUser }">
-              		<a href="login.me" class="btn btn-block btn-gradient-primary btn-sm auth-form-btn font-weight-medium" style="background: RGB(29, 92, 99); color: white; width: 100%; height: 50px; font-weight: bold; line-height: 40px; font-size: 15px;" href="">로그인</a>
+              		<div align="center">
+              			<a href="login.me" class="btn btn-block btn-gradient-primary btn-sm auth-form-btn font-weight-medium" style="background: RGB(29, 92, 99); color: white; width: 75%; height: 50px; font-weight: bold; line-height: 40px; font-size: 15px;">로그인</a>
+              		</div>
               	</c:when>
               	
               	<c:otherwise>
               	<li class="nav-item nav-profile">
               		<a href="#" class="nav-link">
 	                <div class="nav-profile-image">
-	                  <img src="resources/profile_images/eunwoo.jpg" alt="profile"><!--사용자 프로필사진-->
+	                  <img src="<c:out value='${ loginUser.path }' default='resources/profile_images/eunwoo.jpg'/>" alt="profile"><!--사용자 프로필사진-->
 	                  <span class="login-status online"></span>
 	                  <!--change to offline or busy as needed-->
 	                </div>
 	                <div class="nav-profile-text d-flex flex-column">
-	                  <span class="font-weight-bold mb-2">사용자 이름자리</span>
-	                  <span class="text-secondary text-small">사용자 직함자리</span>
+	                  <span class="font-weight-bold mb-2">${ loginUser.empName }</span>
+	                  <span class="text-secondary text-small">${ loginUser.jobName }</span>
 	                </div>
 	                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
 	              </a>
-	              <a href="logout.me" class="btn btn-block btn-gradient-primary btn-sm auth-form-btn font-weight-medium" style="background: RGB(29, 92, 99); color: white; width: 100%; height: 50px; font-weight: bold; line-height: 40px; font-size: 15px;" href="">로그아웃</a>
+	              <a href="logout.me" class="btn btn-block btn-gradient-primary btn-sm auth-form-btn font-weight-medium" style="background: RGB(29, 92, 99); color: white; width: 100%; height: 50px; font-weight: bold; line-height: 40px; font-size: 15px;">로그아웃</a>
               	</li>
               	</c:otherwise>
               
