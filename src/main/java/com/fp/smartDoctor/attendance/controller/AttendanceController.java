@@ -28,11 +28,14 @@ public class AttendanceController {
 	@RequestMapping("list.att")
 	public ModelAndView memberAttendance(@RequestParam(value="cpage", defaultValue="1") int currentPage, int no, ModelAndView mv) {
 		
-		// 근태 총 개수 조회
+		// 근태 객체에 사번 담기
 		Attendance a = new Attendance();
 		a.setEmpNo(no);
+		
+		// 한 사원의 근태 총 개수 조회
 		int listCount = aService.selectListCount(a);
 		
+		System.out.println(listCount);
 		// 페이징 정보 변수에 담기
 		PageInfo pi = new Pagination().getPageInfo(listCount, currentPage, 5, 5);
 		

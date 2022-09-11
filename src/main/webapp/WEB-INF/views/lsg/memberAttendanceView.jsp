@@ -24,6 +24,9 @@
 	background:#1D5C83;
 	color:white;
 }
+.green-btn:disabled {
+	background:gray;
+}
 
 /* 작은 버튼 */
 .small-btn {
@@ -193,8 +196,7 @@ th {
 					<div class="col-4">
 						<div id="att-sidebar">
 							<h5>TODAY</h5>
-							2022.08.26 금요일
-							<br><br>
+							<p id="today">2022.08.26 금요일</p>
 							<button id="startAttBtn" class="small-btn green-btn" onclick="startAtt();">출근</button>
 							&nbsp;
 							<button id="endAttBtn" class="small-btn green-btn" data-bs-toggle="modal" data-bs-target="#endAttModal">퇴근</button>
@@ -265,9 +267,45 @@ th {
 		
 		<script>
 		
-			// ----------- 페이지 로딩되자마자 출퇴근 여부 체크 ------------
+			// ----------- 페이지 로딩되자마자 실행할 내용 ------------
 			$(function(){
+				
+				// 오늘 날짜 표시
+				var today = new Date();
+				
+				var year = today.getFullYear();
+				var month = today.getMonth() + 1;
+				
+				if(month.toString().length == 1){
+					month = '0' + month;
+				}
+				var date = today.getDate();
+				
+				if(date.toString().length == 1){
+					date = '0' + date;
+				}
+				var day = today.getDay();
+				if(day == '0'){
+					day = "일요일";
+				}else if(day == '1'){
+					day = "월요일";
+				}else if(day == '2'){
+					day = "화요일";
+				}else if(day == '3'){
+					day = "수요일";
+				}else if(day == '4'){
+					day = "목요일";
+				}else if(day == '5'){
+					day = "금요일";
+				}else{
+					day = "토요일";
+				}
+				
+				$('#today').html(year + "." + month + "." + date + " " + day);
+				
+				// 출퇴근 여부 체크
 				checkAtt();
+				
 			})
 			
 			// ----------- 출퇴근 여부 체크 함수 -------------
