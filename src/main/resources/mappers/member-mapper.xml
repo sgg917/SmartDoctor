@@ -31,38 +31,6 @@
 		    by job_no
 	</select>
 
-	<resultMap id="memberResult" type="Member">
-		<result column="emp_no" property="empNo" />
-		<result column="emp_name" property="empName" />
-		<result column="emp_pwd" property="empPwd" />
-		<result column="phone" property="phone" />
-		<result column="email" property="email" />
-		<result column="profile_originname" property="profileOriginName" />
-		<result column="profile_path" property="profilePath" />
-		<result column="status" property="status" />
-		<result column="vac_all" property="vacAll" />
-		<result column="vac_remain" property="vacRemain" />
-		<result column="job_no" property="jobNo" />
-		<result column="dept_no" property="deptNo" />
-	</resultMap>
-
-	<select id="loginMember" resultMap="memberResult">
-		select 
-			    emp_no
-			  , emp_name
-			  , emp_pwd
-			  , phone
-			  , email
-			  , profile_originname
-			  , profile_path
-			  , status
-			  , vac_all
-			  , vac_remain
-			  , job_no
-			  , dept_no
-		   from member
-		  where status = 'Y'
-		    and emp_no = #{empNo}
-	</select>
+	
 
 </mapper>
