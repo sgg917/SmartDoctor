@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.smartDoctor.treatment.model.service.TreatmentService;
+import com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 import com.google.gson.Gson;
 
@@ -30,12 +31,14 @@ public class TreatmentController {
 	
 	
 
-	
+	//입원실 예약 조회 호출
 	@RequestMapping("enrollForm.pr")
 	public String prEnrollForm() {
 		return "kcy/revPREnrollForm";
 	}
 	
+	
+	//수술실 예약 풀캘린더 조회
  	@RequestMapping("enrollForm.op")
 	public String getCalendarList(ModelAndView mv, HttpServletRequest request) {
 		return "kcy/revOREnrollForm";
@@ -60,5 +63,14 @@ public class TreatmentController {
  		return new Gson().toJson(calendar);
  	}
 
+ 	//수술실 예약 조회
+	@RequestMapping("detail.op")
+	public ModelAndView selectRevOProom(int no, ModelAndView mv) {
+		
+		ListSurgeryBooking op = tService.selectRevOProom(no);
+		mv.addObject("op", op).setViewName("kcy/revORDetail");
+		
+		return mv;
+	}
 
 }

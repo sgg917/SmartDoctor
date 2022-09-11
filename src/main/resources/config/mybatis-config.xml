@@ -17,12 +17,12 @@
 		<typeAlias type="com.fp.smartDoctor.member.model.vo.Dept" alias="Dept"/>
 
 		<typeAlias type="com.fp.smartDoctor.timeTable.model.vo.TimeTable" alias="TimeTable"/>
-		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.Treatment" alias="Treatment"/>
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.RevOProom" alias="RevOProom"/>
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.Calendar" alias="Calendar"/>
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.Clinic" alias="Clinic"/>
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.Patient" alias="Patient"/>
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.Surgery" alias="Surgery"/>
+		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking" alias="ListSurgeryBooking"/>
 	</typeAliases>
 	<!-- 유의사항 : 미리 등록해 두려면 해당 클래스가 진짜 존재해야함, 미리 클래스가 존재하지 않으면 서버 스타트 자체가 안됨 -->
 	
