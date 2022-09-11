@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style>
 	.wrap11{
-	width: 100%;
+	width: 70%;
 	height: 100%;
 	background-color: white;
 	border-radius: 10px 20px 30px 40px;
@@ -36,16 +36,17 @@
 
 	
 
-	<div class="main-panel" style="width:100%; height:100%;">
-		<div class="content-wrapper"  style="width:100%; height:100%;"><!-- 이 안에서 작업해 주세요 -->
-			<div class="wrap11">
+		<div class="content-wrapper" style="height:808px; text-align:center;"><!-- 이 안에서 작업해 주세요 -->
+			<img src="resources/images/logo.png" alt="logo" style="width:200px; height:50px;"/>
+            <br><br><br>
+			<div class="wrap11" style="width: 70%; height:70%; margin:auto;">
 			
 				<div class="container-scroller" style="padding: 60px 0px;" align="center">
 					
         			<div class="auth-form-light text-left p-5" style="width: 550px;">
-            
+            			
             			<h2 align="center" style="color: rgb(29, 92, 99); font-weight:bold;">LOGIN</h2>
-            
+            			
 			            <form class="pt-3" action="enter.me">
 			            <div class="form-group">
 			                <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" name="empNo" placeholder="사번을 입력해주세요">
@@ -66,7 +67,6 @@
 		
 		
 		
-	</div>
 
 	
 
