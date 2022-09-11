@@ -16,55 +16,86 @@
 	</resultMap>
 	
 	<select id="selectListCount" resultType="_int">
-		select count(*)
-		  from attendance
-		 where emp_no = #{empNo}
-		 <if test="startDate != null and endDate != null and !startDate.equals('') and !endDate.equals('')">
-		   and to_date(att_date) between to_date(#{startDate}) and to_date(#{endDate})
-		 </if>
-		 <if test='statusArr != null'>
-		   and status in 
-		   <foreach item="item" index="index" collection="statusArr" open="(" separator="," close=")">
-		   	#{item}
-		   </foreach>
-		 </if>
-	</select>
-
-	<select id="selectAttendance" resultMap="attendanceResult">
-		select
-			   att_no
-			 , att_date
-			 , NVL(start_time, ' ') as "start_time"
-			 , NVL(end_time, ' ') as "end_time"
-			 , status
-		  from attendance
-		 where emp_no = #{empNo}
-		 <choose>
-		 	<when test='startDate != null and endDate != null and !startDate.equals("") and !endDate.equals("")'>
-		 	   and to_date(att_date) between to_date(#{startDate}) and to_date(#{endDate})
-		 	</when>
-		 	<when test="startDate != null and !startDate.equals('')">
-		 	   and to_date(att_date) = to_date(#{startDate})
-		 	</when>
-		 	<when test="endDate != null and !endDate.equals('')">
-		 	   and to_date(att_date) = to_date(#{endDate})
-		 	</when>
-		 	<otherwise>
-		 	</otherwise>
-	 	 </choose>
-		 <choose>
-			 <when test="statusArr != null">
-			 	and status in 
+	SELECT COUNT(*)
+	  FROM (
+	        SELECT
+	               NVL(EMP_NO, #{empNo})
+	             , NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD'))
+	             , START_TIME
+	             , END_TIME
+	             , NVL(STATUS, 'N')
+	          FROM ATTENDANCE
+	         RIGHT JOIN (
+	                    SELECT TRUNC(TO_DATE(SYSDATE), 'MM') + LEVEL - 1 "WORKING_DAY"
+	                         , TO_CHAR(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'DY') "WEEK"
+	                      FROM DUAL
+	                    CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(TO_DATE(SYSDATE)), 'DD')
+	                    ) ON (ATT_DATE = WORKING_DAY)
+	         WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
+	           AND NVL(EMP_NO, #{empNo}) = #{empNo}
+	           AND WEEK IN ('월', '화', '수', '목', '금')
+	         <choose>
+			 	<when test='startDate != null and endDate != null and !startDate.equals("") and !endDate.equals("")'>
+			 	   AND NVL(TO_DATE(ATT_DATE), WORKING_DAY) BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate})
+			 	</when>
+			 	<when test="startDate != null and !startDate.equals('')">
+			 	   AND NVL(TO_DATE(ATT_DATE), WORKING_DAY) = TO_DATE(#{startDate})
+			 	</when>
+			 	<when test="endDate != null and !endDate.equals('')">
+			 	   AND NVL(TO_DATE(ATT_DATE), WORKING_DAY) = TO_DATE(#{endDate})
+			 	</when>
+			 	<otherwise>
+			 	</otherwise>
+		 	 </choose>
+			 <if test='statusArr != null'>
+			   AND NVL(STATUS, 'N') IN
 			   <foreach item="item" index="index" collection="statusArr" open="(" separator="," close=")">
 			   	#{item}
 			   </foreach>
-			 </when>
-		 	 <otherwise>
-		 		and status in ('Y', 'L', 'E', 'N')
-		 	 </otherwise>
-		 </choose>
-		 order
-		    by att_no desc
+			 </if>
+	         ORDER BY WORKING_DAY
+	        )
+	</select>
+	
+	<select id="selectAttendance" resultMap="attendanceResult">
+		SELECT
+		       NVL(EMP_NO, 21015860) "emp_no"
+		     , NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "att_date"
+		     , NVL(START_TIME, ' ') as "start_time"
+			 , NVL(END_TIME, ' ') as "end_time"
+		     , NVL(STATUS, 'N') "status"
+		  FROM ATTENDANCE
+		 RIGHT JOIN (
+		            SELECT TRUNC(TO_DATE(SYSDATE), 'MM') + LEVEL - 1 "WORKING_DAY"
+		                 , TO_CHAR(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'DY') "WEEK"
+		              FROM DUAL
+		            CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(TO_DATE(SYSDATE)), 'DD')
+		            ) ON (ATT_DATE = WORKING_DAY)
+		 WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
+		   AND NVL(EMP_NO, 21015860) = 21015860
+		   AND WEEK IN ('월', '화', '수', '목', '금')
+		   AND NVL(TO_DATE(ATT_DATE), WORKING_DAY) BETWEEN TO_DATE('2022-09-01') AND TO_DATE(SYSDATE)
+		   AND NVL(STATUS, 'N') IN ('Y', 'L', 'E', 'N')
+		   <choose>
+			 	<when test='startDate != null and endDate != null and !startDate.equals("") and !endDate.equals("")'>
+			 	   AND NVL(TO_DATE(ATT_DATE), WORKING_DAY) BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate})
+			 	</when>
+			 	<when test="startDate != null and !startDate.equals('')">
+			 	   AND NVL(TO_DATE(ATT_DATE), WORKING_DAY) = TO_DATE(#{startDate})
+			 	</when>
+			 	<when test="endDate != null and !endDate.equals('')">
+			 	   AND NVL(TO_DATE(ATT_DATE), WORKING_DAY) = TO_DATE(#{endDate})
+			 	</when>
+			 	<otherwise>
+			 	</otherwise>
+		 	 </choose>
+			 <if test='statusArr != null'>
+			   AND NVL(STATUS, 'N') IN
+			   <foreach item="item" index="index" collection="statusArr" open="(" separator="," close=")">
+			   	#{item}
+			   </foreach>
+			 </if>
+		 ORDER BY WORKING_DAY DESC
 	</select>
 	
 	<insert id="insertAttendance">
