@@ -14,6 +14,11 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDao mDao;
 
-	
+	@Override
+	public Member loginMember(Member m) {
+		
+		Member loginUser = mDao.loginMember(sqlSession, m);
+		return loginUser;
+	}
 
 }

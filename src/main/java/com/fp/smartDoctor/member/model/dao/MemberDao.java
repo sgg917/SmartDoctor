@@ -8,5 +8,7 @@ import com.fp.smartDoctor.member.model.vo.Member;
 @Repository
 public class MemberDao {
 	
-	
+	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.loginMember", m);
+	}
 }
