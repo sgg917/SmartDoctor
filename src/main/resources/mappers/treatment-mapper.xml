@@ -29,6 +29,63 @@
 		<result column="backgroundcolor" property="backgroundColor" />
 	</resultMap>
 	
+	<!-- clinic result -->
+	<resultMap id="ClinicResult" type="Clinic">
+		<result column="clinic_no" property="clinicNo" />
+		<result column="chart_no" property="chartNo" />
+		<result column="dept_no" property="deptNo" />
+		<result column="enroll_time" property="enrollTime" />
+		<result column="enroll_date" property="enrollDate" />
+		<result column="diagnosis_content" property="diagnosisContent" />
+		<result column="surgery" property="surgery" />
+		<result column="enter" property="enter" />
+		<result column="status" property="status" />
+		<result column="surgery_no2" property="surgeryNo2" />
+		<result column="diseases_code" property="diseaseCode" />
+		<result column="emp_no" property="empNo" />
+		<result column="fee" property="fee" />
+	</resultMap>
+
+
+
+	<!-- patient result -->
+	<resultMap id="PatientResult" type="Patient">
+		<result column="chart_no" property="chartNo" />
+		<result column="last_dep" property="lastDep" />
+		<result column="patient_name" property="patientName" />
+		<result column="id_no" property="idNo" />
+		<result column="address" property="address" />
+		<result column="memo" property="memo" />
+		<result column="first_visit" property="firstVisit" />
+		<result column="last_visit" property="lastVisit" />
+		<result column="phone" property="phone" />
+		<result column="protector" property="protector" />
+		<result column="new" property="newOne" />
+	</resultMap>
+	
+	<!-- surgery result -->
+	<resultMap id="SurgeryResult" type="Surgery">
+		<result column="surgery_no" property="surgeryNo" />
+		<result column="surgery_name" property="surgeryName" />
+		<result column="period" property="period" />
+		<result column="s_payment" property="sPayment" />
+		<result column="lead_time" property="leadTime" />
+	</resultMap>
+	
+	<!-- listSurgeryBook result -->
+	<resultMap id="SurBookResult" type="ListSurgeryBooking">
+		<collection resultMap="SurgeryResult" property="Surgery"/>
+		<collection resultMap="PatientResult" property="Patient"/>
+		<collection resultMap="ClinicResult" property="Clinic"/>
+		<collection resultMap="OPResult" property="RevOProom"/>
+	</resultMap>
+	
+	
+	<!-- 수술실 예약을 위한 result -->
+	<resultMap id="RevOPResult" type="ListSurgeryBooking">
+		
+	</resultMap>
+	
 	<!-- 수술실 예약 insert -->
 	<insert id="insertOP">
 		insert
@@ -94,4 +151,21 @@
 
 	</select>
 
+
+	<select id="selectOProom" resultMap="OPResult">
+		select
+			   booking_no
+			 , clinic_no
+			 , surgery_no
+			 , room_name
+			 , surgery_date
+			 , sur_starttime
+			 , memo
+			 , surgery_status
+			 , doctor_name
+			 , sur_endtime
+			 
+		  from surgery_booking
+		 where booking_no = #{bookingNo} 
+	</select>
 </mapper>

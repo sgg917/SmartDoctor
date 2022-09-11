@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,7 +89,7 @@ th {
 	margin: auto;
 }
 
-/* 풀캘린더  */
+/* 풀캘린더 style */
 #calendar{
 	color:black;
 }
@@ -104,6 +105,16 @@ th {
 }
 
 
+/* 모달 style */
+.wrap112{
+	width:700px;
+	background-color: white;
+	text-align: center;
+	border-radius: 30px 10px;
+}
+
+
+
 </style>
 
 
@@ -116,26 +127,23 @@ th {
 <body>
 
 	<div class="container-scroller">
-
-
-
 		<jsp:include page="../common/navbar.jsp" />
-
 		<div class="main-panel">
-
 			<div class="content-wrapper">
+			
 				<div class="wrap111">
 					<form id="enrollForm" method="post" action="insert.op">
-					
+						<!-- 진짜로 인서트 되나 테스트  
 						<input type="hidden" id="bookingNo" class="form-control" value="${ op.bookingNo }" name="bookingNo">
-						<input type="hidden" id="clinicNo" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
-						<input type="hidden" id="surgeryNo" class="form-control" value="${ s.surgeryNo }" name="surgeryNo"> 
-						<input type="hidden" id="calendarNo" class="form-control" value="${ s.calendarNo }" name="calendarNo"> 
-						<input type="hidden" id="leadTime" class="form-control" value="${ s.leadTime }" name="leadTime"> 
+						<input type="hidden" id="clinicNo" class="form-control" value="${ op.clinicNo }" name="clinicNo"> 
+						<input type="hidden" id="surgeryNo" class="form-control" value="${ op.surgeryNo }" name="surgeryNo"> 
+						<input type="hidden" id="calendarNo" class="form-control" value="${ op.calendarNo }" name="calendarNo"> 
+						<input type="hidden" id="leadTime" class="form-control" value="${ op.leadTime }" name="leadTime"> 
+						-->
 						<br>
 						<h3> <b>차트번호 수술실 예약</b> </h3>
 						<hr>
-						<br> <br>
+						<br><br>
 						<div class="wrap22">
 							<div class="part1">
 								<table class="table1">
@@ -143,19 +151,21 @@ th {
 										<td colspan="2" width="600px">
 											<div class="smallbtn1">입력</div>
 											<div style="display: inline-block; margin-left: 30px;">
-												<h3>2022-08-30</h3>
+												<h3><c:set var="ymd" value="<%=new java.util.Date()%>" />
+													<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd" />
+												</h3>
 											</div>
 											<hr>
 										</td>
 									</tr>
 									<tr>
 										<th>차트번호</th>
-										<td><input readonly name="clinicNo" value="${ c.clinicNo }" type="text"
+										<td><input readonly name="clinicNo" value="${ op.clinicNo }" type="text"
 											style="width: 300px;"></td>
 									</tr>
 									<tr>
 										<th>수진자명</th>
-										<td><input type="text" style="width: 300px;" readonly value="${p.patientName }"></td>
+										<td><input type="text" style="width: 300px;" readonly value="${ op.patientName }"></td>
 									</tr>
 									<tr>
 										<th>수술실</th>
@@ -182,11 +192,27 @@ th {
 									</tr>
 									<tr>
 										<th>예약날짜</th>
-										<td><input type="date" style="width: 300px;" name="surDate"><br></td>
-									</tr>
-									<tr>
-										<th>예약시각</th>
-										<td><input type="time" style="width: 300px;" name="surStartTime" id="surStartTime"></td>
+										<td>
+										<input type="date" class="datepicker" name="startday" style="width: 225px; height: 25.2px;">
+
+									   <select class="startday_hour" style="width: 70px; height: 25.2px;">
+										<c:set var="breakPoint" value="0" />
+										<c:forEach var="i" begin="0" end="23">
+											<c:forEach var="j" begin="0" end="1">
+												<c:if test="${(i == 24) && (j == 1)}">    
+													<c:set var="breakPoint" value="1" />                                    
+												</c:if>
+												<c:if test="${breakPoint == 0}">                           
+													<option value="<fmt:formatNumber pattern="00" value="${i}" />:<fmt:formatNumber pattern="00" value="${j*30}" />">
+													<fmt:formatNumber pattern="00" value="${i}" />:<fmt:formatNumber pattern="00" value="${j*30}" /></option>                                                                            
+												</c:if>
+											</c:forEach>
+										</c:forEach>
+				
+								   </select>
+								   <br>
+								   
+								   </td>
 									</tr>
 									<tr>
 										<th>예상완료시각</th>
@@ -194,42 +220,34 @@ th {
 									</tr>
 									<tr>
 										<th>담당의</th>
-										<td><input type="text" style="width: 300px;" readOnly
-											value="${ t.doctorName }" name="docName"></td>
+										<td><input type="text" style="width: 300px;" name="doctorName"></td>
 									</tr>
 									<tr>
 										<th>특이사항</th>
 										<td>
 										<textarea style="width: 300px; height: 100px; resize: none;"name="memo">${op.memo}</textarea>
-												</td>
+										</td>
 									</tr>
-
-
 								</table>
-
+								
 								<br>
 								<br>
-
 								<button type="submit" class="btn btn-danger"
 									style="height: 30px; width: 100px; padding: 0%; color: black; border: 0; background-color: rgb(65, 125, 122);">예약</button>
 
 								<br><br><br><br><br><br><br><br>
-								
 							</div>
 							<div id='calendar' class="calender1"></div>
 						</div>
 						<br><br><br><br><br><br>
-						
-
 					</form>
 				</div>
-				
 			</div>
-			
-
 			<jsp:include page="../common/footer.jsp" />
 		</div>
 	</div>
+
+
 
 
 
@@ -275,9 +293,6 @@ th {
 						selectable : true,
 						droppable : true,
 						editable : true,
-						eventClick: function(arg) {
-							ModalOpen(arg);	//이벤트 클릭 시 모달 호출
-					    },
 						events : data
 					});
 
@@ -293,9 +308,7 @@ th {
 
 		});
 	
-		function ModalOpen(arg){
-			alert("왜안됨?");
-		  }
+		
 	</script>
 	<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음-->
 

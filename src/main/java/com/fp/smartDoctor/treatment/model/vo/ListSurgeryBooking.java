@@ -11,6 +11,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Treatment {
-	private String userId;
+public class ListSurgeryBooking {
+	
+	private Clinic clinic;
+	private Patient patient;
+	private Surgery surgery;
+	private RevOProom oproom;
 }
