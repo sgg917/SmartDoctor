@@ -18,7 +18,6 @@ public class MemberController {
 	@Autowired 
 	private MemberService mService;
 	
-	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
@@ -27,7 +26,6 @@ public class MemberController {
 	public String loginMember() {
 		return "ljy/loginMember";
 	}
-	
 	
 	@RequestMapping("enter.me")
 	public ModelAndView loginMember(Member m, HttpSession session, ModelAndView mv) {
@@ -42,6 +40,12 @@ public class MemberController {
 			mv.setViewName("redirect:/");
 		}
 		return mv;
+	}
+	
+	@RequestMapping("logout.me")
+	public String logoutMember(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 	
