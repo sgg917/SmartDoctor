@@ -52,7 +52,7 @@ public class AttendanceController {
 		// 검색될 근태 총 개수 조회
 		int listCount = aService.selectListCount(a);
 		
-		System.out.println(a);
+		//System.out.println(a);
 		
 		// 페이지 정보 객체에 담기
 		PageInfo pi = new Pagination().getPageInfo(listCount, cpage, 5, 5);
@@ -66,5 +66,58 @@ public class AttendanceController {
 		map.put("newList", newList);
 		
 		return new Gson().toJson(map);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="insert.att", produces="text/html; charset=utf-8")
+	public String insetAttendance(int no) {
+		
+		int result = aService.insertAttendance(no);
+		
+		if(result > 0) {
+			
+			String startTime = aService.selectStartTime(no);
+			
+			return startTime;
+		}else {
+			return "출근 등록에 실패했습니다.";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="check.att", produces="application/json; charset=utf-8")
+	public String checkAttendance(int no) {
+		
+		// 출근 여부 확인 결과를 담은 문자열 변수 (출근했으면 출근시간, 안 했으면 NULL)
+		String start = aService.checkStartTime(no);
+		
+		// 퇴근 여부 확인 결과를 담은 문자열 변수 (퇴근했으면 퇴근시간, 안 했으면 NULL)
+		String end = aService.checkEndTime(no);
+		
+		// 리턴할 값을 담을 변수
+		String attResult = "";
+		
+		// 출퇴근 여부와 출퇴근 시간 객체에 담아서 전달
+		Attendance check = new Attendance();
+		
+		if(start != null && end != null) {
+		// 출근도 하고, 퇴근도 했을 경우 == "YY"
+			attResult = "YY";
+			check.setStartTime(start);
+			check.setEndTime(end);
+				
+		}else if(start != null && end == null) {
+		// 출근은 했는데 퇴근을 안 한 경우 == "YN"
+			attResult = "YN";
+			check.setStartTime(start);
+		}else {
+		// 출퇴근 모두 안 한 경우 == "NN"
+			attResult = "NN";
+		}
+		
+		check.setAttResult(attResult);
+		
+		return new Gson().toJson(check);
+		
 	}
 }

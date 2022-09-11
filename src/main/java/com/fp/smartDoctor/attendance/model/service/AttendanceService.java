@@ -13,4 +13,15 @@ public interface AttendanceService {
 	// 근태 목록 조회용 메소드
 	ArrayList<Attendance> selectAttendance(PageInfo pi, Attendance a);
 	
+	// 근태 추가용 메소드
+	int insertAttendance(int empNo);
+	
+	// 오늘 출근 시간 조회용 메소드
+	String selectStartTime(int empNo);
+	
+	// 출근 여부 확인용 메소드
+	String checkStartTime(int empNo);
+	
+	// 퇴근 여부 확인용 메소드
+	String checkEndTime(int empNo);
 }

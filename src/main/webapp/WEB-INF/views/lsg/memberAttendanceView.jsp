@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -192,39 +193,42 @@ th {
 					<div class="col-4">
 						<div id="att-sidebar">
 							<h5>TODAY</h5>
-							2022.08.26 금요일<br>
-							<br>
-							<button class="small-btn green-btn" onclick="startAtt();">출근</button>
+							2022.08.26 금요일
+							<br><br>
+							<button id="startAttBtn" class="small-btn green-btn" onclick="startAtt();">출근</button>
 							&nbsp;
-							<button class="small-btn green-btn" data-bs-toggle="modal"
-								data-bs-target="#endAttModal">퇴근</button>
-							<br>
-							<br>
-							<button class="small-btn green-btn" style="width: 150px;">연장근무
-								신청</button>
+							<button id="endAttBtn" class="small-btn green-btn" data-bs-toggle="modal" data-bs-target="#endAttModal">퇴근</button>
+							<br><br>
+							<button class="small-btn green-btn" style="width: 150px;">연장근무 신청</button>
 							<hr>
-							<p>
-								출근 &nbsp;&nbsp;&nbsp;&nbsp; 08:57 <br> 퇴근
-								&nbsp;&nbsp;&nbsp;&nbsp; 18:01
-							</p>
+							<p id="sTime" style="height:15px">출근 &nbsp;&nbsp;&nbsp;&nbsp;</p>
+							<p id="eTime" style="height:15px">퇴근 &nbsp;&nbsp;&nbsp;&nbsp;<p>
 							<hr>
 							<table id="att-count">
-								<tr>
-									<th>정상</th>
-									<th>지각</th>
-								</tr>
-								<tr>
-									<th>10</th>
-									<th>2</th>
-								</tr>
-								<tr>
-									<th>조퇴</th>
-									<th>결근</th>
-								</tr>
-								<tr>
-									<th>0</th>
-									<th>0</th>
-								</tr>
+									<tr>
+										<th>정상</th>
+										<th>지각</th>
+									</tr>
+									<tr>
+										<th>
+											0
+										</th>
+										<th>
+											0
+										</th>
+									</tr>
+									<tr>
+										<th>조퇴</th>
+										<th>결근</th>
+									</tr>
+									<tr>
+										<th>
+											0
+										</th>
+										<th>
+											0
+										</th>
+									</tr>
 							</table>
 						</div>
 					</div>
@@ -260,7 +264,58 @@ th {
 		</div>
 		
 		<script>
-			/* 근태 검색 함수 */
+		
+			// ----------- 페이지 로딩되자마자 출퇴근 여부 체크 ------------
+			$(function(){
+				checkAtt();
+			})
+			
+			// ----------- 출퇴근 여부 체크 함수 -------------
+			function checkAtt(){
+				$.ajax({
+					url:"check.att",
+					data:{
+						no:21015860
+					},
+					type:"POST",
+					success:function(check){
+						
+						// 출퇴근 여부("YY", "YN", "NN") 담기
+						var attResult = check.attResult;
+						
+						// 출근 시간 담기 (출근 시간 or NULL)
+						var sTime = check.startTime;
+						
+						// 퇴근 시간 담기 (퇴근 시간 or NULL)
+						var eTime = check.endTime;
+						
+						console.log(attResult);
+						
+						// 출퇴근함 => 출퇴근 버튼 비활성화, 출퇴근 시간 표시
+						if(attResult == 'YY'){
+							
+							$('#startAttBtn').attr('disabled', true);
+							$('#endAttBtn').attr('disabled', true);
+							
+							$('#sTime').html("출근 &nbsp;&nbsp;&nbsp;&nbsp;" + sTime);
+							$('#eTime').html("퇴근 &nbsp;&nbsp;&nbsp;&nbsp;" + eTime);
+							
+						}else if(attResult == 'YN'){
+						// 출근만 함 => 출근 버튼 비활성화, 출근 시간 표시
+						
+							$('#startAttBtn').attr('disabled', true);
+							$('#sTime').html("출근 &nbsp;&nbsp;&nbsp;&nbsp;" + sTime);
+						}
+						
+					},
+					error:function(){
+						console.log("출퇴근 여부 체크용 ajax 통신 실패");
+					}
+				})
+			}
+			// ------------------------------------------
+			
+			// -------------- 근태 검색 함수 ---------------
 			function searchAtt(page){
 				
 				// 선택한 체크박스(정상/지각/조퇴/결근)를 담을 배열
@@ -365,6 +420,26 @@ th {
 					},
 					error:function(){
 						console.log("근태 검색용 ajax 통신 실패");
+					}
+				})
+			}
+			
+			// ------------ 출근 insert 함수 -------------
+			function startAtt(){
+				$.ajax({
+					url:"insert.att",
+					type:"post",
+					data:{
+						no:21015860
+					},
+					success:function(startTime){
+						
+						console.log(startTime);
+						$('#startWork').html("출근 &nbsp;&nbsp;&nbsp;&nbsp;" + startTime);
+						$('#startAttBtn').attr('disabled', true);
+					},
+					error:function(){
+						console.log("근태 추가용 ajax 통신 실패");
 					}
 				})
 			}

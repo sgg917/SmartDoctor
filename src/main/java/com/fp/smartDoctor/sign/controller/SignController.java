@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.common.template.Pagination;
+import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.service.SignService;
 import com.fp.smartDoctor.sign.model.vo.Form;
 import com.google.gson.Gson;
@@ -128,5 +128,14 @@ public class SignController {
 		
 		Form f = sService.selectFormDetail(formNo);
 		return new Gson().toJson(f);
+	}
+	
+	// 사용자_결재라인 조직도 조회 (ajax)
+	@ResponseBody
+	@RequestMapping(value="apprLineList.si", produces="application/json; charset=UTF-8")
+	public String selectApprLineList() {
+		
+		ArrayList<Member> list = sService.selectApprLineList();
+		return new Gson().toJson(list);
 	}
 }

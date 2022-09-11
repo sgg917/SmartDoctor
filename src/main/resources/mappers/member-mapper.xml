@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
-
+	
+	<resultMap id="memberResult" type="Member">
+		<result column="emp_no" property="empNo" />
+		<result column="emp_name" property="empName" />
+		<result column="status" property="status" />
+		<result column="job_no" property="jobNo" />
+		<result column="dept_no" property="deptNo" />
+		<result column="dept_name" property="deptName" />
+	</resultMap>
+	
+	<resultMap id="deptResult" type="Dept">
+		<result column="upper_no" property="upperNo" />
+	</resultMap>
+	
+	<!-- 사용자_결재라인 조직도 리스트 조회 -->
+	<select id="selectApprLineList" resultMap="memberResult">
+		select
+			   emp_no
+			 , emp_name
+			 , job_no
+			 , m.dept_no
+			 , upper_no
+			 , dept_name
+		  from member m 
+		  join department d on (m.dept_no = d.dept_no)
+		 where status = 'Y'
+		 order
+		    by job_no
+	</select>
 </mapper>

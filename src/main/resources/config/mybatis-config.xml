@@ -14,7 +14,8 @@
 		<typeAlias type="com.fp.smartDoctor.attendance.model.vo.Attendance" alias="Attendance"/>
 		
 		<typeAlias type="com.fp.smartDoctor.member.model.vo.Member" alias="Member"/>
-		
+		<typeAlias type="com.fp.smartDoctor.member.model.vo.Dept" alias="Dept"/>
+
 		<typeAlias type="com.fp.smartDoctor.timeTable.model.vo.TimeTable" alias="TimeTable"/>
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.Treatment" alias="Treatment"/>
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.RevOProom" alias="RevOProom"/>
