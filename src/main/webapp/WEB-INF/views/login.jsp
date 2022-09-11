@@ -9,19 +9,35 @@
 <style>
 	.wrap11{
 	width: 100%;
-	height: 90%;
+	height: 100%;
 	background-color: white;
 	border-radius: 10px 20px 30px 40px;
 	box-shadow: 3px 3px 3px 3px lightgray;
 	}
 </style>
+<link rel="stylesheet"
+	href="resources/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet"
+	href="resources/vendors/css/vendor.bundle.base.css">
+<!-- endinject -->
+<!-- Plugin css for this page -->
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<!-- endinject -->
+<!-- Layout styles -->
+<link rel="stylesheet" href="resources/css/style.css">
+<!-- End layout styles -->
+<link rel="shortcut icon" href="resources/images/favicon2.ico" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 </head>
 <body>
 
-	<jsp:include page="../common/navbar.jsp" />
+	
 
-	<div class="main-panel">
-		<div class="content-wrapper"><!-- 이 안에서 작업해 주세요 -->
+	<div class="main-panel" style="width:100%; height:100%;">
+		<div class="content-wrapper"  style="width:100%; height:100%;"><!-- 이 안에서 작업해 주세요 -->
 			<div class="wrap11">
 			
 				<div class="container-scroller" style="padding: 60px 0px;" align="center">
@@ -48,7 +64,7 @@
 			</div>
 		</div>
 		
-		<jsp:include page="../common/footer.jsp" />
+		
 		
 	</div>
 
