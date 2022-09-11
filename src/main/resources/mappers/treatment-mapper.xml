@@ -168,4 +168,42 @@
 		  from surgery_booking
 		 where booking_no = #{bookingNo} 
 	</select>
+	
+	<select id="checkOverlapRsv" resultType="_int">
+		select count(*)
+		  from
+		     ( select reserve_no
+		         from resources_reserve
+		       WHERE end_date &gt; #{startday}
+			     and start_date &lt; #{endday}
+			     and resources_no = #{resourcesNo}
+		    )
+	</select>
+	
+	<insert id="insertReservation">
+		INSERT INTO RESOURCES_RESERVE
+        ( RESERVE_NO, USER_NO, RESOURCES_NO, CATEGORY_NO, CATEGORY_NAME, START_DATE, END_DATE, RESERVE_DATE, RESERVE_CONTENT)
+		VALUES 
+	     (
+	       SEQ_RESERVENO.NEXTVAL
+	     , #{userNo}
+	     , #{resourcesNo}
+	     , #{categoryNo}
+	     , #{categoryName}
+	     , #{startday}
+	     , #{endday}
+	     , SYSDATE
+	     , #{reason}
+	     )
+		
+	</insert>
+	
+
+	
+	<delete id="rsvCancel">
+		delete from resources_reserve
+		 where reserve_no = #{reserveNo}
+		   and user_no = #{userNo}
+	
+	</delete>
 </mapper>

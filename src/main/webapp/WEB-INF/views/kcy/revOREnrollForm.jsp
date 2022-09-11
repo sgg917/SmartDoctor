@@ -133,13 +133,21 @@ th {
 			
 				<div class="wrap111">
 					<form id="enrollForm" method="post" action="insert.op">
-						<!-- 진짜로 인서트 되나 테스트  
+						<!-- 진짜로 인서트 되나 테스트
 						<input type="hidden" id="bookingNo" class="form-control" value="${ op.bookingNo }" name="bookingNo">
 						<input type="hidden" id="clinicNo" class="form-control" value="${ op.clinicNo }" name="clinicNo"> 
 						<input type="hidden" id="surgeryNo" class="form-control" value="${ op.surgeryNo }" name="surgeryNo"> 
 						<input type="hidden" id="calendarNo" class="form-control" value="${ op.calendarNo }" name="calendarNo"> 
 						<input type="hidden" id="leadTime" class="form-control" value="${ op.leadTime }" name="leadTime"> 
-						-->
+						 --> 
+						 
+						<!-- 진짜로 인서트 되나 테스트 --> 
+						<input type="hidden" id="bookingNo" class="form-control" value="2001" name="bookingNo">
+						<input type="hidden" id="clinicNo" class="form-control" value="2001" name="clinicNo"> 
+						<input type="hidden" id="surgeryNo" class="form-control" value="G-10080" name="surgeryNo"> 
+						<input type="hidden" id="calendarNo" class="form-control" name="calendarNo"> 
+						<input type="hidden" id="leadTime" class="form-control" value="${ op.leadTime }" name="leadTime"> 
+						
 						<br>
 						<h3> <b>차트번호 수술실 예약</b> </h3>
 						<hr>
@@ -165,7 +173,7 @@ th {
 									</tr>
 									<tr>
 										<th>수진자명</th>
-										<td><input type="text" style="width: 300px;" readonly value="${ op.patientName }"></td>
+										<td><input type="text" name="patentName" style="width: 300px;" readonly value="${ op.patientName }"></td>
 									</tr>
 									<tr>
 										<th>수술실</th>
@@ -193,9 +201,9 @@ th {
 									<tr>
 										<th>예약날짜</th>
 										<td>
-										<input type="date" class="datepicker" name="startday" style="width: 225px; height: 25.2px;">
+										<input type="date" class="datepicker" name="surDate" style="width: 225px; height: 25.2px;">
 
-									   <select class="startday_hour" style="width: 70px; height: 25.2px;">
+									   <select class="surStartTime" style="width: 70px; height: 25.2px;">
 										<c:set var="breakPoint" value="0" />
 										<c:forEach var="i" begin="0" end="23">
 											<c:forEach var="j" begin="0" end="1">
@@ -225,7 +233,7 @@ th {
 									<tr>
 										<th>특이사항</th>
 										<td>
-										<textarea style="width: 300px; height: 100px; resize: none;"name="memo">${op.memo}</textarea>
+										<textarea style="width: 300px; height: 100px; resize: none;"name="memo"></textarea>
 										</td>
 									</tr>
 								</table>
@@ -309,6 +317,45 @@ th {
 		});
 	
 		
+		
+		function clickRevBtn(){
+		     
+		   // db에 넣기
+		   $.ajax({
+		      url:"insert.op",
+		      data:{surgeryNo:surgeryNo,
+		    	  	clinicNo:clinicNo, 
+		    	  	roomName:roomName, 
+		    	  	surDate:surDate, 
+		    	  	surEndTime:surEndTime,
+		    	  	doctorName:doctorName,
+		    	  	memo:memo
+		            },
+		      type:"POST",
+		      dataType:"JSON",
+		      success:function(json){
+		         
+		         
+		         // 예약일로 입력한 값이 db에서 중복되는지 안되는지로 나눔
+		         if (json.n == 1) {
+		            alert("수술실 예약 되었습니다.");
+		            
+		         }else if (json.n == -1) {
+		            // 중복된 예약(시간)으로 예약에 실패했을 때
+		            alert("해당 시간에는 이미 예약이 있습니다.");
+		         }
+		         else{
+		            // db오류
+		            alert("DB 오류");
+		         }
+		         location.reload();
+		         
+		      },
+		      error: function(){
+		         alert("오류로 인한 예약실패");
+		       }
+		   });
+		  }
 	</script>
 	<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음-->
 
