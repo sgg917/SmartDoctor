@@ -13,6 +13,7 @@
 		<result column="status" property="status" />
 		<result column="job_no" property="jobNo" />
 		<result column="dept_no" property="deptNo" />
+		<result column="job_name" property="jobName" />
 	</resultMap>
 	
 	<resultMap id="deptResult" type="Dept">
@@ -60,12 +61,20 @@
 			  , vac_remain
 			  , job_no
 			  , dept_no
+			  , job_name
 		   from member
+           join job using (job_no)
 		  where status = 'Y'
 		    and emp_no = #{empNo}
 		    and emp_pwd = #{empPwd}
 	</select>
 
+	<update id="updatePwd">
+		update
+			   member
+		   set emp_pwd = #{empPwd}
+		 where emp_no = #{empNo}
+	</update>
 	
 
 </mapper>

@@ -17,15 +17,15 @@
 
 /* 초록 버튼 */
 .green-btn {
-	 background:RGB(29, 92, 99);
-	 color:white;
+	 background:RGB(29, 92, 99) !important;
+	 color:white !important;
 }
 .green-btn:hover {
-	background:#1D5C83;
-	color:white;
+	background:#1D5C83 !important;
+color:white !important;
 }
 .green-btn:disabled {
-	background:gray;
+	background:gray !important;
 }
 
 /* 작은 버튼 */
@@ -166,24 +166,24 @@ th {
 							<ul class="pagination" id="pageArea" style="margin: auto;">
 							
 								<c:if test="${ pi.currentPage ne 1 }">
-									<li class="page-item"><a class="page-link" href="list.att?cpage=${pi.currentPage-1}&no=21015860">&lt;</a></li>
+									<li class="page-item"><a class="page-link" href="list.att?cpage=${pi.currentPage-1}&no=${loginUser.empNo}">&lt;</a></li>
 								</c:if>
 							
 								<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 									
 									<c:choose>
 										<c:when test="${ p eq pi.currentPage }">
-											<li class="page-item active"><a class="page-link" href="list.att?cpage=${p}&no=21015860">${p}</a></li>
+											<li class="page-item active"><a class="page-link" href="list.att?cpage=${p}&no=${loginUser.empNo}">${p}</a></li>
 										</c:when>
 										<c:otherwise>
-											<li class="page-item"><a class="page-link" href="list.att?cpage=${p}&no=21015860">${p}</a></li>
+											<li class="page-item"><a class="page-link" href="list.att?cpage=${p}&no=${loginUser.empNo}">${p}</a></li>
 										</c:otherwise>
 									</c:choose>
 									
 								</c:forEach>
 									
 								<c:if test="${ pi.currentPage ne pi.maxPage }">
-									<li class="page-item"><a class="page-link" href="list.att?cpage=${pi.currentPage+1}&no=21015860">&gt;</a></li>
+									<li class="page-item"><a class="page-link" href="list.att?cpage=${pi.currentPage+1}&no=${loginUser.empNo}">&gt;</a></li>
 								</c:if>
 								
 							</ul>
@@ -213,10 +213,10 @@ th {
 									</tr>
 									<tr>
 										<th>
-											0
+											<c:out value="${y}"/>
 										</th>
 										<th>
-											0
+											<c:out value="${l}"/>
 										</th>
 									</tr>
 									<tr>
@@ -225,10 +225,10 @@ th {
 									</tr>
 									<tr>
 										<th>
-											0
+											<c:out value="${e}"/>
 										</th>
 										<th>
-											0
+											<c:out value="${n}"/>
 										</th>
 									</tr>
 							</table>
@@ -241,24 +241,23 @@ th {
 			<div class="modal fade" id="endAttModal">
 				<div class="modal-dialog">
 					<div class="modal-content">
-
-						<!-- Modal body -->
-						<div class="modal-body" style="text-align: center;">
-							18:00<br> 퇴근하시겠습니까?
-						</div>
-
-						<!-- Modal footer -->
-						<div class="modal-footer">
-							<form action="" method="post">
-								<input type="hidden" name="" value="사원번호"> <input
-									type="hidden" name="" value="근태번호"> <input
-									type="hidden" name="" value="18:01">
-								<button type="button" class="btn btn-danger"
-									data-bs-dismiss="modal">취소</button>
-								<button type="button" class="btn green-btn">확인</button>
-							</form>
-						</div>
-
+							<!-- Modal body -->
+							<div class="modal-body" style="text-align:center;">
+								<br>
+								<c:set var="current" value="<%= new java.util.Date() %>"/>
+								<p><fmt:formatDate value="${current}" type="time" pattern="HH:mm"/></p>
+								<p>퇴근하시겠습니까?</p>
+								
+							</div>
+	
+							<!-- Modal footer -->
+							<div class="modal-footer" style="justify-content:center;">
+								<form action="end.att" method="POST">
+									<input type="hidden" name="no" value="${ loginUser.empNo }">
+									<button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
+									<button class="btn green-btn">확인</button>
+								</form>
+							</div>
 					</div>
 				</div>
 			</div>
@@ -313,7 +312,7 @@ th {
 				$.ajax({
 					url:"check.att",
 					data:{
-						no:21015860
+						no:${loginUser.empNo}
 					},
 					type:"POST",
 					success:function(check){
@@ -327,7 +326,7 @@ th {
 						// 퇴근 시간 담기 (퇴근 시간 or NULL)
 						var eTime = check.endTime;
 						
-						console.log(attResult);
+						//console.log(attResult);
 						
 						// 출퇴근함 => 출퇴근 버튼 비활성화, 출퇴근 시간 표시
 						if(attResult == 'YY'){
@@ -343,6 +342,7 @@ th {
 						
 							$('#startAttBtn').attr('disabled', true);
 							$('#sTime').html("출근 &nbsp;&nbsp;&nbsp;&nbsp;" + sTime);
+							$('input[name=startTime]').value(sTime);
 						}
 						
 					},
@@ -372,7 +372,7 @@ th {
 					url:"search.att",
 					data:{
 						cpage:page,
-						empNo:21015860,
+						empNo:${loginUser.empNo},
 						startDate:$('input[name=startDate]').val(),
 						endDate:$('input[name=endDate]').val(),
 						statusArr:status
@@ -380,7 +380,7 @@ th {
 					type:"POST",
 					success:function(map){
 						
-						console.log(map);
+						//console.log(map);
 						
 						// map에서 페이징/근태 정보 꺼내서 변수에 담기
 						const newPi = map.pi;
@@ -468,16 +468,16 @@ th {
 					url:"insert.att",
 					type:"post",
 					data:{
-						no:21015860
+						no:${loginUser.empNo}
 					},
 					success:function(startTime){
 						
-						console.log(startTime);
+						//console.log(startTime);
 						$('#startWork').html("출근 &nbsp;&nbsp;&nbsp;&nbsp;" + startTime);
 						$('#startAttBtn').attr('disabled', true);
 					},
 					error:function(){
-						console.log("근태 추가용 ajax 통신 실패");
+						console.log("출근용 ajax 통신 실패");
 					}
 				})
 			}

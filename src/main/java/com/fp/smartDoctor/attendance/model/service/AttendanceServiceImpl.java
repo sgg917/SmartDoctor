@@ -38,15 +38,15 @@ public class AttendanceServiceImpl implements AttendanceService {
 	public String selectStartTime(int empNo) {
 		return aDao.selectStartTime(sqlSession, empNo);
 	}
-
+	
 	@Override
-	public String checkStartTime(int empNo) {
-		return aDao.checkStartTime(sqlSession, empNo);
+	public String selectEndTime(int empNo) {
+		return aDao.selectEndTime(sqlSession, empNo);
 	}
 
 	@Override
-	public String checkEndTime(int empNo) {
-		return aDao.checkEndTime(sqlSession, empNo);
+	public int endAttendance(int empNo) {
+		return aDao.endAttendance(sqlSession, empNo);
 	}
 
 }

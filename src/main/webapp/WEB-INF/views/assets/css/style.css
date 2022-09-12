@@ -6651,7 +6651,7 @@ textarea.form-control-lg {
   align-items: center;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
-  justify-content: flex-end;
+  justify-content: center;
   padding: 0.6875rem;
   border-top: 1px solid #ebedf2;
   border-bottom-right-radius: calc(0.3rem - 1px);

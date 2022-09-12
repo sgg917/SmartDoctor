@@ -24,9 +24,9 @@ public class TreatmentController {
 	private TreatmentService tService;
 	 
 	
-	@RequestMapping("exercise.jy")
-	public String exercise() {
-		return "ljy/page";
+	@RequestMapping("enroll.tmt")
+	public String enrollTreatment() {
+		return "ljy/enrollTreatment";
 	}
 	
 	
@@ -62,6 +62,10 @@ public class TreatmentController {
  		List<RevOProom> calendar = tService.getCalendar();
  		return new Gson().toJson(calendar);
  	}
+	@RequestMapping("pay.mj")
+	public String pay() {
+		return "kmj/page";
+	}
 
  	//수술실 예약 조회
 	@RequestMapping("detail.op")

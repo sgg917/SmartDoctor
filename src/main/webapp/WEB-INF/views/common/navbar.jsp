@@ -177,24 +177,29 @@
               <!-- 로그인 전 -->
               <c:choose>
               	<c:when test="${ empty loginUser }">
-              		<a href="login.me" class="btn btn-block btn-gradient-primary btn-sm auth-form-btn font-weight-medium" style="background: RGB(29, 92, 99); color: white; width: 100%; height: 50px; font-weight: bold; line-height: 40px; font-size: 15px;" href="">로그인</a>
+              		<div align="center">
+              			<a href="login.me" class="btn btn-block btn-gradient-primary btn-sm auth-form-btn font-weight-medium" style="background: RGB(29, 92, 99); color: white; width: 75%; height: 50px; font-weight: bold; line-height: 40px; font-size: 15px;">로그인</a>
+              		</div>
               	</c:when>
               	
               	<c:otherwise>
               	<li class="nav-item nav-profile">
               		<a href="#" class="nav-link">
 	                <div class="nav-profile-image">
-	                  <img src="resources/profile_images/eunwoo.jpg" alt="profile"><!--사용자 프로필사진-->
+	                  <img src="<c:out value='${ loginUser.path }' default='resources/profile_images/eunwoo.jpg'/>" alt="profile"><!--사용자 프로필사진-->
 	                  <span class="login-status online"></span>
 	                  <!--change to offline or busy as needed-->
 	                </div>
 	                <div class="nav-profile-text d-flex flex-column">
-	                  <span class="font-weight-bold mb-2">사용자 이름자리</span>
-	                  <span class="text-secondary text-small">사용자 직함자리</span>
+	                  <span class="font-weight-bold mb-2">${ loginUser.empName }</span>
+	                  <span class="text-secondary text-small">${ loginUser.jobName }</span>
 	                </div>
 	                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
 	              </a>
-	              <a href="logout.me" class="btn btn-block btn-gradient-primary btn-sm auth-form-btn font-weight-medium" style="background: RGB(29, 92, 99); color: white; width: 100%; height: 50px; font-weight: bold; line-height: 40px; font-size: 15px;" href="">로그아웃</a>
+	              <a href="logout.me" class="btn btn-block btn-gradient-primary btn-sm auth-form-btn font-weight-medium" style="background: RGB(29, 92, 99); color: white; width: 100%; height: 50px; font-weight: bold; line-height: 40px; font-size: 15px;">로그아웃</a>
+	              <div align="center">
+	              	<a href="changePwd.me" style="text-decoration: none; color: rgb(26, 188, 156);">비밀번호 변경</a>
+              	  </div>
               	</li>
               	</c:otherwise>
               
@@ -233,6 +238,7 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="">진료 접수</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">진료 대기</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="enroll.tmt">진료 입력</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">수술실 예약 조회</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">입원실 예약 조회</a></li>
                 </ul>
@@ -286,7 +292,7 @@
                 </a>
                 <div class="collapse" id="number5">
                   <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="list.att?cpage=1&no=21015860">출퇴근 관리</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="list.att?cpage=1&no=${ loginUser.empNo }">출퇴근 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">휴가 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">월간 근태 체크</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">사원 근태 관리</a></li>
@@ -296,7 +302,7 @@
               </li>
             <li class="nav-item">
               <a class="nav-link" href="#number6">
-                <span class="menu-title">공지사항</span>
+                <span class="menu-title"><a href="list.no">공지사항</a></span>
                 <i class="mdi mdi-hospital menu-icon"></i>
               </a>
               <div class="collapse" id="number6">

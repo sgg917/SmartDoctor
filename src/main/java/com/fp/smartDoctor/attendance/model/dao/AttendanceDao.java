@@ -34,12 +34,13 @@ public class AttendanceDao {
 		return sqlSession.selectOne("attendanceMapper.selectStartTime", empNo);
 	}
 	
-	public String checkStartTime(SqlSessionTemplate sqlSession, int empNo) {
-		return sqlSession.selectOne("attendanceMapper.checkStartTime", empNo);
+	public String selectEndTime(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("attendanceMapper.selectEndTime", empNo);
 	}
 	
-	public String checkEndTime(SqlSessionTemplate sqlSession, int empNo) {
-		return sqlSession.selectOne("attendanceMapper.checkEndTime", empNo);
+	public int endAttendance(SqlSessionTemplate sqlSession, int empNo) {
+	 return sqlSession.update("attendanceMapper.endAttendance", empNo);
 	}
+	 
 	
 }
