@@ -1,6 +1,6 @@
 package com.fp.smartDoctor.treatment.controller;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -71,7 +71,17 @@ public class TreatmentController {
 	@RequestMapping("detail.op")
 	public ModelAndView selectRevOProom(int no, ModelAndView mv) {
 		
-		ListSurgeryBooking op = tService.selectRevOProom(no);
+		ArrayList<ListSurgeryBooking> op = tService.selectRevOProom(no);
+		mv.addObject("op", op).setViewName("kcy/revORDetail");
+		
+		return mv;
+	}
+	
+	//수술실 예약을 위한 정보 조회
+	@RequestMapping("fordetail.op")
+	public ModelAndView selectforInsertRevOP(int no, ModelAndView mv) {
+		
+		ArrayList<ListSurgeryBooking> op = tService.selectRevOProom(no);
 		mv.addObject("op", op).setViewName("kcy/revORDetail");
 		
 		return mv;
