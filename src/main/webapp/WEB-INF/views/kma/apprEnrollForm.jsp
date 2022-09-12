@@ -12,6 +12,7 @@
 
 <!-- fancyTree -->
 <link href="//cdn.jsdelivr.net/npm/jquery.fancytree@2.27/dist/skin-win8/ui.fancytree.min.css" rel="stylesheet">
+   
 <style>
 	.appr-table th {
 		font-weight: 550;
@@ -106,7 +107,7 @@
 						</button>
 						<button type="button" class="btn btn-outline-success btn-green"
 							data-bs-toggle="modal" data-bs-target="#lineModal"
-							style="width: 130px;" onclick="selectLineDept();">
+							style="width: 130px;" onclick="selectLineList();">
 							<i class="mdi mdi-account-plus menu-icon"></i>&nbsp; <span>결재라인
 								지정</span>
 						</button>
@@ -147,7 +148,7 @@
 							</tr>
 						</table>
 						<div>
-							<textarea class="yui3-cssreset" id="summernote" name="formContent">${ f.formContent }</textarea>
+							<textarea class="yui3-cssreset" id="summernote" name="formContent"></textarea>
 						</div>
 					</div>
 				</div>
@@ -283,7 +284,7 @@
 		<!-- 결재라인 모달창 -->
 		<div class="modal fade" id="lineModal" tabindex="-1"
 			aria-labelledby="lineModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
 				<div class="modal-content" style="background:white; width:800px; margin:auto;">
 					<div class="modal-header">
 						<h5 class="modal-title" id="lineModalLabel">결재라인 지정</h5>
@@ -296,7 +297,7 @@
 								<th>조직도</th>
 							</tr>
 							<tr>
-								<td style="overflow-y: scroll; height:392px;">
+								<td style="overflow:auto; height:392px;">
 									<div id="tree">
 									  <ul id="treeData">
 									  
@@ -353,20 +354,6 @@
 								<td style="text-align: center; border:none;"><i
 									class="mdi mdi-delete-forever" ></i></td>
 							</tr>
-							<tr style="border: 1px solid #DFDFDF;">
-								<td style="border:none;">강동원</td>
-								<td style="border:none;">총무팀</td>
-								<td style="border:none;">팀장</td>
-								<td style="text-align: center; border:none;"><i
-									class="mdi mdi-delete-forever" ></i></td>
-							</tr>
-							<tr style="border: 1px solid #DFDFDF;">
-								<td style="border:none;">강동원</td>
-								<td style="border:none;">총무팀</td>
-								<td style="border:none;">팀장</td>
-								<td style="text-align: center; border:none;"><i
-									class="mdi mdi-delete-forever" ></i></td>
-							</tr>
 						</table>
 					</div>
 					<div class="modal-footer">
@@ -382,39 +369,31 @@
 		<script src="//cdn.jsdelivr.net/npm/jquery.fancytree@2.27/dist/jquery.fancytree-all-deps.min.js"></script>
 		<script>
 			
-		
-			function selectLineDept(){ // 결재라인 조직도 부서 조회용 ajax함수
+			function selectLineList(){ // 결재라인 조직도 출력용 함수
 				
-				let dept;
 				$.ajax({
 					url: "apprLineDept.si",
 					async:false,
 					success:function(list){
-						console.log(list);
 						
-						let allDept = "";
-						let treatUp = "";
-						let nurseUp = "";
+						let up = "";
+						let treat = "";
+						let nurse = "";
 						for(let i=0; i<list.length; i++){
 							
-							if(list[i].upperNo == 0){ // 상위부서 출력
-								allDept += "<li id='" + list[i].deptNo + "' class='folder dept0'>" + list[i].deptName;
-							}
-							
-							if(list[i].upperNo == 1){ // 진료부 하위부서 출력
-								treatUp += "<li id='" + list[i].deptNo + "' class='folder dept1' >" + list[i].deptName;
-							}
-							
-							if(list[i].upperNo == 2){ // 간호부 하위부서 출력
-								nurseUp += "<li id='" + list[i].deptNo + "' class='folder dept2' >" + list[i].deptName;
+							if(list[i].upperNo == 0){ // 상위부서
+								up += "<li id='" + list[i].deptNo + "' class='folder'>" + list[i].deptName;
+							}else if(list[i].upperNo == 1){ // 진료부
+								treat += "<li id='" + list[i].deptNo + "' class='folder'>" + list[i].deptName;
+							}else{ // 간호부
+								nurse += "<li id='" + list[i].deptNo + "' class='folder'>" + list[i].deptName;
 							}
 						}
 						
-						$("#treeData").html(allDept);
-						$("#1").append("<ul>" + treatUp + "</ul>");
-						$("#2").append("<ul>" + nurseUp + "</ul>");
+						$("#treeData").html(up);
+						$("#1").append("<ul>" + treat + "</ul>");
+						$("#2").append("<ul>" + nurse + "</ul>");
 						
-						dept = list;
 					},
 					error:function(){
 						console.log("결재라인 조직도 부서 조회용 ajax통신 실패");
@@ -426,100 +405,21 @@
 					async:false,
 					success:function(emp){
 						
-						console.log(emp);
-						
-						let upper = "";
-						let nurseEmp = "";
-						let treatEmp = "";
-						for(let i=0; i<emp.length; i++){
+						for(let i=0; i<emp.length; i++){ // 각 부서에 사원 출력
 							
-							if(emp[i].deptNo >= 5 && emp[i].deptNo <= 8){ // 진료부 하위부서에 속한 사원
-								treatEmp += "<li id='" + emp[i].empNo + "'>" + emp[i].empName;
-								console.log(treatEmp);
-							}
-							
-							if(emp[i].deptNo >= 9){ // 간호부 하위부서에 속한 사원
-								nurseEmp += "<li id='" + emp[i].empNo + "'>" + emp[i].empName;
-								console.log(nurseEmp);
-							}
-							
-							if(emp[i].deptNo <= 4){ // 하위부서가 없는 부서에 속한 사원
-								upper += "<li id='" + emp[i].empNo + "'>" + emp[i].empName;
-								console.log(upper);
-							}
-						}
-						
-						/*
-						$('.folder').each(function(index, item){
-							
-							if( $(item).attr("class") == "dept1" ){
+							$('.folder').each(function(index, item){
 								
-								if( $(item).attr("id") == emp[index].deptNo ){
-									$(item).append("<ul>" + treatEmp + "</ul>");
+								if( $(item).attr("id") == emp[i].deptNo ){
+									$(item).append("<ul><li id='" + emp[i].empNo + "'>" + emp[i].empName + "</ul>");
+									console.log("<ul><li id='" + emp[i].empNo + "'>" + emp[i].empName + "</ul>");
+									
 								}
-							}
-							
-						})
-						*/
-						
-						
-						
-						
-						$('.folder').each(function(index, item){ // 진료부 하위부서에 사원 출력
-							
-							if( $(item).attr("id") == emp[index].deptNo ){ 
-								$(item).append("<ul>" + treatEmp + "</ul>");
-							}
-							if( $(item).attr("id") == emp[index].deptNo ){ 
-								$(item).append("<ul>" + nurseEmp + "</ul>");
-							}
-						})
-						
-						/*
-						$('.dept2').each(function(index, item){ // 간호부 하위부서
-							
-							if( $(item).attr("id") == emp[index].deptNo ){ 
-								$(item).append("<ul>" + nurseEmp + "</ul>");
-							}
-						})
-						
-						
-						$('.dept0').each(function(index, item){ // 상위부서
-							
-							if( $(item).attr("id") == emp[index].deptNo ){ 
-								$(item).append("<ul>" + upper + "</ul>");
-							}
-						})
-						*/
-						
-						$("#tree").fancytree();
-						
-					},
-					error:function(){
-						console.log("결재라인 조직도 리스트 조회용 ajax통신 실패");
-					}
-				})
-				
-			}
-			
-			
-			function selectLineList(){ // 결재라인 조직도 리스트 조회용 ajax함수
-				
-				$.ajax({
-					url: "apprLineList.si",
-					async:false,
-					success:function(list){
-						
-						console.log(list);
-						
-						let value = "";
-						for(let i=0; i<list.length; i++){
-							 value += "<li id=" + 'i' + "class='folder'>" + list[i].empName;
-							 console.log(list[i].jobName);
+							})
 						}
 						
-						$("#treeData").html(value);
+						$("#tree").fancytree({ focusOnSelect: true });
 						
+						console.log($(".fancytree-node option:selected").text());
 						
 					},
 					error:function(){
@@ -527,6 +427,7 @@
 					}
 				})
 			}
+			   
 		</script>
 		
 		

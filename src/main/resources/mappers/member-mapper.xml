@@ -40,11 +40,12 @@
 	<!-- 사용자_결재라인 조직도 부서 조회 -->
 	<select id="selectApprLineDept" resultMap="deptResult">
 		select
-			   dept_no
-			 , upper_no
-			 , dept_name
+		       dept_no
+		     , dept_name
+		     , upper_no
 		  from department
 	</select>
+	
 	<select id="loginMember" resultMap="memberResult">
 		select 
 			    emp_no
