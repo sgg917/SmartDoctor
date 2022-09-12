@@ -302,7 +302,7 @@
               </li>
             <li class="nav-item">
               <a class="nav-link" href="#number6">
-                <span class="menu-title">공지사항</span>
+                <span class="menu-title"><a href="list.no">공지사항</a></span>
                 <i class="mdi mdi-hospital menu-icon"></i>
               </a>
               <div class="collapse" id="number6">
