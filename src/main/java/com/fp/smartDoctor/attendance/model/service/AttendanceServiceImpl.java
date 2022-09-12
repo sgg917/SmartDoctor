@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.fp.smartDoctor.attendance.model.dao.AttendanceDao;
 import com.fp.smartDoctor.attendance.model.vo.Attendance;
+import com.fp.smartDoctor.attendance.model.vo.Vacation;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 
 @Service
@@ -47,6 +48,21 @@ public class AttendanceServiceImpl implements AttendanceService {
 	@Override
 	public int endAttendance(int empNo) {
 		return aDao.endAttendance(sqlSession, empNo);
+	}
+
+	@Override
+	public int selectVacListCount(int empNo) {
+		return aDao.selectVacListCount(sqlSession, empNo);
+	}
+
+	@Override
+	public ArrayList<Vacation> selectVacationList(PageInfo pi, int empNo) {
+		return aDao.selectVacationList(sqlSession, pi, empNo);
+	}
+
+	@Override
+	public int selectVacRemain(int empNo) {
+		return aDao.selectVacRemain(sqlSession, empNo);
 	}
 
 }

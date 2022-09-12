@@ -12,6 +12,7 @@
 		<typeAlias type="com.fp.smartDoctor.messenger.model.vo.Mail" alias="Mail"/>
 		
 		<typeAlias type="com.fp.smartDoctor.attendance.model.vo.Attendance" alias="Attendance"/>
+		<typeAlias type="com.fp.smartDoctor.attendance.model.vo.Vacation" alias="Vacation"/>
 		
 		<typeAlias type="com.fp.smartDoctor.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.fp.smartDoctor.member.model.vo.Dept" alias="Dept"/>
