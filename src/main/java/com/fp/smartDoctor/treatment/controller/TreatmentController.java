@@ -24,9 +24,9 @@ public class TreatmentController {
 	private TreatmentService tService;
 	 
 	
-	@RequestMapping("exercise.jy")
-	public String exercise() {
-		return "ljy/page";
+	@RequestMapping("enroll.tmt")
+	public String enrollTreatment() {
+		return "ljy/enrollTreatment";
 	}
 	
 	

@@ -235,6 +235,7 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="">진료 접수</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">진료 대기</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="enroll.tmt">진료 입력</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">수술실 예약 조회</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">입원실 예약 조회</a></li>
                 </ul>

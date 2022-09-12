@@ -1,59 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Smart Doctor</title>
-<!-- plugins:css -->
-<link rel="stylesheet"
-	href="resources/vendors/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet"
-	href="resources/vendors/css/vendor.bundle.base.css">
-<!-- endinject -->
-<!-- Plugin css for this page -->
-<!-- End plugin css for this page -->
-<!-- inject:css -->
-<!-- endinject -->
-<!-- Layout styles -->
-<link rel="stylesheet" href="resources/css/style.css">
-<!-- End layout styles -->
-<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <style>
-.wrap11 {
+	.wrap11{
 	width: 100%;
-	height: 100%;
+	height: 90%;
 	background-color: white;
-	border-radius: 30px 10px;
+	border-radius: 10px 20px 30px 40px;
 	box-shadow: 3px 3px 3px 3px lightgray;
-	text-align: center;
-}
+	}
 </style>
-
-
 </head>
 <body>
 
 	<div class="container-scroller">
 
-		
-
 		<jsp:include page="../common/navbar.jsp" />
 
 		<div class="main-panel">
 			<div class="content-wrapper">
+			
 				<!-- 이 안에서 작업해 주세요 -->
 			<div class="stretch-card">
+			
                 <div class="wrap11">
                   <div class="card-body">
 
@@ -382,10 +356,7 @@
 			<jsp:include page="../common/footer.jsp" />
 		</div>
 
-
 	</div>
-
-
 
 </body>
 </html>
