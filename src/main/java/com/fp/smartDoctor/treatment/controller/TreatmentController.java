@@ -62,6 +62,10 @@ public class TreatmentController {
  		List<RevOProom> calendar = tService.getCalendar();
  		return new Gson().toJson(calendar);
  	}
+	@RequestMapping("pay.mj")
+	public String pay() {
+		return "kmj/page";
+	}
 
  	//수술실 예약 조회
 	@RequestMapping("detail.op")
