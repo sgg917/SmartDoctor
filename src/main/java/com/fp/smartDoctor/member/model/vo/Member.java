@@ -26,5 +26,6 @@ public class Member {
 	private int jobNo;
 	private int deptNo;
 	private String jobName;
+	private String deptName;
 
 }

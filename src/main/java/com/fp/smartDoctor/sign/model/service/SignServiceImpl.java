@@ -60,4 +60,8 @@ public class SignServiceImpl implements SignService {
 	public ArrayList<Dept> selectApprLineDept() {
 		return sDao.selectApprLineDept(sqlSession);
 	}
+	@Override
+	public Member selectApprEmp(int empNo) {
+		return sDao.selectApprEmp(sqlSession, empNo);
+	}
 }

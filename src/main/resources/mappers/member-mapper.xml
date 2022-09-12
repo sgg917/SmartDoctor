@@ -14,6 +14,7 @@
 		<result column="job_no" property="jobNo" />
 		<result column="dept_no" property="deptNo" />
 		<result column="job_name" property="jobName" />
+		<result column="dept_name" property="deptName" />
 	</resultMap>
 	
 	<resultMap id="deptResult" type="Dept">
@@ -45,6 +46,18 @@
 		     , dept_name
 		     , upper_no
 		  from department
+	</select>
+	
+	<!-- 사용자_결재라인 사원 조회 -->
+	<select id="selectApprEmp" resultMap="memberResult">
+		select
+		       emp_name
+		     , dept_name
+		     , job_name
+		  from member
+		  join department using (dept_no)
+		  join job using (job_no)
+		 where emp_no = #{empNo}
 	</select>
 	
 	<select id="loginMember" resultMap="memberResult">

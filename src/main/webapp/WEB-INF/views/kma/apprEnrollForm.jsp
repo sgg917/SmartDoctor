@@ -320,7 +320,7 @@
 								<th colspan="5" style="background: rgb(244, 244, 244);">결재자</th>
 							</tr>
 							<tr style="border: 1px solid #DFDFDF;">
-								<td width="40" rowspan="3" ><i
+								<td width="40" rowspan="3" id="appr-line"><i
 									class="mdi mdi-chevron-double-right"></i></td>
 								<td style="border:none;">강동원</td>
 								<td style="border:none;">총무팀</td>
@@ -346,7 +346,7 @@
 								<th colspan="5">참조자</th>
 							</tr>
 							<tr style="border: 1px solid #DFDFDF;">
-								<td width="40" rowspan="3" ><i
+								<td width="40" rowspan="3" id="appr-line-ref"><i
 									class="mdi mdi-chevron-double-right"></i></td>
 								<td style="border:none;">강동원</td>
 								<td style="border:none;">총무팀</td>
@@ -366,6 +366,7 @@
 			</div>
 		</div>
 		
+		<!-- fancytree -->
 		<script src="//cdn.jsdelivr.net/npm/jquery.fancytree@2.27/dist/jquery.fancytree-all-deps.min.js"></script>
 		<script>
 			
@@ -382,11 +383,11 @@
 						for(let i=0; i<list.length; i++){
 							
 							if(list[i].upperNo == 0){ // 상위부서
-								up += "<li id='" + list[i].deptNo + "' class='folder'>" + list[i].deptName;
+								up += "<li id='" + list[i].deptNo + "' class='folder expanded'>" + list[i].deptName;
 							}else if(list[i].upperNo == 1){ // 진료부
-								treat += "<li id='" + list[i].deptNo + "' class='folder'>" + list[i].deptName;
+								treat += "<li id='" + list[i].deptNo + "' class='folder expanded'>" + list[i].deptName;
 							}else{ // 간호부
-								nurse += "<li id='" + list[i].deptNo + "' class='folder'>" + list[i].deptName;
+								nurse += "<li id='" + list[i].deptNo + "' class='folder expanded'>" + list[i].deptName;
 							}
 						}
 						
@@ -417,15 +418,48 @@
 							})
 						}
 						
-						$("#tree").fancytree({ focusOnSelect: true });
+						$("#tree").fancytree({
+							
+							activate: function(event, data){ // 데이터 활성화
+						      
+								let node = data.node
+								//console.log(node.key);
+								addApprLine(node.key);
+							}
+						});
 						
-						console.log($(".fancytree-node option:selected").text());
 						
 					},
 					error:function(){
 						console.log("결재라인 조직도 리스트 조회용 ajax통신 실패");
 					}
 				})
+			}
+			
+			function addApprLine(empNo){ // 결재라인 결재참조자 추가 함수
+				
+				//console.log(empNo);
+				
+				$("#appr-line").click(function(){ // 결재자
+        			
+					$.ajax({
+						url: "apprLineEmp.si",
+						data: {empNo: empNo},
+						success:function(emp){
+							console.log(emp);
+						},
+						error:function(){
+							console.log("결재라인 사원 조회용 ajax통신 실패");
+						}
+					})
+        		})
+        		
+        		$("#appr-line-ref").click(function(){ // 참조자
+        			
+        		})
+        		
+        		
+        		
 			}
 			   
 		</script>

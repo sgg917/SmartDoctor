@@ -148,4 +148,18 @@ public class SignController {
 		ArrayList<Dept> list = sService.selectApprLineDept();
 		return new Gson().toJson(list);
 	}
+	
+	// 사용자_결재라인 사원 조회 (ajax)
+	@ResponseBody
+	@RequestMapping(value="apprLineEmp.si", produces="application/json; charset=UTF-8")
+	public String selectApprEmp(int empNo) {
+		
+		Member m = sService.selectApprEmp(empNo);
+		return new Gson().toJson(m);
+	}
+	
+	
+	
+	
+	
 }
