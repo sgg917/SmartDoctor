@@ -212,7 +212,6 @@
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
-<<<<<<< HEAD
             <!-- 화면 테스트용 네비바 -->
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#numberzero" aria-expanded="false" aria-controls="ui-basic">
@@ -232,8 +231,6 @@
               </div>
             </li>
             <!-- 테스트용네비바 끝 -->
-=======
->>>>>>> 1dd16134bec547f7a02d380da91d7196be8a1911
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#numberone" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">진료</span>

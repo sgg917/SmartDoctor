@@ -183,9 +183,9 @@ public class AttendanceController {
 		mv.addObject("pi", pi).addObject("list", list).addObject("vacRemain", vacRemain)
 		.setViewName("lsg/vacationListView");
 		
-		System.out.println(listCount);
-		System.out.println(pi);
-		System.out.println(list);
+		//System.out.println(listCount);
+		//System.out.println(pi);
+		//System.out.println(list);
 		
 		return mv;
 	}
