@@ -1,5 +1,6 @@
 package com.fp.smartDoctor.treatment.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,10 +22,19 @@ public class TreatmentServiceImpl implements TreatmentService{
 	private TreatmentDao tDao;
 	
 	
+	
+	//수술예약 상세조회 서비스(select)
 	@Override
-	public ListSurgeryBooking selectRevOProom(int bookingNo) {
+	public ArrayList<ListSurgeryBooking> selectRevOProom(int bookingNo) {
 		return tDao.selectRevOProom(sqlSession, bookingNo);
 	}
+	
+	//수술예약 상세조회 서비스(select)
+	@Override
+	public  ArrayList<ListSurgeryBooking> selectforInsertRevOP(int bookingNo) {
+		return tDao.selectforInsertRevOP(sqlSession, bookingNo);
+	}
+	
 	// 수술실 캘린더 조회
 	@Override
 	public List<RevOProom> getCalendar() {
@@ -54,6 +64,7 @@ public class TreatmentServiceImpl implements TreatmentService{
 	public int updateRevOProom(RevOProom op) {
 		return 0;
 	}
+	
 	
 	
 

@@ -212,6 +212,7 @@
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
+<<<<<<< HEAD
             <!-- 화면 테스트용 네비바 -->
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#numberzero" aria-expanded="false" aria-controls="ui-basic">
@@ -221,6 +222,9 @@
               </a>
               <div class="collapse" id="numberzero">
                 <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="pay.mj">원무(지워야됨)</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="detail.mj">원무(지워야됨)</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="hospitalCalender.mj">병원 캘린더(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="exercise.jy">진료 대기(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.op">수술실 예약(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.pr">입원실 예약(지워야됨)</a></li>
@@ -228,6 +232,8 @@
               </div>
             </li>
             <!-- 테스트용네비바 끝 -->
+=======
+>>>>>>> 1dd16134bec547f7a02d380da91d7196be8a1911
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#numberone" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">진료</span>
@@ -245,19 +251,6 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#numbertwo" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">캘린더</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-calendar-clock menu-icon"></i>
-              </a>
-              <div class="collapse" id="numbertwo">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">개인 캘린더</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">병원 캘린더</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#number3" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">원무</span>
                 <i class="menu-arrow"></i>
@@ -267,20 +260,6 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="">원무 조회</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">기타등등</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#number4" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">메일</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-email-outline menu-icon"></i><!--아이콘 바꿔줘야함-->
-              </a>
-              <div class="collapse" id="number4">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">메일쓰기</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">메일조회</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">보관함</a></li>
                 </ul>
               </div>
             </li>
@@ -300,33 +279,7 @@
                   </ul>
                 </div>
               </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#number6">
-                <span class="menu-title"><a href="list.no">공지사항</a></span>
-                <i class="mdi mdi-hospital menu-icon"></i>
-              </a>
-              <div class="collapse" id="number6">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">메일쓰기</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">메일조회</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">보관함</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#number7" aria-expanded="false" aria-controls="ui-basic">
-                  <span class="menu-title">조직도</span>
-                  <i class="menu-arrow"></i>
-                  <i class="mdi mdi-clipboard-account menu-icon"></i>
-                </a>
-                <div class="collapse" id="number7">
-                  <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="">조직도 조회</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">조직도 수정</a></li>
-                  </ul>
-                </div>
-              </li>
-            <li class="nav-item">
+               <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#number8" aria-expanded="false" aria-controls="general-pages">
                 <span class="menu-title">전자결재</span>
                 <i class="menu-arrow"></i>
@@ -347,6 +300,71 @@
                 </ul>
               </div>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#numbertwo" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">캘린더</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-calendar-clock menu-icon"></i>
+              </a>
+              <div class="collapse" id="numbertwo">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="">개인 캘린더</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">병원 캘린더</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#number4" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">메일</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-email-outline menu-icon"></i><!--아이콘 바꿔줘야함-->
+              </a>
+              <div class="collapse" id="number4">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="">받은메일함</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">보낸메일함</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">임시메일함</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">중요보관함</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">휴지통</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">주소록</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#number7" aria-expanded="false" aria-controls="ui-basic">
+                  <span class="menu-title">조직도</span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-clipboard-account menu-icon"></i>
+                </a>
+                <div class="collapse" id="number7">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="">조직도 조회</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">조직도 수정</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="list.no">
+                <span class="menu-title">공지사항</span>
+                <i class="mdi mdi-hospital menu-icon"></i>
+              </a>
+            </li>
+             <!-- 화면 테스트용 네비바 -->
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#numberzero" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">화면테스트용(지워야됨)</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-cat"></i>
+              </a>
+              <div class="collapse" id="numberzero">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="exercise.jy">진료 대기(지워야됨)</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="enrollForm.op">수술실 예약(지워야됨)</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="enrollForm.pr">입원실 예약(지워야됨)</a></li>
+                </ul>
+              </div>
+            </li>
+            <!-- 테스트용네비바 끝 -->
           </ul>
         </nav>
         

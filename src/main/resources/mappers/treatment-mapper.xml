@@ -80,49 +80,9 @@
 		<collection resultMap="OPResult" property="RevOProom"/>
 	</resultMap>
 	
+
 	
-	<!-- 수술실 예약을 위한 result -->
-	<resultMap id="RevOPResult" type="ListSurgeryBooking">
-		
-	</resultMap>
-	
-	<!-- 수술실 예약 insert -->
-	<insert id="insertOP">
-		insert
-		into surgery_booking
-		(
-		booking_no
-		, clinic_no
-		, surgery_no
-		, calendar_no
-		, room_name
-		, surgery_date
-		, sur_starttime
-		, memo
-		, surgery_status
-		, doctor_name
-		, sur_endtime
-		, textcolor
-		, backgroundcolor
-		)
-		values
-		(
-		seq_sbno.nextval
-		, #{clinicNo}
-		, #{surNo}
-		, seq_rca.nextval
-		, #{roomName}
-		, #{surDate}
-		, #{surTime}
-		, #{memo}
-		, default
-		, #{docName}
-		, #{surEnd}
-		, 'white'
-		, 'navy'
-		)
-	</insert>
-	
+
 	
 	<!-- 캘린더 조회 mapper 예시
 	<select id="calendarList" resultMap="calendarResult">
@@ -148,64 +108,95 @@
 			 , textcolor
 			 , backgroundcolor
 		  from surgery_booking
+		 where surgery_status = 'R'
 
 	</select>
 
 	<!-- 수술실 정보 조회 select-->
 	<select id="selectOProom" resultMap="OPResult">
-		select
-			   booking_no
-			 , clinic_no
-			 , surgery_no
-			 , room_name
-			 , surgery_date
-			 , sur_starttime
-			 , memo
-			 , surgery_status
-			 , doctor_name
-			 , sur_endtime
-			 
-		  from surgery_booking
-		 where booking_no = #{bookingNo} 
+		select 
+      		   sb.clinic_no
+     		 , (select p.patient_name
+          		  from patient p
+          		  join clinic cll on (cll.chart_no = p.chart_no)) as patient_name
+     		 , sb.room_name
+     		 , sb.surgery_date
+     		 , sb.sur_endtime
+     		 , (select m.emp_name
+          		 from member m
+          		 join clinic clll on (clll.emp_no = m.emp_no)) as doctor_name
+		  from surgery_booking sb
+		 where booking_no=2000
+	</select>
+	
+	<!-- 수술실 예약을 위한 정보 조회 select-->
+	<select id="forinsertOProom" resultMap="SurBookResult">
+		select 
+      		   sb.clinic_no
+     		 , (select p.patient_name
+          		  from patient p
+          		  join clinic cll on (cll.chart_no = p.chart_no)) as patient_name
+     		 , (select m.emp_name
+          		 from member m
+          		 join clinic clll on (clll.emp_no = m.emp_no)) as doctor_name
+		  from surgery_booking sb
+		 where booking_no=2000
 	</select>
 	
 	<!-- 수술실 중복 체크 -->
 	<select id="checkOverlapRsv" resultType="_int">
-		select count(*)
+		select bcount(*)
 		  from
-		     ( select reserve_no
-		         from resources_reserve
-		       WHERE end_date &gt; #{startday}
-			     and start_date &lt; #{endday}
-			     and resources_no = #{resourcesNo}
-		    )
+		     ( select booking_no
+		         from surgery_booking
+		        where sur_endtime &gt; #{surStartTime}
+			      and sur_starttime &lt; #{sur_endtime}
+		     )
 	</select>
 	
 	<!-- 수술실 예약 insert -->
 	<insert id="insertReservation">
-		INSERT INTO RESOURCES_RESERVE
-        ( RESERVE_NO, USER_NO, RESOURCES_NO, CATEGORY_NO, CATEGORY_NAME, START_DATE, END_DATE, RESERVE_DATE, RESERVE_CONTENT)
-		VALUES 
-	     (
-	       SEQ_RESERVENO.NEXTVAL
-	     , #{userNo}
-	     , #{resourcesNo}
-	     , #{categoryNo}
-	     , #{categoryName}
-	     , #{startday}
-	     , #{endday}
-	     , SYSDATE
-	     , #{reason}
-	     )
-		
+		insert
+		into surgery_booking
+		(
+			booking_no
+			, clinic_no
+			, surgery_no
+			, calendar_no
+			, room_name
+			, surgery_date
+			, sur_starttime
+			, memo
+			, surgery_status
+			, doctor_name
+			, sur_endtime
+			, textcolor
+			, backgroundcolor
+			)
+			values
+			(
+			seq_sbno.nextval
+			, #{clinicNo}
+			, #{surNo}
+			, seq_rca.nextval
+			, #{roomName}
+			, #{surDate}
+			, #{surTime}
+			, #{memo}
+			, default
+			, #{docName}
+			, #{surEnd}
+			, 'white'
+			, 'navy'
+		)
 	</insert>
 	
 
 	<!-- 수술실 예약 취소 -->
-	<delete id="rsvCancel">
-		delete from resources_reserve
-		 where reserve_no = #{reserveNo}
-		   and user_no = #{userNo}
+	<update id="rsvCancel">
+		update surgery_booking
+		   set surgery_status = 'C'
+		 where booking_no = #{bookingNo}
 	
-	</delete>
+	</update>
 </mapper>
