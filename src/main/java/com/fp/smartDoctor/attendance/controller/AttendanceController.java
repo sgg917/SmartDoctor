@@ -25,6 +25,7 @@ public class AttendanceController {
 	@Autowired
 	private AttendanceService aService;
 	
+	// 근태 리스트 조회
 	@RequestMapping("list.att")
 	public ModelAndView memberAttendance(@RequestParam(value="cpage", defaultValue="1") int currentPage, int no, ModelAndView mv) {
 		
@@ -35,19 +36,36 @@ public class AttendanceController {
 		// 한 사원의 근태 총 개수 조회
 		int listCount = aService.selectListCount(a);
 		
-		System.out.println(listCount);
+		//System.out.println(listCount);
 		// 페이징 정보 변수에 담기
 		PageInfo pi = new Pagination().getPageInfo(listCount, currentPage, 5, 5);
 		
 		// 페이지 당 나타날 근태 정보 리스트에 담기
 		ArrayList<Attendance> list = aService.selectAttendance(pi, a);
 		
-		// 근태 리스트 담아서 포워딩
-		mv.addObject("list", list).addObject("pi",pi).setViewName("lsg/memberAttendanceView");
+		// 정상, 지각, 조퇴, 결근 횟수 변수에 담기
+		int y = 0; int l = 0; int e = 0; int n = 0;
+		
+		for(Attendance i : list) {
+			switch(i.getStatus()) {
+			case "Y" : y++; break;
+			case "L" : l++; break;
+			case "E" : e++; break;
+			case "N" : n++; break;
+			}
+		}
+		
+		//System.out.println("Y : " + y + ", L : " + l + ", E : " + e + ", N : " + n);
+		
+		// 근태 리스트, 페이징 정보, 근태 상태 별 횟수 담아서 포워딩
+		mv.addObject("list", list).addObject("pi",pi)
+		.addObject(y).addObject(l).addObject(e).addObject(n)
+		.setViewName("lsg/memberAttendanceView");
 		
 		return mv;
 	}
 	
+	// 근태 검색
 	@ResponseBody
 	@RequestMapping(value="search.att", produces="application/json; charset=utf-8")
 	public String ajaxSearchAttendance(int cpage, Attendance a, HttpServletRequest request) {
@@ -71,31 +89,16 @@ public class AttendanceController {
 		return new Gson().toJson(map);
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="insert.att", produces="text/html; charset=utf-8")
-	public String insetAttendance(int no) {
-		
-		int result = aService.insertAttendance(no);
-		
-		if(result > 0) {
-			
-			String startTime = aService.selectStartTime(no);
-			
-			return startTime;
-		}else {
-			return "출근 등록에 실패했습니다.";
-		}
-	}
-	
+	// 출퇴근 여부
 	@ResponseBody
 	@RequestMapping(value="check.att", produces="application/json; charset=utf-8")
 	public String checkAttendance(int no) {
 		
-		// 출근 여부 확인 결과를 담은 문자열 변수 (출근했으면 출근시간, 안 했으면 NULL)
-		String start = aService.checkStartTime(no);
+		// 출근 시간 담은 문자열 변수 (출근 안 했으면 NULL)
+		String start = aService.selectStartTime(no);
 		
-		// 퇴근 여부 확인 결과를 담은 문자열 변수 (퇴근했으면 퇴근시간, 안 했으면 NULL)
-		String end = aService.checkEndTime(no);
+		// 퇴근 시간 담은 문자열 변수 (퇴근 안 했으면 NULL)
+		String end = aService.selectEndTime(no);
 		
 		// 리턴할 값을 담을 변수
 		String attResult = "";
@@ -121,6 +124,43 @@ public class AttendanceController {
 		check.setAttResult(attResult);
 		
 		return new Gson().toJson(check);
-		
 	}
+	
+	// 출근
+	@ResponseBody
+	@RequestMapping(value="insert.att", produces="text/html; charset=utf-8")
+	public String insetAttendance(int no) {
+		
+		int result = aService.insertAttendance(no);
+		
+		if(result > 0) {
+			
+			String startTime = aService.selectStartTime(no);
+			
+			return startTime;
+		}else {
+			return "출근 등록에 실패했습니다.";
+		}
+	}
+	
+	// 퇴근
+	@RequestMapping("end.att")
+	public String endAttendance(int no, HttpServletRequest request) {
+		
+		//System.out.println(a);
+		
+		// 퇴근 update 결과 담기
+		int result = aService.endAttendance(no);
+		
+		if(result > 0) {
+			
+			return "redirect:list.att?no=" + no;
+			
+		}else {
+			
+			request.setAttribute("errorMsg", "퇴근 등록에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
 }

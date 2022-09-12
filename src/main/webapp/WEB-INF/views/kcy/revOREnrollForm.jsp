@@ -108,12 +108,16 @@ th {
 /* 모달 style */
 .wrap112{
 	width:700px;
-	background-color: white;
+	background-color: #F2F2F2;
 	text-align: center;
 	border-radius: 30px 10px;
 }
 
-
+.mymodal2 .modal-backdrop {
+  /* display: block; 검은색레이어*/
+  display: none;
+  /* background clickable */
+}
 
 </style>
 
@@ -133,23 +137,17 @@ th {
 			
 				<div class="wrap111">
 					<form id="enrollForm" method="post" action="insert.op">
-						<!-- 진짜로 인서트 되나 테스트
-						<input type="hidden" id="bookingNo" class="form-control" value="${ op.bookingNo }" name="bookingNo">
-						<input type="hidden" id="clinicNo" class="form-control" value="${ op.clinicNo }" name="clinicNo"> 
-						<input type="hidden" id="surgeryNo" class="form-control" value="${ op.surgeryNo }" name="surgeryNo"> 
-						<input type="hidden" id="calendarNo" class="form-control" value="${ op.calendarNo }" name="calendarNo"> 
-						<input type="hidden" id="leadTime" class="form-control" value="${ op.leadTime }" name="leadTime"> 
-						 --> 
+						<!-- 실제로 숨겨서 넘길 값--> 
+						<input type="hidden" id="bookingNo" class="form-control" value="${ ArrayList.RevOProom.bookingNo }" name="bookingNo">
+						<input type="hidden" id="clinicNo" class="form-control" value="${ ArrayList.RevOProom.clinicNo }" name="clinicNo"> 
+						<input type="hidden" id="surgeryNo" class="form-control" value="${ ArrayList.Surgery.surgeryNo }" name="surgeryNo"> 
+						<input type="hidden" id="calendarNo" class="form-control" value="${ ArrayList.RevOProom.calendarNo }" name="calendarNo"> 
+						<input type="hidden" id="leadTime" class="form-control" value="${ ArrayList.Surgery.leadTime }" name="leadTime"> 
 						 
-						<!-- 진짜로 인서트 되나 테스트 --> 
-						<input type="hidden" id="bookingNo" class="form-control" value="2001" name="bookingNo">
-						<input type="hidden" id="clinicNo" class="form-control" value="2001" name="clinicNo"> 
-						<input type="hidden" id="surgeryNo" class="form-control" value="G-10080" name="surgeryNo"> 
-						<input type="hidden" id="calendarNo" class="form-control" name="calendarNo"> 
-						<input type="hidden" id="leadTime" class="form-control" value="${ op.leadTime }" name="leadTime"> 
-						
+						 
+	
 						<br>
-						<h3> <b>차트번호 수술실 예약</b> </h3>
+						<h3> <b>차트번호 ${ArrayList.RevOProom.clinicNo} 수술실 예약</b> </h3>
 						<hr>
 						<br><br>
 						<div class="wrap22">
@@ -168,16 +166,17 @@ th {
 									</tr>
 									<tr>
 										<th>차트번호</th>
-										<td><input readonly name="clinicNo" value="${ op.clinicNo }" type="text"
-											style="width: 300px;"></td>
+										<td><input readonly name="clinicNo" value="${ArrayList.RevOProom.clinicNo}" type="text"
+											style="width: 300px; background-color:#F2F2F2;"></td>
 									</tr>
 									<tr>
 										<th>수진자명</th>
-										<td><input type="text" name="patentName" style="width: 300px;" readonly value="${ op.patientName }"></td>
+										<td><input type="text" name="patentName" style="width: 300px;  background-color:#F2F2F2;" readonly value="${ op.patientName }"></td>
 									</tr>
 									<tr>
 										<th>수술실</th>
-										<td><select name="roomName" id="roomName" style="width: 300px;">
+										<td>
+										<select name="roomName" id="roomName" style="width: 300px;">
 												<option value="x">선택안함</option>
 												<option value="operatingA">operatingA</option>
 												<option value="operatingB">operatingB</option>
@@ -205,7 +204,7 @@ th {
 
 									   <select class="surStartTime" style="width: 70px; height: 25.2px;">
 										<c:set var="breakPoint" value="0" />
-										<c:forEach var="i" begin="0" end="23">
+										<c:forEach var="i" begin="9" end="22">
 											<c:forEach var="j" begin="0" end="1">
 												<c:if test="${(i == 24) && (j == 1)}">    
 													<c:set var="breakPoint" value="1" />                                    
@@ -224,7 +223,7 @@ th {
 									</tr>
 									<tr>
 										<th>예상완료시각</th>
-										<td><input type="text" readonly value="${ op.surEndTime }" style="width: 300px;" name="surEndTime" id="surEndTime"></td>
+										<td><input type="text" readonly value="result" style="width: 300px;  background-color:#F2F2F2;" name="surEndTime" id="surEndTime"></td>
 									</tr>
 									<tr>
 										<th>담당의</th>
@@ -254,6 +253,187 @@ th {
 			<jsp:include page="../common/footer.jsp" />
 		</div>
 	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- 수술실 상세조회 모달 -->
+	<div class="modal fade insertModal" id="myModal1">
+	    <div class="modal-dialog">
+		    <div class="modal-content">
+		    	<div class="wrap112">
+		
+				<input type="hidden" id="bookingNo" class="form-control" value="${ op.bookingNo }" name="bookingNo">
+				<input type="hidden" id="clinicNo" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
+				<input type="hidden" id="surgeryNo" class="form-control" value="${ s.surgeryNo }" name="surgeryNo"> 
+				<input type="hidden" id="calendarNo" class="form-control" value="${ s.calendarNo }" name="calendarNo"> 
+				<input type="hidden" id="leadTime" class="form-control" value="${ s.leadTime }" name="leadTime"> 
+				<br>
+				<h3> <b>수술실 예약 조회</b> </h3>
+				<hr>
+				<div class="wrap221" style="width:100%">
+					<div class="part1" style="width:100%">
+						<table class="table1" style="width:100%">
+							<tr>
+								<td colspan="2">
+									<div class="smallbtn1">조회</div>
+									<div style="display: inline-block; margin-left: 30px;">
+										<h3>${op.surDate}</h3>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>차트번호</th>
+								<td><input readonly name="clinicNo" value="${ c.clinicNo }" type="text"
+									style="width: 300px;"></td>
+							</tr>
+							<tr>
+								<th>수진자명</th>
+								<td><input type="text" style="width: 300px;" readonly value="${p.patientName }"></td>
+							</tr>
+							<tr>
+								<th>수술실</th>
+								<td><input type="text" style="width: 300px;" readonly value="${op.roomName }"></td>
+							</tr>
+							<tr>
+								<th>예약날짜</th>
+								<td><input type="date" style="width: 300px;" name="surDate" readonly value="${op.surDate }"><br></td>
+							</tr>
+							<tr>
+								<th>예약시각</th>
+								<td><input type="time" style="width: 300px;" name="surStartTime" id="surStartTime" readonly value="${op.surStartTime }"></td>
+							</tr>
+							<tr>
+								<th>예상완료시각</th>
+								<td><input type="text" readonly value="${ op.surEndTime }" style="width: 300px;" name="surEndTime" id="surEndTime" readonly></td>
+							</tr>
+							<tr>
+								<th>담당의</th>
+								<td><input type="text" style="width: 300px;" readOnly value="${ t.doctorName }" name="docName"></td>
+							</tr>
+							<tr>
+								<th>특이사항</th>
+								<td>
+								<textarea style="width: 300px; height: 100px; resize: none;"name="memo" readonly>${op.memo}</textarea>
+								</td>
+							</tr>
+	
+	
+						</table>
+	
+						<br>
+						<br>
+	
+						<button type="button" class="btn btn-danger" style="height: 30px; width: 100px; padding:0%; color:black; background-color: rgb(65, 125, 122);" data-toggle="modal" data-target="#myModal2" onclick="ModalClose()">수정</button>
+	           			<button type="button" class="btn btn-danger" style="height: 30px; width: 100px; padding:0%; color:black; background-color: red">수술취소</button>
+	         			<button type="button" class="btn btn-secondary" style="height: 30px; width: 100px; padding:0%; color:black;" onclick="ModalClose()">뒤로가기</button>
+						<br><br><br><br><br>
+						
+					</div>
+				</div>
+				</div>
+		    </div>
+	    </div>
+  	</div>
+
+
+
+
+
+
+
+
+	<!-- 수술실 수정 모달 -->
+	<div class="modal fade insertModal mymodal2" id="myModal2">
+	    <div class="modal-dialog">
+		    <div class="modal-content">
+		    	<div class="wrap112">
+		
+				<input type="hidden" id="bookingNo" class="form-control" value="${ op.bookingNo }" name="bookingNo">
+				<input type="hidden" id="clinicNo" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
+				<input type="hidden" id="surgeryNo" class="form-control" value="${ s.surgeryNo }" name="surgeryNo"> 
+				<input type="hidden" id="calendarNo" class="form-control" value="${ s.calendarNo }" name="calendarNo"> 
+				<input type="hidden" id="leadTime" class="form-control" value="${ s.leadTime }" name="leadTime"> 
+				<br>
+				<h3> <b>수술실 예약 수정</b> </h3>
+				<hr>
+				<div class="wrap221" style="width:100%">
+					<div class="part1" style="width:100%">
+						<table class="table1" style="width:100%">
+							<tr>
+								<td colspan="2">
+									<div class="smallbtn1">수정</div>
+									<div style="display: inline-block; margin-left: 30px;">
+										<h3>${op.surDate}</h3>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>차트번호</th>
+								<td><input readonly name="clinicNo" value="${ c.clinicNo }" type="text"
+									style="width: 300px;"></td>
+							</tr>
+							<tr>
+								<th>수진자명</th>
+								<td><input type="text" style="width: 300px;" readonly value="${p.patientName }"></td>
+							</tr>
+							<tr>
+								<th>수술실</th>
+								<td><input type="text" style="width: 300px;" readonly value="${op.roomName }"></td>
+							</tr>
+							<tr>
+								<th>예약날짜</th>
+								<td><input type="date" style="width: 300px;" name="surDate" readonly value="${op.surDate }"><br></td>
+							</tr>
+							<tr>
+								<th>예약시각</th>
+								<td><input type="time" style="width: 300px;" name="surStartTime" id="surStartTime" readonly value="${op.surStartTime }"></td>
+							</tr>
+							<tr>
+								<th>예상완료시각</th>
+								<td><input type="text" readonly value="${ op.surEndTime }" style="width: 300px;" name="surEndTime" id="surEndTime" readonly></td>
+							</tr>
+							<tr>
+								<th>담당의</th>
+								<td><input type="text" style="width: 300px;" readOnly value="${ t.doctorName }" name="docName"></td>
+							</tr>
+							<tr>
+								<th>특이사항</th>
+								<td>
+								<textarea style="width: 300px; height: 100px; resize: none;"name="memo" readonly>${op.memo}</textarea>
+								</td>
+							</tr>
+	
+	
+						</table>
+	
+						<br>
+						<br>
+	
+						<button type="button" class="btn btn-danger" style="height: 30px; width: 100px; padding:0%; color:black; background-color: rgb(65, 125, 122);">수정</button>
+	           			<button type="button" class="btn btn-danger" style="height: 30px; width: 100px; padding:0%; color:black; background-color: red">수술취소</button>
+	         			<button type="button" class="btn btn-secondary" style="height: 30px; width: 100px; padding:0%; color:black;" data-dismiss="modal">뒤로가기</button>
+						<br><br><br><br><br>
+						
+					</div>
+				</div>
+				</div>
+		    </div>
+	    </div>
+  	</div>
+
+
+
+
+
 
 
 
@@ -301,7 +481,10 @@ th {
 						selectable : true,
 						droppable : true,
 						editable : true,
-						events : data
+						events : data,
+						eventClick: function(arg) {
+							ModalOpen(arg);	//이벤트 클릭 시 모달 호출
+					    }
 					});
 
 					calendar.render();
@@ -340,7 +523,7 @@ th {
 		         if (json.n == 1) {
 		            alert("수술실 예약 되었습니다.");
 		            
-		         }else if (json.n == -1) {
+		         }else if (json.n == 2/*아닌거같음*/) {
 		            // 중복된 예약(시간)으로 예약에 실패했을 때
 		            alert("해당 시간에는 이미 예약이 있습니다.");
 		         }
@@ -356,6 +539,14 @@ th {
 		       }
 		   });
 		  }
+		
+		function ModalOpen(arg){
+			$('#myModal1').modal('show');
+		  }
+		
+		function ModalClose(){
+			$("#myModal1").modal("hide");
+		}
 	</script>
 	<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음-->
 

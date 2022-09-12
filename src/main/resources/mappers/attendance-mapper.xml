@@ -59,7 +59,7 @@
 	
 	<select id="selectAttendance" resultMap="attendanceResult">
 		SELECT
-		       NVL(EMP_NO, 21015860) "emp_no"
+		       NVL(EMP_NO, #{empNo}) "emp_no"
 		     , NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "att_date"
 		     , NVL(START_TIME, ' ') as "start_time"
 			 , NVL(END_TIME, ' ') as "end_time"
@@ -72,10 +72,12 @@
 		            CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(TO_DATE(SYSDATE)), 'DD')
 		            ) ON (ATT_DATE = WORKING_DAY)
 		 WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
-		   AND NVL(EMP_NO, 21015860) = 21015860
+		   AND NVL(EMP_NO, #{empNo}) = #{empNo}
 		   AND WEEK IN ('월', '화', '수', '목', '금')
+		   <!-- 
 		   AND NVL(TO_DATE(ATT_DATE), WORKING_DAY) BETWEEN TO_DATE('2022-09-01') AND TO_DATE(SYSDATE)
 		   AND NVL(STATUS, 'N') IN ('Y', 'L', 'E', 'N')
+		    -->
 		   <choose>
 			 	<when test='startDate != null and endDate != null and !startDate.equals("") and !endDate.equals("")'>
 			 	   AND NVL(TO_DATE(ATT_DATE), WORKING_DAY) BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate})
@@ -123,19 +125,22 @@
 		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
 	</select>
 	
-	<select id="checkStartTime" resultType="String">
-		select
-		       start_time
-		  from attendance
-		 where emp_no = 21015860
-		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
-	</select>
-	
-	<select id="checkEndTime" resultType="String">
+	<select id="selectEndTime" resultType="String">
 		select
 		       end_time
 		  from attendance
-		 where emp_no = 21015860
+		 where emp_no = #{empNo}
 		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
 	</select>
+	
+	<update id="endAttendance">
+		update attendance
+		   set end_time = to_char(sysdate, 'HH24:MI')
+		     , status = 
+		     case when end_time >= '18:00' then 'Y'
+		     	  when start_time >= '09:00' then 'L'
+		     end
+		 where emp_no = #{empNo}
+		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
+	</update>
 </mapper>

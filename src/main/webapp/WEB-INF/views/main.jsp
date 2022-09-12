@@ -9,22 +9,9 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Smart Doctor</title>
-<!-- plugins:css -->
-<link rel="stylesheet"
-	href="resources/vendors/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet"
-	href="resources/vendors/css/vendor.bundle.base.css">
-<!-- endinject -->
-<!-- Plugin css for this page -->
-<!-- End plugin css for this page -->
-<!-- inject:css -->
-<!-- endinject -->
-<!-- Layout styles -->
-<link rel="stylesheet" href="resources/css/style.css">
-<!-- End layout styles -->
+
 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
+
 
 <style>
 .content11 {
@@ -75,22 +62,7 @@
 
 	</div>
 
-	<!-- plugins:js -->
-	<script src="resources/vendors/js/vendor.bundle.base.js"></script>
-	<!-- endinject -->
-	<!-- Plugin js for this page -->
-	<script src="resources/vendors/chart.js/Chart.min.js"></script>
-	<script src="resources/js/jquery.cookie.js" type="text/javascript"></script>
-	<!-- End plugin js for this page -->
-	<!-- inject:js -->
-	<script src="resources/js/off-canvas.js"></script>
-	<script src="resources/js/hoverable-collapse.js"></script>
-	<script src="resources/js/misc.js"></script>
-	<!-- endinject -->
-	<!-- Custom js for this page -->
-	<script src="resources/js/dashboard.js"></script>
-	<script src="resources/js/todolist.js"></script>
-	<!-- End custom js for this page -->
+	
 
 </body>
 </html>

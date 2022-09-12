@@ -48,5 +48,36 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping("changePwd.me")
+	public String changePwd() {
+		return "ljy/changePwd";
+	}
+	
+	@RequestMapping("updatePwd.me")
+	public String updatePwd(Member m, String updatePwd, HttpSession session) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		if(m.getEmpPwd().equals( loginUser.getEmpPwd())) { //로그인한 사람의 비번과 현재입력한비밀번호가 맞을 때 => 변경가능
+			
+			m.setEmpPwd(updatePwd);
+			
+			int result = mService.updatePwd(m);
+			
+			if(result > 0) { //비밀번호 변경 성공
+				session.setAttribute("loginUser", mService.loginMember(m));
+				session.setAttribute("alertMsg", "비밀번호 변경 성공!");
+				return "redirect:/";
+				
+			}else { //비밀번호 변경실패
+				System.out.println("비밀번호변경실패");
+				return "redirect:changePwd.me";
+			}
+			
+		}else {
+			session.setAttribute("alertMsg", "현재 비밀번호가 틀렸습니다. 다시 입력해주세요!");
+			return "redirect:changePwd.me";
+		}
+	}
 	
 }
