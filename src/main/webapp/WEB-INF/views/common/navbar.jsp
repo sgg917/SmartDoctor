@@ -197,6 +197,9 @@
 	                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
 	              </a>
 	              <a href="logout.me" class="btn btn-block btn-gradient-primary btn-sm auth-form-btn font-weight-medium" style="background: RGB(29, 92, 99); color: white; width: 100%; height: 50px; font-weight: bold; line-height: 40px; font-size: 15px;">로그아웃</a>
+	              <div align="center">
+	              	<a href="changePwd.me" style="text-decoration: none; color: rgb(26, 188, 156);">비밀번호 변경</a>
+              	  </div>
               	</li>
               	</c:otherwise>
               

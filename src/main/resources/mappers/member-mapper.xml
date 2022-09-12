@@ -68,6 +68,12 @@
 		    and emp_pwd = #{empPwd}
 	</select>
 
+	<update id="updatePwd">
+		update
+			   member
+		   set emp_pwd = #{empPwd}
+		 where emp_no = #{empNo}
+	</update>
 	
 
 </mapper>

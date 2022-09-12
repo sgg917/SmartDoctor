@@ -23,4 +23,9 @@ public class MemberServiceImpl implements MemberService {
 		return loginUser;
 	}
 
+	@Override
+	public int updatePwd(Member m) {
+		return mDao.updatePwd(sqlSession, m);
+	}
+
 }
