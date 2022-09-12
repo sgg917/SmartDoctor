@@ -218,6 +218,9 @@
               </a>
               <div class="collapse" id="numberzero">
                 <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="pay.mj">원무(지워야됨)</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="detail.mj">원무(지워야됨)</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="hospitalCalender.mj">병원 캘린더(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="exercise.jy">진료 대기(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.op">수술실 예약(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.pr">입원실 예약(지워야됨)</a></li>
