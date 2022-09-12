@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.fp.smartDoctor.attendance.model.vo.Attendance;
+import com.fp.smartDoctor.attendance.model.vo.Vacation;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 
 @Repository
@@ -39,8 +40,24 @@ public class AttendanceDao {
 	}
 	
 	public int endAttendance(SqlSessionTemplate sqlSession, int empNo) {
-	 return sqlSession.update("attendanceMapper.endAttendance", empNo);
+		return sqlSession.update("attendanceMapper.endAttendance", empNo);
 	}
 	 
+	public int selectVacListCount(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("attendanceMapper.selectVacListCount", empNo);
+	}
+	
+	public ArrayList<Vacation> selectVacationList(SqlSessionTemplate sqlSession, PageInfo pi, int empNo){
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("attendanceMapper.selectVacationList", empNo, rowBounds);
+	}
+	
+	public int selectVacRemain(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("attendanceMapper.selectVacRemain", empNo);
+	}
 	
 }

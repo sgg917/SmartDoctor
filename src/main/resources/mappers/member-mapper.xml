@@ -71,7 +71,7 @@
 			  , profile_path
 			  , status
 			  , vac_all
-			  , vac_remain
+			  <!-- , vac_remain -->
 			  , job_no
 			  , dept_no
 			  , job_name

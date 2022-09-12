@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.smartDoctor.attendance.model.service.AttendanceService;
 import com.fp.smartDoctor.attendance.model.vo.Attendance;
+import com.fp.smartDoctor.attendance.model.vo.Vacation;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.common.template.Pagination;
 import com.google.gson.Gson;	
@@ -161,6 +162,32 @@ public class AttendanceController {
 			request.setAttribute("errorMsg", "퇴근 등록에 실패하였습니다.");
 			return "common/errorPage";
 		}
+	}
+	
+	// 휴가 리스트 조회
+	@RequestMapping("list.vac")
+	public ModelAndView selectVacationList(@RequestParam(value="cpage", defaultValue="1")int cpage, int no, ModelAndView mv) {
+		
+		// 휴가 총 개수 조회
+		int listCount = aService.selectVacListCount(no);
+		
+		PageInfo pi = new PageInfo();
+		pi = new Pagination().getPageInfo(listCount, cpage, 5, 5);
+		
+		// 휴가 리스트 조회
+		ArrayList<Vacation> list = aService.selectVacationList(pi, no);
+		
+		// 휴가 잔여일수 조회
+		int vacRemain = aService.selectVacRemain(no);
+		
+		mv.addObject("pi", pi).addObject("list", list).addObject("vacRemain", vacRemain)
+		.setViewName("lsg/vacationListView");
+		
+		//System.out.println(listCount);
+		//System.out.println(pi);
+		//System.out.println(list);
+		
+		return mv;
 	}
 	
 }
