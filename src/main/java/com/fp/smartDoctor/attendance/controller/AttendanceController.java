@@ -26,9 +26,9 @@ public class AttendanceController {
 	@Autowired
 	private AttendanceService aService;
 	
-	// 근태 리스트 조회
+	// 출퇴근 관리 페이지 조회
 	@RequestMapping("list.att")
-	public ModelAndView memberAttendance(@RequestParam(value="cpage", defaultValue="1") int currentPage, int no, ModelAndView mv) {
+	public ModelAndView selectAttendanceList(@RequestParam(value="cpage", defaultValue="1") int currentPage, int no, ModelAndView mv) {
 		
 		// 근태 객체에 사번 담기
 		Attendance a = new Attendance();
@@ -61,7 +61,7 @@ public class AttendanceController {
 		// 근태 리스트, 페이징 정보, 근태 상태 별 횟수 담아서 포워딩
 		mv.addObject("list", list).addObject("pi",pi)
 		.addObject(y).addObject(l).addObject(e).addObject(n)
-		.setViewName("lsg/memberAttendanceView");
+		.setViewName("lsg/attendanceListView");
 		
 		return mv;
 	}
@@ -188,6 +188,14 @@ public class AttendanceController {
 		//System.out.println(list);
 		
 		return mv;
+	}
+	
+	// 사원 근태 관리 페이지 조회
+	@RequestMapping("memlist.att")
+	public String selectMemAttendanceList(@RequestParam(value="cpage", defaultValue="1")int cpage) {
+		
+		
+		return "lsg/memberAttendanceListView";
 	}
 	
 }

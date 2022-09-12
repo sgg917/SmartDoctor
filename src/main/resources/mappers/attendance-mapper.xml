@@ -147,6 +147,7 @@
 	<update id="endAttendance">
 		update attendance
 		   set end_time = to_char(sysdate, 'HH24:MI')
+		   	 , total_time = ( to_date(end_time, 'HH24:MI') - to_date(start_time, 'HH24:MI') ) * 24 * 60 - 60
 		     , status = 
 		     case when end_time >= '18:00' then 'Y'
 		     	  when start_time >= '09:00' then 'L'
@@ -176,8 +177,11 @@
 		  from vacation v
 		  join approval on (app_no = appr_no)
 		 where v.emp_no = #{empNo}
+		 order
+		    by app_no desc
 	</select>
 	
+	<!-- 휴가 잔여일수 조회 -->
 	<select id="selectVacRemain" resultType="_int">
 		select 20 - nvl( sum(vac_days), 0)
 		  from vacation v

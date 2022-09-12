@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>휴가 관리</title>
 <style>
 .wrap11{
     width: 100%;
@@ -20,7 +20,7 @@
   color:white !important;
 }
 .green-btn:hover {
-  background:#1D5C83 !important;
+  background:#1A3C40 !important;
   color:white !important;
 }
 
