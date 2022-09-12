@@ -292,7 +292,7 @@
                 </a>
                 <div class="collapse" id="number5">
                   <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="list.att?cpage=1&no=21015860">출퇴근 관리</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="list.att?cpage=1&no=${ loginUser.empNo }">출퇴근 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">휴가 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">월간 근태 체크</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">사원 근태 관리</a></li>
