@@ -21,8 +21,8 @@
 	 color:white !important;
 }
 .green-btn:hover {
-	background:#1D5C83 !important;
-color:white !important;
+	background:#1A3C40 !important;
+	color:white !important;
 }
 .green-btn:disabled {
 	background:gray !important;

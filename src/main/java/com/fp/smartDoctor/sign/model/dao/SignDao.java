@@ -59,5 +59,8 @@ public class SignDao {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectApprLineDept");
 	}
 	
+	public Member selectApprEmp(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.selectOne("memberMapper.selectApprEmp", empNo);
+	}
 	
 }

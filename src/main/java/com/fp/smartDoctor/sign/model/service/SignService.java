@@ -39,4 +39,7 @@ public interface SignService {
 	
 	// 사용자_결재라인 조직도 부서 조회 (ajax)
 	ArrayList<Dept> selectApprLineDept();
+	
+	// 사용자_결재라인 사원 조회 (ajax)
+	Member selectApprEmp(int empNo);
 }

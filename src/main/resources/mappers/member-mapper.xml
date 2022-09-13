@@ -11,9 +11,11 @@
 		<result column="profile_originname" property="originName" />
 		<result column="profile_path" property="path" />
 		<result column="status" property="status" />
+		<result column="vac_all" property="vacAll" />
 		<result column="job_no" property="jobNo" />
 		<result column="dept_no" property="deptNo" />
 		<result column="job_name" property="jobName" />
+		<result column="dept_name" property="deptName" />
 	</resultMap>
 	
 	<resultMap id="deptResult" type="Dept">
@@ -27,15 +29,16 @@
 		select
 			   emp_no
 			 , emp_name
-			 , job_no
 			 , m.dept_no
 			 , upper_no
 			 , dept_name
+			 , job_name
 		  from member m 
 		  join department d on (m.dept_no = d.dept_no)
+		  join job j on (m.job_no = j.job_no)
 		 where status = 'Y'
 		 order
-		    by job_no
+		    by m.job_no
 	</select>
 	
 	<!-- 사용자_결재라인 조직도 부서 조회 -->
@@ -45,6 +48,81 @@
 		     , dept_name
 		     , upper_no
 		  from department
+	</select>
+	
+	<!-- 사용자_결재라인 사원 조회 -->
+	<select id="selectApprEmp" resultMap="memberResult">
+		select
+			   emp_no
+		     , emp_name
+		     , dept_name
+		     , job_name
+		  from member
+		  join department using (dept_no)
+		  join job using (job_no)
+		 where emp_no = #{empNo}
+	</select>
+	
+	<!-- 전체 사원 수 조회 (슬) -->
+	<select id="selectListCount" resultType="_int">
+		select count(*)
+  		  from member
+	</select>
+	
+	<!-- =전체 사원 리스트 조회 (슬) -->
+	<select id="selectMemberList" resultMap="memberResult">
+		select e.*, d.dept_name
+		  from (
+		        select 
+		               emp_no
+		             , emp_name
+		             , vac_all
+		             , case when d.upper_no = 0 then d.dept_no
+		                    else d.upper_no
+		                end as dept_no
+		          from member m
+		          join department d on (d.dept_no = m.dept_no)
+		        ) e
+		  join department d on(e.dept_no = d.dept_no)
+	</select>
+	
+	<!-- 부서, 이름으로 검색한 사원 수 조회 (슬) -->
+	<select id="ajaxSearchListCount" resultType="_int">
+		select count(*)
+		  from (
+		        select e.*, d.dept_name
+		          from (
+		                select 
+		                       emp_no
+		                     , emp_name
+		                     , vac_all
+		                     , case when d.upper_no = 0 then d.dept_no
+		                            else d.upper_no
+		                        end as dept_no
+		                  from member m
+		                  join department d on (d.dept_no = m.dept_no)
+		                ) e
+		          join department d on(e.dept_no = d.dept_no)
+		         where #{type} like '%' || #{keyword} || '%'
+		        )
+	</select>
+	
+	<!-- 부서, 이름으로 검색한 사원 리스트 조회 (슬)-->
+	<select id="ajaxSearchList" resultMap="memberResult">
+		select e.*, d.dept_name
+		  from (
+		        select 
+		               emp_no
+		             , emp_name
+		             , vac_all
+		             , case when d.upper_no = 0 then d.dept_no
+		                    else d.upper_no
+		                end as dept_no
+		          from member m
+		          join department d on (d.dept_no = m.dept_no)
+		        ) e
+		  join department d on(e.dept_no = d.dept_no)
+		 where #{type} like '%' || #{keyword} || '%'
 	</select>
 	
 	<select id="loginMember" resultMap="memberResult">
@@ -58,7 +136,7 @@
 			  , profile_path
 			  , status
 			  , vac_all
-			  , vac_remain
+			  <!-- , vac_remain -->
 			  , job_no
 			  , dept_no
 			  , job_name

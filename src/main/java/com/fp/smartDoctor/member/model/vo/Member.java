@@ -22,9 +22,9 @@ public class Member {
 	private String path;
 	private String status;
 	private int vacAll;
-	private int vacRemain;
 	private int jobNo;
 	private int deptNo;
 	private String jobName;
+	private String deptName;
 
 }

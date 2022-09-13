@@ -15,6 +15,19 @@
 		<result column="modify_no" property="modifyNo"/>
 	</resultMap>
 	
+	<resultMap id="vacationResult" type="Vacation">
+		<result column="app_no" property="appNo"/>
+		<result column="emp_no" property="empNo"/>
+		<result column="enroll_date" property="enrollDate"/>
+		<result column="start_date" property="startDate"/>
+		<result column="end_date" property="endDate"/>
+		<result column="vac_days" property="vacDays"/>
+		<result column="vac_cause" property="vacCause"/>
+		<result column="status" property="status"/> 
+		<result column="vac_remain" property="vacRemain"/>
+		<result column="emp_name" property="empName"/>
+	</resultMap>
+	
 	<select id="selectListCount" resultType="_int">
 	SELECT COUNT(*)
 	  FROM (
@@ -136,6 +149,7 @@
 	<update id="endAttendance">
 		update attendance
 		   set end_time = to_char(sysdate, 'HH24:MI')
+		   	 , total_time = ( to_date(end_time, 'HH24:MI') - to_date(start_time, 'HH24:MI') ) * 24 * 60 - 60
 		     , status = 
 		     case when end_time >= '18:00' then 'Y'
 		     	  when start_time >= '09:00' then 'L'
@@ -143,4 +157,91 @@
 		 where emp_no = #{empNo}
 		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
 	</update>
+	
+	<!-- 휴가 총 개수 조회 -->
+	<select id="selectVacListCount" resultType="_int">
+		select
+			   count(*)
+		  from vacation
+		 where emp_no = #{empNo}
+	</select>
+	
+	<!-- 휴가 리스트 조회 -->
+	<select id="selectVacationList" resultMap="vacationResult">
+		select
+		       app_no "app_no"
+		     , v.emp_no "emp_no"
+		     , to_char(v.enroll_date, 'YYYY-MM-DD') "enroll_date"
+		     , to_char(start_date, 'YYYY-MM-DD') "start_date"
+		     , to_char(end_date, 'YYYY-MM-DD') "end_date"
+		     , vac_cause "vac_cause"
+		     , appr_status "status"
+		  from vacation v
+		  join approval on (app_no = appr_no)
+		 where v.emp_no = #{empNo}
+		 order
+		    by app_no desc
+	</select>
+	
+	<!-- 휴가 잔여일수 조회 -->
+	<select id="selectVacRemain" resultType="_int">
+		select 20 - nvl( sum(vac_days), 0)
+		  from vacation v
+		  join approval on (app_no = appr_no)
+		 where v.emp_no = #{empNo}
+		   and appr_status = '완료'
+	</select>
+	
+	<!-- 전 사원 근태 개수 조회 -->
+	<select id="selectAllListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM (
+		        SELECT
+		               NVL(EMP_NO, 0)
+		             , NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD'))
+		             , START_TIME
+		             , END_TIME
+		             , NVL(STATUS, '결근')
+		          FROM ATTENDANCE
+		         RIGHT JOIN (
+		                    SELECT TRUNC(TO_DATE(SYSDATE), 'MM') + LEVEL - 1 "WORKING_DAY"
+		                         , TO_CHAR(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'DY') "WEEK"
+		                      FROM DUAL
+		                    CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(TO_DATE(SYSDATE)), 'DD')
+		                    ) ON (ATT_DATE = WORKING_DAY)
+		         WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
+		           AND WEEK IN ('월', '화', '수', '목', '금')
+		           AND NVL(TO_DATE(ATT_DATE), TO_DATE(WORKING_DAY)) BETWEEN TO_DATE('2022-09-01') AND TO_DATE(SYSDATE)
+		           AND NVL(STATUS, '결근') IN ('정상', '지각', '결근')
+		         ORDER BY WORKING_DAY DESC
+		        )
+	</select>
+	
+	<!-- 휴가를 사용한 사원들의 휴가잔여일수 조회 -->
+	<select id="selectMemVacRemain" resultMap="vacationResult">
+		select 
+		       v.emp_no
+		     , 20 - sum(vac_days) "vac_remain"
+		  from vacation v
+		  join approval on (app_no = appr_no)
+		 where appr_status = '완료'
+		 group by v.emp_no
+	</select>
+	
+	<!-- 한 사원의 휴가 리스트 조회 (페이징 x) -->
+	<select id="ajaxSelectVacationList" resultMap="vacationResult">
+		select
+		       app_no "app_no"
+		     , emp_name "emp_name"
+		     , to_char(v.enroll_date, 'YYYY-MM-DD') "enroll_date"
+		     , to_char(start_date, 'YYYY-MM-DD') "start_date"
+		     , to_char(end_date, 'YYYY-MM-DD') "end_date"
+		     , vac_cause "vac_cause"
+		     , appr_status "status"
+		  from vacation v
+		  join member m on (v.emp_no = m.emp_no)
+		  join approval on (app_no = appr_no)
+		 where v.emp_no = #{empNo}
+	</select>
+	
 </mapper>
