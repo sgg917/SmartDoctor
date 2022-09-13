@@ -17,6 +17,8 @@ import com.fp.smartDoctor.attendance.model.vo.Attendance;
 import com.fp.smartDoctor.attendance.model.vo.Vacation;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.common.template.Pagination;
+import com.fp.smartDoctor.member.model.service.MemberService;
+import com.fp.smartDoctor.member.model.vo.Member;
 import com.google.gson.Gson;	
 
 @Controller
@@ -25,6 +27,7 @@ public class AttendanceController {
 	
 	@Autowired
 	private AttendanceService aService;
+	private MemberService mService;
 	
 	// 출퇴근 관리 페이지 조회
 	@RequestMapping("list.att")
@@ -191,11 +194,83 @@ public class AttendanceController {
 	}
 	
 	// 사원 근태 관리 페이지 조회
-	@RequestMapping("memlist.att")
-	public String selectMemAttendanceList(@RequestParam(value="cpage", defaultValue="1")int cpage) {
+	@RequestMapping("allList.att")
+	public String selectAllAttendanceList(@RequestParam(value="cpage", defaultValue="1")int cpage) {
+		
+		//int listCount = aService.selectAllListCount();
+		
+		//PageInfo pi = new PageInfo();
+		//pi = new Pagination().getPageInfo(listCount,  cpage, 5, 5);
+		
+		//ArrayList<Attendance> list = aService.selectAllAttendanceList(pi, null);
 		
 		
 		return "lsg/memberAttendanceListView";
 	}
 	
+	@RequestMapping("allList.vac")
+	public ModelAndView selectAllVacationList(@RequestParam(value="cpage", defaultValue="1")int cpage, ModelAndView mv) {
+		
+		// 병원장을 제외한 사원 수
+		int listCount = aService.selectMemListCount() - 1;
+		
+		PageInfo pi = new PageInfo();
+		pi = new Pagination().getPageInfo(listCount, cpage, 5, 10);
+		
+		// 사원 리스트
+		ArrayList<Member> list = aService.selectMemberList(pi);
+		
+		// 사원들의 잔여 휴가일
+		ArrayList<Vacation> vacList = aService.selectMemVacRemain();
+		
+		/*
+		 * System.out.println(pi);
+		 * System.out.println(list);
+		 * System.out.println(vacList);
+		 */
+		
+		mv.addObject("pi", pi).addObject("list", list).addObject("vacList", vacList)
+		.setViewName("lsg/allVacationListView");
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="memList.vac", produces="application/json; charset=utf-8")
+	public String ajaxselectVacationList(int no) {
+		
+		ArrayList<Vacation> list = aService.ajaxSelectVacationList(no);
+		
+		return new Gson().toJson(list);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="search.vac", produces="application/json; charset=utf-8")
+	public String ajaxSearchVacationList(@RequestParam(value="cpage", defaultValue="1")int cpage, String type, String keyword) {
+		
+		HashMap<String, String> hm = new HashMap<>();
+		hm.put("type", type);
+		hm.put("keyword", keyword);
+		
+		System.out.println(hm);
+		
+		// 검색 결과 사원 수
+		int listCount = aService.ajaxSearchListCount(hm);
+		
+		PageInfo pi = new PageInfo();
+		pi = new Pagination().getPageInfo(listCount, cpage, 5, 10);
+		
+		// 검색 결과 사원 리스트
+		ArrayList<Member> list = aService.ajaxSearchList(pi, hm);
+		
+		// 검색 결과 사원들의 잔여 휴가일
+		ArrayList<Vacation> vlist = aService.selectMemVacRemain();
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("pi", pi);
+		map.put("list", list);
+		map.put("vlist",  vlist);
+		
+		return new Gson().toJson(map);
+		
+	}
 }
