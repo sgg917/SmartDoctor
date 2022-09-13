@@ -23,14 +23,17 @@
 		<div class="wrap11" style="width: 70%; height:70%; margin:auto;">
 		
 		
-			<div class="row" style="border: 1px solid red;">
+			<div class="row">
                 <div class="card">
                   <div class="card-body">
-                  
-                    <h2 class="">공지사항</h2>
-                    <p class="card-description">&nbsp;&nbsp;총 ##### 건 <code style="color:white;">.table-hover</code>
-                    </p>
-
+                  	
+                  	<div style="float: left;">
+                    	<h2 style="float: left;">공지사항</h2>
+                    	<br>
+                    	<span class="card-description" style="float: left;">총 ##### 건 <code style="color:white;">.table-hover</code></span>
+                    </div>
+                    
+					<br><br><br><br>
                     <div class="form-group" style="float: right;">
                       <table>
                         <tr>
@@ -106,14 +109,13 @@
 
                   </div>
                 </div>
+                
+                <jsp:include page="../common/footer.jsp" />
             </div>
-
-
-
 		</div>
 		<br>
-		<jsp:include page="../common/footer.jsp" />
 	</div>
+	
 
 </body>
 </html>
