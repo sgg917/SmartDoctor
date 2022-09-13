@@ -92,7 +92,7 @@ public class TreatmentController {
 		
 		//ArrayList<ListSurgeryBooking> list = tService.selectRevOProom(bookingNo);
 		Clinic c=tService.selectforInsertRevOP(clinicNo);
-		Clinic c = tService.selectRevOProom(no);
+		
 		mv.addObject("c", c).setViewName("kcy/revOREnrollForm");
 		
 		return mv;
