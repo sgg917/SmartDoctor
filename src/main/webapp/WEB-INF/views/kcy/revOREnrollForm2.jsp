@@ -142,7 +142,7 @@ th {
 						<input type="hidden" id="clinicNo" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
 						<input type="hidden" id="surgeryNo" class="form-control" value="${ c.surgeryNo2 }" name="surgeryNo"> 
 						<input type="hidden" id="leadTime" class="form-control" value="${ c.leadTime }" name="leadTime">
-						<input type="hidden" id="bookingNo" class="form-control" value="${ op.bookingNo }" name="bookingNo">
+						 
 						 
 	
 						<br>
@@ -190,25 +190,32 @@ th {
 										<td>
 										<input type="date" class="datepicker" name="surDate" style="width: 225px; height: 25.2px;">
 
-									   <select class="surStartTime" style="width: 70px; height: 25.2px;" name="surStartTime" id="surStartTime">
-										<c:set var="breakPoint" value="0" />
-										<c:forEach var="i" begin="9" end="22">
-											<c:forEach var="j" begin="0" end="1">
-												<c:if test="${(i == 24) && (j == 1)}">    
-													<c:set var="breakPoint" value="1" />                                    
-												</c:if>
-												<c:if test="${breakPoint == 0}">                           
-													<option value="<fmt:formatNumber pattern="00" value="${i}" />:<fmt:formatNumber pattern="00" value="${j*30}" />">
-													<fmt:formatNumber pattern="00" value="${i}" />:<fmt:formatNumber pattern="00" value="${j*30}" /></option>                                                                            
-												</c:if>
-											</c:forEach>
-										</c:forEach>
-				
-								   </select>
-								   <br>
+									   	<select onchange="updateEndTime()" class="surStartTime"  name="surStartTime" id="surStartTime" style="width: 70px; height: 25.2px;">
+											<option value="09:30">09:30</option>
+											<option value="10:00">10:00</option>
+											<option value="10:30">10:30</option>
+											<option value="11:00">11:00</option>
+											<option value="11:30">11:30</option>
+											<option value="12:00">12:00</option>
+											<option value="12:30">12:30</option>
+											<option value="13:00">13:00</option>
+											<option value="13:30">13:30</option>
+											<option value="14:00">14:00</option>
+											<option value="14:30">14:30</option>
+											<option value="15:00">15:00</option>
+											<option value="15:30">15:30</option>
+											<option value="16:00">16:00</option>
+											<option value="16:30">16:30</option>
+											<option value="17:00">17:00</option>
+											<option value="17:30">17:30</option>
+											<option value="18:00">18:00</option>
+											<option value="18:30">18:30</option>
+											<option value="19:00">19:00</option>
+									    </select>
+									   <br>
 								   </td>
 									</tr>
-									<tr><!-- 여기!!!!!!!!!!!!!!! -->
+									<tr>
 										<th>예상완료시각</th>
 										<td><input type="text" readonly style="width: 300px;  background-color:#F2F2F2;" name="surEndTime" id="surEndTime"></td>
 									</tr>
@@ -226,7 +233,7 @@ th {
 								
 								<br>
 								<br>
-								<button type="submit" class="btn btn-danger"
+								<button type="" class="btn btn-danger"
 									style="height: 30px; width: 100px; padding: 0%; color: black; border: 0; background-color: rgb(65, 125, 122);">예약</button>
 
 								<br><br><br><br><br><br><br><br>
@@ -346,8 +353,7 @@ th {
 		
 				<input type="hidden" id="clinicNo" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
 				<input type="hidden" id="surgeryNo" class="form-control" value="${ c.surgeryNo2 }" name="surgeryNo"> 
-				<input type="hidden" id="leadTime" class="form-control" value="${ c.leadTime }" name="leadTime">
-				<input type="hidden" id="bookingNo" class="form-control" value="${ c.bookingNo }" name="bookingNo">
+				<input type="hidden" id="leadTime" class="form-control" value="${ c.leadTime }" name="leadTime"> 
 				<br>
 				<h3> <b>수술실 예약 수정</b> </h3>
 				<hr>
@@ -377,11 +383,11 @@ th {
 							</tr>
 							<tr>
 								<th>예약날짜</th>
-								<td><input type="text" style="width: 300px;" name="surDate"  value="${c.surDate }"><br></td>
+								<td><input type="date" style="width: 300px;" name="surDate"  value="${c.surDate }"><br></td>
 							</tr>
 							<tr>
 								<th>예약시각</th>
-								<td><input type="text" style="width: 300px;" name="surStartTime" id="surStartTime" value="${c.surStartTime }"></td>
+								<td><input type="time" style="width: 300px;" name="surStartTime" id="surStartTime" value="${c.surStartTime }"></td>
 							</tr>
 							<tr>
 								<th>예상완료시각</th>
@@ -389,7 +395,7 @@ th {
 							</tr>
 							<tr>
 								<th>담당의</th>
-								<td><input type="text" style="width: 300px;" readOnly value="${ c.docName }" name="doctorName"></td>
+								<td><input type="text" style="width: 300px;" readOnly value="${ c.docName }" name="docName"></td>
 							</tr>
 							<tr>
 								<th>특이사항</th>
@@ -458,13 +464,11 @@ th {
 					var calendar = new FullCalendar.Calendar(calendarEl, {
 						initialView : 'dayGridMonth',
 						locale : 'ko', // 한국어 설정
-						headerToolbar: {
+						 headerToolbar: {
 						    left: 'prev,next today',
 						    center: 'title',
 						    right: 'dayGridMonth,timeGridWeek,timeGridDay'
 						},
-						slotMinTime: '09:00',
-					    slotMaxTime: '23:00',
 						selectable : true,
 						droppable : true,
 						editable : true,
@@ -496,10 +500,10 @@ th {
 		      data:{surgeryNo:surgeryNo,
 		    	  	clinicNo:clinicNo, 
 		    	  	roomName:roomName, 
-		    	  	surDate:surDate, 
-		    	  	surEndTime:surEndTime,
+		    	  	surDate:surDate,
+		    	  	surEndTime:surEndTime
 		    	  	surStartTime:surStartTime,
-		    	  	doctorName:doctorName,
+		    	  	doctorName:docName,
 		    	  	memo:memo
 		            },
 		      type:"POST",
@@ -511,7 +515,7 @@ th {
 		         if (json.n == 1) {
 		            alert("수술실 예약 되었습니다.");
 		            
-		         }else if (json.n == -1) {
+		         }else if (json.n == -1/*아닌거같음*/) {
 		            // 중복된 예약(시간)으로 예약에 실패했을 때
 		            alert("해당 시간에는 이미 예약이 있습니다.");
 		         }
@@ -539,27 +543,16 @@ th {
 	<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음-->
 
 	<script>
-		$(".surStartTime").change(function(){
-			//var Sum =			
-				var timeSArr = $(".surStartTime>option:selected").text().split(":");			
-				var timeLArr = "${c.leadTime}".split(":");
-				
-				let hour = Number(timeSArr[0]) + Number(timeLArr[0]);
-				let min = Number(timeSArr[1]) + Number(timeLArr[1]);
-				if(min < 10){
-					min = "0" + min;
+		$(".surEndTime").change(function updateEndTime(){
+			var Sum = function(){			
+				var timeS = $(".surStartTime>option:selected").text();			
+				var timeE = ${c.leadTime}			
+				var result = parseDate(timeS) + parseDate(timeE);			
+				document.getElementsById("surEndTime").value=result;		
 				}
-				
-				//var result = parseDate(timeS) + parseDate(timeL);			
-				console.log(hour + ":" + min)
-				document.getElementById("surEndTime").value = hour + ":" + min;		
-				
 			
-			 //$(".surEndTime").html(Sum);
-		})
-	
-	
-		
+			 $(".surEndTime").html(Sum);
+		})	
 	</script>
 </body>
 </html>

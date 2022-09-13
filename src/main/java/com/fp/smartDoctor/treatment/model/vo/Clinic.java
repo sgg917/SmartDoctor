@@ -26,5 +26,17 @@ public class Clinic {
 	private String diseaseCode;
 	private int empNo;
 	private int fee;
+	
+	//수술실 예약 조회
+	private String patientName;
+	private String docName;
+	private String leadTime;
+	private String roomName;
+	private String surgeryDate;
+	private String surEndTime;
+	private String surStartTime;
+	private String surDate;
+	private String memo;
+	private int bookingNo;
 
 }

@@ -4,209 +4,120 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Smart Doctor</title>
-<!-- plugins:css -->
-<link rel="stylesheet"
-	href="resources/vendors/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet"
-	href="resources/vendors/css/vendor.bundle.base.css">
-<!-- endinject -->
-<!-- Plugin css for this page -->
-<!-- End plugin css for this page -->
-<!-- inject:css -->
-<!-- endinject -->
-<!-- Layout styles -->
-<link rel="stylesheet" href="resources/css/style.css">
-<!-- End layout styles -->
-<link rel="shortcut icon" href="resources/images/favicon.ico" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Purple Admin</title>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <!--써머노트로 추정~-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
-<!-- jQuery library -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-<!-- Popper JS -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
 
+      .wrap11{
+        width: 100%;
+        background-color: white;
+        border-radius: 30px 10px;
+        box-shadow: 3px 3px 3px 3px lightgray;
+        text-align: center;
+      }
 
+      .tb1{
+        margin: auto;
+        font-size: 0.7em;
+        width: 90%;
+        font-size: 0.8em;
+        font-weight: 300;
+        text-align: left;
+      }
 
+      .btn1{
+        font-size: 1em;
+        height: 25px;
+        width: 70px; 
+        padding:0%; 
+        background-color: rgb(65, 125, 122);
+        border: 0;
+      }
+      .btn1:hover {
+        color: white;
+        background-color: rgba(65, 125, 122, 0.41);
 
+      }
 
-<!--써머노트로 추정~-->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-	crossorigin="anonymous"></script>
+      .smallbtn1{
+        border-radius: 10px 10px 10px 10px;
+        width:50px; 
+        height:20px; 
+        background-color:rgb(26, 188, 156);
+        font-size: 0.8em;
+        display: inline-block;
+        
+      }
 
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-	crossorigin="anonymous"></script>
+      th{
+        height: 50px;
+        text-align: left;
+        
+      }
 
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+      .left1{
+        display: inline-block;
+        font-size: 0.7em;
+        float: left;
+      }
 
-<style>
-.content11 {
-	height: 500px;
-	width: 100%;
-	background-color: #F2F2F2;
-	border: 1px solid blue;
-}
+      .right1{
+        display: inline-block;
+        font-size: 0.7em;
+        float: right;
+      }
 
-.wrap11 {
-	width: 100%;
-	background-color: white;
-	border-radius: 30px 10px;
-	box-shadow: 3px 3px 3px 3px lightgray;
-	text-align: center;
-}
-
-.tb1 {
-	margin: auto;
-	font-size: 0.7em;
-	width: 90%;
-	font-size: 0.8em;
-	font-weight: 300;
-	text-align: left;
-}
-
-.btn1 {
-	font-size: 1em;
-	height: 25px;
-	width: 70px;
-	padding: 0%;
-	background-color: rgb(65, 125, 122);
-	border: 0;
-}
-
-.btn1:hover {
-	color: white;
-	background-color: rgba(65, 125, 122, 0.41);
-}
-
-.smallbtn1 {
-	border-radius: 10px 10px 10px 10px;
-	width: 50px;
-	height: 20px;
-	background-color: rgb(26, 188, 156);
-	font-size: 0.8em;
-	display: inline-block;
-}
-
-th {
-	height: 50px;
-	text-align: left;
-}
-
-.left1 {
-	display: inline-block;
-	font-size: 0.7em;
-	float: left;
-}
-
-.right1 {
-	display: inline-block;
-	font-size: 0.7em;
-	float: right;
-}
-
-.wrap22 {
-	margin: auto;
-	width: 90%;
-}
-
-.btn-box .btn-open {
-	display: block;
-	width: 200px;
-	height: 50px;
-	margin: 80px auto 0;
-	line-height: 50px;
-	background: #333;
-	text-align: center;
-}
-
-.btn-box .btn-open span {
-	color: #fff;
-}
-
-/* 팝업 스타일 */
-.modal-bg {
-	display: none;
-	width: 100%;
-	height: 110%;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	background: rgba(0, 0, 0, 0.6);
-	z-index: 999;
-}
-
-.modal-wrap {
-	display: none;
-	position: absolute;
-	top: 70%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 800px;
-	height: 750px;
-	background: #fff;
-	z-index: 1000;
-}
-</style>
+      .wrap22{
+        margin: auto;
+        width: 90%;
+      }
+    
 
 
-</head>
+      .btn-box .btn-open {
+            display: block;
+            width: 200px;
+            height: 50px;
+            margin: 80px auto 0;
+            line-height: 50px;
+            background: #333;
+            text-align: center;
+        }
+
+        .btn-box .btn-open span {
+            color: #fff;
+        }
+
+        /* 팝업 스타일 */
+        .modal-bg {display:none;width:100%;height:110%;position:fixed;top:0;left:0;right:0;background: rgba(0, 0, 0, 0.6);z-index:999;}
+        .modal-wrap {display:none;position:absolute;top:70%;left:50%;transform:translate(-50%,-50%);width:800px;height:750px;background:#fff;z-index:1000;}
+
+
+
+    </style>
+
+  </head>
 <body>
 
 	<div class="container-scroller">
-
-		<!-- 이부분은 팝업 배너입니다 작업하실때는 제외 하셔도 됩니다! -->
-		<div class="row p-0 m-0 proBanner" id="proBanner">
-			<div class="col-md-12 p-0 m-0">
-				<div
-					class="card-body card-body-padding d-flex align-items-center justify-content-between">
-					<div class="ps-lg-1">
-						<div class="d-flex align-items-center justify-content-between">
-							<p class="mb-0 font-weight-medium me-3 buy-now-text">공지 넣으면
-								좋을것같아요</p>
-						</div>
-					</div>
-					<div class="d-flex align-items-center justify-content-between">
-						<button id="bannerClose" class="btn border-0 p-0">
-							<i class="mdi mdi-close text-white me-0"></i>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--팝업배너 끝-->
-
 		<jsp:include page="../common/navbar.jsp" />
+
 
 		<div class="main-panel">
 			<div class="content-wrapper">
-				<!-- 이 안에서 작업해 주세요 -->
 				<div class="wrap11">
 					<br>
 					<br>
@@ -347,7 +258,7 @@ th {
 							<td width="100px"><input type="checkbox">내게쓰기</td>
 							<td colspan="2"><input type="text" style="width: 100%;"></td>
 							<td width="50px"><button type="button"
-									class="btn btn-danger btn1">주소록</button</td>
+									class="btn btn-danger btn1">주소록</button></td>
 						</tr>
 						<tr class="cat1">
 							<td height="50px">참조</td>
@@ -475,7 +386,7 @@ th {
 
 
 
-					<script>
+			<script>
                 $('#summernote').summernote({
                   spellCheck: true,
                   disableDragAndDrop: true,
@@ -528,14 +439,14 @@ th {
                 }
                 // $(".note-editable").change( console.log( $(this).html() ) )
                 
-              </script>
+            </script>
 				</div>
-				<jsp:include page="../common/footer.jsp" />
 			</div>
 
 
+			<jsp:include page="../common/footer.jsp" />
 		</div>
-
+	</div>
 
 </body>
 </html>
