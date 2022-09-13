@@ -223,7 +223,7 @@
                   <li class="nav-item"> <a class="nav-link" href="">진료 접수</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">진료 대기</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enroll.tmt">진료 입력</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">수술실 예약 조회</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="detail.op">수술실 예약 조회</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">입원실 예약 조회</a></li>
                 </ul>
               </div>
@@ -299,7 +299,8 @@
               </a>
               <div class="collapse" id="number4">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">받은메일함</a></li>
+                	<li class="nav-item"> <a class="nav-link" href="enroll.em">메일쓰기</a></li>
+                  	<li class="nav-item"> <a class="nav-link" href="">받은메일함</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">보낸메일함</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">임시메일함</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">중요보관함</a></li>

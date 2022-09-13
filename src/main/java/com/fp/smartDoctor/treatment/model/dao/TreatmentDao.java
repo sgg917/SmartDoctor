@@ -7,25 +7,28 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 
 @Repository
 public class TreatmentDao {
 
+	
 	//수술실 예약 상세조회
-	public ArrayList<ListSurgeryBooking> selectRevOProom(SqlSessionTemplate sqlSession, int bookingNo) {
-		ArrayList<ListSurgeryBooking> sbList = sqlSession.selectOne("treatmentMapper.selectOProom", bookingNo);
-		return sbList;
+	public Clinic selectRevOProom(SqlSessionTemplate sqlSession,int bookingNo) {
+		return sqlSession.selectOne("treatmentMapper.selectOProom", bookingNo);
 	}
 	
 	//수술실 예약을 위한 정보조회
-	public ArrayList<ListSurgeryBooking> selectforInsertRevOP(SqlSessionTemplate sqlSession, int bookingNo) {
-		ListSurgeryBooking list  = new ListSurgeryBooking();
+	public Clinic selectforInsertRevOP(SqlSessionTemplate sqlSession, int clinicNo) {
+		//ListSurgeryBooking list  = new ListSurgeryBooking();
 		
-		ArrayList<ListSurgeryBooking> sbList = sqlSession.selectOne("treatmentMapper.forinsertOProom",list);
-		return sbList;
+		Clinic c = sqlSession.selectOne("treatmentMapper.forinsertOProom",clinicNo);
+		return c;
 	}
+	
+	
 	
 	//수술실 예약 풀캘린더 정보 조회
 	public List<RevOProom> getCalendar(SqlSessionTemplate sqlSession)  {
@@ -42,12 +45,9 @@ public class TreatmentDao {
 	public int insertReservation(SqlSessionTemplate sqlSession, HashMap<String, String> paraMap) {
 		return sqlSession.insert("treatmentMapper.insertReservation", paraMap);
 	}
-	public int insertOP(SqlSessionTemplate sqlSession, RevOProom op) {
-		return sqlSession.insert("treatmentMapper.insertOP", op);
-	}
 	
 	//수술실 예약 취소
-	public int rsvCancel(SqlSessionTemplate sqlSession, HashMap<String, String> paraMap) {
-		return sqlSession.delete("treatmentMapper.rsvCancel", paraMap);
+	public int cslRsvOP(SqlSessionTemplate sqlSession, int bookingNo) {
+		return sqlSession.update("treatmentMapper.rsvCancel",bookingNo);
 	}
 }
