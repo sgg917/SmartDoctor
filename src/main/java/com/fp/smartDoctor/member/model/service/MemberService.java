@@ -7,5 +7,4 @@ public interface MemberService {
 	Member loginMember(Member m);
 	
 	int updatePwd(Member m);
-
 }
