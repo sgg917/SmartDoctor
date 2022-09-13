@@ -92,6 +92,9 @@
 	#ap-md-tr>th{
 		border:none;
 	}
+	#selectedLine>input{
+		width:105px;
+	}
 	#tree{
 		overflow:auto; 
 		height:370px;
@@ -160,28 +163,15 @@
 						<table class="table table-bordered appr-table">
 							<tr>
 								<th width="250px;">문서보존기간</th>
-								<td><select name="" style="width: 100px; height: 25px;">
-										<option>영구보존</option>
-										<option>1년</option>
-										<option>3년</option>
-										<option>5년</option>
-								</select></td>
-							</tr>
-							<tr>
-								<th>결재자</th>
-								<td></td>
-							</tr>
-							<tr>
-								<th>참조자</th>
-								<td></td>
-							</tr>
-							<tr>
-								<th>첨부파일</th>
-								<td><input type="file"></td>
+								<td>&nbsp;5년</td>
 							</tr>
 							<tr>
 								<th>제목</th>
 								<td><input type="text" placeholder="제목을 입력해주세요"></td>
+							</tr>
+							<tr>
+								<th>첨부파일</th>
+								<td><input type="file"></td>
 							</tr>
 						</table>
 						<div>
@@ -386,7 +376,7 @@
 						<button type="button" class="btn btn-secondary btn-sm"
 							data-bs-dismiss="modal" style="width:100px; height:40px;">취소하기</button>
 						<button type="button" class="btn btn-success btn-sm"
-							style="background: RGB(29, 92, 99); color:white; width:100px; height:40px;">선택하기</button>
+							style="background: RGB(29, 92, 99); color:white; width:100px; height:40px;" onclick="selectedApprLine();">선택하기</button>
 					</div>
 				</div>
 			</div>
@@ -438,9 +428,9 @@
 						
 						for(let i in empList){
 							let emp = empList[i];
-							
+							let empInfo = emp.empName + "&nbsp;" + emp.jobName
 							let sourceEmp = {
-								title:emp.empName,
+								title:empInfo,
 								key:emp.empNo
 							};
 							
@@ -456,14 +446,8 @@
 										}
 									}
 								}
-								
 							}
-							
-							
 						}
-						
-						console.log(sourceArr);
-						
 						
 						$("#tree").fancytree({
 							source:sourceArr,
@@ -475,7 +459,6 @@
 							}
 						});
 						
-						
 					},
 					error:function(){
 						console.log("결재라인 조직도 리스트 조회용 ajax통신 실패");
@@ -485,6 +468,7 @@
 			
 			function addApprLine(empNo){ // 결재라인 결재참조자 추가 함수
 				
+				let member;
 				$.ajax({
 					url: "apprLineEmp.si",
 					async:false,
@@ -492,12 +476,14 @@
 					success:function(emp){
 
 						data = "<tr class='ap-md-bd'>"
-							 	 + "<td>" + emp.empName + "</td>"
+								 + "<td style='display:none' class='empId'>" + emp.empNo + "</td>"
+							 	 + "<td class='empName'>" + emp.empName + "</td>"
 								 + "<td>" + emp.deptName + "</td>"
 								 + "<td>" + emp.jobName + "</td>"
 								 + "<td class='ap-mdi-del'><i class='mdi mdi-delete-forever'></i></td>"
 						 	 + "</tr>"
-						
+						 	 
+						member = emp; 
 					},
 					error:function(){
 						console.log("결재라인 사원 조회용 ajax통신 실패");
@@ -505,16 +491,50 @@
 				})
 				
 				$("#appr-line").off('click').on('click', function(){ // 결재자
-					$("#apprLine").append(data);
+					
+				
+					if( $(".empId").text() == member.empNo ){ // 동일한 사원 선택 제한
+						
+						alert("중복된 대상입니다.");
+						$("#appr-line").off('click');
+					
+					}else if( $("#apprLine").children(".ap-md-bd").length > 2 ){ // 3명 이상 선택 제한
+						
+						alert("최대 결재인원은 3명입니다.");
+						$("#appr-line").attr("disabled", true);
+						
+					}else{ 
+						
+						$("#appr-line").attr("disabled", false);
+						$("#apprLine").append(data);
+					}
+					
         		})
         		
         		$("#appr-line-ref").off('click').on('click', function(){ // 참조자
-        			$("#apprRef").append(data); 
+        			
+					if( $("#apprRef").find(".ap-md-bd").children("td:eq(0)").text() == member.empNo ){ // 동일한 사원 선택 제한
+						
+						alert("중복된 대상입니다.");
+						$("#appr-ref").off('click');
+					
+					}else if( $("#apprRef").children(".ap-md-bd").length > 2 ){ // 3명 이상 선택 제한
+						
+						alert("최대 결재인원은 3명입니다.");
+						$("#appr-ref").attr("disabled", true);
+						
+					}else{
+						
+						$("#appr-ref").attr("disabled", false);
+						$("#apprRef").append(data);
+					}
+        			
         		})
         		
         		
 			}
-			   
+			
+			
 		</script>
 		
 		

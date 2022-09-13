@@ -28,15 +28,16 @@
 		select
 			   emp_no
 			 , emp_name
-			 , job_no
 			 , m.dept_no
 			 , upper_no
 			 , dept_name
+			 , job_name
 		  from member m 
 		  join department d on (m.dept_no = d.dept_no)
+		  join job j on (m.job_no = j.job_no)
 		 where status = 'Y'
 		 order
-		    by job_no
+		    by m.job_no
 	</select>
 	
 	<!-- 사용자_결재라인 조직도 부서 조회 -->
@@ -51,7 +52,8 @@
 	<!-- 사용자_결재라인 사원 조회 -->
 	<select id="selectApprEmp" resultMap="memberResult">
 		select
-		       emp_name
+			   emp_no
+		     , emp_name
 		     , dept_name
 		     , job_name
 		  from member
