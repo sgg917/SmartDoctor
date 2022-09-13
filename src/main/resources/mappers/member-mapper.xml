@@ -125,6 +125,7 @@
 		 where #{type} like '%' || #{keyword} || '%'
 	</select>
 	
+	<!-- 로그인한 사원 정보 조회 -->
 	<select id="loginMember" resultMap="memberResult">
 		select 
 			    emp_no
@@ -147,6 +148,7 @@
 		    and emp_pwd = #{empPwd}
 	</select>
 
+	<!-- 비밀번호 변경 -->
 	<update id="updatePwd">
 		update
 			   member

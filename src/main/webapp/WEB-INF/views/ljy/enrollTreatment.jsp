@@ -51,7 +51,7 @@
                                   <th style="background: lightgray;">차트번호</th>
                                   <th style="background: lightgray;">이름</th>
                                   <th style="background: lightgray;">성별</th>
-                                  <th style="background: lightgray;">나이</th>
+                                  <th style="background: lightgray;">나이(만)</th>
                                   <th style="background: lightgray;">초진/재진</th>
                                 </tr>
                               </thead>

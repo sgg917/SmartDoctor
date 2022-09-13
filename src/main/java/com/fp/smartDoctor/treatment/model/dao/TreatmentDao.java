@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking;
+import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 
 @Repository
@@ -49,5 +50,10 @@ public class TreatmentDao {
 	//수술실 예약 취소
 	public int rsvCancel(SqlSessionTemplate sqlSession, HashMap<String, String> paraMap) {
 		return sqlSession.delete("treatmentMapper.rsvCancel", paraMap);
+	}
+	
+	
+	public Patient selectNowPatient(SqlSessionTemplate sqlSession, Patient p) {
+		return sqlSession.selectOne("treatmentMapper.selectNowPatient", p);
 	}
 }
