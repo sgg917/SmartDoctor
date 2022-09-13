@@ -80,11 +80,48 @@
 	.btn>span {
 		white-space: nowrap;
 	}
+	.ap-md-bd{
+		border: 1px solid #DFDFDF;
+	}
+	.ap-md-bd>td{
+		border:none;
+	}
 	#ap-md-tr{
 		border: 2px solid #DFDFDF;
 	}
 	#ap-md-tr>th{
 		border:none;
+	}
+	#tree{
+		overflow:auto; 
+		height:370px;
+	}
+	.appr-line-md{
+		background:white; 
+		width:800px; 
+		margin:auto;
+	}
+	.appr-line-div{
+		width:500px; 
+		height:150px; 
+		border: 1px solid #DFDFDF;
+	}
+	.appr-line-div>button{
+		width:65px; 
+		height:100%; 
+		border: 1px solid #DFDFDF; 
+		background:white; 
+		float:left;
+	}
+	.appr-line-div>table{
+		width:433px; 
+		float:right;
+	}
+	.ap-md-th{
+		background: rgb(244, 244, 244);
+	}
+	.ap-mdi-del{
+		text-align: center; border:none;
 	}
 </style>
 </head>
@@ -285,19 +322,19 @@
 		<div class="modal fade" id="lineModal" tabindex="-1"
 			aria-labelledby="lineModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-				<div class="modal-content" style="background:white; width:800px; margin:auto;">
+				<div class="modal-content appr-line-md" style="background:white; width:800px; margin:auto;">
 					<div class="modal-header">
 						<h5 class="modal-title" id="lineModalLabel">결재라인 지정</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<table class="table table-bordered appr-modal-tb" id="appr-oz">
+						<table class="table table-bordered appr-modal-tb" id="appr-oz" style="float:left;">
 							<tr>
 								<th>조직도</th>
 							</tr>
 							<tr>
-								<td style="overflow:auto; height:392px;">
+								<td style="height:370px;">
 									<div id="tree">
 									  <ul id="treeData">
 									  
@@ -306,55 +343,44 @@
 								</td>
 							</tr>
 						</table>
-						<table class="table table-bordered appr-modal-tb" style="width: 500px;">
-							<tr id="ap-md-tr">
-								<th></th>
-								<th>이름</th>
-								<th>부서</th>
-								<th>직급</th>
-								<th style="text-align: center;">
-									<i class="mdi mdi-delete-forever"></i>
-								</th>
-							</tr>
-							<tr>
-								<th colspan="5" style="background: rgb(244, 244, 244);">결재자</th>
-							</tr>
-							<tr style="border: 1px solid #DFDFDF;">
-								<td width="40" rowspan="3" id="appr-line"><i
-									class="mdi mdi-chevron-double-right"></i></td>
-								<td style="border:none;">강동원</td>
-								<td style="border:none;">총무팀</td>
-								<td style="border:none;">팀장</td>
-								<td style="text-align: center; border:none;"><i
-									class="mdi mdi-delete-forever" ></i></td>
-							</tr>
-							<tr style="border: 1px solid #DFDFDF;">
-								<td style="border:none;">강동원</td>
-								<td style="border:none;">총무팀</td>
-								<td style="border:none;">팀장</td>
-								<td style="text-align: center; border:none;"><i
-									class="mdi mdi-delete-forever" ></i></td>
-							</tr>
-							<tr style="border: 1px solid #DFDFDF;">
-								<td style="border:none;">강동원</td>
-								<td style="border:none;">총무팀</td>
-								<td style="border:none;">팀장</td>
-								<td style="text-align: center; border:none;"><i
-									class="mdi mdi-delete-forever" ></i></td>
-							</tr>
-							<tr>
-								<th colspan="5">참조자</th>
-							</tr>
-							<tr style="border: 1px solid #DFDFDF;">
-								<td width="40" rowspan="3" id="appr-line-ref"><i
-									class="mdi mdi-chevron-double-right"></i></td>
-								<td style="border:none;">강동원</td>
-								<td style="border:none;">총무팀</td>
-								<td style="border:none;">팀장</td>
-								<td style="text-align: center; border:none;"><i
-									class="mdi mdi-delete-forever" ></i></td>
-							</tr>
-						</table>
+						<!-- <i class="mdi mdi-chevron-double-right"></i>-->
+						<div class="apprLineWrapper" style="float:right;">
+							<table class="table table-bordered appr-modal-tb" style="width: 500px;">
+								<tr id="ap-md-tr">
+									<th></th>
+									<th>이름</th>
+									<th>부서</th>
+									<th>직급</th>
+									<th style="text-align: center;">
+										<i class="mdi mdi-delete-forever"></i>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="5" class="ap-md-th">결재자</th>
+								</tr>
+							</table>
+							<div class="appr-line-div">
+								<button id="appr-line">
+									<i class="mdi mdi-chevron-double-right"></i>
+								</button>
+								<table class="table table-bordered appr-modal-tb" id="apprLine">
+									
+								</table> 
+							</div>
+							<table class="table table-bordered appr-modal-tb" style="width: 500px;">
+								<tr>
+									<th colspan="5" class="ap-md-th">참조자</th>
+								</tr>
+							</table>
+							<div class="appr-line-div">
+								<button id="appr-line-ref">
+									<i class="mdi mdi-chevron-double-right"></i>
+								</button>
+								<table class="table table-bordered appr-modal-tb" id="apprRef">
+									
+								</table> 
+							</div>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary btn-sm"
@@ -373,55 +399,76 @@
 			function selectLineList(){ // 결재라인 조직도 출력용 함수
 				
 				$.ajax({
-					url: "apprLineDept.si",
+					url: "apprLineList.si",
 					async:false,
-					success:function(list){
+					success:function(map){
 						
-						let up = "";
-						let treat = "";
-						let nurse = "";
-						for(let i=0; i<list.length; i++){
+						let deptList = map.deptList; // [{}, {}]
+						let empList = map.empList; // [{}, {}]
+						
+						let sourceArr = []; // 최종만들어야되는 배열
+						
+						for(let i in deptList){
+							let dept = deptList[i];
 							
-							if(list[i].upperNo == 0){ // 상위부서
-								up += "<li id='" + list[i].deptNo + "' class='folder expanded'>" + list[i].deptName;
-							}else if(list[i].upperNo == 1){ // 진료부
-								treat += "<li id='" + list[i].deptNo + "' class='folder expanded'>" + list[i].deptName;
-							}else{ // 간호부
-								nurse += "<li id='" + list[i].deptNo + "' class='folder expanded'>" + list[i].deptName;
+							if(dept.upperNo == 0){
+								let sourceUpperDept = {
+									title:dept.deptName,
+									key:dept.deptNo,
+									folder:true,
+									expanded:true,
+									children:[]
+								};
+								sourceArr.push(sourceUpperDept);
+							}else{
+								let sourceLowerDept = {
+									title:dept.deptName,
+									key:dept.deptNo,
+									folder:true,
+									children:[]	
+								};
+								
+								for(let j in sourceArr){
+									if(sourceArr[j].key == dept.upperNo){
+										sourceArr[j].children.push(sourceLowerDept);
+									}
+								}
 							}
 						}
 						
-						$("#treeData").html(up);
-						$("#1").append("<ul>" + treat + "</ul>");
-						$("#2").append("<ul>" + nurse + "</ul>");
-						
-					},
-					error:function(){
-						console.log("결재라인 조직도 부서 조회용 ajax통신 실패");
-					}
-				})
-				
-				$.ajax({
-					url: "apprLineList.si",
-					async:false,
-					success:function(emp){
-						
-						for(let i=0; i<emp.length; i++){ // 각 부서에 사원 출력
+						for(let i in empList){
+							let emp = empList[i];
 							
-							$('.folder').each(function(index, item){
+							let sourceEmp = {
+								title:emp.empName,
+								key:emp.empNo
+							};
+							
+							for(let i in sourceArr){
+								let dept = sourceArr[i];
 								
-								if( $(item).attr("id") == emp[i].deptNo ){
-									$(item).append("<ul><li id='" + emp[i].empNo + "'>" + emp[i].empName + "</ul>");
-									console.log("<ul><li id='" + emp[i].empNo + "'>" + emp[i].empName + "</ul>");
-									
+								if(dept.key == emp.deptNo){
+									dept.children.push(sourceEmp);
+								}else{
+									for(let j in dept.children){
+										if(dept.children[j].key == emp.deptNo){
+											dept.children[j].children.push(sourceEmp);
+										}
+									}
 								}
-							})
+								
+							}
+							
+							
 						}
 						
+						console.log(sourceArr);
+						
+						
 						$("#tree").fancytree({
-							
+							source:sourceArr,
 							activate: function(event, data){ // 데이터 활성화
-						      
+							      
 								let node = data.node
 								//console.log(node.key);
 								addApprLine(node.key);
@@ -438,26 +485,32 @@
 			
 			function addApprLine(empNo){ // 결재라인 결재참조자 추가 함수
 				
-				//console.log(empNo);
+				$.ajax({
+					url: "apprLineEmp.si",
+					async:false,
+					data: {empNo: empNo},
+					success:function(emp){
+
+						data = "<tr class='ap-md-bd'>"
+							 	 + "<td>" + emp.empName + "</td>"
+								 + "<td>" + emp.deptName + "</td>"
+								 + "<td>" + emp.jobName + "</td>"
+								 + "<td class='ap-mdi-del'><i class='mdi mdi-delete-forever'></i></td>"
+						 	 + "</tr>"
+						
+					},
+					error:function(){
+						console.log("결재라인 사원 조회용 ajax통신 실패");
+					}
+				})
 				
-				$("#appr-line").click(function(){ // 결재자
-        			
-					$.ajax({
-						url: "apprLineEmp.si",
-						data: {empNo: empNo},
-						success:function(emp){
-							console.log(emp);
-						},
-						error:function(){
-							console.log("결재라인 사원 조회용 ajax통신 실패");
-						}
-					})
+				$("#appr-line").off('click').on('click', function(){ // 결재자
+					$("#apprLine").append(data);
         		})
         		
-        		$("#appr-line-ref").click(function(){ // 참조자
-        			
+        		$("#appr-line-ref").off('click').on('click', function(){ // 참조자
+        			$("#apprRef").append(data); 
         		})
-        		
         		
         		
 			}

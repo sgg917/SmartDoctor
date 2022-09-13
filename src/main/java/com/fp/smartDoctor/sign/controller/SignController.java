@@ -1,6 +1,7 @@
 package com.fp.smartDoctor.sign.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -136,18 +137,26 @@ public class SignController {
 	@RequestMapping(value="apprLineList.si", produces="application/json; charset=UTF-8")
 	public String selectApprLineList() {
 		
-		ArrayList<Member> list = sService.selectApprLineList();
-		return new Gson().toJson(list);
+		ArrayList<Dept> deptList = sService.selectApprLineDept();
+		ArrayList<Member> empList = sService.selectApprLineList();
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("deptList", deptList);
+		map.put("empList", empList);
+		
+		return new Gson().toJson(map);
 	}
 	
 	// 사용자_결재라인 조직도 부서 조회 (ajax)
+	/*
 	@ResponseBody
 	@RequestMapping(value="apprLineDept.si", produces="application/json; charset=UTF-8")
 	public String selectApprLineDept() {
 		
 		ArrayList<Dept> list = sService.selectApprLineDept();
+		
 		return new Gson().toJson(list);
-	}
+	}*/
 	
 	// 사용자_결재라인 사원 조회 (ajax)
 	@ResponseBody
