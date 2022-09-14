@@ -73,4 +73,8 @@ public class SignServiceImpl implements SignService {
 	public ArrayList<Sign> selectApprStandbyList(PageInfo pi) {
 		return sDao.selectApprStandbyList(sqlSession, pi);
 	}
+	@Override
+	public int insertAppr(Sign s) {
+		return sDao.insertAppr(sqlSession, s);
+	}
 }

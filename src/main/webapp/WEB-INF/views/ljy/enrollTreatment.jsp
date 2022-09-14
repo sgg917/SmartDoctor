@@ -93,26 +93,15 @@
                                         <th style="background: lightgray;">진료과</th>
                                       </thead>
                                       <tbody>
-                                        <tr>
-                                          <td>22-08-29</td>
-                                          <td>감기</td>
-                                          <td>이비인후과</td>
+                                      
+                                      <c:forEach var="c" items="${ list }">
+                                      	<tr>
+                                          <td>${ c.enrollDate }</td>
+                                          <td>${ c.disease }</td>
+                                          <td>${ c.deptName }</td>
                                         </tr>
-                                        <tr>
-                                          <td>22-05-22</td>
-                                          <td>불면증</td>
-                                          <td>정신과</td>
-                                        </tr>
-                                        <tr>
-                                          <td>날짜</td>
-                                          <td>증상</td>
-                                          <td>과과과</td>
-                                        </tr>
-                                        <tr>
-                                          <td>날짜</td>
-                                          <td>증상</td>
-                                          <td>과과과</td>
-                                        </tr>
+                                      </c:forEach>
+                                        
                                       </tbody>
                                     </table>
                                   </td>

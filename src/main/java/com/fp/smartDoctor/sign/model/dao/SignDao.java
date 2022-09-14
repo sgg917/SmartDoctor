@@ -77,4 +77,8 @@ public class SignDao {
 		return (ArrayList)sqlSession.selectList("signMapper.selectApprStandbyList", null, rowBounds);
 	}
 	
+	public int insertAppr(SqlSessionTemplate sqlSession, Sign s) {
+		return sqlSession.insert("signMapper.insertAppr", s);
+	}
+	
 }

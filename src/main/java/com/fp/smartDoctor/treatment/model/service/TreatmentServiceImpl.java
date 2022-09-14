@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.fp.smartDoctor.treatment.model.dao.TreatmentDao;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
-import com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 
@@ -82,6 +81,12 @@ public class TreatmentServiceImpl implements TreatmentService{
 	}
 
 	
+	// 진료할 환자의 과거 내역 조회
+	@Override
+	public ArrayList<Clinic> selectPatientInfo(int chartNo) {
+		ArrayList<Clinic> list = tDao.selectPatientInto(sqlSession, chartNo);
+		return list;
+	}
 	
 	
 

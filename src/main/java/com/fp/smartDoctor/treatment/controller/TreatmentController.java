@@ -116,8 +116,9 @@ public class TreatmentController {
 	
 	// 진료화면 조회
 	@RequestMapping("enroll.tmt")
-	public ModelAndView enrollTreatment(Patient p, HttpSession session, ModelAndView mv) {
+	public ModelAndView enrollTreatment(Patient p, Clinic c, HttpSession session, ModelAndView mv) {
 		
+		// 진료할 환자의 정보 조회
 		Patient nowPatient = tService.selectNowPatient(p);
 		System.out.println("진료중인 환자 : " + nowPatient);
 		
@@ -128,27 +129,15 @@ public class TreatmentController {
 			session.setAttribute("nowPatient", nowPatient);
 			mv.setViewName("ljy/enrollTreatment");
 		}
+		
+		// 진료할 환자의 과거 내역 조회
+		ArrayList<Clinic> list = tService.selectPatientInfo(nowPatient.getChartNo());
+		mv.addObject("list", list)
+		  .setViewName("ljy/enrollTreatment");
+
 		return mv;
 	}
 	
-	// 환자 조회
-	/*
-	@RequestMapping("detail.pt")
-	public String selectPatient(Patient p, HttpSession session, ModelAndView mv) {
-		
-		Patient nowPatient = tService.selectNowPatient(p);
-		System.out.println("진료중인 환자 : " + nowPatient);
-		
-		if(nowPatient == null) {
-			session.setAttribute("alertMsg", "진료중인 환자가 없습니다.");
-			return "redirect:/";
-		}else {
-			session.setAttribute("nowPatient", nowPatient);
-			return "redirect:enrollTreatment";
-		}
-	}
-
-	*/
 	
 	//수술실 예약 다시짜야함
 	/*
