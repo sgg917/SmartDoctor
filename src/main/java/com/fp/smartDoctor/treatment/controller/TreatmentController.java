@@ -83,8 +83,8 @@ public class TreatmentController {
 	@RequestMapping("detail.op")
 	public ModelAndView selectRevOProom(int clinicNo, ModelAndView mv) {
 		
-		RevOProom op = tService.selectRevOProom(clinicNo);
-		mv.addObject("op", op).setViewName("kcy/revORDetail");
+		Clinic c = tService.selectRevOProom(clinicNo);
+		mv.addObject("c", c).setViewName("kcy/revORDetail");
 		
 		return mv;
 		

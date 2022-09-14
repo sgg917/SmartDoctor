@@ -118,10 +118,10 @@ th {
 	<div class="modal-body">
 		<div class="wrap112">
 
-			<input type="hidden" id="clinicNo" class="form-control" value="${ op.clinicNo }" name="clinicNo"> 
-			<input type="hidden" id="surgeryNo" class="form-control" value="${ op.surgeryNo2 }" name="surgeryNo"> 
-			<input type="hidden" id="leadTime" class="form-control" value="${ op.leadTime }" name="leadTime">
-			<input type="hidden" id="bookingNo" class="form-control" value="${ op.bookingNo }" name="bookingNo">
+			<input type="hidden" id="clinicNo" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
+			<input type="hidden" id="surgeryNo" class="form-control" value="${ c.surgeryNo2 }" name="surgeryNo"> 
+			<input type="hidden" id="leadTime" class="form-control" value="${ c.leadTime }" name="leadTime">
+			<input type="hidden" id="bookingNo" class="form-control" value="${ c.bookingNo }" name="bookingNo">
 			<br>
 			<h3>
 				<b>수술실 예약 조회</b>
@@ -141,45 +141,45 @@ th {
 						<tr>
 							<th>차트번호</th>
 							<td><input readonly name="clinicNo"
-								value="${ op.clinicNo }" type="text" style="width: 300px;"></td>
+								value="${ c.clinicNo }" type="text" style="width: 300px;"></td>
 						</tr>
 						<tr>
 							<th>수진자명</th>
 							<td><input type="text" style="width: 300px;" readonly
-								value="${op.patientName }"></td>
+								value="${c.patientName }"></td>
 						</tr>
 						<tr>
 							<th>수술실</th>
 							<td><input type="text" style="width: 300px;" readonly
-								value="${op.roomName }"></td>
+								value="${c.roomName }"></td>
 						</tr>
 						<tr>
 							<th>예약날짜</th>
 							<td><input type="date" style="width: 300px;"
-								name="surDate" readonly value="${op.surDate }"><br></td>
+								name="surDate" readonly value="${c.surDate }"><br></td>
 						</tr>
 						<tr>
 							<th>예약시각</th>
 							<td><input type="time" style="width: 300px;"
 								name="surStartTime" id="surStartTime" readonly
-								value="${op.surStartTime }"></td>
+								value="${c.surStartTime }"></td>
 						</tr>
 						<tr>
 							<th>예상완료시각</th>
 							<td><input type="text" readonly
-								value="${ op.surEndTime }" style="width: 300px;"
+								value="${ c.surEndTime }" style="width: 300px;"
 								name="surEndTime" id="surEndTime" readonly></td>
 						</tr>
 						<tr>
 							<th>담당의</th>
 							<td><input type="text" style="width: 300px;" readOnly
-								value="${ op.doctorName }" name="doctorName"></td>
+								value="${ c.doctorName }" name="doctorName"></td>
 						</tr>
 						<tr>
 							<th>특이사항</th>
 							<td><textarea
 									style="width: 300px; height: 100px; resize: none;"
-									name="memo" readonly>${op.memo}</textarea></td>
+									name="memo" readonly>${c.memo}</textarea></td>
 						</tr>
 
 
@@ -218,7 +218,7 @@ th {
 		$(".surStartTime").change(function(){
 			//var Sum =			
 				var timeSArr = $(".surStartTime>option:selected").text().split(":");			
-				var timeLArr = "${op.leadTime}".split(":");
+				var timeLArr = "${c.leadTime}".split(":");
 				
 				let hour = Number(timeSArr[0]) + Number(timeLArr[0]);
 				let min = Number(timeSArr[1]) + Number(timeLArr[1]);
