@@ -11,6 +11,7 @@ import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.dao.SignDao;
 import com.fp.smartDoctor.sign.model.vo.Form;
+import com.fp.smartDoctor.sign.model.vo.Sign;
 
 @Service
 public class SignServiceImpl implements SignService {
@@ -63,5 +64,13 @@ public class SignServiceImpl implements SignService {
 	@Override
 	public Member selectApprEmp(int empNo) {
 		return sDao.selectApprEmp(sqlSession, empNo);
+	}
+	@Override
+	public int selectApprListCount() {
+		return sDao.selectApprListCount(sqlSession);
+	}
+	@Override
+	public ArrayList<Sign> selectApprStandbyList(PageInfo pi) {
+		return sDao.selectApprStandbyList(sqlSession, pi);
 	}
 }
