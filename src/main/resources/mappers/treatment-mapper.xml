@@ -49,6 +49,8 @@
 		<result column="diseases_code" property="diseaseCode" />
 		<result column="emp_no" property="empNo" />
 		<result column="fee" property="fee" />
+		<result column="disease" property="disease" />
+		<result column="dept_name" property="deptName" />
 		
 		<result column="patient_name" property="patientName" />
 		<result column="doctor_name" property="docName" />
@@ -274,4 +276,26 @@
 		        )
 		 where rownum = 1
 	</select>
+	
+	<!-- 진료할 환자의 과거 내역 조회  -->
+	<select id="selectPatientInfo" resultMap="ClinicResult">
+		select
+		       clinic_no
+		     , chart_no
+		     , enroll_date
+		     , disease
+		     , dept_name
+		     , c.status
+		  from clinic c
+		  join patient using (chart_no)
+		  join disease using (diseases_code)
+		  join department using (dept_no)
+		 where chart_no = #{chartNo}
+		   and c.status = 'D'
+		 order
+		    by enroll_date desc
+	</select>
+	
+	
+	
 </mapper>

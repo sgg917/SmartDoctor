@@ -56,4 +56,9 @@ public class TreatmentDao {
 	public Patient selectNowPatient(SqlSessionTemplate sqlSession, Patient p) {
 		return sqlSession.selectOne("treatmentMapper.selectNowPatient", p);
 	}
+	
+	// 진료할 환자의 과거 내역 조회
+	public ArrayList<Clinic> selectPatientInto(SqlSessionTemplate sqlSession, int chartNo) {
+		return (ArrayList)sqlSession.selectList("treatmentMapper.selectPatientInfo", chartNo);
+	}
 }
