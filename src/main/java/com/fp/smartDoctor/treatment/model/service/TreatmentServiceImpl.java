@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.fp.smartDoctor.treatment.model.dao.TreatmentDao;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking;
+import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 
 
@@ -66,6 +67,12 @@ public class TreatmentServiceImpl implements TreatmentService{
 		return 0;
 	}
 
+	// 진료중인 환자 조회
+	@Override
+	public Patient selectNowPatient(Patient p) {
+		Patient nowPatient = tDao.selectNowPatient(sqlSession, p);
+		return nowPatient;
+	}
 	
 	
 	

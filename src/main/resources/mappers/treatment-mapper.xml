@@ -220,4 +220,35 @@
 		 where booking_no = #{bookingNo}
 	
 	</update>
+	
+	<!-- 진료할 환자 조회 -->
+	<select id="selectNowPatient" resultMap="PatientResult">
+		select *
+		  from (
+		          select
+		                  chart_no
+		                , last_dep
+		                , patient_name
+		                , id_no
+		                , address
+		                , memo
+		                , first_visit
+		                , last_visit
+		                , phone
+		                , protector
+		                , new
+		                , enroll_time
+			        from patient
+			        join clinic using (chart_no)  
+			       where status = 'W'
+			       order 
+			          by enroll_time
+		        )
+		 where rownum = 1;
+		
+			   
+	
+	
+	
+	</select>
 </mapper>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking;
+import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 
 @Repository
@@ -49,5 +50,10 @@ public class TreatmentDao {
 	//수술실 예약 취소
 	public int cslRsvOP(SqlSessionTemplate sqlSession, int bookingNo) {
 		return sqlSession.update("treatmentMapper.rsvCancel",bookingNo);
+	}
+	
+	
+	public Patient selectNowPatient(SqlSessionTemplate sqlSession, Patient p) {
+		return sqlSession.selectOne("treatmentMapper.selectNowPatient", p);
 	}
 }

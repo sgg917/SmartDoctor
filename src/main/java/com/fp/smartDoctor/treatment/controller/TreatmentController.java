@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fp.smartDoctor.treatment.model.service.TreatmentService;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking;
+import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 import com.google.gson.Gson;
 
@@ -110,6 +111,19 @@ public class TreatmentController {
 		return mv;
 	}
 
+	// 환자 조회
+	@RequestMapping("detail.pt")
+	public String selectPatient(Patient p, HttpSession session, ModelAndView mv) {
+		
+		Patient nowPatient = tService.selectNowPatient(p);
+		System.out.println("진료중인 환자 : " + nowPatient);
+		
+		if(nowPatient == null) {
+			session.setAttribute("alertMsg", "진료중인 환자가 없습니다.");
+			return "redirect:enrollTreatment";
+		}else {
+			session.setAttribute("nowPatient", nowPatient);
+			return "redirect:enrollTreatment";
 	//수술실 예약
 	@ResponseBody
 	@RequestMapping(value="insert.op", produces="application/json; charset=utf-8")

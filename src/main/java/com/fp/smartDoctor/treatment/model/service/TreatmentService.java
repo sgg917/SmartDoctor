@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking;
+import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 
 public interface TreatmentService {
@@ -37,4 +38,6 @@ public interface TreatmentService {
 	
 	//수술예약 풀캘린더
 	List<RevOProom> getCalendar();
+	
+	Patient selectNowPatient(Patient p);
 }
