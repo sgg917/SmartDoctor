@@ -23,6 +23,8 @@ public class Sign {
 	private int apprTotal;
 	private int empNo;
 	private int formNo;
+	private String formTitle;
+	private String empName;
 
 	
 	

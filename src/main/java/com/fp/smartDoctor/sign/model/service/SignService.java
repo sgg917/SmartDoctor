@@ -6,6 +6,7 @@ import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.vo.Form;
+import com.fp.smartDoctor.sign.model.vo.Sign;
 
 public interface SignService {
 	
@@ -42,4 +43,8 @@ public interface SignService {
 	
 	// 사용자_결재라인 사원 조회 (ajax)
 	Member selectApprEmp(int empNo);
+	
+	// 사용자_결재대기함 페이지
+	int selectApprListCount();
+	ArrayList<Sign> selectApprStandbyList(PageInfo pi);
 }

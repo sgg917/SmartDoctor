@@ -18,6 +18,7 @@ import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.service.SignService;
 import com.fp.smartDoctor.sign.model.vo.Form;
+import com.fp.smartDoctor.sign.model.vo.Sign;
 import com.google.gson.Gson;
 
 @Controller
@@ -167,6 +168,21 @@ public class SignController {
 		return new Gson().toJson(m);
 	}
 	
+	// 사용자_결재대기함 페이지
+	@RequestMapping("apprStandbyList.si")
+	public ModelAndView selectApprStandbyList(@RequestParam(value="cpage", defaultValue="1")int currentPage, ModelAndView mv) {
+		
+		int listCount = sService.selectApprListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Sign> list = sService.selectApprStandbyList(pi);
+		
+		mv.addObject("pi", pi)
+		  .addObject("list", list)
+		  .setViewName("kma/apprStandbyList");
+		
+		return mv;
+	}
 	
 	
 	

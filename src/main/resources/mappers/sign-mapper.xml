@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="signMapper">
 	
+	<resultMap id="signResult" type="Sign">
+		<result column="appr_no" property="apprNo" />
+		<result column="appr_title" property="apprTitle" />
+		<result column="appr_content" property="apprContent" />
+		<result column="enroll_date" property="enrollDate" />
+		<result column="appr_status" property="apprStatus" />
+		<result column="appr_storage" property="apprStorage" />
+		<result column="origin_name" property="originName" />
+		<result column="change_name" property="changeName" />
+		<result column="appr_total" property="apprTotal" />
+		<result column="emp_no" property="empNo" />
+		<result column="form_no" property="formNo" />
+		<result column="form_title" property="formTitle" />
+		<result column="emp_name" property="empName" />
+	</resultMap>
+	
 	<resultMap id="formResult" type="Form">
 		<result column="form_no" property="formNo" />
 		<result column="form_title" property="formTitle" />
@@ -100,6 +116,31 @@
 		   and form_status = 'Y'
 		 order
 		    by form_no desc
+	</select>
+	
+	<!-- 사용자_결재대기함 페이지 -->
+	<select id="selectApprListCount" resultType="_int">
+		select
+			   count(*)
+		  from approval
+		 where appr_status = '대기'
+		   and appr_storage = 'N'
+	</select>
+	
+	<select id="selectApprStandbyList" resultMap="signResult">
+		select
+			   appr_no
+			 , appr_title
+			 , to_char(v.enroll_date, 'YYYY-MM-DD') as "enroll_date"
+			 , form_title
+			 , emp_name
+		  from approval v
+		  join appr_form f on (v.form_no = f.form_no)
+		  join member m on (v.emp_no = m.emp_no)
+		 where appr_status = '대기'
+		   and appr_storage = 'N'
+		 order
+		    by appr_no desc
 	</select>
 
 </mapper>
