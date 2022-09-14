@@ -195,6 +195,7 @@ th {
 												<c:if test="${(i == 24) && (j == 1)}">    
 													<c:set var="breakPoint" value="1" />                                    
 												</c:if>
+												<!-- 여기요ㅠㅠㅠ -->
 												<c:if test="${breakPoint == 0}">                           
 													<option value="<fmt:formatNumber pattern="00" value="${i}" />:<fmt:formatNumber pattern="00" value="${j*30}" />">
 													<fmt:formatNumber pattern="00" value="${i}" />:<fmt:formatNumber pattern="00" value="${j*30}" /></option>                                                                            
@@ -521,12 +522,20 @@ th {
 		         console.log(result[0].surEndTime);
 		         console.log(result[0].surStartTime);
 		         
+		         var timsS=$("result[0].surStartTime").text().split(":");
+		         
+		         console.log(result[0].surStartTime.text().split(":"));
 		         //여기요ㅠㅠㅠ
-		         for(let i=0; i<28;i++){
-	                 for(let j=result[0].surStartTime; j<=result[0].surEndTime; j++){
+		         //얘는 j=result[0].surStartTime 만 인식되서 시작값만 막히고
+		         for(let j=result[0].surStartTime; j<=result[0].surEndTime; j++){
 	                    $("select option[value*='"+ j + "']").prop('disabled',true).css("background", "lightgrey");
-	                 }
-		         }
+	             }
+		         
+		         //얘는 j=result[0].surEndTime 만 인식되서 끝만 막힙니다ㅠㅠ
+		         for(let j=result[0].surEndTime; j<=result[0].surEndTime; j++){
+	                    $("select option[value*='"+ j + "']").prop('disabled',true).css("background", "lightgrey");
+	             }
+		         
 		      },
 		      error: function(){
 		         alert("오류로 인한 예약실패");
