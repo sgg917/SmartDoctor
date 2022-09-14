@@ -98,7 +98,8 @@ public class TreatmentController {
 	}
 	
 	//수술실 예약을 위한 정보 조회
-	@RequestMapping("enrollForm.op")
+	@ResponseBody
+ 	@RequestMapping(value="enrollForm.op", produces="application/json; charset=utf-8")
 	public ModelAndView selectforInsertRevOP(int clinicNo, ModelAndView mv) {
 		
 		//ArrayList<ListSurgeryBooking> list = tService.selectRevOProom(bookingNo);

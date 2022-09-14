@@ -469,9 +469,14 @@ th {
 						droppable : true,
 						editable : true,
 						events : data,
-						eventClick: function(arg) {
-							ModalOpen(arg);	//이벤트 클릭 시 모달 호출
-					    }
+						eventClick:function(event) {                
+							if(detail.op) {                    
+								alert(event.title + "\n" + event.url, "wicked", "width=700,height=600");                    
+								window.open(detail.op);                    
+								return false;
+							}
+						}
+						
 					});
 
 					calendar.render();
