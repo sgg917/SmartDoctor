@@ -124,6 +124,8 @@ public class TreatmentController {
 		}else {
 			session.setAttribute("nowPatient", nowPatient);
 			return "redirect:enrollTreatment";
+		}
+	}
 	//수술실 예약
 	@ResponseBody
 	@RequestMapping(value="insert.op", produces="application/json; charset=utf-8")
