@@ -24,5 +24,7 @@ public class Patient {
 	private String phone;
 	private String protector;
 	private String newOne;//초진내진여부
+	private int age;
+	private String gender;
 
 }

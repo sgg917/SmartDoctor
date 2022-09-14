@@ -57,11 +57,11 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td>A-1234</td>
-                                  <td>이수만</td>
-                                  <td>남</td>
-                                  <td>62</td>
-                                  <td>재진</td>
+                                  <td>${ nowPatient.chartNo }</td>
+                                  <td>${ nowPatient.patientName }</td>
+                                  <td>${ nowPatient.gender }</td>
+                                  <td>${ nowPatient.age }</td>
+                                  <td>${ nowPatient.newOne }</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -118,7 +118,7 @@
                                   </td>
     
                                   <td>
-                                    <textarea cols="30" rows="15" style="border-radius: 10px;"></textarea>
+                                    <textarea cols="30" rows="15" style="border-radius: 10px;">${ nowPatient.memo }</textarea>
                                   </td>
                                   
                                   <td style="width: 33%;">

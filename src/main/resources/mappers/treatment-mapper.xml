@@ -69,6 +69,7 @@
 		<result column="chart_no" property="chartNo" />
 		<result column="last_dep" property="lastDep" />
 		<result column="patient_name" property="patientName" />
+		<result column="만나이" property="age" />
 		<result column="id_no" property="idNo" />
 		<result column="address" property="address" />
 		<result column="memo" property="memo" />
@@ -77,6 +78,7 @@
 		<result column="phone" property="phone" />
 		<result column="protector" property="protector" />
 		<result column="new" property="newOne" />
+		<result column="성별" property="gender" />
 		<result column="doctor_name" property="docName"/>
 		<result column="clinic_no" property="clinicNo"/>
 	</resultMap>
@@ -234,32 +236,42 @@
 	
 	<!-- 진료할 환자 조회 -->
 	<select id="selectNowPatient" resultMap="PatientResult">
-		select *
+		select 
+		       chart_no
+		     , last_dep
+		     , patient_name
+		     , trunc((to_number(to_char(sysdate, 'YYYYMMDD'))-to_number(to_char(decode(substr(id_no, 8, 1), '1', '19', '2', '19', '20')||substr(id_no, 1, 6))))/10000) as "만나이"
+		     , id_no
+		     , memo
+		     , first_visit
+		     , last_visit
+		     , "new"
+		     , 성별
 		  from (
 		          select
-		                  chart_no
-		                , last_dep
-		                , patient_name
-		                , id_no
-		                , address
-		                , memo
-		                , first_visit
-		                , last_visit
-		                , phone
-		                , protector
-		                , new
-		                , enroll_time
-			        from patient
-			        join clinic using (chart_no)  
-			       where status = 'W'
-			       order 
-			          by enroll_time
+		               chart_no
+		             , last_dep
+		             , patient_name
+		             , id_no
+		             , address
+		             , memo
+		             , first_visit
+		             , last_visit
+		             , phone
+		             , protector
+		             , decode(new, 'Y', '초진', 'N', '재진', '??') as "new"
+		             , enroll_time
+		             , case 
+		                  when substr(id_no, 8, 1) in ('1', '3') then '남자'
+		                  when substr(id_no, 8, 1) in ('2', '4') then '여자'
+		                  else '몰라'
+		               end "성별"
+		           from patient
+		           join clinic using (chart_no)  
+		          where status = 'W'
+		          order 
+		             by enroll_time
 		        )
-		 where rownum = 1;
-		
-			   
-	
-	
-	
+		 where rownum = 1
 	</select>
 </mapper>
