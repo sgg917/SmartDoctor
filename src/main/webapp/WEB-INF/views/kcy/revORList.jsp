@@ -137,104 +137,14 @@ th {
 			
 				<div class="wrap111">
 				
-					<form id="enrollForm" method="post" action="insert.op">
 						<!-- 숨겨서 넘길 값--> 
-						<input type="hidden" id="clinicNo1" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
-						<input type="hidden" id="surgeryNo1" class="form-control" value="${ c.surgeryNo2 }" name="surgeryNo"> 
-						<input type="hidden" id="leadTime1" class="form-control" value="${ c.leadTime }" name="leadTime">
-						<input type="hidden" id="bookingNo1" class="form-control" value="${ op.bookingNo }" name="bookingNo">
+						<input type="hidden" id="clinicNo" class="form-control" value="${ op.clinicNo }" name="clinicNo"> 
+						<input type="hidden" id="surgeryNo" class="form-control" value="${ op.surgeryNo2 }" name="surgeryNo"> 
+						<input type="hidden" id="leadTime" class="form-control" value="${ op.leadTime }" name="leadTime">
+						<input type="hidden" id="bookingNo" class="form-control" value="${ op.bookingNo }" name="bookingNo">
 						 
 	
-						<br>
-						<h3> <b>차트번호 ${c.clinicNo} 수술실 예약</b> </h3>
-						<hr>
-						<br><br>
-						<div class="wrap22">
-							<div class="part1">
-								<table class="table1">
-									<tr>
-										<td colspan="2" width="600px">
-											<div class="smallbtn1">입력</div>
-											<div style="display: inline-block; margin-left: 30px;">
-												<h3>예약일자<c:set var="ymd" value="<%=new java.util.Date()%>" />
-													<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd" />
-												</h3>
-											</div>
-											<hr>
-										</td>
-									</tr>
-									<tr>
-										<th>차트번호</th>
-										<td><input readonly name="clinicNo" value="${c.clinicNo}" type="text"
-											style="width: 300px; background-color:#F2F2F2;"></td>
-									</tr>
-									<tr>
-										<th>수진자명</th>
-										<td><input type="text" name="patentName" style="width: 300px;  background-color:#F2F2F2;" readonly value="${ c.patientName }"></td>
-									</tr>
-									<tr>
-										<th>수술실</th>
-										<td>
-										<select name="roomName" id="roomName" style="width: 300px;">
-												<option value="x">선택안함</option>
-												<option value="operatingA">operatingA</option>
-												<option value="operatingB">operatingB</option>
-												<option value="operatingC">operatingC</option>
-												<option value="operatingD">operatingD</option>
-										</select> 
-				                   
-										</td>
-									</tr>
-									<tr>
-										<th>예약날짜</th>
-										<td>
-										<input type="date" class="datepicker" name="surDate" style="width: 225px; height: 25.2px;">
-
-									   <select class="surStartTime" style="width: 70px; height: 25.2px;" name="surStartTime" id="surStartTime">
-										<c:set var="breakPoint" value="0" />
-										<c:forEach var="i" begin="9" end="22">
-											<c:forEach var="j" begin="0" end="1">
-												<c:if test="${(i == 24) && (j == 1)}">    
-													<c:set var="breakPoint" value="1" />                                    
-												</c:if>
-												<c:if test="${breakPoint == 0}">                           
-													<option value="<fmt:formatNumber pattern="00" value="${i}" />:<fmt:formatNumber pattern="00" value="${j*30}" />">
-													<fmt:formatNumber pattern="00" value="${i}" />:<fmt:formatNumber pattern="00" value="${j*30}" /></option>                                                                            
-												</c:if>
-											</c:forEach>
-										</c:forEach>
-				
-								   </select>
-								   <br>
-								   </td>
-									</tr>
-									<tr><!-- 여기!!!!!!!!!!!!!!! -->
-										<th>예상완료시각</th>
-										<td><input type="text" readonly style="width: 300px;  background-color:#F2F2F2;" name="surEndTime" id="surEndTime"></td>
-									</tr>
-									<tr>
-										<th>담당의</th>
-										<td><input type="text" style="width: 300px;" name="doctorName" value="${c.docName}"></td>
-									</tr>
-									<tr>
-										<th>특이사항</th>
-										<td>
-										<textarea style="width: 300px; height: 100px; resize: none;"name="memo"></textarea>
-										</td>
-									</tr>
-								</table>
-								
-								<br>
-								<br>
-								<button type="submit" class="btn btn-danger"
-									style="height: 30px; width: 100px; padding: 0%; color: black; border: 0; background-color: rgb(65, 125, 122);">예약</button>
-
-								<br><br><br><br><br><br><br><br>
-							</div>
-							<div id='calendar' class="calender1"></div>
-						</div>
-						<br><br><br><br><br><br>
-					</form>
+						<div id='calendar' class="calender1"></div>
 				</div>
 			</div>
 			<jsp:include page="../common/footer.jsp" />
@@ -460,7 +370,7 @@ th {
 					let data = [];/* 내가 넘겨주고자 하는 값을 리스트로 다시 담아줘야함! */
 					for (let i = 0; i < list.length; i++) {
 						let obj = {
-							title : list[i].bookingNo,
+							title : list[i].clinicNo,
 							start : list[i].surDate,
 							end : list[i].surDate,
 							textColor : list[i].textColor,
@@ -504,105 +414,7 @@ th {
 
 		});
 	
-		
-		//애는 중복 못하게 하지말고 select에서 if절로 이미 예약이 있는 시간대는 고르지 못하게 할 것
-		function clickRevBtn(){
-		     
-		   // db에 넣기
-		   $.ajax({
-		      url:"insert.op",
-		      data:{surgeryNo:surgeryNo,
-		    	  	clinicNo:clinicNo, 
-		    	  	roomName:roomName, 
-		    	  	surDate:surDate, 
-		    	  	surEndTime:surEndTime,
-		    	  	surStartTime:surStartTime,
-		    	  	doctorName:doctorName,
-		    	  	memo:memo
-		            },
-		      type:"POST",
-		      dataType:"JSON",
-		      success:function(json){
-		         
-		         
-		         // 예약일로 입력한 값이 db에서 중복되는지 안되는지로 나눔
-		         if (json.n == 1) {
-		        	location.href = "list.op"
-		            alert("수술실 예약 되었습니다.");
-		            
-		         }else if (json.n == -1) {
-		            // 중복된 예약(시간)으로 예약에 실패했을 때
-		            location.href = "list.op"
-		            alert("해당 시간에는 이미 예약이 있습니다.");
-		         }
-		         else{
-		            // db오류
-		            alert("DB 오류");
-		         }
-		         location.reload();
-		         
-		      },
-		      error: function(){
-		         alert("오류로 인한 예약실패");
-		       }
-		   });
-		  }
-		
-		$(".modal-content").load("detail.op2");
-		
-		function ModalOpen(arg){
-			
-			console.log(arg);
-			console.log(arg.event._def.title);  // 예약번호
-			
-			//해당 예약번호를 넘겨서 해당 수술예약 정보 상세 조회하는 ajax
-			//ajax success function 에서 조회된 정보를 #myModal1인 모달 div안 input요소에 value값으로 뿌리는
-			$.ajax({
-		      url:"detail.op",
-		      data:{ clinicNo : arg.event._def.title },
-		      success:function(surgery){
-		 	  	  	console.log(surgery);
-			 	  	var enc = ${clinicNo};
-			 	  	$('input[name=clinicNo]').attr('value',enc);
-		      },
-		      error: function(){
-		         alert("조회 실패");
-		       }
-		   });
-		    
-			$('#myModal1').modal('show');
-		  }
-		
-		function ModalClose(){
-			$("#myModal1").modal("hide");
-		}
 	</script>
-	<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음-->
-
-
-	<!-- 예상 완료시간 조회 -->
-	<script>
-		$(".surStartTime").change(function(){
-			//var Sum =			
-				var timeSArr = $(".surStartTime>option:selected").text().split(":");			
-				var timeLArr = "${c.leadTime}".split(":");
-				
-				let hour = Number(timeSArr[0]) + Number(timeLArr[0]);
-				let min = Number(timeSArr[1]) + Number(timeLArr[1]);
-				if(min < 10){
-					min = "0" + min;
-				}
-				
-				//var result = parseDate(timeS) + parseDate(timeL);			
-				console.log(hour + ":" + min)
-				document.getElementById("surEndTime").value = hour + ":" + min;		
-				
-			
-			 //$(".surEndTime").html(Sum);
-		})
 	
-	
-		
-	</script>
 </body>
 </html>

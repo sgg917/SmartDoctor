@@ -89,14 +89,27 @@ public class TreatmentController {
 
  	//수술실 예약 조회
 	@RequestMapping("detail.op")
-	public ModelAndView selectRevOProom(int no, ModelAndView mv) {
+	public ModelAndView selectRevOProom(int clinicNo, ModelAndView mv) {
 		
-		Clinic c = tService.selectRevOProom(no);
-		mv.addObject("c", c).setViewName("kcy/revORDetail");
+		RevOProom op = tService.selectRevOProom(clinicNo);
+		mv.addObject("op", op).setViewName("kcy/revORDetail");
 		
 		return mv;
 		
 	}
+	
+	//수술실 예약조회 모달 호출
+	@RequestMapping("detail.op2")
+    public String Modal() {
+        return "kcy/revORDetail";
+    }
+	
+	//수술실 예약조회 달력 호출
+	@RequestMapping("list.op")
+    public String orList() {
+        return "kcy/revORList";
+    }
+	
 	
 	//수술실 예약을 위한 정보 조회
 	@ResponseBody
@@ -124,6 +137,9 @@ public class TreatmentController {
 		}else {
 			session.setAttribute("nowPatient", nowPatient);
 			return "redirect:enrollTreatment";
+		}
+	}
+	
 	//수술실 예약
 	@ResponseBody
 	@RequestMapping(value="insert.op", produces="application/json; charset=utf-8")

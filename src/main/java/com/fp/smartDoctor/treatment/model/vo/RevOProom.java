@@ -26,4 +26,8 @@ public class RevOProom {
 	private int calendarNo;//수술 캘린더 번호
 	private String textColor;
 	private String backgroundColor;
+
+	
+	private String patientName;
+	private String leadTime;
 }

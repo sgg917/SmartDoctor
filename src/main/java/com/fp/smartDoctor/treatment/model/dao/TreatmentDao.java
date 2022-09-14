@@ -17,7 +17,7 @@ public class TreatmentDao {
 
 	
 	//수술실 예약 상세조회
-	public Clinic selectRevOProom(SqlSessionTemplate sqlSession,int bookingNo) {
+	public RevOProom selectRevOProom(SqlSessionTemplate sqlSession,int bookingNo) {
 		return sqlSession.selectOne("treatmentMapper.selectOProom", bookingNo);
 	}
 	

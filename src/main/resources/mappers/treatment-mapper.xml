@@ -27,6 +27,11 @@
 		<result column="calendar_no" property="calendarNo" />
 		<result column="textcolor" property="textColor" />
 		<result column="backgroundcolor" property="backgroundColor" />
+		
+		<result column="patient_name" property="patientName" />
+		<result column="lead_time" property="leadTime" />
+		<result column="surgery" property="surgery" />
+		<result column="surgery_no2" property="surgeryNo2" />
 	</resultMap>
 	
 	<!-- clinic result -->
@@ -115,6 +120,7 @@
 	<select id="calendarList" resultMap="OPResult">
 		select
 			   calendar_no
+			 , booking_no
 			 , clinic_no
 			 , surgery_date
 			 , surgery_date
@@ -126,41 +132,46 @@
 	</select>
 
 	<!-- 수술실 정보 조회 select-->
-	<select id="selectOProom" resultMap="ClinicResult">
+	<select id="selectOProom" resultMap="OPResult">
 		select 
       		   c.clinic_no
       		 , sb.booking_no
      		 , (select p.patient_name
           		  from patient p
-          		  join clinic cll on (cll.chart_no = p.chart_no)) as patient_name
+          		  join clinic cll on (cll.chart_no = p.chart_no)
+                  where clinic_no=#{clinicNo}) as patient_name
      		 , sb.room_name
      		 , sb.surgery_date
      		 , sb.sur_starttime
      		 , sb.sur_endtime
      		 , (select m.emp_name
           		 from member m
-          		 join clinic clll on (clll.emp_no = m.emp_no)) as doctor_name
+          		 join clinic clll on (clll.emp_no = m.emp_no)
+                 where clinic_no=#{clinicNo}) as doctor_name
           	 , sb.memo
-		  from clinic c
-          join surgery_booking sb on ( sb.clinic_no = c.clinic_no)
-		 where sb.booking_no = ${bookingNo}
+		  from surgery_booking sb
+          join clinic c on ( sb.clinic_no = c.clinic_no)
+		 where sb.booking_no = #{bookingNo}
 	</select>
 	
 	<!-- 수술실 예약을 위한 정보 조회 select-->
 	<select id="forinsertOProom" resultMap="ClinicResult">
 		select 
-      		   clinic_no
+      		   c.clinic_no
      		 , (select p.patient_name
           		  from patient p
-          		  join clinic cll on (cll.chart_no = p.chart_no)) as patient_name
+          		  join clinic cl on (cl.chart_no = p.chart_no)
+                  where clinic_no=${clinicNo}) as patient_name
      		 , (select m.emp_name
-          		 from member m
-          		 join clinic clll on (clll.emp_no = m.emp_no)) as doctor_name
+          		  from member m
+          		  join clinic clll on (clll.emp_no = m.emp_no)
+                  where clinic_no=${clinicNo}) as doctor_name
           	 , surgery_no2
              , lead_time
-		  from clinic
+		  from clinic c
           join surgery on (surgery_no2 = surgery_no)
-		 where clinic_no = #{clinicNo}
+		 where c.clinic_no=${clinicNo}
+           and surgery = 'Y'
 	</select>
 	
 	<!-- 수술실 중복 체크 -->
