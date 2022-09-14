@@ -39,5 +39,6 @@ public interface TreatmentService {
 	//수술예약 풀캘린더
 	List<RevOProom> getCalendar();
 	
+	// 진료중인 환자 조회
 	Patient selectNowPatient(Patient p);
 }

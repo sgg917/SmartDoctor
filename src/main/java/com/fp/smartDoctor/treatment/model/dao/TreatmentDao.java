@@ -52,7 +52,7 @@ public class TreatmentDao {
 		return sqlSession.update("treatmentMapper.rsvCancel",bookingNo);
 	}
 	
-	
+	// 진료중인 환자 조회
 	public Patient selectNowPatient(SqlSessionTemplate sqlSession, Patient p) {
 		return sqlSession.selectOne("treatmentMapper.selectNowPatient", p);
 	}

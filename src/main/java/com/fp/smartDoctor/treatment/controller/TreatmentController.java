@@ -29,14 +29,6 @@ public class TreatmentController {
 	@Autowired 
 	private TreatmentService tService;
 	 
-	
-	@RequestMapping("enroll.tmt")
-	public String enrollTreatment() {
-		return "ljy/enrollTreatment";
-	}
-	
-	
-
 	//입원실 예약 조회 호출
 	@RequestMapping("enrollForm.pr")
 	public String prEnrollForm() {
@@ -111,7 +103,26 @@ public class TreatmentController {
 		return mv;
 	}
 
+	
+	// 진료화면 조회
+	@RequestMapping("enroll.tmt")
+	public ModelAndView enrollTreatment(Patient p, HttpSession session, ModelAndView mv) {
+		
+		Patient nowPatient = tService.selectNowPatient(p);
+		System.out.println("진료중인 환자 : " + nowPatient);
+		
+		if(nowPatient == null) {
+			session.setAttribute("alertMsg", "진료중인 환자가 없습니다.");
+			mv.setViewName("redirect:/");
+		}else {
+			session.setAttribute("nowPatient", nowPatient);
+			mv.setViewName("ljy/enrollTreatment");
+		}
+		return mv;
+	}
+	
 	// 환자 조회
+	/*
 	@RequestMapping("detail.pt")
 	public String selectPatient(Patient p, HttpSession session, ModelAndView mv) {
 		
@@ -120,12 +131,14 @@ public class TreatmentController {
 		
 		if(nowPatient == null) {
 			session.setAttribute("alertMsg", "진료중인 환자가 없습니다.");
-			return "redirect:enrollTreatment";
+			return "redirect:/";
 		}else {
 			session.setAttribute("nowPatient", nowPatient);
 			return "redirect:enrollTreatment";
 		}
 	}
+	*/
+	
 	//수술실 예약
 	@ResponseBody
 	@RequestMapping(value="insert.op", produces="application/json; charset=utf-8")
