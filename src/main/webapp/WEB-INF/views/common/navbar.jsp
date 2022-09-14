@@ -242,7 +242,7 @@
                   <li class="nav-item"> <a class="nav-link" href="">진료 접수</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">진료 대기</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enroll.tmt">진료 입력</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">수술실 예약 조회</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="detail.op">수술실 예약 조회</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">입원실 예약 조회</a></li>
                 </ul>
               </div>
@@ -271,8 +271,8 @@
                     <li class="nav-item"> <a class="nav-link" href="list.att?no=${ loginUser.empNo }">출퇴근 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="list.vac?no=${ loginUser.empNo }">휴가 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">월간 근태 체크</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="memlist.att">사원 근태 관리</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">사원 휴가 관리</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="allList.att">사원 근태 관리</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="allList.vac">사원 휴가 관리</a></li>
                   </ul>
                 </div>
               </li>
@@ -285,7 +285,7 @@
               <div class="collapse" id="number8">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="apprEnrollForm.si">결재문 작성</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">결재대기 문서</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="apprStandbyList.si">결재대기 문서</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">결재예정 문서</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">기안문서함</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">결재문서함</a></li>
@@ -318,7 +318,8 @@
               </a>
               <div class="collapse" id="number4">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">받은메일함</a></li>
+                	<li class="nav-item"> <a class="nav-link" href="enroll.em">메일쓰기</a></li>
+                  	<li class="nav-item"> <a class="nav-link" href="">받은메일함</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">보낸메일함</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">임시메일함</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">중요보관함</a></li>
@@ -346,22 +347,6 @@
                 <i class="mdi mdi-hospital menu-icon"></i>
               </a>
             </li>
-             <!-- 화면 테스트용 네비바 -->
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#numberzero" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">화면테스트용(지워야됨)</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-cat"></i>
-              </a>
-              <div class="collapse" id="numberzero">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="exercise.jy">진료 대기(지워야됨)</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="enrollForm.op">수술실 예약(지워야됨)</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="enrollForm.pr">입원실 예약(지워야됨)</a></li>
-                </ul>
-              </div>
-            </li>
-            <!-- 테스트용네비바 끝 -->
           </ul>
         </nav>
         

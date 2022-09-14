@@ -139,10 +139,11 @@ th {
 				
 					<form id="enrollForm" method="post" action="insert.op">
 						<!-- 숨겨서 넘길 값--> 
-						<input type="hidden" id="clinicNo1" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
-						<input type="hidden" id="surgeryNo1" class="form-control" value="${ c.surgeryNo2 }" name="surgeryNo"> 
-						<input type="hidden" id="leadTime1" class="form-control" value="${ c.leadTime }" name="leadTime">
-						<input type="hidden" id="bookingNo1" class="form-control" value="${ c.bookingNo }" name="bookingNo">
+						<input type="hidden" id="clinicNo" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
+						<input type="hidden" id="surgeryNo" class="form-control" value="${ c.surgeryNo2 }" name="surgeryNo"> 
+						<input type="hidden" id="leadTime" class="form-control" value="${ c.leadTime }" name="leadTime">
+						 
+						 
 	
 						<br>
 						<h3> <b>차트번호 ${c.clinicNo} 수술실 예약</b> </h3>
@@ -188,23 +189,30 @@ th {
 										<th>예약날짜</th>
 										<td>
 										<input type="date" class="datepicker" name="surDate" style="width: 225px; height: 25.2px;">
-									   <select class="surStartTime" style="width: 70px; height: 25.2px;" name="surStartTime" id="surStartTime">
-										<c:set var="breakPoint" value="0" />
-										<c:forEach var="i" begin="9" end="22">
-											<c:forEach var="j" begin="0" end="1">
-												<c:if test="${(i == 24) && (j == 1)}">    
-													<c:set var="breakPoint" value="1" />                                    
-												</c:if>
-												<!-- 여기요ㅠㅠㅠ -->
-												<c:if test="${breakPoint == 0}">                           
-													<option value="<fmt:formatNumber pattern="00" value="${i}" />:<fmt:formatNumber pattern="00" value="${j*30}" />">
-													<fmt:formatNumber pattern="00" value="${i}" />:<fmt:formatNumber pattern="00" value="${j*30}" /></option>                                                                            
-												</c:if>
-											</c:forEach>
-										</c:forEach>
-								   </select>
-								   
-								   <br>
+
+									   	<select onchange="updateEndTime()" class="surStartTime"  name="surStartTime" id="surStartTime" style="width: 70px; height: 25.2px;">
+											<option value="09:30">09:30</option>
+											<option value="10:00">10:00</option>
+											<option value="10:30">10:30</option>
+											<option value="11:00">11:00</option>
+											<option value="11:30">11:30</option>
+											<option value="12:00">12:00</option>
+											<option value="12:30">12:30</option>
+											<option value="13:00">13:00</option>
+											<option value="13:30">13:30</option>
+											<option value="14:00">14:00</option>
+											<option value="14:30">14:30</option>
+											<option value="15:00">15:00</option>
+											<option value="15:30">15:30</option>
+											<option value="16:00">16:00</option>
+											<option value="16:30">16:30</option>
+											<option value="17:00">17:00</option>
+											<option value="17:30">17:30</option>
+											<option value="18:00">18:00</option>
+											<option value="18:30">18:30</option>
+											<option value="19:00">19:00</option>
+									    </select>
+									   <br>
 								   </td>
 									</tr>
 									<tr>
@@ -225,7 +233,7 @@ th {
 								
 								<br>
 								<br>
-								<button type="submit" class="btn btn-danger"
+								<button type="" class="btn btn-danger"
 									style="height: 30px; width: 100px; padding: 0%; color: black; border: 0; background-color: rgb(65, 125, 122);">예약</button>
 
 								<br><br><br><br><br><br><br><br>
@@ -252,23 +260,6 @@ th {
 
 
 	<!-- 수술실 상세조회 모달 -->
-	<div class="modal fade insertModal" id="myModal1">
-	    <div class="modal-dialog">
-		    <div class="modal-content">
-		    </div>
-	    </div>
-  	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<!-- 
 	<div class="modal fade insertModal" id="myModal1">
 	    <div class="modal-dialog">
 		    <div class="modal-content">
@@ -346,7 +337,7 @@ th {
 		    </div>
 	    </div>
   	</div>
-	-->
+
 
 
 
@@ -362,8 +353,7 @@ th {
 		
 				<input type="hidden" id="clinicNo" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
 				<input type="hidden" id="surgeryNo" class="form-control" value="${ c.surgeryNo2 }" name="surgeryNo"> 
-				<input type="hidden" id="leadTime" class="form-control" value="${ c.leadTime }" name="leadTime">
-				<input type="hidden" id="bookingNo" class="form-control" value="${ c.bookingNo }" name="bookingNo">
+				<input type="hidden" id="leadTime" class="form-control" value="${ c.leadTime }" name="leadTime"> 
 				<br>
 				<h3> <b>수술실 예약 수정</b> </h3>
 				<hr>
@@ -393,11 +383,11 @@ th {
 							</tr>
 							<tr>
 								<th>예약날짜</th>
-								<td><input type="text" style="width: 300px;" name="surDate"  value="${c.surDate }"><br></td>
+								<td><input type="date" style="width: 300px;" name="surDate"  value="${c.surDate }"><br></td>
 							</tr>
 							<tr>
 								<th>예약시각</th>
-								<td><input type="text" style="width: 300px;" name="surStartTime" id="surStartTime" value="${c.surStartTime }"></td>
+								<td><input type="time" style="width: 300px;" name="surStartTime" id="surStartTime" value="${c.surStartTime }"></td>
 							</tr>
 							<tr>
 								<th>예상완료시각</th>
@@ -405,7 +395,7 @@ th {
 							</tr>
 							<tr>
 								<th>담당의</th>
-								<td><input type="text" style="width: 300px;" readOnly value="${ c.docName }" name="doctorName"></td>
+								<td><input type="text" style="width: 300px;" readOnly value="${ c.docName }" name="docName"></td>
 							</tr>
 							<tr>
 								<th>특이사항</th>
@@ -459,7 +449,7 @@ th {
 					let data = [];/* 내가 넘겨주고자 하는 값을 리스트로 다시 담아줘야함! */
 					for (let i = 0; i < list.length; i++) {
 						let obj = {
-							title : list[i].bookingNo,
+							title : list[i].clinicNo,
 							start : list[i].surDate,
 							end : list[i].surDate,
 							textColor : list[i].textColor,
@@ -474,21 +464,18 @@ th {
 					var calendar = new FullCalendar.Calendar(calendarEl, {
 						initialView : 'dayGridMonth',
 						locale : 'ko', // 한국어 설정
-						headerToolbar: {
+						 headerToolbar: {
 						    left: 'prev,next today',
 						    center: 'title',
 						    right: 'dayGridMonth,timeGridWeek,timeGridDay'
 						},
-						slotMinTime: '09:00',
-					    slotMaxTime: '23:00',
 						selectable : true,
 						droppable : true,
 						editable : true,
 						events : data,
-						eventClick:function(arg) {
-							ModalOpen(arg);
-						}
-						
+						eventClick: function(arg) {
+							ModalOpen(arg);	//이벤트 클릭 시 모달 호출
+					    }
 					});
 
 					calendar.render();
@@ -504,108 +491,68 @@ th {
 		});
 	
 		
-		//애는 중복 못하게 하지말고 select에서 if절로 이미 예약이 있는 시간대는 고르지 못하게 할 것!!!!!!!
-		$("input[name=surDate]").change(function(){
-			//수술실 선택 후 날짜까지 선택한 순간
+		
+		function clickRevBtn(){
 		     
 		   // db에 넣기
 		   $.ajax({
-		      url:"overlap.op",
-		      data:{
-		    	  	 surgeryRoom:$("#roomName").val(),
-		    	  	 surDate:$(this).val()
-		    	  	 
+		      url:"insert.op",
+		      data:{surgeryNo:surgeryNo,
+		    	  	clinicNo:clinicNo, 
+		    	  	roomName:roomName, 
+		    	  	surDate:surDate,
+		    	  	surEndTime:surEndTime
+		    	  	surStartTime:surStartTime,
+		    	  	doctorName:docName,
+		    	  	memo:memo
 		            },
 		      type:"POST",
-		      success:function(result){
-		         console.log(result); // 현재선택된 수술방이랑 현재선택된 날짜에 예약되어있는 리스트
-		         console.log(result[0].surEndTime);
-		         console.log(result[0].surStartTime);
+		      dataType:"JSON",
+		      success:function(json){
 		         
-		        
-		         //여기요ㅠㅠㅠ
-		         //얘는 j=result[0].surStartTime 만 인식되서 시작값만 막히고
-		         for(let j=result[0].surStartTime; j<=result[0].surEndTime; j++){
-	                    $("select option[value*='"+ j + "']").prop('disabled',true).css("background", "lightgrey");
-	             }
 		         
-		         //얘는 j=result[0].surEndTime 만 인식되서 끝만 막힙니다ㅠㅠ
-		         for(let j=result[0].surEndTime; j<=result[0].surEndTime; j++){
-	                    $("select option[value*='"+ j + "']").prop('disabled',true).css("background", "lightgrey");
-	             }
+		         // 예약일로 입력한 값이 db에서 중복되는지 안되는지로 나눔
+		         if (json.n == 1) {
+		            alert("수술실 예약 되었습니다.");
+		            
+		         }else if (json.n == -1/*아닌거같음*/) {
+		            // 중복된 예약(시간)으로 예약에 실패했을 때
+		            alert("해당 시간에는 이미 예약이 있습니다.");
+		         }
+		         else{
+		            // db오류
+		            alert("DB 오류");
+		         }
+		         location.reload();
 		         
 		      },
 		      error: function(){
 		         alert("오류로 인한 예약실패");
 		       }
 		   });
-		  })
-		
-		
-		
-		//수술정보 상세조회
-		$(".modal-content").load("detail.op2");
+		  }
 		
 		function ModalOpen(arg){
-			
-			console.log(arg);
-			console.log(arg.event._def.title);  // 예약번호
-			
-			//해당 예약번호를 넘겨서 해당 수술예약 정보 상세 조회하는 ajax
-			//ajax success function 에서 조회된 정보를 #myModal1인 모달 div안 input요소에 value값으로 뿌리는
-			$.ajax({
-		      url:"detail.op",
-		      data:{ clinicNo : arg.event._def.title },
-		      success:function(surgery){
-		 	  	  	console.log(surgery);
-			 	  	$('input[name=clinicNo]').attr('value',surgery.clinicNo);
-			 	  	$('input[name=docName]').attr('value',surgery.docName);
-			 	  	$('input[name=patientName]').attr('value',surgery.patientName);
-			 	  	$('input[name=roomName]').attr('value',surgery.roomName);
-			 	  	$('input[name=surDate]').attr('value',surgery.surDate);
-			 	  	$('input[name=surEndTime]').attr('value',surgery.surEndTime);
-			 	  	$('input[name=surStartTime]').attr('value',surgery.surStartTime);
-		      },
-		      error: function(){
-		         alert("조회 실패");
-		       }
-		   });
-		    
 			$('#myModal1').modal('show');
 		  }
 		
-		//모달 숨기기
 		function ModalClose(){
 			$("#myModal1").modal("hide");
 		}
-		
-		
 	</script>
 	<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음-->
 
-
-	<!-- 예상 완료시간 조회 -->
 	<script>
-	
-		$(".surStartTime").change(function(){
-				var timeSArr = $(".surStartTime>option:selected").text().split(":");			
-				var timeLArr = "${c.leadTime}".split(":");
-				
-				let hour = Number(timeSArr[0]) + Number(timeLArr[0]);
-				let min = Number(timeSArr[1]) + Number(timeLArr[1]);
-				if(min < 10){
-					min = "0" + min;
+		$(".surEndTime").change(function updateEndTime(){
+			var Sum = function(){			
+				var timeS = $(".surStartTime>option:selected").text();			
+				var timeE = ${c.leadTime}			
+				var result = parseDate(timeS) + parseDate(timeE);			
+				document.getElementsById("surEndTime").value=result;		
 				}
-				
-				console.log(hour + ":" + min)
-				document.getElementById("surEndTime").value = hour + ":" + min;		
-								
-		})
-	
-	
-		
+			
+			 $(".surEndTime").html(Sum);
+		})	
 	</script>
-	
-	
 </body>
 </html>

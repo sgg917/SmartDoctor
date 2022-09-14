@@ -14,7 +14,7 @@ import lombok.ToString;
 public class Clinic {
 
 	private int clinicNo;
-	private int chartNo;//문자는 안들어가나요??
+	private int chartNo;//문자는 안들어가나요?? 네!숫자로만 할게용 10000번 이후로용
 	private int deptNo;
 	private String enrollTime;
 	private String enrollDate;
@@ -26,5 +26,19 @@ public class Clinic {
 	private String diseaseCode;
 	private int empNo;
 	private int fee;
+	private String disease;
+	private String deptName;
+	
+	//수술실 예약 조회
+	private String patientName;
+	private String docName;
+	private String leadTime;
+	private String roomName;
+	private String surgeryDate;
+	private String surEndTime;
+	private String surStartTime;
+	private String surDate;
+	private String memo;
+	private int bookingNo;
 
 }

@@ -10,6 +10,7 @@ import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.vo.Form;
+import com.fp.smartDoctor.sign.model.vo.Sign;
 
 @Repository
 public class SignDao {
@@ -61,6 +62,23 @@ public class SignDao {
 	
 	public Member selectApprEmp(SqlSessionTemplate sqlSession, int empNo) {
 		return sqlSession.selectOne("memberMapper.selectApprEmp", empNo);
+	}
+	
+	public int selectApprListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("signMapper.selectApprListCount");
+	}
+	
+	public ArrayList<Sign> selectApprStandbyList(SqlSessionTemplate sqlSession, PageInfo pi){
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("signMapper.selectApprStandbyList", null, rowBounds);
+	}
+	
+	public int insertAppr(SqlSessionTemplate sqlSession, Sign s) {
+		return sqlSession.insert("signMapper.insertAppr", s);
 	}
 	
 }

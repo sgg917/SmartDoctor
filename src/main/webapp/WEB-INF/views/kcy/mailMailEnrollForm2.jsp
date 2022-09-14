@@ -9,6 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Purple Admin</title>
 
+    <!--써머노트로 추정~-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
     <style>
 
@@ -53,7 +62,7 @@
         
       }
 
-      .table>th{
+      th{
         height: 50px;
         text-align: left;
         
@@ -99,12 +108,7 @@
 
 
     </style>
-<!-- summernote -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 
-<!-- fancyTree -->
-<link href="//cdn.jsdelivr.net/npm/jquery.fancytree@2.27/dist/skin-win8/ui.fancytree.min.css" rel="stylesheet">
   </head>
 <body>
 
@@ -119,22 +123,28 @@
 					<br>
 					<div class="wrap22">
 						<div class="left1">
-							<button type="submit" class="btn1">보내기
-								<div class="mdi mdi-arrow-right-bold"style="font-size: 1.2em; display: inline-block; color: red;"></div>
+							<button type="submit" class="btn btn-danger btn1">
+								보내기
+								<div class="mdi mdi-arrow-right-bold"
+									style="font-size: 1.2em; display: inline-block; color: red;"></div>
 							</button>
-							<button type="button" class="btn1"
+							<button type="button" class="btn btn-danger btn1"
 								onClick="javascript:popOpen();">미리보기</button>
-							<button type="button" class="btn1">임시저장</button>
-							<button type="button" class="btn1">다시쓰기</button>
+							<button type="button" class="btn btn-danger btn1">임시저장</button>
+							<button type="button" class="btn btn-danger btn1">다시쓰기</button>
 						</div>
 						<div class="right1">
-							
+							<a type="button" class="toggler btn btn-danger btn1"
+								data-prod-cat="1"
+								style="background-color: lightgray; color: black; width: 25px;"
+								id="hide"><div class="mdi mdi-arrow-up"></div>
+								<!-- <div class="mdi mdi-arrow-down">아래 아이콘</div>--></a>
 							<button type="button"
-								class="btn1 mdi mdi-vector-arrange-above"
+								class="btn btn-danger btn1 mdi mdi-vector-arrange-above"
 								style="background-color: lightgray; color: black; width: 25px;"
 								onclick="pop1();"></button>
 							<button type="button"
-								class="btn1 mdi mdi-settings"
+								class="btn btn-danger btn1 mdi mdi-settings"
 								style="background-color: lightgray; color: black; width: 25px;"></button>
 						</div>
 
@@ -152,7 +162,7 @@
 						<hr>
 						<div
 							style="border: 1px solid lightgray; width: 90%; height: 85%; margin: auto;">
-							<table class="table";
+							<table
 								style="text-align: left; width: 90%; height: 80%; font-size: 0.8em; margin: auto;">
 								<tr style="height: 50px;">
 									<td colspan="2"><b>제목란, 공란시 빨간색으로 제목을 입력해주세요</b></td>
@@ -179,9 +189,9 @@
 								</tr>
 
 							</table>
-							<button type="button" class="btn1"
+							<button type="button" class="btn btn-danger btn1"
 								onClick="javascript:popClose();" style="font-size: 0.8em;">수정하기</button>
-							<button type="submit" class=" btn1"
+							<button type="submit" class="btn btn-danger btn1"
 								style="font-size: 0.8em;">전송하기</button>
 							<br>
 						</div>
@@ -248,14 +258,14 @@
 							<td width="100px"><input type="checkbox">내게쓰기</td>
 							<td colspan="2"><input type="text" style="width: 100%;"></td>
 							<td width="50px"><button type="button"
-									class="btn1">주소록</button></td>
+									class="btn btn-danger btn1">주소록</button></td>
 						</tr>
 						<tr class="cat1">
 							<td height="50px">참조</td>
 							<td></td>
 							<td colspan="2"><input type="text" style="width: 100%;"></td>
 							<td width="50px"><button type="button"
-									class="btn1">주소록</button></td>
+									class="btn btn-danger btn1">주소록</button></td>
 						</tr>
 						<tr class="cat1">
 							<td height="50px">제목</td>
@@ -264,12 +274,13 @@
 						</tr>
 						<tr class="cat1">
 							<td height="50px">파일첨부</td>
-							<td><a type="button" class="btn1 toggler mdi mdi-arrow-up"
+							<td><a type="button" class="btn btn-danger btn1 toggler "
 								data-prod-cat="2"
-								style="background-color: lightgray; color: black; width: 25px;">
+								style="background-color: lightgray; color: black; width: 25px;"><div
+										class="mdi mdi-arrow-up"></div>
 									<!-- <div class="mdi mdi-arrow-down">아래 아이콘</div>--></a></td>
 							<td colspan="3"><button type="button"
-									class="btn1">파일첨부</button></td>
+									class="btn btn-danger btn1">파일첨부</button></td>
 						</tr>
 						<tr class="cat2" style="display: none">
 							<td height="100px"></td>
@@ -289,13 +300,12 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="5"><textarea style="width:100%;" class="yui3-cssreset"
-									id="summernote" name="editcontent"></textarea></td>
+							<td><textarea class="yui3-cssreset" id="summernote" name="apprContent"></textarea></td>
 						</tr>
 						<tr>
 							<td colspan="5"><button type="submit"
-									class=" btn1">템플릿</button>
-								<button type="submit" class="btn1">예약발송</button></td>
+									class="btn btn-danger btn1">템플릿</button>
+								<button type="submit" class="btn btn-danger btn1">예약발송</button></td>
 						</tr>
 					</table>
 
@@ -375,36 +385,60 @@
 
 
 
-			<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-		    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-		    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-			<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 			<script>
-				$(document).ready(function() {
-					$('#summernote').summernote({
-										spellCheck : true,
-										disableDragAndDrop : true,
-										codeviewFilter : false,
-										codeviewIframeFilter : true,
-										tabsize : 2,
-										width : 1160,
-										height : 600,
-										toolbar : [
-												[
-														'style',
-														[ 'fontname', 'fontsize',
-																'bold', 'italic',
-																'underline',
-																'clear' ] ],
-												[ 'color', [ 'color' ] ],
-												[ 'para',
-														[ 'ul', 'ol', 'paragraph' ] ],
-												[ 'insert',
-														[ 'link', 'picture', 'hr' ] ],
-												[ 'view', [ 'fullscreen' ] ] ]
-									});
-				 });
-			</script>
+                $('#summernote').summernote({
+                  spellCheck: true,
+                  disableDragAndDrop: true,
+                  codeviewFilter: false,
+                  codeviewIframeFilter: true,
+                  placeholder: '메일 내용을 작성해 주세요',
+                  tabsize: 2,
+                  height: 600,
+                  toolbar: [
+                      ['style', ['fontname', 'fontsize', 'bold', 'italic', 'underline', 'clear']],
+                      ['color', ['color']],
+                      ['para', ['ul', 'ol', 'paragraph']],
+                      ['insert', ['link', 'picture', 'hr']],
+                      ['view', ['fullscreen']]
+                    ],
+                        // 이미지 업로드하면 이벤트 발생시킴
+                    onImageUpload: function(files, editor, webEitable){
+                        // 이미지 개수대로 함수 sendFile 호출
+                        for(var i=0; i<files.length; i++){
+                            sendFile(files[i], editor, welEditable);
+                        }
+                    }
+                    
+                });
+
+                function sendFile(file, editor, welEditable){
+                    var imgUrl = 'resources/image/cy/attachment/'
+
+                    // 파일 전송을 위한 form 생성
+                    form_data = new FormData();
+                    form_data.append("image", file);
+                    $.ajax({
+                        data: form_data,
+                        type: "post",
+                        url: "summernote_imageUpload.do",
+                        dataType: "text",
+                        cache: "false",
+                        enctype: "multipart/form-data",
+                        processData:"false",
+                        processData: "false",
+                        success: function(savename){
+                            imgUrl = imgUrl + savename;
+                            editor.insertImage(welEditable, imgUrl); // 에디터에 업로드된 이미지 삽입
+                        },
+                        error: function(){
+                            alert("error");
+                        }
+
+                    })
+                }
+                // $(".note-editable").change( console.log( $(this).html() ) )
+                
+            </script>
 				</div>
 			</div>
 

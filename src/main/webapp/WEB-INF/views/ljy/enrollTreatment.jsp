@@ -51,17 +51,17 @@
                                   <th style="background: lightgray;">차트번호</th>
                                   <th style="background: lightgray;">이름</th>
                                   <th style="background: lightgray;">성별</th>
-                                  <th style="background: lightgray;">나이</th>
+                                  <th style="background: lightgray;">나이(만)</th>
                                   <th style="background: lightgray;">초진/재진</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td>A-1234</td>
-                                  <td>이수만</td>
-                                  <td>남</td>
-                                  <td>62</td>
-                                  <td>재진</td>
+                                  <td>${ nowPatient.chartNo }</td>
+                                  <td>${ nowPatient.patientName }</td>
+                                  <td>${ nowPatient.gender }</td>
+                                  <td>${ nowPatient.age }</td>
+                                  <td>${ nowPatient.newOne }</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -93,32 +93,21 @@
                                         <th style="background: lightgray;">진료과</th>
                                       </thead>
                                       <tbody>
-                                        <tr>
-                                          <td>22-08-29</td>
-                                          <td>감기</td>
-                                          <td>이비인후과</td>
+                                      
+                                      <c:forEach var="c" items="${ list }">
+                                      	<tr>
+                                          <td>${ c.enrollDate }</td>
+                                          <td>${ c.disease }</td>
+                                          <td>${ c.deptName }</td>
                                         </tr>
-                                        <tr>
-                                          <td>22-05-22</td>
-                                          <td>불면증</td>
-                                          <td>정신과</td>
-                                        </tr>
-                                        <tr>
-                                          <td>날짜</td>
-                                          <td>증상</td>
-                                          <td>과과과</td>
-                                        </tr>
-                                        <tr>
-                                          <td>날짜</td>
-                                          <td>증상</td>
-                                          <td>과과과</td>
-                                        </tr>
+                                      </c:forEach>
+                                        
                                       </tbody>
                                     </table>
                                   </td>
     
                                   <td>
-                                    <textarea cols="30" rows="15" style="border-radius: 10px;"></textarea>
+                                    <textarea cols="30" rows="15" style="border-radius: 10px;">${ nowPatient.memo }</textarea>
                                   </td>
                                   
                                   <td style="width: 33%;">

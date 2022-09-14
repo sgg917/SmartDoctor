@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fp.smartDoctor.treatment.model.dao.TreatmentDao;
-import com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking;
+import com.fp.smartDoctor.treatment.model.vo.Clinic;
+import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 
 
@@ -25,14 +26,14 @@ public class TreatmentServiceImpl implements TreatmentService{
 	
 	//수술예약 상세조회 서비스(select)
 	@Override
-	public ArrayList<ListSurgeryBooking> selectRevOProom(int bookingNo) {
+	public Clinic selectRevOProom(int bookingNo) {
 		return tDao.selectRevOProom(sqlSession, bookingNo);
 	}
 	
-	//수술예약 상세조회 서비스(select)
+	//수술예약을위한 정보조회 서비스(select)
 	@Override
-	public  ArrayList<ListSurgeryBooking> selectforInsertRevOP(int bookingNo) {
-		return tDao.selectforInsertRevOP(sqlSession, bookingNo);
+	public  Clinic selectforInsertRevOP(int clinicNo) {
+		return tDao.selectforInsertRevOP(sqlSession, clinicNo);
 	}
 	
 	// 수술실 캘린더 조회
@@ -42,11 +43,18 @@ public class TreatmentServiceImpl implements TreatmentService{
 	}
 
 	//입력받은 날짜 중복여부 체크
+	/*
 	@Override
 	public int checkOverlapRsv(HashMap<String, String> paraMap) {
 		return tDao.checkOverlapRsv(sqlSession, paraMap);
 	}
-
+	*/
+	
+	//시간 중복 막기
+	@Override
+	public ArrayList<Clinic> blockOverlap(HashMap<String, String> map) {
+		return tDao.blockOverlap(sqlSession, map);
+	}
 	//수술실 예약
 	@Override
 	public int insertReservation(HashMap<String, String> paraMap) {
@@ -55,8 +63,8 @@ public class TreatmentServiceImpl implements TreatmentService{
 
 	//수술실 예약 취소
 	@Override
-	public int rsvCancel(HashMap<String, String> paraMap) {
-		return tDao.rsvCancel(sqlSession, paraMap);
+	public int cslRsvOP(int bookingNo) {
+		return tDao.cslRsvOP(sqlSession, bookingNo);
 	}
 
 	//수술실 예약 업데이트
@@ -64,7 +72,21 @@ public class TreatmentServiceImpl implements TreatmentService{
 	public int updateRevOProom(RevOProom op) {
 		return 0;
 	}
+
+	// 진료중인 환자 조회
+	@Override
+	public Patient selectNowPatient(Patient p) {
+		Patient nowPatient = tDao.selectNowPatient(sqlSession, p);
+		return nowPatient;
+	}
+
 	
+	// 진료할 환자의 과거 내역 조회
+	@Override
+	public ArrayList<Clinic> selectPatientInfo(int chartNo) {
+		ArrayList<Clinic> list = tDao.selectPatientInto(sqlSession, chartNo);
+		return list;
+	}
 	
 	
 

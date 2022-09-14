@@ -63,6 +63,7 @@
 			<mapping path="/myPage.me"/>
 			<mapping path="/enrollForm.bo"/>
 			<mapping path="/list.att"/>
+			<mapping path="/apprEnrollForm.si"/>
 			<beans:bean class="com.fp.smartDoctor.common.interceptor.LoginInterceptor" id="loginInterceptor"/>
 		</interceptor>
 	</interceptors>

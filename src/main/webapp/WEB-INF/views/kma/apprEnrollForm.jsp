@@ -80,11 +80,51 @@
 	.btn>span {
 		white-space: nowrap;
 	}
+	.ap-md-bd{
+		border: 1px solid #DFDFDF;
+	}
+	.ap-md-bd>td{
+		border:none;
+	}
 	#ap-md-tr{
 		border: 2px solid #DFDFDF;
 	}
 	#ap-md-tr>th{
 		border:none;
+	}
+	#selectedLine>input{
+		width:105px;
+	}
+	#tree{
+		overflow:auto; 
+		height:370px;
+	}
+	.appr-line-md{
+		background:white; 
+		width:800px; 
+		margin:auto;
+	}
+	.appr-line-div{
+		width:500px; 
+		height:150px; 
+		border: 1px solid #DFDFDF;
+	}
+	.appr-line-div>button{
+		width:65px; 
+		height:100%; 
+		border: 1px solid #DFDFDF; 
+		background:white; 
+		float:left;
+	}
+	.appr-line-div>table{
+		width:433px; 
+		float:right;
+	}
+	.ap-md-th{
+		background: rgb(244, 244, 244);
+	}
+	.ap-mdi-del{
+		text-align: center; border:none;
 	}
 </style>
 </head>
@@ -100,57 +140,51 @@
 					</p>
 					<hr>
 					<br>
-					<div class="appr-table-wrapper">
-						<button type="button" class="btn btn-success appr-write-btn">
-							<i class="mdi mdi-arrow-up-bold" style="color: white;"></i>&nbsp;
-							<span>결재요청</span>
-						</button>
-						<button type="button" class="btn btn-outline-success btn-green"
-							data-bs-toggle="modal" data-bs-target="#lineModal"
-							style="width: 130px;" onclick="selectLineList();">
-							<i class="mdi mdi-account-plus menu-icon"></i>&nbsp; <span>결재라인
-								지정</span>
-						</button>
-						<button type="button" class="btn btn-outline-success btn-green"
-							data-bs-toggle="modal" data-bs-target="#formModal"
-							style="width: 130px;" onclick="selectFormList();">
-							<i class="mdi mdi-application menu-icon"></i>&nbsp; <span>결재양식
-								선택</span>
-						</button>
-						<button type="button" class="btn btn-outline-success btn-green">
-							<i class="mdi mdi-download menu-icon"></i>&nbsp; <span>임시저장</span>
-						</button>
-						<table class="table table-bordered appr-table">
-							<tr>
-								<th width="250px;">문서보존기간</th>
-								<td><select name="" style="width: 100px; height: 25px;">
-										<option>영구보존</option>
-										<option>1년</option>
-										<option>3년</option>
-										<option>5년</option>
-								</select></td>
-							</tr>
-							<tr>
-								<th>결재자</th>
-								<td></td>
-							</tr>
-							<tr>
-								<th>참조자</th>
-								<td></td>
-							</tr>
-							<tr>
-								<th>첨부파일</th>
-								<td><input type="file"></td>
-							</tr>
-							<tr>
-								<th>제목</th>
-								<td><input type="text" placeholder="제목을 입력해주세요"></td>
-							</tr>
-						</table>
-						<div>
-							<textarea class="yui3-cssreset" id="summernote" name="formContent"></textarea>
+					<form id="insertAppr" action="apprInsert.si" method="post" enctype="multipart/form-data" >
+						<input type="hidden" value="" name="apprTotal">
+						<input type="hidden" value="${ loginUser.empNo }" name="empNo">
+						<input type="hidden" value="" name="formNo">
+						<div class="appr-table-wrapper">
+							<button type="submit" class="btn btn-success appr-write-btn">
+								<i class="mdi mdi-arrow-up-bold" style="color: white;"></i>&nbsp;
+								<span>결재요청</span>
+							</button>
+							<button type="button" class="btn btn-outline-success btn-green"
+								data-bs-toggle="modal" data-bs-target="#lineModal"
+								style="width: 130px;" onclick="selectLineList();">
+								<i class="mdi mdi-account-plus menu-icon"></i>&nbsp; 
+								<span>결재라인 지정</span>
+							</button>
+							<button type="button" class="btn btn-outline-success btn-green"
+								data-bs-toggle="modal" data-bs-target="#formModal"
+								style="width: 130px;" onclick="selectFormList();">
+								<i class="mdi mdi-application menu-icon"></i>&nbsp; 
+								<span>결재양식 선택</span>
+							</button>
+							<button type="button" class="btn btn-outline-success btn-green">
+								<i class="mdi mdi-download menu-icon"></i>&nbsp; 
+								<span>임시저장</span>
+							</button>
+							
+							<table class="table table-bordered appr-table">
+								<tr>
+									<th width="250px;">문서보존기간</th>
+									<td>&nbsp;5년</td>
+								</tr>
+								<tr>
+									<th>제목</th>
+									<td><input type="text" name="apprTitle" placeholder="제목을 입력해주세요"></td>
+								</tr>
+								<tr>
+									<th>첨부파일</th>
+									<td><input type="file" name="upfile"></td>
+								</tr>
+							</table>
+							<div>
+								<textarea class="yui3-cssreset" id="summernote" name="apprContent"></textarea>
+							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 
@@ -210,7 +244,9 @@
 						<table class="table table-bordered appr-table" id="appr-comment">
 							<thead>
 								<tr style="border: 2px solid #DFDFDF;">
-									<th id="form-modal-th" >&nbsp;결재양식 &nbsp;<span id="formCount"></span></th>
+									<th id="form-modal-th" >&nbsp;결재양식 &nbsp;
+										<span id="formCount"></span>
+									</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -270,6 +306,8 @@
 						$('#summernote').summernote('reset');
 						$('#summernote').summernote('pasteHTML', f.formContent);
 						$('#formModal').modal('hide');
+						
+						$("input[name=formNo]").attr('value', f.formNo); // 결재요청시 넘길 formNo
 					},
 					error:function(){
 						console.log("결재양식선택 불러오기용 ajax통신 실패");
@@ -285,19 +323,19 @@
 		<div class="modal fade" id="lineModal" tabindex="-1"
 			aria-labelledby="lineModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-				<div class="modal-content" style="background:white; width:800px; margin:auto;">
+				<div class="modal-content appr-line-md" style="background:white; width:800px; margin:auto;">
 					<div class="modal-header">
 						<h5 class="modal-title" id="lineModalLabel">결재라인 지정</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<table class="table table-bordered appr-modal-tb" id="appr-oz">
+						<table class="table table-bordered appr-modal-tb" id="appr-oz" style="float:left;">
 							<tr>
 								<th>조직도</th>
 							</tr>
 							<tr>
-								<td style="overflow:auto; height:392px;">
+								<td style="height:370px;">
 									<div id="tree">
 									  <ul id="treeData">
 									  
@@ -306,61 +344,50 @@
 								</td>
 							</tr>
 						</table>
-						<table class="table table-bordered appr-modal-tb" style="width: 500px;">
-							<tr id="ap-md-tr">
-								<th></th>
-								<th>이름</th>
-								<th>부서</th>
-								<th>직급</th>
-								<th style="text-align: center;">
-									<i class="mdi mdi-delete-forever"></i>
-								</th>
-							</tr>
-							<tr>
-								<th colspan="5" style="background: rgb(244, 244, 244);">결재자</th>
-							</tr>
-							<tr style="border: 1px solid #DFDFDF;">
-								<td width="40" rowspan="3" id="appr-line"><i
-									class="mdi mdi-chevron-double-right"></i></td>
-								<td style="border:none;">강동원</td>
-								<td style="border:none;">총무팀</td>
-								<td style="border:none;">팀장</td>
-								<td style="text-align: center; border:none;"><i
-									class="mdi mdi-delete-forever" ></i></td>
-							</tr>
-							<tr style="border: 1px solid #DFDFDF;">
-								<td style="border:none;">강동원</td>
-								<td style="border:none;">총무팀</td>
-								<td style="border:none;">팀장</td>
-								<td style="text-align: center; border:none;"><i
-									class="mdi mdi-delete-forever" ></i></td>
-							</tr>
-							<tr style="border: 1px solid #DFDFDF;">
-								<td style="border:none;">강동원</td>
-								<td style="border:none;">총무팀</td>
-								<td style="border:none;">팀장</td>
-								<td style="text-align: center; border:none;"><i
-									class="mdi mdi-delete-forever" ></i></td>
-							</tr>
-							<tr>
-								<th colspan="5">참조자</th>
-							</tr>
-							<tr style="border: 1px solid #DFDFDF;">
-								<td width="40" rowspan="3" id="appr-line-ref"><i
-									class="mdi mdi-chevron-double-right"></i></td>
-								<td style="border:none;">강동원</td>
-								<td style="border:none;">총무팀</td>
-								<td style="border:none;">팀장</td>
-								<td style="text-align: center; border:none;"><i
-									class="mdi mdi-delete-forever" ></i></td>
-							</tr>
-						</table>
+						<!-- <i class="mdi mdi-chevron-double-right"></i>-->
+						<div class="apprLineWrapper" style="float:right;">
+							<table class="table table-bordered appr-modal-tb" style="width: 500px;">
+								<tr id="ap-md-tr">
+									<th></th>
+									<th>이름</th>
+									<th>부서</th>
+									<th>직급</th>
+									<th style="text-align: center;">
+										<i class="mdi mdi-delete-forever"></i>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="5" class="ap-md-th">결재자</th>
+								</tr>
+							</table>
+							<div class="appr-line-div">
+								<button id="appr-line">
+									<i class="mdi mdi-chevron-double-right"></i>
+								</button>
+								<table class="table table-bordered appr-modal-tb" id="apprLine">
+									
+								</table> 
+							</div>
+							<table class="table table-bordered appr-modal-tb" style="width: 500px;">
+								<tr>
+									<th colspan="5" class="ap-md-th">참조자</th>
+								</tr>
+							</table>
+							<div class="appr-line-div">
+								<button id="appr-line-ref">
+									<i class="mdi mdi-chevron-double-right"></i>
+								</button>
+								<table class="table table-bordered appr-modal-tb" id="apprRef">
+									
+								</table> 
+							</div>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary btn-sm"
 							data-bs-dismiss="modal" style="width:100px; height:40px;">취소하기</button>
 						<button type="button" class="btn btn-success btn-sm"
-							style="background: RGB(29, 92, 99); color:white; width:100px; height:40px;">선택하기</button>
+							style="background: RGB(29, 92, 99); color:white; width:100px; height:40px;" onclick="selectedApprLine();">선택하기</button>
 					</div>
 				</div>
 			</div>
@@ -373,61 +400,75 @@
 			function selectLineList(){ // 결재라인 조직도 출력용 함수
 				
 				$.ajax({
-					url: "apprLineDept.si",
+					url: "apprLineList.si",
 					async:false,
-					success:function(list){
+					success:function(map){
 						
-						let up = "";
-						let treat = "";
-						let nurse = "";
-						for(let i=0; i<list.length; i++){
+						let deptList = map.deptList; // [{}, {}]
+						let empList = map.empList; // [{}, {}]
+						
+						let sourceArr = []; // 최종만들어야되는 배열
+						
+						for(let i in deptList){
+							let dept = deptList[i];
 							
-							if(list[i].upperNo == 0){ // 상위부서
-								up += "<li id='" + list[i].deptNo + "' class='folder expanded'>" + list[i].deptName;
-							}else if(list[i].upperNo == 1){ // 진료부
-								treat += "<li id='" + list[i].deptNo + "' class='folder expanded'>" + list[i].deptName;
-							}else{ // 간호부
-								nurse += "<li id='" + list[i].deptNo + "' class='folder expanded'>" + list[i].deptName;
+							if(dept.upperNo == 0){
+								let sourceUpperDept = {
+									title:dept.deptName,
+									key:dept.deptNo,
+									folder:true,
+									expanded:true,
+									children:[]
+								};
+								sourceArr.push(sourceUpperDept);
+							}else{
+								let sourceLowerDept = {
+									title:dept.deptName,
+									key:dept.deptNo,
+									folder:true,
+									children:[]	
+								};
+								
+								for(let j in sourceArr){
+									if(sourceArr[j].key == dept.upperNo){
+										sourceArr[j].children.push(sourceLowerDept);
+									}
+								}
 							}
 						}
 						
-						$("#treeData").html(up);
-						$("#1").append("<ul>" + treat + "</ul>");
-						$("#2").append("<ul>" + nurse + "</ul>");
-						
-					},
-					error:function(){
-						console.log("결재라인 조직도 부서 조회용 ajax통신 실패");
-					}
-				})
-				
-				$.ajax({
-					url: "apprLineList.si",
-					async:false,
-					success:function(emp){
-						
-						for(let i=0; i<emp.length; i++){ // 각 부서에 사원 출력
+						for(let i in empList){
+							let emp = empList[i];
+							let empInfo = emp.empName + "&nbsp;" + emp.jobName
+							let sourceEmp = {
+								title:empInfo,
+								key:emp.empNo
+							};
 							
-							$('.folder').each(function(index, item){
+							for(let i in sourceArr){
+								let dept = sourceArr[i];
 								
-								if( $(item).attr("id") == emp[i].deptNo ){
-									$(item).append("<ul><li id='" + emp[i].empNo + "'>" + emp[i].empName + "</ul>");
-									console.log("<ul><li id='" + emp[i].empNo + "'>" + emp[i].empName + "</ul>");
-									
+								if(dept.key == emp.deptNo){
+									dept.children.push(sourceEmp);
+								}else{
+									for(let j in dept.children){
+										if(dept.children[j].key == emp.deptNo){
+											dept.children[j].children.push(sourceEmp);
+										}
+									}
 								}
-							})
+							}
 						}
 						
 						$("#tree").fancytree({
-							
+							source:sourceArr,
 							activate: function(event, data){ // 데이터 활성화
-						      
+							      
 								let node = data.node
 								//console.log(node.key);
 								addApprLine(node.key);
 							}
 						});
-						
 						
 					},
 					error:function(){
@@ -438,30 +479,78 @@
 			
 			function addApprLine(empNo){ // 결재라인 결재참조자 추가 함수
 				
-				//console.log(empNo);
+				let member;
+				$.ajax({
+					url: "apprLineEmp.si",
+					async:false,
+					data: {empNo: empNo},
+					success:function(emp){
+
+						data = "<tr class='ap-md-bd'>"
+								 + "<td style='display:none' class='empId'>" + emp.empNo + "</td>"
+							 	 + "<td class='empName'>" + emp.empName + "</td>"
+								 + "<td>" + emp.deptName + "</td>"
+								 + "<td>" + emp.jobName + "</td>"
+								 + "<td class='ap-mdi-del'><i class='mdi mdi-delete-forever'></i></td>"
+						 	 + "</tr>"
+						 	 
+						member = emp; 
+					},
+					error:function(){
+						console.log("결재라인 사원 조회용 ajax통신 실패");
+					}
+				})
 				
-				$("#appr-line").click(function(){ // 결재자
-        			
-					$.ajax({
-						url: "apprLineEmp.si",
-						data: {empNo: empNo},
-						success:function(emp){
-							console.log(emp);
-						},
-						error:function(){
-							console.log("결재라인 사원 조회용 ajax통신 실패");
-						}
-					})
+				$("#appr-line").off('click').on('click', function(){ // 결재자
+					
+				
+					if( $(".empId").text() == member.empNo ){ // 동일한 사원 선택 제한
+						
+						alert("중복된 대상입니다.");
+						$("#appr-line").off('click');
+					
+					}else if( $("#apprLine").children(".ap-md-bd").length > 2 ){ // 3명 이상 선택 제한
+						
+						alert("최대 결재인원은 3명입니다.");
+						$("#appr-line").attr("disabled", true);
+						
+					}else{ 
+						
+						$("#appr-line").attr("disabled", false);
+						$("#apprLine").append(data);
+					}
+					
         		})
         		
-        		$("#appr-line-ref").click(function(){ // 참조자
+        		$("#appr-line-ref").off('click').on('click', function(){ // 참조자
+        			
+					if( $("#apprRef").find(".ap-md-bd").children("td:eq(0)").text() == member.empNo ){ // 동일한 사원 선택 제한
+						
+						alert("중복된 대상입니다.");
+						$("#appr-ref").off('click');
+					
+					}else if( $("#apprRef").children(".ap-md-bd").length > 2 ){ // 3명 이상 선택 제한
+						
+						alert("최대 결재인원은 3명입니다.");
+						$("#appr-ref").attr("disabled", true);
+						
+					}else{
+						
+						$("#appr-ref").attr("disabled", false);
+						$("#apprRef").append(data);
+					}
         			
         		})
-        		
         		
         		
 			}
-			   
+			
+			function selectedApprLine(){ // 결재라인 지정 선택하기 버튼 클릭시
+				
+				let apprTotal = $("#apprLine").children(".ap-md-bd").length;
+				$("input[name=apprTotal]").attr('value', apprTotal); // 총결재자수 넘기기
+				$('#lineModal').modal('hide');
+			}
 		</script>
 		
 		

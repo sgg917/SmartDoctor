@@ -1,22 +1,27 @@
 package com.fp.smartDoctor.sign.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
+import com.fp.smartDoctor.common.template.FileUpload;
 import com.fp.smartDoctor.common.template.Pagination;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.service.SignService;
 import com.fp.smartDoctor.sign.model.vo.Form;
+import com.fp.smartDoctor.sign.model.vo.Sign;
 import com.google.gson.Gson;
 
 @Controller
@@ -136,18 +141,26 @@ public class SignController {
 	@RequestMapping(value="apprLineList.si", produces="application/json; charset=UTF-8")
 	public String selectApprLineList() {
 		
-		ArrayList<Member> list = sService.selectApprLineList();
-		return new Gson().toJson(list);
+		ArrayList<Dept> deptList = sService.selectApprLineDept();
+		ArrayList<Member> empList = sService.selectApprLineList();
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("deptList", deptList);
+		map.put("empList", empList);
+		
+		return new Gson().toJson(map);
 	}
 	
 	// 사용자_결재라인 조직도 부서 조회 (ajax)
+	/*
 	@ResponseBody
 	@RequestMapping(value="apprLineDept.si", produces="application/json; charset=UTF-8")
 	public String selectApprLineDept() {
 		
 		ArrayList<Dept> list = sService.selectApprLineDept();
+		
 		return new Gson().toJson(list);
-	}
+	}*/
 	
 	// 사용자_결재라인 사원 조회 (ajax)
 	@ResponseBody
@@ -158,8 +171,50 @@ public class SignController {
 		return new Gson().toJson(m);
 	}
 	
+	// 사용자_결재대기함 페이지
+	@RequestMapping("apprStandbyList.si")
+	public ModelAndView selectApprStandbyList(@RequestParam(value="cpage", defaultValue="1")int currentPage, ModelAndView mv) {
+		
+		int listCount = sService.selectApprListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Sign> list = sService.selectApprStandbyList(pi);
+		
+		mv.addObject("pi", pi)
+		  .addObject("list", list)
+		  .setViewName("kma/apprStandbyList");
+		
+		return mv;
+	}
 	
+	// 사용자_결재요청
+	@RequestMapping("apprInsert.si")
+	public String insertAppr(Sign s, MultipartFile upfile, HttpSession session, Model model) {
+		
+		if(!upfile.getOriginalFilename().equals("")) {
+			
+			String saveFilePath = FileUpload.saveFile(upfile, session, "resources/appr_files/");
+			
+			s.setOriginName(upfile.getOriginalFilename());
+			s.setChangeName(saveFilePath);
+		}
+
+		int result = sService.insertAppr(s);
+		
+		if(result > 0) { // 성공
+			session.setAttribute("alertMsg", "성공적으로 결재요청하였습니다.");
+			return "redirect:apprEnrollForm.si";
+		}else {
+			session.setAttribute("alertMsg", "결재요청에 실패하였습니다.");
+			return "redirect:apprEnrollForm.si";
+		}
+	}
 	
+	// 사용자_연장근무신청 페이지
+	@RequestMapping("apprOvertimeForm.si")
+	public String overtimeEnrollForm() {
+		return "kma/apprOvertimeForm";
+	}
 	
 	
 }

@@ -27,6 +27,9 @@
 		<result column="calendar_no" property="calendarNo" />
 		<result column="textcolor" property="textColor" />
 		<result column="backgroundcolor" property="backgroundColor" />
+		
+		<result column="patient_name" property="patientName" />
+		<result column="lead_time" property="leadTime" />
 	</resultMap>
 	
 	<!-- clinic result -->
@@ -44,6 +47,19 @@
 		<result column="diseases_code" property="diseaseCode" />
 		<result column="emp_no" property="empNo" />
 		<result column="fee" property="fee" />
+		<result column="disease" property="disease" />
+		<result column="dept_name" property="deptName" />
+		
+		<result column="patient_name" property="patientName" />
+		<result column="doctor_name" property="docName" />
+		<result column="lead_time" property="leadTime" />
+		<result column="room_name" property="roomName" />
+		<result column="surgery_date" property="surgeryDate" />
+		<result column="sur_endtime" property="surEndTime" />
+		<result column="sur_starttime" property="surStartTime" />
+		<result column="surgery_date" property="surDate" />
+		<result column="memo" property="memo" />
+		<result column="booking_no" property="bookingNo" />
 	</resultMap>
 
 
@@ -61,6 +77,8 @@
 		<result column="phone" property="phone" />
 		<result column="protector" property="protector" />
 		<result column="new" property="newOne" />
+		<result column="doctor_name" property="docName"/>
+		<result column="clinic_no" property="clinicNo"/>
 	</resultMap>
 	
 	<!-- surgery result -->
@@ -102,6 +120,7 @@
 	<select id="calendarList" resultMap="OPResult">
 		select
 			   calendar_no
+			 , booking_no
 			 , clinic_no
 			 , surgery_date
 			 , surgery_date
@@ -113,45 +132,82 @@
 	</select>
 
 	<!-- 수술실 정보 조회 select-->
-	<select id="selectOProom" resultMap="OPResult">
+	<select id="selectOProom" resultMap="ClinicResult">
 		select 
-      		   sb.clinic_no
+      		   c.clinic_no
+      		 , sb.booking_no
      		 , (select p.patient_name
           		  from patient p
-          		  join clinic cll on (cll.chart_no = p.chart_no)) as patient_name
+          		  join clinic cll on (cll.chart_no = p.chart_no)
+                  where clinic_no=2001) as patient_name
      		 , sb.room_name
      		 , sb.surgery_date
+     		 , sb.sur_starttime
      		 , sb.sur_endtime
      		 , (select m.emp_name
           		 from member m
-          		 join clinic clll on (clll.emp_no = m.emp_no)) as doctor_name
+          		 join clinic clll on (clll.emp_no = m.emp_no)
+                 where clinic_no=2001) as doctor_name
+          	 , sb.memo
 		  from surgery_booking sb
-		 where booking_no=2000
+          join clinic c on ( sb.clinic_no = c.clinic_no)
+		 where sb.booking_no = ${bookingNo}
 	</select>
 	
 	<!-- 수술실 예약을 위한 정보 조회 select-->
-	<select id="forinsertOProom" resultMap="SurBookResult">
+	<select id="forinsertOProom" resultMap="ClinicResult">
 		select 
-      		   sb.clinic_no
+      		   c.clinic_no
      		 , (select p.patient_name
           		  from patient p
-          		  join clinic cll on (cll.chart_no = p.chart_no)) as patient_name
+          		  join clinic cl on (cl.chart_no = p.chart_no)
+                  where clinic_no=${clinicNo}) as patient_name
      		 , (select m.emp_name
-          		 from member m
-          		 join clinic clll on (clll.emp_no = m.emp_no)) as doctor_name
-		  from surgery_booking sb
-		 where booking_no=2000
+          		  from member m
+          		  join clinic clll on (clll.emp_no = m.emp_no)
+                  where clinic_no=${clinicNo}) as doctor_name
+          	 , surgery_no2
+             , lead_time
+		  from clinic c
+          join surgery on (surgery_no2 = surgery_no)
+		 where c.clinic_no=${clinicNo}
+           and surgery = 'Y'
 	</select>
 	
 	<!-- 수술실 중복 체크 -->
 	<select id="checkOverlapRsv" resultType="_int">
-		select bcount(*)
+		select count(*)
 		  from
 		     ( select booking_no
 		         from surgery_booking
 		        where sur_endtime &gt; #{surStartTime}
-			      and sur_starttime &lt; #{sur_endtime}
+			      and sur_starttime &lt; #{surEndTime}
+			      and room_name=#{roomName}
+			      and sur_Date =#{surDate}
 		     )
+	</select>
+	
+	<!-- 수술실 중복 방지 
+	<select id="selectOverlap" resultMap="OPResult">
+		select
+			   surgery_date
+			 , room_name
+			 , sur_starttime
+			 , sur_endtime
+		  from surgery_booking 
+		 where surgery_status = 'R'
+	</select>
+	-->
+	<select id="selectOverlap" resultMap="ClinicResult">
+		select
+		       surgery_date
+		     , room_name
+		     , sur_starttime
+		     , sur_endtime
+		  from surgery_booking 
+		 where surgery_status = 'R'
+		   and surgery_Date = #{surDate}
+		   and room_name = #{surgeryRoom}
 	</select>
 	
 	<!-- 수술실 예약 insert -->
@@ -177,15 +233,15 @@
 			(
 			seq_sbno.nextval
 			, #{clinicNo}
-			, #{surNo}
+			, 'G-10080'
 			, seq_rca.nextval
 			, #{roomName}
 			, #{surDate}
-			, #{surTime}
+			, #{surStartTime}
 			, #{memo}
 			, default
-			, #{docName}
-			, #{surEnd}
+			, #{doctorName}
+			, #{surEndTime}
 			, 'white'
 			, 'navy'
 		)
@@ -199,4 +255,57 @@
 		 where booking_no = #{bookingNo}
 	
 	</update>
+	
+	<!-- 진료할 환자 조회 -->
+	<select id="selectNowPatient" resultMap="PatientResult">
+		select *
+		  from (
+		          select
+		                  chart_no
+		                , last_dep
+		                , patient_name
+		                , id_no
+		                , address
+		                , memo
+		                , first_visit
+		                , last_visit
+		                , phone
+		                , protector
+		                , new
+		                , enroll_time
+			        from patient
+			        join clinic using (chart_no)  
+			       where status = 'W'
+			       order 
+			          by enroll_time
+		        )
+		 where rownum = 1;
+		
+			   
+	
+	
+	
+	</select>
+	
+	<!-- 진료할 환자의 과거 내역 조회  -->
+	<select id="selectPatientInfo" resultMap="ClinicResult">
+		select
+		       clinic_no
+		     , chart_no
+		     , enroll_date
+		     , disease
+		     , dept_name
+		     , c.status
+		  from clinic c
+		  join patient using (chart_no)
+		  join disease using (diseases_code)
+		  join department using (dept_no)
+		 where chart_no = #{chartNo}
+		   and c.status = 'D'
+		 order
+		    by enroll_date desc
+	</select>
+	
+	
+	
 </mapper>
