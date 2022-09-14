@@ -519,12 +519,14 @@ th {
 		      success:function(result){
 		         console.log(result); // 현재선택된 수술방이랑 현재선택된 날짜에 예약되어있는 리스트
 		         console.log(result[0].surEndTime);
+		         console.log(result[0].surStartTime);
 		         
-		        
-                 for(let j=result[0].surStartTime; j<=result[0].surEndTime; j++){
-                    $("select option[value*='"+ j + "']").prop('disabled',true).css("background", "lightgrey");
-                 }
-		         
+		         //여기요ㅠㅠㅠ
+		         for(let i=0; i<28;i++){
+	                 for(let j=result[0].surStartTime; j<=result[0].surEndTime; j++){
+	                    $("select option[value*='"+ j + "']").prop('disabled',true).css("background", "lightgrey");
+	                 }
+		         }
 		      },
 		      error: function(){
 		         alert("오류로 인한 예약실패");
