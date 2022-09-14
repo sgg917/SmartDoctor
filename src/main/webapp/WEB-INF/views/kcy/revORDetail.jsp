@@ -119,8 +119,6 @@ th {
 		<div class="wrap112">
 
 			<input type="hidden" id="clinicNo" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
-			<input type="hidden" id="surgeryNo" class="form-control" value="${ c.surgeryNo2 }" name="surgeryNo"> 
-			<input type="hidden" id="leadTime" class="form-control" value="${ c.leadTime }" name="leadTime">
 			<input type="hidden" id="bookingNo" class="form-control" value="${ c.bookingNo }" name="bookingNo">
 			<br>
 			<h3>
@@ -134,7 +132,7 @@ th {
 							<td colspan="2">
 								<div class="smallbtn1">조회</div>
 								<div style="display: inline-block; margin-left: 30px;">
-									<h3>${op.surDate}</h3>
+									<h3>${c.surDate}</h3>
 								</div>
 							</td>
 						</tr>
@@ -145,12 +143,12 @@ th {
 						</tr>
 						<tr>
 							<th>수진자명</th>
-							<td><input type="text" style="width: 300px;" readonly
+							<td><input name="patientName" type="text" style="width: 300px;" readonly
 								value="${c.patientName }"></td>
 						</tr>
 						<tr>
 							<th>수술실</th>
-							<td><input type="text" style="width: 300px;" readonly
+							<td><input name="roomName" type="text" style="width: 300px;" readonly
 								value="${c.roomName }"></td>
 						</tr>
 						<tr>
@@ -173,7 +171,7 @@ th {
 						<tr>
 							<th>담당의</th>
 							<td><input type="text" style="width: 300px;" readOnly
-								value="${ c.doctorName }" name="doctorName"></td>
+								value="${ c.docName }" name="docName"></td>
 						</tr>
 						<tr>
 							<th>특이사항</th>
@@ -213,26 +211,6 @@ th {
 
 
 
-<!-- 예상 완료시간 조회 -->
-	<script>
-		$(".surStartTime").change(function(){
-			//var Sum =			
-				var timeSArr = $(".surStartTime>option:selected").text().split(":");			
-				var timeLArr = "${c.leadTime}".split(":");
-				
-				let hour = Number(timeSArr[0]) + Number(timeLArr[0]);
-				let min = Number(timeSArr[1]) + Number(timeLArr[1]);
-				if(min < 10){
-					min = "0" + min;
-				}
-				
-				//var result = parseDate(timeS) + parseDate(timeL);			
-				console.log(hour + ":" + min)
-				document.getElementById("surEndTime").value = hour + ":" + min;		
-				
-			
-			 //$(".surEndTime").html(Sum);
-		})
-	</script>
+
 </body>
 </html>

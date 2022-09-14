@@ -19,7 +19,10 @@ public interface TreatmentService {
 	Clinic selectforInsertRevOP(int clinicNo);
 	
 	// 입력받은 일시가 중복된 날짜인지 검사
-	int checkOverlapRsv(HashMap<String, String> paraMap);
+	//int checkOverlapRsv(HashMap<String, String> paraMap);
+	
+	//중복을 막기위한 조회
+	ArrayList<Clinic> blockOverlap(HashMap<String, String> map);
 	
 	//수술실 예약하기(insert)
 	int insertReservation(HashMap<String, String> paraMap);

@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.smartDoctor.treatment.model.service.TreatmentService;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
-import com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 import com.google.gson.Gson;
@@ -80,13 +79,11 @@ public class TreatmentController {
 	}
 
  	//수술실 예약 조회
-	@RequestMapping("detail.op")
-	public ModelAndView selectRevOProom(int clinicNo, ModelAndView mv) {
-		
+	@ResponseBody
+	@RequestMapping(value="detail.op", produces="application/json; charset=utf-8")
+	public String selectRevOProom(int clinicNo) {
 		Clinic c = tService.selectRevOProom(clinicNo);
-		mv.addObject("c", c).setViewName("kcy/revORDetail");
-		
-		return mv;
+		return new Gson().toJson(c);
 		
 	}
 	
@@ -153,7 +150,8 @@ public class TreatmentController {
 
 	*/
 	
-	//수술실 예약
+	//수술실 예약 다시짜야함
+	/*
 	@ResponseBody
 	@RequestMapping(value="insert.op", produces="application/json; charset=utf-8")
 	public String insertReservation(HttpServletRequest request, HttpSession session) {
@@ -196,6 +194,25 @@ public class TreatmentController {
 			return jsonObj.toString();
 		}
 	}
+	*/
+	
+	
+	//수술실 예약 중복 막기
+	@ResponseBody
+	@RequestMapping(value="overlap.op", produces="application/json; charset=utf-8")
+	public String chOverlap(String surgeryRoom, String surDate, HttpSession session) {
+		
+		
+		HashMap<String, String> paraMap = new HashMap<String, String>();
+		paraMap.put("surgeryRoom", surgeryRoom);
+		paraMap.put("surDate", surDate);
+		
+		ArrayList<Clinic> c = tService.blockOverlap(paraMap);
+		
+		return new Gson().toJson(c);
+		
+	}
+	
 	
 	//수술예약 취소
 	@RequestMapping("cancel.op")

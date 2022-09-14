@@ -227,7 +227,6 @@
                   <li class="nav-item"> <a class="nav-link" href="exercise.jy">진료 대기(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.op">수술실 예약(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.pr">입원실 예약(지워야됨)</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="list.op">수술실 예약 조회(지워야됨)</a></li>
                 </ul>
               </div>
             </li>

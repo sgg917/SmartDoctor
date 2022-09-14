@@ -44,11 +44,18 @@ public class TreatmentServiceImpl implements TreatmentService{
 	}
 
 	//입력받은 날짜 중복여부 체크
+	/*
 	@Override
 	public int checkOverlapRsv(HashMap<String, String> paraMap) {
 		return tDao.checkOverlapRsv(sqlSession, paraMap);
 	}
-
+	*/
+	
+	//시간 중복 막기
+	@Override
+	public ArrayList<Clinic> blockOverlap(HashMap<String, String> map) {
+		return tDao.blockOverlap(sqlSession, map);
+	}
 	//수술실 예약
 	@Override
 	public int insertReservation(HashMap<String, String> paraMap) {
@@ -73,6 +80,8 @@ public class TreatmentServiceImpl implements TreatmentService{
 		Patient nowPatient = tDao.selectNowPatient(sqlSession, p);
 		return nowPatient;
 	}
+
+	
 	
 	
 

@@ -30,8 +30,6 @@
 		
 		<result column="patient_name" property="patientName" />
 		<result column="lead_time" property="leadTime" />
-		<result column="surgery" property="surgery" />
-		<result column="surgery_no2" property="surgeryNo2" />
 	</resultMap>
 	
 	<!-- clinic result -->
@@ -69,7 +67,6 @@
 		<result column="chart_no" property="chartNo" />
 		<result column="last_dep" property="lastDep" />
 		<result column="patient_name" property="patientName" />
-		<result column="만나이" property="age" />
 		<result column="id_no" property="idNo" />
 		<result column="address" property="address" />
 		<result column="memo" property="memo" />
@@ -78,7 +75,6 @@
 		<result column="phone" property="phone" />
 		<result column="protector" property="protector" />
 		<result column="new" property="newOne" />
-		<result column="성별" property="gender" />
 		<result column="doctor_name" property="docName"/>
 		<result column="clinic_no" property="clinicNo"/>
 	</resultMap>
@@ -134,14 +130,14 @@
 	</select>
 
 	<!-- 수술실 정보 조회 select-->
-	<select id="selectOProom" resultMap="OPResult">
+	<select id="selectOProom" resultMap="ClinicResult">
 		select 
       		   c.clinic_no
       		 , sb.booking_no
      		 , (select p.patient_name
           		  from patient p
           		  join clinic cll on (cll.chart_no = p.chart_no)
-                  where clinic_no=#{clinicNo}) as patient_name
+                  where clinic_no=2001) as patient_name
      		 , sb.room_name
      		 , sb.surgery_date
      		 , sb.sur_starttime
@@ -149,11 +145,11 @@
      		 , (select m.emp_name
           		 from member m
           		 join clinic clll on (clll.emp_no = m.emp_no)
-                 where clinic_no=#{clinicNo}) as doctor_name
+                 where clinic_no=2001) as doctor_name
           	 , sb.memo
 		  from surgery_booking sb
           join clinic c on ( sb.clinic_no = c.clinic_no)
-		 where sb.booking_no = #{bookingNo}
+		 where sb.booking_no = ${bookingNo}
 	</select>
 	
 	<!-- 수술실 예약을 위한 정보 조회 select-->
@@ -185,7 +181,31 @@
 		        where sur_endtime &gt; #{surStartTime}
 			      and sur_starttime &lt; #{surEndTime}
 			      and room_name=#{roomName}
+			      and sur_Date =#{surDate}
 		     )
+	</select>
+	
+	<!-- 수술실 중복 방지 
+	<select id="selectOverlap" resultMap="OPResult">
+		select
+			   surgery_date
+			 , room_name
+			 , sur_starttime
+			 , sur_endtime
+		  from surgery_booking 
+		 where surgery_status = 'R'
+	</select>
+	-->
+	<select id="selectOverlap" resultMap="ClinicResult">
+		select
+		       surgery_date
+		     , room_name
+		     , sur_starttime
+		     , sur_endtime
+		  from surgery_booking 
+		 where surgery_status = 'R'
+		   and surgery_Date = #{surDate}
+		   and room_name = #{surgeryRoom}
 	</select>
 	
 	<!-- 수술실 예약 insert -->
@@ -236,42 +256,32 @@
 	
 	<!-- 진료할 환자 조회 -->
 	<select id="selectNowPatient" resultMap="PatientResult">
-		select 
-		       chart_no
-		     , last_dep
-		     , patient_name
-		     , trunc((to_number(to_char(sysdate, 'YYYYMMDD'))-to_number(to_char(decode(substr(id_no, 8, 1), '1', '19', '2', '19', '20')||substr(id_no, 1, 6))))/10000) as "만나이"
-		     , id_no
-		     , memo
-		     , first_visit
-		     , last_visit
-		     , "new"
-		     , 성별
+		select *
 		  from (
 		          select
-		               chart_no
-		             , last_dep
-		             , patient_name
-		             , id_no
-		             , address
-		             , memo
-		             , first_visit
-		             , last_visit
-		             , phone
-		             , protector
-		             , decode(new, 'Y', '초진', 'N', '재진', '??') as "new"
-		             , enroll_time
-		             , case 
-		                  when substr(id_no, 8, 1) in ('1', '3') then '남자'
-		                  when substr(id_no, 8, 1) in ('2', '4') then '여자'
-		                  else '몰라'
-		               end "성별"
-		           from patient
-		           join clinic using (chart_no)  
-		          where status = 'W'
-		          order 
-		             by enroll_time
+		                  chart_no
+		                , last_dep
+		                , patient_name
+		                , id_no
+		                , address
+		                , memo
+		                , first_visit
+		                , last_visit
+		                , phone
+		                , protector
+		                , new
+		                , enroll_time
+			        from patient
+			        join clinic using (chart_no)  
+			       where status = 'W'
+			       order 
+			          by enroll_time
 		        )
-		 where rownum = 1
+		 where rownum = 1;
+		
+			   
+	
+	
+	
 	</select>
 </mapper>

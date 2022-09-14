@@ -142,8 +142,7 @@ th {
 						<input type="hidden" id="clinicNo1" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
 						<input type="hidden" id="surgeryNo1" class="form-control" value="${ c.surgeryNo2 }" name="surgeryNo"> 
 						<input type="hidden" id="leadTime1" class="form-control" value="${ c.leadTime }" name="leadTime">
-						<input type="hidden" id="bookingNo1" class="form-control" value="${ op.bookingNo }" name="bookingNo">
-						 
+						<input type="hidden" id="bookingNo1" class="form-control" value="${ c.bookingNo }" name="bookingNo">
 	
 						<br>
 						<h3> <b>차트번호 ${c.clinicNo} 수술실 예약</b> </h3>
@@ -189,7 +188,6 @@ th {
 										<th>예약날짜</th>
 										<td>
 										<input type="date" class="datepicker" name="surDate" style="width: 225px; height: 25.2px;">
-
 									   <select class="surStartTime" style="width: 70px; height: 25.2px;" name="surStartTime" id="surStartTime">
 										<c:set var="breakPoint" value="0" />
 										<c:forEach var="i" begin="9" end="22">
@@ -203,12 +201,12 @@ th {
 												</c:if>
 											</c:forEach>
 										</c:forEach>
-				
 								   </select>
+								   
 								   <br>
 								   </td>
 									</tr>
-									<tr><!-- 여기!!!!!!!!!!!!!!! -->
+									<tr>
 										<th>예상완료시각</th>
 										<td><input type="text" readonly style="width: 300px;  background-color:#F2F2F2;" name="surEndTime" id="surEndTime"></td>
 									</tr>
@@ -505,49 +503,38 @@ th {
 		});
 	
 		
-		//애는 중복 못하게 하지말고 select에서 if절로 이미 예약이 있는 시간대는 고르지 못하게 할 것
-		function clickRevBtn(){
+		//애는 중복 못하게 하지말고 select에서 if절로 이미 예약이 있는 시간대는 고르지 못하게 할 것!!!!!!!
+		$("input[name=surDate]").change(function(){
+			//수술실 선택 후 날짜까지 선택한 순간
 		     
 		   // db에 넣기
 		   $.ajax({
-		      url:"insert.op",
-		      data:{surgeryNo:surgeryNo,
-		    	  	clinicNo:clinicNo, 
-		    	  	roomName:roomName, 
-		    	  	surDate:surDate, 
-		    	  	surEndTime:surEndTime,
-		    	  	surStartTime:surStartTime,
-		    	  	doctorName:doctorName,
-		    	  	memo:memo
+		      url:"overlap.op",
+		      data:{
+		    	  	 surgeryRoom:$("#roomName").val(),
+		    	  	 surDate:$(this).val()
+		    	  	 
 		            },
 		      type:"POST",
-		      dataType:"JSON",
-		      success:function(json){
+		      success:function(result){
+		         console.log(result); // 현재선택된 수술방이랑 현재선택된 날짜에 예약되어있는 리스트
+		         console.log(result[0].surEndTime);
 		         
-		         
-		         // 예약일로 입력한 값이 db에서 중복되는지 안되는지로 나눔
-		         if (json.n == 1) {
-		        	location.href = "list.op"
-		            alert("수술실 예약 되었습니다.");
-		            
-		         }else if (json.n == -1) {
-		            // 중복된 예약(시간)으로 예약에 실패했을 때
-		            location.href = "list.op"
-		            alert("해당 시간에는 이미 예약이 있습니다.");
-		         }
-		         else{
-		            // db오류
-		            alert("DB 오류");
-		         }
-		         location.reload();
+		        
+                 for(let j=result[0].surStartTime; j<=result[0].surEndTime; j++){
+                    $("select option[value*='"+ j + "']").prop('disabled',true).css("background", "lightgrey");
+                 }
 		         
 		      },
 		      error: function(){
 		         alert("오류로 인한 예약실패");
 		       }
 		   });
-		  }
+		  })
 		
+		
+		
+		//수술정보 상세조회
 		$(".modal-content").load("detail.op2");
 		
 		function ModalOpen(arg){
@@ -562,7 +549,13 @@ th {
 		      data:{ clinicNo : arg.event._def.title },
 		      success:function(surgery){
 		 	  	  	console.log(surgery);
-			 	  	
+			 	  	$('input[name=clinicNo]').attr('value',surgery.clinicNo);
+			 	  	$('input[name=docName]').attr('value',surgery.docName);
+			 	  	$('input[name=patientName]').attr('value',surgery.patientName);
+			 	  	$('input[name=roomName]').attr('value',surgery.roomName);
+			 	  	$('input[name=surDate]').attr('value',surgery.surDate);
+			 	  	$('input[name=surEndTime]').attr('value',surgery.surEndTime);
+			 	  	$('input[name=surStartTime]').attr('value',surgery.surStartTime);
 		      },
 		      error: function(){
 		         alert("조회 실패");
@@ -572,17 +565,20 @@ th {
 			$('#myModal1').modal('show');
 		  }
 		
+		//모달 숨기기
 		function ModalClose(){
 			$("#myModal1").modal("hide");
 		}
+		
+		
 	</script>
 	<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음-->
 
 
 	<!-- 예상 완료시간 조회 -->
 	<script>
+	
 		$(".surStartTime").change(function(){
-			//var Sum =			
 				var timeSArr = $(".surStartTime>option:selected").text().split(":");			
 				var timeLArr = "${c.leadTime}".split(":");
 				
@@ -592,16 +588,15 @@ th {
 					min = "0" + min;
 				}
 				
-				//var result = parseDate(timeS) + parseDate(timeL);			
 				console.log(hour + ":" + min)
 				document.getElementById("surEndTime").value = hour + ":" + min;		
-				
-			
-			 //$(".surEndTime").html(Sum);
+								
 		})
 	
 	
 		
 	</script>
+	
+	
 </body>
 </html>

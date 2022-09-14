@@ -38,8 +38,15 @@ public class TreatmentDao {
 	}
 	
 	//수술실 중복 체크
+	/*
 	public int checkOverlapRsv(SqlSessionTemplate sqlSession, HashMap<String, String> paraMap) {
 		return sqlSession.selectOne("treatmentMapper.checkOverlapRsv", paraMap);
+	}
+	*/
+	
+	//수술실 시간 중복 방지
+	public ArrayList<Clinic> blockOverlap(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return (ArrayList)sqlSession.selectList("treatmentMapper.selectOverlap", map);
 	}
 	
 	//수술실 예약(insert)
