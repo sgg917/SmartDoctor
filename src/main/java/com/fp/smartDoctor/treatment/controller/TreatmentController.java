@@ -105,7 +105,6 @@ public class TreatmentController {
  	@RequestMapping(value="enrollForm.op", produces="application/json; charset=utf-8")
 	public ModelAndView selectforInsertRevOP(int clinicNo, ModelAndView mv) {
 		
-		//ArrayList<ListSurgeryBooking> list = tService.selectRevOProom(bookingNo);
 		Clinic c=tService.selectforInsertRevOP(clinicNo);
 		
 		mv.addObject("c", c).setViewName("kcy/revOREnrollForm");
