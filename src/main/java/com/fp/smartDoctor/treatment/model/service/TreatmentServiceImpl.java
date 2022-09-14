@@ -27,7 +27,7 @@ public class TreatmentServiceImpl implements TreatmentService{
 	
 	//수술예약 상세조회 서비스(select)
 	@Override
-	public Clinic selectRevOProom(int bookingNo) {
+	public RevOProom selectRevOProom(int bookingNo) {
 		return tDao.selectRevOProom(sqlSession, bookingNo);
 	}
 	

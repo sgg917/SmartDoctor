@@ -13,7 +13,7 @@ public interface TreatmentService {
 	
 	
 	//수술예약 상세조회 서비스(select)
-	Clinic selectRevOProom(int bookingNo);
+	RevOProom selectRevOProom(int bookingNo);
 	
 	//수술예약을 위한 기본정보 조회 서비스(select)
 	Clinic selectforInsertRevOP(int clinicNo);
