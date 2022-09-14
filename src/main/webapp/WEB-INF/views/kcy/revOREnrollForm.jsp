@@ -562,8 +562,7 @@ th {
 		      data:{ clinicNo : arg.event._def.title },
 		      success:function(surgery){
 		 	  	  	console.log(surgery);
-			 	  	var enc = ${clinicNo};
-			 	  	$('input[name=clinicNo]').attr('value',enc);
+			 	  	
 		      },
 		      error: function(){
 		         alert("조회 실패");
