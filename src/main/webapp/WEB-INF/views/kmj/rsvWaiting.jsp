@@ -44,6 +44,7 @@
 	color: white;
 	border-radius: 7px;
 	border: 0;
+	cursor: pointer;
 }
 .detail {
 	width: 60px;
@@ -107,10 +108,9 @@ input {
 }
 #pagingArea{width:fit-content;margin:auto;}
 
-.table>tbody>tr:hover{
+#tableArea>.table>tbody>tr:hover{
    	background:#E1F0FF;
-   	cursor:pointer;
-}
+    }
 
 </style>
 
@@ -134,7 +134,7 @@ input {
 					<br>
 
 					<div align="left">
-						<button type="button" class="button">입원실</button>
+						<button type="button" class="button" style="cursor: default;">입원실</button>
 					</div>
 
 					<br>
@@ -166,7 +166,7 @@ input {
 					<br>
 
 					<div align="left">
-						<button type="button" class="button">수술실</button>
+						<button type="button" class="button" style="cursor: default;">수술실</button>
 					</div>
 
 					<br>

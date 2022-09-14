@@ -135,8 +135,8 @@ input {
 					<br>
 
 					<div align="left">
-						<button type="button" class="button">수납대기</button>
-						<button type="button" class="button bggray">수납완료</button>
+						<button type="button" class="button bggray">수납대기</button>
+						<button type="button" class="button">수납완료</button>
 					</div>
 
 					<br>
@@ -247,11 +247,22 @@ input {
 
 							</tbody>
 						</table>
+						<br>
+					</div>
 
+					<div id="pagingArea">
+						<ul class="pagination">
+							<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">4</a></li>
+							<li class="page-item"><a class="page-link" href="#">5</a></li>
+							<li class="page-item"><a class="page-link" href="#">Next</a></li>
+						</ul>
+						<br><br>
 					</div>
 					<br><br>
-
-					<br>
 
 				</div>
 				<br><br><br>

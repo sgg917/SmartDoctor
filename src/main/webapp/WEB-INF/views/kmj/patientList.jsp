@@ -44,7 +44,6 @@
 	color: white;
 	border-radius: 7px;
 	border: 0;
-	cursor: pointer;
 }
 .detail {
 	width: 60px;
@@ -57,7 +56,6 @@
 
 .bggray {
 	background-color: lightgray;
-	color: black;
 }
 
 b {
@@ -87,17 +85,28 @@ input {
 #searchbar>div{
 	height: 100%;
 	box-sizing: border-box;
-
 	float: left;
 }
 .innerArea{
 	width: 1000px;
-	height: 100%;
 	margin: auto;
 }
-
+#header1{
+	width: 25%;
+}
+#header2{
+	width: 55%;
+	padding: 0;
+}
+#header3{
+	width: 20%;
+}
+img{
+	height: 100%;
+	cursor: pointer;
+}
 #tableArea{
-	height: 700px;
+	height: 370px;
 	width: 100%;
 	/* border: 1px solid black; */
 	text-align: center;
@@ -108,11 +117,10 @@ input {
 	box-sizing: border-box;
 }
 #pagingArea{width:fit-content;margin:auto;}
-
 #tableArea>.table>tbody>tr:hover{
    	background:#E1F0FF;
+   	cursor:pointer;
     }
-
 </style>
 
 
@@ -129,132 +137,104 @@ input {
 				<div class="innerArea">
 					<table class="table bggray title">
 						<tr height="40">
-							<td><b>수납관리</B></td>
+							<td><b>환자조회</B></td>
 						</tr>
 					</table>
-					<br>
-
-					<div align="left">
-						<button type="button" class="button">수납대기</button>
-						<button type="button" class="button bggray">수납완료</button>
+					<br><br>
+					<div id="searchbar">
+						<div id="header1"></div>
+						<div id="header2">
+							<input type="text" class="form-control input-sm" placeholder="이름 입력" style="width: 200px; height: 30px; display: inline;">&nbsp;<img src="resources/images/search.jpg">
+						</div>
+						<div id="header3">
+							<button type="button" class="button">신규환자등록</button>
+						</div>
 					</div>
-
-					<br>
+					<br><br>
 					<div id="tableArea" align="center">
 						<table class="table">
 							<thead>
 								<tr>
-									<th width="85px">수납번호</th>
+									<th width="85px">차트번호</th>
 									<th width="60px">이름</th>
 									<th width="50px">성별</th>
 									<th width="100px">주민등록번호</th>
-									<th width="100px">진료과</th>
-									<th width="100px">처방전</th>
-									<th width="100px">수납</th>
+									<th width="100px">연락처</th>
+									<th width="100px">보호자연락처</th>
+									<th width="200px">주소</th>
+									<th width="80px">진료내역</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td>1</td>
+									<td>10000</td>
 									<td>강개똥</td>
 									<td>남</td>
 									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
+									<td>010-7777-8888</td>
+									<td>010-9999-4521</td>
+									<td>서울특별시 가디동 가디역 가디출구 1103호 </td>
+									<td><button class="detail">조회</button></td>
 								</tr>
 								<tr>
-									<td>2</td>
+									<td>10000</td>
 									<td>강개똥</td>
 									<td>남</td>
 									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
+									<td>010-7777-8888</td>
+									<td>010-9999-4521</td>
+									<td>서울특별시 가디동 가디역 가디출구 1103호 </td>
+									<td><button class="detail">조회</button></td>
 								</tr>
 								<tr>
-									<td>3</td>
+									<td>10000</td>
 									<td>강개똥</td>
 									<td>남</td>
 									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
+									<td>010-7777-8888</td>
+									<td></td>
+									<td>서울특별시 가디동 가디역 가디출구 1103호 </td>
+									<td><button class="detail">조회</button></td>
 								</tr>
 								<tr>
-									<td>4</td>
+									<td>10000</td>
 									<td>강개똥</td>
 									<td>남</td>
 									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
+									<td>010-7777-8888</td>
+									<td>010-9999-4521</td>
+									<td>서울특별시 가디동 가디역 가디출구 1103호 </td>
+									<td><button class="detail">조회</button></td>
 								</tr>
 								<tr>
-									<td>5</td>
+									<td>10000</td>
 									<td>강개똥</td>
 									<td>남</td>
 									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
+									<td>010-7777-8888</td>
+									<td></td>
+									<td>서울특별시 가디동  </td>
+									<td><button class="detail">조회</button></td>
 								</tr>
-								<tr>
-									<td>6</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>7</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>8</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>9</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>10</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-
+								
 							</tbody>
 						</table>
-
 					</div>
-					<br><br>
-
 					<br>
+					<div id="pagingArea">
+						<ul class="pagination">
+							<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">4</a></li>
+							<li class="page-item"><a class="page-link" href="#">5</a></li>
+							<li class="page-item"><a class="page-link" href="#">Next</a></li>
+						</ul>
+					</div>
 
 				</div>
-				<br><br><br>
+
 			</div>
 		</div>
 		<jsp:include page="../common/footer.jsp" />
