@@ -522,9 +522,7 @@ th {
 		         console.log(result[0].surEndTime);
 		         console.log(result[0].surStartTime);
 		         
-		         var timsS=$("result[0].surStartTime").text().split(":");
-		         
-		         console.log(result[0].surStartTime.text().split(":"));
+		        
 		         //여기요ㅠㅠㅠ
 		         //얘는 j=result[0].surStartTime 만 인식되서 시작값만 막히고
 		         for(let j=result[0].surStartTime; j<=result[0].surEndTime; j++){
