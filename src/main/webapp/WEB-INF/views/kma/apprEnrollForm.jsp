@@ -140,44 +140,51 @@
 					</p>
 					<hr>
 					<br>
-					<div class="appr-table-wrapper">
-						<button type="button" class="btn btn-success appr-write-btn">
-							<i class="mdi mdi-arrow-up-bold" style="color: white;"></i>&nbsp;
-							<span>결재요청</span>
-						</button>
-						<button type="button" class="btn btn-outline-success btn-green"
-							data-bs-toggle="modal" data-bs-target="#lineModal"
-							style="width: 130px;" onclick="selectLineList();">
-							<i class="mdi mdi-account-plus menu-icon"></i>&nbsp; <span>결재라인
-								지정</span>
-						</button>
-						<button type="button" class="btn btn-outline-success btn-green"
-							data-bs-toggle="modal" data-bs-target="#formModal"
-							style="width: 130px;" onclick="selectFormList();">
-							<i class="mdi mdi-application menu-icon"></i>&nbsp; <span>결재양식
-								선택</span>
-						</button>
-						<button type="button" class="btn btn-outline-success btn-green">
-							<i class="mdi mdi-download menu-icon"></i>&nbsp; <span>임시저장</span>
-						</button>
-						<table class="table table-bordered appr-table">
-							<tr>
-								<th width="250px;">문서보존기간</th>
-								<td>&nbsp;5년</td>
-							</tr>
-							<tr>
-								<th>제목</th>
-								<td><input type="text" placeholder="제목을 입력해주세요"></td>
-							</tr>
-							<tr>
-								<th>첨부파일</th>
-								<td><input type="file"></td>
-							</tr>
-						</table>
-						<div>
-							<textarea class="yui3-cssreset" id="summernote" name="formContent"></textarea>
+					<form id="insertAppr" action="apprInsert.si" method="post" enctype="multipart/form-data" >
+						<input type="hidden" value="" name="apprTotal">
+						<input type="hidden" value="${ loginUser.empNo }" name="empNo">
+						<input type="hidden" value="" name="formNo">
+						<div class="appr-table-wrapper">
+							<button type="submit" class="btn btn-success appr-write-btn">
+								<i class="mdi mdi-arrow-up-bold" style="color: white;"></i>&nbsp;
+								<span>결재요청</span>
+							</button>
+							<button type="button" class="btn btn-outline-success btn-green"
+								data-bs-toggle="modal" data-bs-target="#lineModal"
+								style="width: 130px;" onclick="selectLineList();">
+								<i class="mdi mdi-account-plus menu-icon"></i>&nbsp; 
+								<span>결재라인 지정</span>
+							</button>
+							<button type="button" class="btn btn-outline-success btn-green"
+								data-bs-toggle="modal" data-bs-target="#formModal"
+								style="width: 130px;" onclick="selectFormList();">
+								<i class="mdi mdi-application menu-icon"></i>&nbsp; 
+								<span>결재양식 선택</span>
+							</button>
+							<button type="button" class="btn btn-outline-success btn-green">
+								<i class="mdi mdi-download menu-icon"></i>&nbsp; 
+								<span>임시저장</span>
+							</button>
+							
+							<table class="table table-bordered appr-table">
+								<tr>
+									<th width="250px;">문서보존기간</th>
+									<td>&nbsp;5년</td>
+								</tr>
+								<tr>
+									<th>제목</th>
+									<td><input type="text" name="apprTitle" placeholder="제목을 입력해주세요"></td>
+								</tr>
+								<tr>
+									<th>첨부파일</th>
+									<td><input type="file" name="upfile"></td>
+								</tr>
+							</table>
+							<div>
+								<textarea class="yui3-cssreset" id="summernote" name="apprContent"></textarea>
+							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 
@@ -237,7 +244,9 @@
 						<table class="table table-bordered appr-table" id="appr-comment">
 							<thead>
 								<tr style="border: 2px solid #DFDFDF;">
-									<th id="form-modal-th" >&nbsp;결재양식 &nbsp;<span id="formCount"></span></th>
+									<th id="form-modal-th" >&nbsp;결재양식 &nbsp;
+										<span id="formCount"></span>
+									</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -297,6 +306,8 @@
 						$('#summernote').summernote('reset');
 						$('#summernote').summernote('pasteHTML', f.formContent);
 						$('#formModal').modal('hide');
+						
+						$("input[name=formNo]").attr('value', f.formNo); // 결재요청시 넘길 formNo
 					},
 					error:function(){
 						console.log("결재양식선택 불러오기용 ajax통신 실패");
@@ -534,7 +545,12 @@
         		
 			}
 			
-			
+			function selectedApprLine(){ // 결재라인 지정 선택하기 버튼 클릭시
+				
+				let apprTotal = $("#apprLine").children(".ap-md-bd").length;
+				$("input[name=apprTotal]").attr('value', apprTotal); // 총결재자수 넘기기
+				$('#lineModal').modal('hide');
+			}
 		</script>
 		
 		

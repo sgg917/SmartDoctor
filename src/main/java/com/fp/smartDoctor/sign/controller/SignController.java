@@ -7,12 +7,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
+import com.fp.smartDoctor.common.template.FileUpload;
 import com.fp.smartDoctor.common.template.Pagination;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
@@ -184,7 +187,34 @@ public class SignController {
 		return mv;
 	}
 	
+	// 사용자_결재요청
+	@RequestMapping("apprInsert.si")
+	public String insertAppr(Sign s, MultipartFile upfile, HttpSession session, Model model) {
+		
+		if(!upfile.getOriginalFilename().equals("")) {
+			
+			String saveFilePath = FileUpload.saveFile(upfile, session, "resources/appr_files/");
+			
+			s.setOriginName(upfile.getOriginalFilename());
+			s.setChangeName(saveFilePath);
+		}
+
+		int result = sService.insertAppr(s);
+		
+		if(result > 0) { // 성공
+			session.setAttribute("alertMsg", "성공적으로 결재요청하였습니다.");
+			return "redirect:apprEnrollForm.si";
+		}else {
+			session.setAttribute("alertMsg", "결재요청에 실패하였습니다.");
+			return "redirect:apprEnrollForm.si";
+		}
+	}
 	
+	// 사용자_연장근무신청 페이지
+	@RequestMapping("apprOvertimeForm.si")
+	public String overtimeEnrollForm() {
+		return "kma/apprOvertimeForm";
+	}
 	
 	
 }

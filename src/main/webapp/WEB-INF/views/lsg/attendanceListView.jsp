@@ -201,7 +201,7 @@ th {
 							&nbsp;
 							<button id="endAttBtn" class="small-btn green-btn" data-bs-toggle="modal" data-bs-target="#endAttModal">퇴근</button>
 							<br><br>
-							<button class="small-btn green-btn" style="width: 150px;">연장근무 신청</button>
+							<button class="small-btn green-btn" style="width: 150px;" onclick="location.href='apprOvertimeForm.si';">연장근무 신청</button>
 							<hr>
 							<p id="sTime" style="height:15px">출근 &nbsp;&nbsp;&nbsp;&nbsp;</p>
 							<p id="eTime" style="height:15px">퇴근 &nbsp;&nbsp;&nbsp;&nbsp;<p>

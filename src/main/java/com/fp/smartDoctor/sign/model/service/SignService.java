@@ -47,4 +47,7 @@ public interface SignService {
 	// 사용자_결재대기함 페이지
 	int selectApprListCount();
 	ArrayList<Sign> selectApprStandbyList(PageInfo pi);
+	
+	// 사용자_결재요청
+	int insertAppr(Sign s);
 }
