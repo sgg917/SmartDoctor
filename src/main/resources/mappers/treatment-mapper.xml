@@ -79,6 +79,8 @@
 		<result column="new" property="newOne" />
 		<result column="doctor_name" property="docName"/>
 		<result column="clinic_no" property="clinicNo"/>
+		<result column="만나이" property="age"/>
+		<result column="성별" property="gender"/>
 	</resultMap>
 	
 	<!-- surgery result -->

@@ -187,17 +187,33 @@
                             
                         
                             
-                            <select name="sickness" id="">
+                            <select name="sickness" id="sickness">
                             	<option aria-placeholder="">병명선택</option>
 	                            <c:forEach var="d" items="${ dList }">
-	                            	<option value="${ d.diseaseCode }">${ d.diseaseName }</option>
+	                            	<option value="${ d.diseaseCode }" name="diseases" id="dName">${ d.diseaseName }</option>
 	                            </c:forEach>
                             </select>
                             &nbsp;&nbsp;
 
+                            <input type="text" id="dCode" placeholder="질병코드" style="width: 90px;">
                             
-
-                            <input type="text" placeholder="질병코드" style="width: 90px;">
+                            
+                          <script>
+                          
+                          	$("#sickness").change(function(){
+                          		
+                          		console.log($("#sickness>option:selected").text());
+                          		console.log($("#sickness>option:selected").val());
+                          		
+                          		$("#dCode").val(($("#sickness>option:selected").val()));
+                          	})
+                         
+                          </script>
+                            
+                            
+                            
+                            
+                            
                             
                           </td>
                           <td style="width: 50%;">
