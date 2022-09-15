@@ -8,9 +8,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
-import com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking;
+import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
+import com.fp.smartDoctor.treatment.model.vo.Surgery;
 
 @Repository
 public class TreatmentDao {
@@ -67,5 +68,15 @@ public class TreatmentDao {
 	// 진료할 환자의 과거 내역 조회
 	public ArrayList<Clinic> selectPatientInto(SqlSessionTemplate sqlSession, int chartNo) {
 		return (ArrayList)sqlSession.selectList("treatmentMapper.selectPatientInfo", chartNo);
+	}
+	
+	// 질병 리스트 조회
+	public ArrayList<Disease> selectDiseaseList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("treatmentMapper.selectDiseaseList");
+	}
+	
+	// 수술 전체 리스트 조회
+	public ArrayList<Surgery> selectSurgeryList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("treatmentMapper.selectSurgeryList");
 	}
 }

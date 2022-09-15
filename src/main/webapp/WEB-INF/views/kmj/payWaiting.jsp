@@ -44,6 +44,10 @@
 	color: white;
 	border-radius: 7px;
 	border: 0;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	padding-top: 3px;
 }
 .detail {
 	width: 60px;
@@ -56,6 +60,7 @@
 
 .bggray {
 	background-color: lightgray;
+	color: black;
 }
 
 b {
@@ -90,12 +95,12 @@ input {
 }
 .innerArea{
 	width: 1000px;
-	height: 700px;
+	height: 100%;
 	margin: auto;
 }
 
 #tableArea{
-	height: 220px;
+	height: 700px;
 	width: 100%;
 	/* border: 1px solid black; */
 	text-align: center;
@@ -107,10 +112,9 @@ input {
 }
 #pagingArea{width:fit-content;margin:auto;}
 
-.table>tbody>tr:hover{
+#tableArea>.table>tbody>tr:hover{
    	background:#E1F0FF;
-   	cursor:pointer;
-}
+    }
 
 </style>
 
@@ -128,13 +132,14 @@ input {
 				<div class="innerArea">
 					<table class="table bggray title">
 						<tr height="40">
-							<td><b>입원실 / 수술실 예약 대기</B></td>
+							<td><b>수납관리</B></td>
 						</tr>
 					</table>
 					<br>
 
 					<div align="left">
-						<button type="button" class="button">입원실</button>
+						<a type="button" class="button" href="pay.mj">수납대기</a>
+						<a type="button" class="button bggray" href="payDone.mj">수납완료</a>
 					</div>
 
 					<br>
@@ -142,86 +147,117 @@ input {
 						<table class="table">
 							<thead>
 								<tr>
-									<th width="85px">차트번호</th>
+									<th width="85px">수납번호</th>
 									<th width="60px">이름</th>
 									<th width="50px">성별</th>
 									<th width="100px">주민등록번호</th>
 									<th width="100px">진료과</th>
-									<th width="100px">예약</th>
+									<th width="100px">처방전</th>
+									<th width="100px">수납</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td>10000</td>
+									<td>1</td>
 									<td>강개똥</td>
 									<td>남</td>
 									<td>875558-5555555</td>
 									<td>내과</td>
-									<td><button class="button">예약하기</button></td>
+									<td><button class="button">출력</button></td>
+									<td><button class="button">출력</button></td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>강개똥</td>
+									<td>남</td>
+									<td>875558-5555555</td>
+									<td>내과</td>
+									<td><button class="button">출력</button></td>
+									<td><button class="button">출력</button></td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>강개똥</td>
+									<td>남</td>
+									<td>875558-5555555</td>
+									<td>내과</td>
+									<td><button class="button">출력</button></td>
+									<td><button class="button">출력</button></td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>강개똥</td>
+									<td>남</td>
+									<td>875558-5555555</td>
+									<td>내과</td>
+									<td><button class="button">출력</button></td>
+									<td><button class="button">출력</button></td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>강개똥</td>
+									<td>남</td>
+									<td>875558-5555555</td>
+									<td>내과</td>
+									<td><button class="button">출력</button></td>
+									<td><button class="button">출력</button></td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td>강개똥</td>
+									<td>남</td>
+									<td>875558-5555555</td>
+									<td>내과</td>
+									<td><button class="button">출력</button></td>
+									<td><button class="button">출력</button></td>
+								</tr>
+								<tr>
+									<td>7</td>
+									<td>강개똥</td>
+									<td>남</td>
+									<td>875558-5555555</td>
+									<td>내과</td>
+									<td><button class="button">출력</button></td>
+									<td><button class="button">출력</button></td>
+								</tr>
+								<tr>
+									<td>8</td>
+									<td>강개똥</td>
+									<td>남</td>
+									<td>875558-5555555</td>
+									<td>내과</td>
+									<td><button class="button">출력</button></td>
+									<td><button class="button">출력</button></td>
+								</tr>
+								<tr>
+									<td>9</td>
+									<td>강개똥</td>
+									<td>남</td>
+									<td>875558-5555555</td>
+									<td>내과</td>
+									<td><button class="button">출력</button></td>
+									<td><button class="button">출력</button></td>
+								</tr>
+								<tr>
+									<td>10</td>
+									<td>강개똥</td>
+									<td>남</td>
+									<td>875558-5555555</td>
+									<td>내과</td>
+									<td><button class="button">출력</button></td>
+									<td><button class="button">출력</button></td>
 								</tr>
 
 							</tbody>
 						</table>
-					</div>
-					<br>
 
-					<div align="left">
-						<button type="button" class="button">수술실</button>
 					</div>
+					<br><br>
 
-					<br>
-					<div id="tableArea" align="center">
-						<table class="table">
-							<thead>
-								<tr>
-									<th width="85px" style="padding: 0;">차트번호</th>
-									<th width="60px">이름</th>
-									<th width="50px">성별</th>
-									<th width="100px">주민등록번호</th>
-									<th width="100px">진료과</th>
-									<th width="100px">예약</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">예약하기</button></td>
-								</tr>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">예약하기</button></td>
-								</tr>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">예약하기</button></td>
-								</tr>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">예약하기</button></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
 					<br>
 
 				</div>
-				<br><br>
+				<br><br><br>
 			</div>
 		</div>
 		<jsp:include page="../common/footer.jsp" />

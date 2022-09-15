@@ -21,6 +21,7 @@ import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.service.SignService;
 import com.fp.smartDoctor.sign.model.vo.Form;
+import com.fp.smartDoctor.sign.model.vo.Line;
 import com.fp.smartDoctor.sign.model.vo.Sign;
 import com.google.gson.Gson;
 
@@ -214,6 +215,38 @@ public class SignController {
 	@RequestMapping("apprOvertimeForm.si")
 	public String overtimeEnrollForm() {
 		return "kma/apprOvertimeForm";
+	}
+	
+	// 사용자_참조문서함 페이지
+	@RequestMapping("apprReferList.si")
+	public ModelAndView selectApprReferList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, ModelAndView mv) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String empNo = loginUser.getEmpNo();
+		
+		int listCount = sService.selectReferListCount(empNo);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Sign> list = sService.selectApprReferList(pi, empNo);
+		
+		mv.addObject("pi", pi)
+		  .addObject("list", list)
+		  .setViewName("kma/apprReferList");
+		
+		return mv;
+	}
+	
+	// 사용자_참조문서함 상세보기
+	@RequestMapping("apprReferDetail.si")
+	public ModelAndView selectApprReferDetail(int apprNo, ModelAndView mv) {
+		
+		ArrayList<Line> ref = sService.selectApprRef(apprNo); // 참조자 조회
+		ArrayList<Line> line = sService.selectApprLine(apprNo); // 결재자 조회
+		Sign s = sService.selectApprReferDetail(apprNo);
+		
+		mv.addObject("s", s).setViewName("kma/apprReferDetail");
+		
+		return mv;
 	}
 	
 	

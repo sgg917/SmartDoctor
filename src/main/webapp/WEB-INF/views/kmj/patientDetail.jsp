@@ -90,26 +90,19 @@ input {
 }
 .innerArea{
 	width: 1000px;
+	height: 100%;
 	margin: auto;
 }
-#header1{
-	width: 20%;
-}
-#header2{
-	width: 60%;
-	padding: 0;
-}
-#header3{
-	width: 20%;
-}
-img{
-	height: 100%;
-	cursor: pointer;
-}
+
 #tableArea{
-	height: 370px;
+	height: 100px;
 	width: 100%;
-	/* border: 1px solid black; */
+	text-align: center;
+	overflow: auto;
+}
+#tableArea2{
+	height: 100%;
+	width: 100%;
 	text-align: center;
 	overflow: auto;
 }
@@ -118,10 +111,8 @@ img{
 	box-sizing: border-box;
 }
 #pagingArea{width:fit-content;margin:auto;}
-.table>tbody>tr:hover{
-   	background:#E1F0FF;
-   	cursor:pointer;
-    }
+
+
 </style>
 
 
@@ -138,32 +129,26 @@ img{
 				<div class="innerArea">
 					<table class="table bggray title">
 						<tr height="40">
-							<td><b>환자조회</B></td>
+							<td><b>환자 조회</B></td>
 						</tr>
 					</table>
 					<br>
-					<div id="searchbar">
-						<div id="header1"></div>
-						<div id="header2">
-							<input type="text">&nbsp;<img src="resources/images/search.jpg">
-						</div>
-						<div id="header3">
-							<button type="button" class="button">신규환자등록</button>
-						</div>
+
+					<div align="left">
+						<button type="button" class="button">환자정보</button>
 					</div>
+
 					<br>
 					<div id="tableArea" align="center">
 						<table class="table">
 							<thead>
 								<tr>
-									<th width="85px">차트번호</th>
-									<th width="60px">이름</th>
-									<th width="50px">성별</th>
-									<th width="100px">주민등록번호</th>
-									<th width="100px">연락처</th>
-									<th width="100px">보호자연락처</th>
-									<th width="200px">주소</th>
-									<th width="80px">진료내역</th>
+									<th width="150px">차트번호</th>
+									<th width="150px">이름</th>
+									<th width="100px">성별</th>
+									<th width="100px">나이</th>
+									<th width="200px">주민등록번호</th>
+									<th >메모</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -171,71 +156,86 @@ img{
 									<td>10000</td>
 									<td>강개똥</td>
 									<td>남</td>
+									<td>37(만)</td>
 									<td>875558-5555555</td>
-									<td>010-7777-8888</td>
-									<td>010-9999-4521</td>
-									<td>서울특별시 가디동 가디역 가디출구 1103호 </td>
-									<td><button class="detail">조회</button></td>
+									<td>개똥밟음</td>
 								</tr>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>010-7777-8888</td>
-									<td>010-9999-4521</td>
-									<td>서울특별시 가디동 가디역 가디출구 1103호 </td>
-									<td><button class="detail">조회</button></td>
-								</tr>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>010-7777-8888</td>
-									<td></td>
-									<td>서울특별시 가디동 가디역 가디출구 1103호 </td>
-									<td><button class="detail">조회</button></td>
-								</tr>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>010-7777-8888</td>
-									<td>010-9999-4521</td>
-									<td>서울특별시 가디동 가디역 가디출구 1103호 </td>
-									<td><button class="detail">조회</button></td>
-								</tr>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>010-7777-8888</td>
-									<td></td>
-									<td>서울특별시 가디동  </td>
-									<td><button class="detail">조회</button></td>
-								</tr>
-								
 							</tbody>
 						</table>
 					</div>
 					<br>
-					<div id="pagingArea">
-						<ul class="pagination">
-							<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">4</a></li>
-							<li class="page-item"><a class="page-link" href="#">5</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a></li>
-						</ul>
+
+					<div align="left">
+						<button type="button" class="button">과거내역조회</button>
+					</div>
+
+					<br>
+					<div id="tableArea2" align="center">
+						<table class="table">
+							<thead>
+								<tr>
+									<th width="20%">내원일</th>
+									<th width="20%">질병</th>
+									<th width="20%">진료의</th>
+									<th width="20%">처방전</th>
+									<th width="20%">수납</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>2021-06-22</td>
+									<td>감기</td>
+									<td>이익준</td>
+									<td><button class="button">조회</button></td>
+									<td><button class="button">조회</button></td>
+								</tr>
+								<tr>
+									<td>2021-06-22</td>
+									<td>감기</td>
+									<td>이익준</td>
+									<td><button class="button">조회</button></td>
+									<td><button class="button">조회</button></td>
+								</tr>
+								<tr>
+									<td>2021-06-22</td>
+									<td>감기</td>
+									<td>이익준</td>
+									<td><button class="button">조회</button></td>
+									<td><button class="button">조회</button></td>
+								</tr>
+								<tr>
+									<td>2021-06-22</td>
+									<td>감기</td>
+									<td>이익준</td>
+									<td><button class="button">조회</button></td>
+									<td><button class="button">조회</button></td>
+								</tr>
+								<tr>
+									<td>2021-06-22</td>
+									<td>감기</td>
+									<td>이익준</td>
+									<td><button class="button">조회</button></td>
+									<td><button class="button">조회</button></td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+						<div id="pagingArea">
+							<ul class="pagination">
+								<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#">4</a></li>
+								<li class="page-item"><a class="page-link" href="#">5</a></li>
+								<li class="page-item"><a class="page-link" href="#">Next</a></li>
+							</ul>
+						</div>
+						<br><br><br>
 					</div>
 
 				</div>
-
+				<br><br>
 			</div>
 		</div>
 		<jsp:include page="../common/footer.jsp" />

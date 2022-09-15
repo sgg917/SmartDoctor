@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.smartDoctor.treatment.model.service.TreatmentService;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
+import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
+import com.fp.smartDoctor.treatment.model.vo.Surgery;
 import com.google.gson.Gson;
 
 @Controller
@@ -63,21 +63,6 @@ public class TreatmentController {
  	}
  	
 
-	@RequestMapping("detail.mj")
-	public String detail() {
-		return "kmj/patientDetail";
-	}
-
-	
-	@RequestMapping("pay.mj")
-	public String pay() {
-		return "kmj/page";
-	}
-	@RequestMapping("hospitalCalender.mj")
-	public String hospitalCalender() {
-		return "kmj/hospitalCalender";
-	}
-
  	//수술실 예약 조회
 	@ResponseBody
 	@RequestMapping(value="detail.op", produces="application/json; charset=utf-8")
@@ -116,7 +101,7 @@ public class TreatmentController {
 	
 	// 진료화면 조회
 	@RequestMapping("enroll.tmt")
-	public ModelAndView enrollTreatment(Patient p, Clinic c, HttpSession session, ModelAndView mv) {
+	public ModelAndView enrollTreatment(Patient p, Clinic c, Disease d, HttpSession session, ModelAndView mv) {
 		
 		// 진료할 환자의 정보 조회
 		Patient nowPatient = tService.selectNowPatient(p);
@@ -134,6 +119,14 @@ public class TreatmentController {
 		ArrayList<Clinic> list = tService.selectPatientInfo(nowPatient.getChartNo());
 		mv.addObject("list", list)
 		  .setViewName("ljy/enrollTreatment");
+		
+		// 질병 리스트 조회
+		ArrayList<Disease> dList = tService.selectDiseaseList();
+		mv.addObject("dList", dList).setViewName("ljy/enrollTreatment");
+		
+		// 수술 전체 리스트 조회
+		ArrayList<Surgery> sList = tService.selectSurgeryList();
+		mv.addObject("sList", sList).setViewName("ljy/enrollTreatment");
 
 		return mv;
 	}

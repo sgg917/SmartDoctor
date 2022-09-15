@@ -11,6 +11,7 @@ import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.dao.SignDao;
 import com.fp.smartDoctor.sign.model.vo.Form;
+import com.fp.smartDoctor.sign.model.vo.Line;
 import com.fp.smartDoctor.sign.model.vo.Sign;
 
 @Service
@@ -76,5 +77,25 @@ public class SignServiceImpl implements SignService {
 	@Override
 	public int insertAppr(Sign s) {
 		return sDao.insertAppr(sqlSession, s);
+	}
+	@Override
+	public int selectReferListCount(String empNo) {
+		return sDao.selectReferListCount(sqlSession, empNo);
+	}
+	@Override
+	public ArrayList<Sign> selectApprReferList(PageInfo pi, String empNo) {
+		return sDao.selectApprReferList(sqlSession, pi, empNo);
+	}
+	@Override
+	public Sign selectApprReferDetail(int apprNo) {
+		return sDao.selectApprReferDetail(sqlSession, apprNo);
+	}
+	@Override
+	public ArrayList<Line> selectApprLine(int apprNo) {
+		return sDao.selectApprLine(sqlSession, apprNo);
+	}
+	@Override
+	public ArrayList<Line> selectApprRef(int apprNo) {
+		return sDao.selectApprRef(sqlSession, apprNo);
 	}
 }

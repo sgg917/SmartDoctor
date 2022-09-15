@@ -148,7 +148,7 @@ th {
 				<!-- 사원 연차 테이블 끝 -->
 				<!-- 테이블 페이징 -->
 				<div class="pagination">
-	                <ul class="pagination" style="margin:auto;">
+	                <ul class="pagination" id="pageArea" style="margin:auto;">
 	                
                   	<c:if test="${ pi.currentPage ne 1 }">
 						<li class="page-item"><a class="page-link" href="allList.vac?cpage=${pi.currentPage-1}">&lt;</a></li>
@@ -295,7 +295,7 @@ th {
 					url:"search.vac",
 					type:"POST",
 					data:{
-						cpage:1,
+						cpage:no,
 						type:$('option[name=type]:selected').val(),
 						keyword:$('input[name=keyword]').val()
 					},
@@ -309,13 +309,75 @@ th {
 						// 검색 결과를 담을 변수
 						var txt = "";
 						// 검색 결과를 페이징 처리할 변수
-						var txt = "";
+						var ptxt = "";
 						
-						console.log(newList);
-						console.log(newPi);
-						console.log(vlist);
+						//console.log(newList);
+						//console.log(newPi);
+						//console.log(vlist);
 						
+						// 검색 결과
+						if( newList == null || newList == "" ){
+							
+							txt += "<tr><td colspan='5'>조회 내역이 없습니다.</td></tr>";
+							
+						}else{
+							
+							for(var m=0; m<newList.length; m++){
+								
+								txt += "<tr>";
+								txt += "<td>" + newList[m].deptName + "</td>";
+								txt += "<td>" + newList[m].empName + "</td>";
+								txt += "<td>" + newList[m].vacAll + '</td>';
+								
+								// 연차 잔여일수를 담을 변수 (디폴트 20)
+								var remain = 20;
+								
+								for(var v=0; v<vlist.length; v++){
+									
+									if( newList[m].empNo == vlist[v].empNo ){
+										
+										remain = vlist[v].vacRemain;
+									}
+								}
+								
+								txt += "<td>" + remain + "</td>";
+								txt += "<td>" ;
+								txt +=	'<button class="green-btn small-btn btn-modal" onclick="selectVac(' + newList[m].empNo + ",'" + newList[m].empName + "');" + '"' + 'data-bs-toggle="modal" data-bs-target="#vacationModal">조회</button>';
+								txt += "</td>";
+								txt += "</tr>";
+								
+							}
+						}
 						
+						// 테이블 페이징 
+	                  	if(newPi.currentPage != 1){
+	                  		
+	                  		ptxt += '<li class="page-item"><a class="page-link" href="allList.vac?cpage=' + newPi.currentPage-1 + '">&lt;</a></li>';
+	                  	}
+	                  	
+	                  	for(var p=newPi.startPage; p<=newPi.endPage; p++){
+	                  		
+	                  		if(p == newPi.currentPage){
+	                  			
+	                  			ptxt += '<li class="page-item active"><a class="page-link" href="allList.vac?cpage=' + p + '">' + p + '</a></li>';
+	                  			
+	                  		}else{
+	                  			
+	                  			ptxt += '<li class="page-item"><a class="page-link" href="allList.vac?cpage=' + p + '">' + p + '</a></li>';
+	                  			
+	                  		}
+	                  		
+	                  	}
+	                  	
+						if(newPi.currentPage != newPi.maxPage){
+	                  		
+	                  		ptxt += '<li class="page-item"><a class="page-link" href="allList.vac?cpage=' + newPi.currentPage+1 + '">&gt;</a></li>';
+	                  	}
+						
+						$('#mem-vacation>tbody').empty();
+						$('#mem-vacation>tbody').append(txt);
+						$('#pageArea').empty();
+						$('#pageArea').append(ptxt);
 						
 					},error:function(){
 						

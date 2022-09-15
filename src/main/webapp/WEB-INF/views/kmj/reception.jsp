@@ -65,13 +65,13 @@
 	border: 0;
 }
 
-.bggray{
-     background-color: lightgray;
- }
+.bggray {
+	background-color: lightgray;
+}
 
-b{
+b {
 	font-size: 20px;
-}		
+}
 
 input {
 	width: 100%;
@@ -110,13 +110,15 @@ textarea {
 .list>table>tbody>tr {
 	height: 45px;
 }
-.maintitle{
+
+.maintitle {
 	height: 30px !important;
 	cursor: default !important;
 }
-input{
+
+input {
 	border: none;
-	outline: none !important; 
+	outline: none !important;
 }
 </style>
 
@@ -143,10 +145,14 @@ input{
 							<tr>
 								<th colspan="2" height="30" width="200"
 									style="text-align: left; padding-bottom: 5px; padding-left: 17px; font-size: 17px;">인적정보</th>
-								<td width="100" style="padding: 5px;"><button type="button"
-										class="button" style="height: 30px">환자검색</button></td>
-								<td width="100" style="padding: 5px;"><button type="button"
-										class="button" style="height: 30px">환자접수</button></td>
+								<td width="100" style="padding: 5px;">
+									<button type="button" class="button" style="height: 30px"
+										data-toggle="modal" data-target="#searchPatient" onclick="openSearchModal();">환자검색</button>
+								</td>
+								<td width="100" style="padding: 5px;">
+									<button type="button" class="button" style="height: 30px"
+										data-toggle="modal" data-target="#enrollPatient">환자접수</button>
+								</td>
 							</tr>
 							<tr>
 								<td width="100">이름</td>
@@ -154,26 +160,25 @@ input{
 							</tr>
 							<tr>
 								<td>주민번호</td>
-								<td colspan="3"><input type="text" readonly value="888888-1******"></td>
+								<td colspan="3"><input type="text" readonly
+									value="888888-1******"></td>
 							</tr>
 							<tr>
 								<td>최초내원일</td>
-								<td colspan="3"><input type="text" readonly value="2022-09-12"></td>
+								<td colspan="3"><input type="text" readonly
+									value="2022-09-12"></td>
 							</tr>
 							<tr>
 								<td>최근내원일</td>
-								<td colspan="3"><input type="text" readonly value="2022-09-12"></td>
+								<td colspan="3"><input type="text" readonly
+									value="2022-09-12"></td>
 							</tr>
 							<tr>
 								<td>최근진료과</td>
 								<td colspan="3"><input type="text" readonly value="외과"></td>
 							</tr>
 						</table>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
+						<br> <br> <br> <br> <br>
 
 						<table class="table">
 							<tr>
@@ -187,12 +192,10 @@ input{
 										<option value="">내과</option>
 								</select></td>
 								<td width="70" style="padding-left: 0;">교수</td>
-								<td style="padding-left: 0;">
-									<select name="" id="">
+								<td style="padding-left: 0;"><select name="" id="">
 										<option value="">김교수</option>
 										<option value="">박교수</option>
-									</select>
-								</td>
+								</select></td>
 							</tr>
 							<tr>
 								<td height="120">증상</td>
@@ -262,9 +265,8 @@ input{
 
 						<br>
 						<button class="click button" style="width: 110px;">상태변경</button>
-						<br>
-						<br>
-						
+						<br> <br>
+
 						<table class="table" style="margin-top: 6px;">
 							<tr height="30">
 								<td width="120" style="padding: 5px;">
@@ -334,15 +336,52 @@ input{
 										<td>25</td>
 										<td>내과</td>
 									</tr>
-	
+
 								</tbody>
 							</table>
 						</div>
+					</div>
+					<br> <br>
 				</div>
-				<br>
-				<br>
 			</div>
-		</div>
-		<jsp:include page="../common/footer.jsp" />
+
+			<!-- 비밀번호 변경용 Modal -->
+			<div class="modal" id="searchPatient">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<h4 class="modal-title">비밀번호 변경</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<div class="modal-body" align="center">
+							<form action="updatePwd.me" method="post">
+								<input type="hidden" name="userId" value="${ loginUser.userId }">
+								<table>
+									<tr>
+										<td>현재 비밀번호</td>
+										<td><input type="password" name="userPwd" required></td>
+									</tr>
+									<tr>
+										<td>변경할 비밀번호</td>
+										<td><input type="password" name="updatePwd" required></td>
+									</tr>
+								</table>
+								<br>
+								<button type="submit" class="btn btn-sm btn-secondary">비밀번호
+									변경</button>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<script>
+				function openSearchModal(){
+					$('#searchPatient').modal('show');
+				}
+			</script>
+			<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

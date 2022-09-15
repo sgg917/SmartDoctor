@@ -10,6 +10,7 @@ import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.vo.Form;
+import com.fp.smartDoctor.sign.model.vo.Line;
 import com.fp.smartDoctor.sign.model.vo.Sign;
 
 @Repository
@@ -80,5 +81,32 @@ public class SignDao {
 	public int insertAppr(SqlSessionTemplate sqlSession, Sign s) {
 		return sqlSession.insert("signMapper.insertAppr", s);
 	}
+	
+	public int selectReferListCount(SqlSessionTemplate sqlSession, String memNo) {
+		return sqlSession.selectOne("signMapper.selectReferListCount", memNo);
+	}
+	
+	public ArrayList<Sign> selectApprReferList(SqlSessionTemplate sqlSession, PageInfo pi, String empNo){
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("signMapper.selectApprReferList", empNo, rowBounds);
+	}
+	
+	public ArrayList<Line> selectApprRef(SqlSessionTemplate sqlSession, int apprNo) {
+		return (ArrayList)sqlSession.selectList("signMapper.selectApprRef", apprNo);
+	}
+	
+	public ArrayList<Line> selectApprLine(SqlSessionTemplate sqlSession, int apprNo) {
+		return (ArrayList)sqlSession.selectList("signMapper.selectApprLine", apprNo);
+	}
+	
+	public Sign selectApprReferDetail(SqlSessionTemplate sqlSession, int apprNo) {
+		return sqlSession.selectOne("signMapper.selectApprReferDetail", apprNo);
+	}
+	
+	
 	
 }

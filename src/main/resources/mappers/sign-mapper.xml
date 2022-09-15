@@ -16,6 +16,8 @@
 		<result column="form_no" property="formNo" />
 		<result column="form_title" property="formTitle" />
 		<result column="emp_name" property="empName" />
+		<result column="dept_name" property="deptName" />
+		<result column="job_name" property="jobName" />
 	</resultMap>
 	
 	<resultMap id="formResult" type="Form">
@@ -26,6 +28,20 @@
 		<result column="form_status" property="formStatus" />
 		<result column="form_info" property="formInfo" />
 		<result column="enroll_date" property="enrollDate" />
+	</resultMap>
+	
+	<resultMap id="lineResult" type="line">
+		<result column="line_no" property="lineNo" />
+		<result column="line_level" property="lineLevel" />
+		<result column="line_status" property="lineStatus" />
+		<result column="line_comment" property="lineComment" />
+		<result column="line_disappr" property="lineDisappr" />
+		<result column="line_refer" property="lineRefer" />
+		<result column="emp_no" property="empNo" />
+		<result column="appr_no" property="apprNo" />
+		<result column="line_now" property="lineNow" />
+		<result column="line_date" property="lineDate" />
+		<result column="emp_name" property="empName" />
 	</resultMap>
 	
 	<!-- 관리자_결재양식 리스트 조회 -->
@@ -169,4 +185,85 @@
 			 , #{formNo}
 			 )
 	</insert>
+	
+	<!-- 사용자_참조문서함 페이지 -->
+	<select id="selectReferListCount" resultType="_int">
+		select
+		       count(*)
+		  from approval v
+		  join appr_line l on (v.appr_no = l.appr_no)
+		 where appr_storage = 'N'
+		   and l.emp_no = #{empNo}
+		   and line_refer = 'Y'
+	</select>
+	
+	<select id="selectApprReferList" resultMap="signResult">
+		select
+			   v.appr_no
+			 , appr_title
+			 , to_char(v.enroll_date, 'YYYY-MM-DD') as "enroll_date"
+			 , appr_status
+			 , form_title
+			 , emp_name
+		  from approval v
+		  join appr_line l on (v.appr_no = l.appr_no)
+		  join appr_form f on (v.form_no = f.form_no)
+		  join member m on (v.emp_no = m.emp_no)
+		 where appr_storage = 'N'
+		   and l.emp_no = #{empNo}
+   			and line_refer = 'Y'
+		 order
+		    by appr_no desc
+	</select>
+	
+	<!-- 사용자_참조문서함 상세조회 -->
+	<select id="selectApprReferDetail" resultMap="signResult">
+		select
+		       v.appr_no
+		     , appr_title
+		     , appr_content
+		     , to_char(v.enroll_date, 'YYYY-MM-DD') as "enroll_date"
+		     , origin_name
+		     , change_name
+		     , emp_name
+		     , dept_name
+		     , job_name
+		  from approval v
+		  join appr_line l on (v.appr_no = l.appr_no)
+		  join member m on (v.emp_no = m.emp_no)
+		  join department d on (m.dept_no = d.dept_no)
+		  join job j on (m.job_no = j.job_no)
+		 where v.appr_no = #{apprNo}
+		   and line_refer = 'Y'
+	</select>
+	
+	<select id="selectApprLine" resultMap="lineResult">
+		select
+		       line_status
+		     , line_comment
+		     , line_disappr
+		     , line_refer
+		     , emp_name
+		     , line_date
+		  from appr_line l
+		  join approval v on (l.appr_no = v.appr_no)
+		  join member m on (l.emp_no = m.emp_no)
+		 where l.appr_no = #{apprNo}
+		   and line_refer = 'N'
+	</select>
+	
+	<select id="selectApprRef" resultMap="lineResult">
+		select
+		       line_status
+		     , line_comment
+		     , line_disappr
+		     , line_refer
+		     , emp_name
+		     , line_date
+		  from appr_line l
+		  join approval v on (l.appr_no = v.appr_no)
+		  join member m on (l.emp_no = m.emp_no)
+		 where l.appr_no = #{apprNo}
+		   and line_refer = 'Y'
+	</select>
 </mapper>

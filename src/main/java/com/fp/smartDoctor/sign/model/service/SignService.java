@@ -6,6 +6,7 @@ import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.vo.Form;
+import com.fp.smartDoctor.sign.model.vo.Line;
 import com.fp.smartDoctor.sign.model.vo.Sign;
 
 public interface SignService {
@@ -50,4 +51,13 @@ public interface SignService {
 	
 	// 사용자_결재요청
 	int insertAppr(Sign s);
+	
+	// 사용자_참조문서함 페이지
+	int selectReferListCount(String memNo);
+	ArrayList<Sign> selectApprReferList(PageInfo pi, String empNo);
+	
+	// 사용자_참조문서함 상세조회
+	ArrayList<Line> selectApprRef(int apprNo);
+	ArrayList<Line> selectApprLine(int apprNo);
+	Sign selectApprReferDetail(int apprNo);
 }

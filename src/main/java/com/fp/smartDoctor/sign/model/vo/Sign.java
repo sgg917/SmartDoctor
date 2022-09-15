@@ -25,7 +25,8 @@ public class Sign {
 	private int formNo;
 	private String formTitle;
 	private String empName;
-
+	private String deptName;
+	private String jobName;
 	
 	
 	

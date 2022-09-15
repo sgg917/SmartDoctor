@@ -8,6 +8,11 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Purple Admin</title>
+<!-- 모달 부트스트랩 -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
 <!-- plugins:css -->
 <link rel="stylesheet"
 	href="resources/vendors/mdi/css/materialdesignicons.min.css">
@@ -192,7 +197,17 @@
 	                </div>
 	                <div class="nav-profile-text d-flex flex-column">
 	                  <span class="font-weight-bold mb-2">${ loginUser.empName }</span>
-	                  <span class="text-secondary text-small">${ loginUser.jobName }</span>
+	                  <table>
+	                  	<tr>
+	                  		<td>
+	                  			<span class="text-secondary text-small">${ loginUser.deptName }</span>
+	                  		</td>
+	                  		<td>
+	                  			<span class="text-secondary text-small">${ loginUser.jobName }</span>
+	                  		</td>
+	                  	</tr>
+	                  </table>
+	                  
 	                </div>
 	                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
 	              </a>
@@ -221,9 +236,6 @@
               </a>
               <div class="collapse" id="numberzero">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pay.mj">원무(지워야됨)</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="detail.mj">원무(지워야됨)</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="hospitalCalender.mj">병원 캘린더(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="exercise.jy">진료 대기(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.op">수술실 예약(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.pr">입원실 예약(지워야됨)</a></li>
@@ -255,8 +267,11 @@
               </a>
               <div class="collapse" id="number3">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">원무 조회</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">기타등등</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="reception.mj">접수</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="detail.mj">환자조회</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="rsvWaiting.mj">예약대기</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="room.mj">입원실현황</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="pay.mj">수납</a></li>
                 </ul>
               </div>
             </li>
@@ -270,7 +285,7 @@
                   <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="list.att?no=${ loginUser.empNo }">출퇴근 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="list.vac?no=${ loginUser.empNo }">휴가 관리</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">월간 근태 체크</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="goCalendar.att">월간 근태 체크</a></li>
                     <li class="nav-item"> <a class="nav-link" href="allList.att">사원 근태 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="allList.vac">사원 휴가 관리</a></li>
                   </ul>
@@ -289,7 +304,7 @@
                   <li class="nav-item"> <a class="nav-link" href="">결재예정 문서</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">기안문서함</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">결재문서함</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">참조문서함</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="apprReferList.si">참조문서함</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">반려문서함</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">임시저장함</a></li>
                   <!-- 관리자만 볼 수 있는 기능 -->
@@ -305,8 +320,8 @@
               </a>
               <div class="collapse" id="numbertwo">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">개인 캘린더</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">병원 캘린더</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="hospitalCalender.mj">병원 캘린더</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="personalCalender.mj">개인 캘린더</a></li>
                 </ul>
               </div>
             </li>

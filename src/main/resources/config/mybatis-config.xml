@@ -8,6 +8,7 @@
 	<typeAliases>
 		<typeAlias type="com.fp.smartDoctor.sign.model.vo.Sign" alias="Sign"/>
 		<typeAlias type="com.fp.smartDoctor.sign.model.vo.Form" alias="Form"/>
+		<typeAlias type="com.fp.smartDoctor.sign.model.vo.Line" alias="Line"/>
 		
 		<typeAlias type="com.fp.smartDoctor.messenger.model.vo.Email" alias="Email"/>
 		<typeAlias type="com.fp.smartDoctor.messenger.model.vo.MailAttachment" alias="MailAttachment"/>
@@ -27,6 +28,7 @@
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.Patient" alias="Patient"/>
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.Surgery" alias="Surgery"/>
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking" alias="ListSurgeryBooking"/>
+		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.Disease" alias="Disease"/>
 	</typeAliases>
 	<!-- 유의사항 : 미리 등록해 두려면 해당 클래스가 진짜 존재해야함, 미리 클래스가 존재하지 않으면 서버 스타트 자체가 안됨 -->
 	
