@@ -40,5 +40,14 @@ public class Clinic {
 	private String surDate;
 	private String memo;
 	private int bookingNo;
+	
+	//입원실 예약 조회
+	private int pbookingNo;
+	private int proomNo;
+	private String proomName;
+	private String enterDate;
+	private String leaveDate;
+	private String pmemo;
+	private String patientStatus;
 
 }

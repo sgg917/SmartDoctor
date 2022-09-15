@@ -6,11 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 @ToString
-public class Mail {
-	private String userId;
+public class MailCount {
+
+	private int notReadMail;
+	private int fromMail;
+	private int importMail;
+	
 }

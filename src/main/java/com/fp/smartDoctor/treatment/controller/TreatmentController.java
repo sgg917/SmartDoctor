@@ -92,6 +92,7 @@ public class TreatmentController {
     public String Modal() {
         return "kcy/revORDetail";
     }
+
 	
 	//수술실 예약조회 달력 호출
 	@RequestMapping("list.op")
@@ -138,11 +139,10 @@ public class TreatmentController {
 	}
 	
 	
-	//수술실 예약 다시짜야함
-	/*
+	//수술실 예약
 	@ResponseBody
 	@RequestMapping(value="insert.op", produces="application/json; charset=utf-8")
-	public String insertReservation(HttpServletRequest request, HttpSession session) {
+	public ModelAndView insertReservation(HttpServletRequest request, HttpSession session,ModelAndView mv) {
 		
 		String surgeryNo = request.getParameter("surgeryNo");
 		String clinicNo = request.getParameter("clinicNo");
@@ -150,6 +150,7 @@ public class TreatmentController {
 		String surDate = request.getParameter("surDate");
 		String surEndTime = request.getParameter("surEndTime");
 		String surStartTime = request.getParameter("surStartTime");
+		String patientName = request.getParameter("patientName");
 		String doctorName = request.getParameter("doctorName");
 		String memo = request.getParameter("memo");
 		
@@ -162,27 +163,42 @@ public class TreatmentController {
 		paraMap.put("surStartTime", surStartTime);
 		paraMap.put("doctorName", doctorName);
 		paraMap.put("memo", memo);
+		paraMap.put("patientName", patientName);
 		
-		// 입력받은 일시가 중복된 날짜인지 검사
-		int overlap = tService.checkOverlapRsv(paraMap);
+		int result = tService.insertReservation(paraMap);
 		
-		JSONObject jsonObj = new JSONObject();
-		if (overlap != 0) {
-			// 사용자가 선택한 시간대에 이미 예약이 있을 경우
-			jsonObj.put("n", -1);
-			session.setAttribute("alertMsg", "이미 예약이 있습니다.");
-			
-			return jsonObj.toString();
-			
+		if(result > 0) {
+			session.setAttribute("alertMsg", "수술실 예약이 완료되었습니다.");
+			mv.setViewName("redirect:/");
+			//예약한 다음 수술실 예약 페이지 이전페이지로 이동 시킬것임 수정해야 함
 		}else {
-			// 예약이 가능한 경우 예약테이블에 데이터 insert 진행
-			int n = tService.insertReservation(paraMap);
-			jsonObj.put("n", n);
-			session.setAttribute("alertMsg", "수술실 예약에 성공했습니다.");
-			return jsonObj.toString();
+			session.setAttribute("errorMsg", "수술실 예약에 실패하였습니다.");
+			mv.setViewName("common/errorPage");
+			return mv;
+		}
+		
+		return mv;
+	}
+	
+	
+	//수술실 예약
+	/*
+	@RequestMapping("insert.op")
+	public String insertNotice(Clinic c, HttpSession session, Model model) {
+		
+		int result = tService.insertRsv(c);
+		
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "수술실 예약이 완료되었습니다.");
+			return "redirect:enrollForm.op";
+		}else {
+			model.addAttribute("errorMsg", "수술실 예약에 실패하였습니다.");
+			return "common/errorPage";
 		}
 	}
 	*/
+	
 	
 	
 	//수술실 예약 중복 막기
