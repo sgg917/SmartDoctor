@@ -185,8 +185,6 @@
                             
                             <span style="font-weight: bold;">병명</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             
-                        
-                            
                             <select name="sickness" id="sickness">
                             	<option aria-placeholder="">병명선택</option>
 	                            <c:forEach var="d" items="${ dList }">
@@ -197,9 +195,7 @@
 
                             <input type="text" id="dCode" placeholder="질병코드" style="width: 90px;">
                             
-                            
                           <script>
-                          
                           	$("#sickness").change(function(){
                           		
                           		console.log($("#sickness>option:selected").text());
@@ -207,13 +203,7 @@
                           		
                           		$("#dCode").val(($("#sickness>option:selected").val()));
                           	})
-                         
                           </script>
-                            
-                            
-                            
-                            
-                            
                             
                           </td>
                           <td style="width: 50%;">
@@ -223,20 +213,28 @@
                             <input type="radio" class="form-check-input" name="surgery">수술O&nbsp;
                             <input type="radio" class="form-check-input" name="surgery" checked>수술X&nbsp;&nbsp;
 
-                            <select name="choose-surgery" id="">
-                              <option aria-placeholder="">수술선택</option>
-                              <option value="">수술1</option>
-                              <option value="">수술2</option>
-                              <option value="">수술3</option>
-                              <option value="">수술4</option>
-                              <option value="">수술5</option>
-                              <option value="">수술6</option>
-                            </select>
-                            
+							<select name="chooseSurgery" id="chooseSurgery">
+								<option area-placeholder="">수술선택</option>
+								<c:forEach var="s" items="${ sList }">
+									<option value=${ s.surgeryNo }>${ s.surgeryName }</option>
+								</c:forEach>
+							</select>
                             &nbsp;
-                            <input type="text" placeholder="수술코드" style="width: 90px;">
+                            
+                            <input type="text" id="sCode" placeholder="수술코드" style="width: 90px;">
+                            
+                            <script>
+	                        	$("#chooseSurgery").change(function(){
+	                        		console.log($("#chooseSurgery>option:selected").text());
+	                        		console.log($("#chooseSurgery>option:selected").val());
+	                        		$("#sCode").val($("#chooseSurgery>option:selected").val());
+	                        	})
+                        	</script>
+                            
                           </td>
                         </tr>
+                        
+                        
 
                         <tr>
                           <td colspan="2"><hr></td>

@@ -13,6 +13,7 @@ import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
+import com.fp.smartDoctor.treatment.model.vo.Surgery;
 
 
 @Service
@@ -92,6 +93,13 @@ public class TreatmentServiceImpl implements TreatmentService{
 	@Override
 	public ArrayList<Disease> selectDiseaseList() {
 		ArrayList<Disease> list = tDao.selectDiseaseList(sqlSession);
+		return list;
+	}
+
+	// 수술 전체 리스트 조회
+	@Override
+	public ArrayList<Surgery> selectSurgeryList() {
+		ArrayList<Surgery> list = tDao.selectSurgeryList(sqlSession);
 		return list;
 	}
 	

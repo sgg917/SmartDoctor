@@ -18,6 +18,7 @@ import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
+import com.fp.smartDoctor.treatment.model.vo.Surgery;
 import com.google.gson.Gson;
 
 @Controller
@@ -122,6 +123,9 @@ public class TreatmentController {
 		ArrayList<Disease> dList = tService.selectDiseaseList();
 		mv.addObject("dList", dList).setViewName("ljy/enrollTreatment");
 		
+		// 수술 전체 리스트 조회
+		ArrayList<Surgery> sList = tService.selectSurgeryList();
+		mv.addObject("sList", sList).setViewName("ljy/enrollTreatment");
 
 		return mv;
 	}

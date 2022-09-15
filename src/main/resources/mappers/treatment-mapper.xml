@@ -330,6 +330,14 @@
 		  from disease
 	</select>
 	
-	
-	
+	<!-- 수술 전체 리스트 조회 -->
+	<select id="selectSurgeryList" resultMap="SurgeryResult">
+		select
+		       surgery_no
+		     , surgery_name
+		     , period
+		     , s_payment
+		     , lead_time
+		  from surgery
+	</select>
 </mapper>

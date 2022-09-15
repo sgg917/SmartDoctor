@@ -8,6 +8,7 @@ import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
+import com.fp.smartDoctor.treatment.model.vo.Surgery;
 
 public interface TreatmentService {
 	
@@ -50,4 +51,7 @@ public interface TreatmentService {
 	
 	// 질병 전체 리스트 조회
 	ArrayList<Disease> selectDiseaseList();
+	
+	// 수술 전체 리스트 조회
+	ArrayList<Surgery> selectSurgeryList();
 }
