@@ -210,11 +210,11 @@
                             
                             <span style="font-weight: bold;">수술</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                            <input type="radio" class="form-check-input" name="surgery">수술O&nbsp;
-                            <input type="radio" class="form-check-input" name="surgery" checked>수술X&nbsp;&nbsp;
+                            <input type="radio" class="form-check-input" name="surgery" value="yes" checked>수술O&nbsp;
+                            <input type="radio" class="form-check-input" name="surgery" value="no" >수술X&nbsp;&nbsp;
 
 							<select name="chooseSurgery" id="chooseSurgery">
-								<option area-placeholder="">수술선택</option>
+								<option aria-placeholder="" id="choose" selected>수술선택</option>
 								<c:forEach var="s" items="${ sList }">
 									<option value=${ s.surgeryNo }>${ s.surgeryName }</option>
 								</c:forEach>
@@ -224,6 +224,22 @@
                             <input type="text" id="sCode" placeholder="수술코드" style="width: 90px;">
                             
                             <script>
+                            
+                            	$('input[name=surgery]').click(function(){
+                            		
+                            		if($('input[name=surgery]:checked').val() == "no"){
+                                		$("#chooseSurgery>option").prop('disabled', true);
+                                		$("#sCode").prop('disabled', true);
+                                		$("#choose").prop('selected', true);
+                                		$("#sCode").val("");
+                                	}else{
+                                		$("#chooseSurgery>option").prop('disabled', false);
+                                		$("#sCode").prop('disabled', false);
+                                	}
+                            		
+                            	})
+                            	
+                            
 	                        	$("#chooseSurgery").change(function(){
 	                        		console.log($("#chooseSurgery>option:selected").text());
 	                        		console.log($("#chooseSurgery>option:selected").val());
@@ -233,8 +249,6 @@
                             
                           </td>
                         </tr>
-                        
-                        
 
                         <tr>
                           <td colspan="2"><hr></td>
@@ -243,7 +257,7 @@
                         <tr>
                           <td style="font-weight: bold;">투여약</td>
                           <td>
-                            <button type="button" class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 80px;">약 입력</button>
+                            <button type="button" class="btn btn-gradient-primary btn-sm" data-toggle="modal" data-target="#chooseMedicine" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 80px;">약 입력</button>
                           </td>
                         </tr>
 
@@ -314,24 +328,49 @@
               <!-- 모달모달모달 -->
               <div class="container">
                 
-                <!-- Button to Open the Modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                  Open modal
-                </button>
-              
                 <!-- The Modal -->
-                <div class="modal" id="myModal">
+                <div class="modal" id="chooseMedicine">
                   <div class="modal-dialog">
                     <div class="modal-content">
                     
                       <!-- Modal Header -->
                       <div class="modal-header">
-                        <h4 class="modal-title">약 입력</h4>
+                        <h3 class="modal-title" style="text-weight:bold;">약 입력</h4>
+                        <hr>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                       </div>
                       
                       <!-- Modal body -->
                       <div class="modal-body">
+                      
+                      	<form action=""></form>
+                      	
+                      	<span>약 명칭</span>
+                      	<br>
+                      	
+                      	
+                      	
+                      	
+                      	
+                      	<%-- <c:forEach var="m" items="${ mList }">
+                      		<input type="checkbox" value="${ m.medNo }">${ m.medName }&nbsp;&nbsp;&nbsp;
+                      	</c:forEach> --%>
+                      	
+                      	
+                      	<table>
+                      		
+	                      		<c:forEach var="m" items="${ mList }">
+	                      		<tr>
+	                      			<td><input type="checkbox" value="${ m.medNo }">${ m.medName }</td>
+	                      			<td><input type="checkbox" value="${ m.medNo }">${ m.medName }</td>
+	                      			<td><input type="checkbox" value="${ m.medNo }">${ m.medName }</td>
+	                      			<td><input type="checkbox" value="${ m.medNo }">${ m.medName }</td>
+	                      		</tr>
+                      			</c:forEach>
+                      	</table>
+                      	
+                      
+                      	<br>
                         <span>총 투여일수</span>
                         <select name="times" class="custom-select">
                           <option selected>선택</option>
