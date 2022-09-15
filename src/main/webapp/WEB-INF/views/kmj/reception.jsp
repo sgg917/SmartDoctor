@@ -26,7 +26,6 @@
 	href="resources/images/favicon-16x16.png">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
-
 <style>
 .wrap11 {
 	width: 100%;
@@ -147,11 +146,13 @@ input {
 									style="text-align: left; padding-bottom: 5px; padding-left: 17px; font-size: 17px;">인적정보</th>
 								<td width="100" style="padding: 5px;">
 									<button type="button" class="button" style="height: 30px"
-										data-toggle="modal" data-target="#searchPatient" onclick="openSearchModal();">환자검색</button>
+										data-toggle="modal" data-target="#searchPatient"
+										>환자검색</button>
 								</td>
 								<td width="100" style="padding: 5px;">
 									<button type="button" class="button" style="height: 30px"
-										data-toggle="modal" data-target="#enrollPatient">환자접수</button>
+										data-toggle="modal" data-target="#enrollPatient"
+										>환자접수</button>
 								</td>
 							</tr>
 							<tr>
@@ -345,7 +346,7 @@ input {
 				</div>
 			</div>
 
-			<!-- 비밀번호 변경용 Modal -->
+			<!-- 환자검색용 Modal -->
 			<div class="modal" id="searchPatient">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -358,7 +359,7 @@ input {
 						<div class="modal-body" align="center">
 							<form action="updatePwd.me" method="post">
 								<input type="hidden" name="userId" value="${ loginUser.userId }">
-								<table>
+								<table border="1">
 									<tr>
 										<td>현재 비밀번호</td>
 										<td><input type="password" name="userPwd" required></td>
@@ -377,11 +378,62 @@ input {
 					</div>
 				</div>
 			</div>
+
+			<!-- 환자 등록용 Modal -->
+			<div class="modal" id="enrollPatient">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<h4 class="modal-title">환자등록</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<div class="modal-body" align="center">
+							<form action="updatePwd.me" method="post">
+								<input type="hidden" name="userId" value="${ loginUser.userId }">
+								<table>
+									<tr>
+										<th>이름</th>
+										<td><input type="text" name="patientName"></td>
+									</tr>
+									<tr>
+										<td>주민등록번호</td>
+										<td><input type="text" name="patient"></td>
+									</tr>
+									<tr>
+										<td>연락처</td>
+										<td><input type="text" name="patient"></td>
+									</tr>
+									<tr>
+										<td>보호자 연락처</td>
+										<td><input type="text" name="patient"></td>
+									</tr>
+									<tr>
+										<td>주소</td>
+										<td><input type="text" name="patient"></td>
+									</tr>
+								</table>
+								<br>
+								<button type="submit" class="btn btn-sm btn-secondary">비밀번호
+									변경</button>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
 			<script>
-				function openSearchModal(){
+				
+				/*function openSearchModal() {
 					$('#searchPatient').modal('show');
 				}
+				function openEnrollPatientModal() {
+					$('#enrollPatient').modal('show');
+				}*/
 			</script>
+
 			<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
