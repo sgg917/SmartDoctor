@@ -157,7 +157,8 @@
 			  , job_name
 		   from member
            join job using (job_no)
-		  where status = 'Y'
+		  where (status = 'Y' 
+             or status = 'A')
 		    and emp_no = #{empNo}
 		    and emp_pwd = #{empPwd}
 	</select>
