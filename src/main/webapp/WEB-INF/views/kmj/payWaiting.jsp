@@ -45,6 +45,9 @@
 	border-radius: 7px;
 	border: 0;
 	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	padding-top: 3px;
 }
 .detail {
 	width: 60px;
@@ -135,8 +138,8 @@ input {
 					<br>
 
 					<div align="left">
-						<button type="button" class="button">수납대기</button>
-						<button type="button" class="button bggray">수납완료</button>
+						<a type="button" class="button" href="pay.mj">수납대기</a>
+						<a type="button" class="button bggray" href="payDone.mj">수납완료</a>
 					</div>
 
 					<br>

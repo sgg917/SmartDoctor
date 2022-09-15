@@ -63,21 +63,6 @@ public class TreatmentController {
  	}
  	
 
-	@RequestMapping("detail.mj")
-	public String detail() {
-		return "kmj/patientDetail";
-	}
-
-	
-	@RequestMapping("pay.mj")
-	public String pay() {
-		return "kmj/page";
-	}
-	@RequestMapping("hospitalCalender.mj")
-	public String hospitalCalender() {
-		return "kmj/hospitalCalender";
-	}
-
  	//수술실 예약 조회
 	@ResponseBody
 	@RequestMapping(value="detail.op", produces="application/json; charset=utf-8")
