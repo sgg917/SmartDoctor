@@ -11759,6 +11759,11 @@ code {
   border: 1px solid #fed713;
   background: #fed713;
   color: #ffffff; }
+  
+.badge-success, .preview-list .preview-item .preview-thumbnail .badge.badge-online {
+  border: 1px solid #1bcfb4;
+  background: #1bcfb4;
+  color: #ffffff; }
 
 .badge-danger {
   border: 1px solid #fe7c96;

@@ -491,10 +491,11 @@
 							 	 + "<td class='empName'>" + emp.empName + "</td>"
 								 + "<td>" + emp.deptName + "</td>"
 								 + "<td>" + emp.jobName + "</td>"
-								 + "<td class='ap-mdi-del'><i class='mdi mdi-delete-forever'></i></td>"
+								 + "<td class='ap-mdi-del'><i class='mdi mdi-delete-forever al-del'></i></td>"
 						 	 + "</tr>"
 						 	 
 						member = emp; 
+
 					},
 					error:function(){
 						console.log("결재라인 사원 조회용 ajax통신 실패");
@@ -503,7 +504,9 @@
 				
 				$("#appr-line").off('click').on('click', function(){ // 결재자
 					
-				
+					console.log($(".empId").text());
+					console.log(member.empNo);
+					
 					if( $(".empId").text() == member.empNo ){ // 동일한 사원 선택 제한
 						
 						alert("중복된 대상입니다.");
@@ -544,6 +547,11 @@
         		
         		
 			}
+			
+			$(document).on('click', '.al-del', function(){ // 결재라인 지정 삭제
+				
+				$(this).closest('tr').remove();
+			})
 			
 			function selectedApprLine(){ // 결재라인 지정 선택하기 버튼 클릭시
 				

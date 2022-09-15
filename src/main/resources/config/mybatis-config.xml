@@ -8,6 +8,7 @@
 	<typeAliases>
 		<typeAlias type="com.fp.smartDoctor.sign.model.vo.Sign" alias="Sign"/>
 		<typeAlias type="com.fp.smartDoctor.sign.model.vo.Form" alias="Form"/>
+		<typeAlias type="com.fp.smartDoctor.sign.model.vo.Line" alias="Line"/>
 		
 		<typeAlias type="com.fp.smartDoctor.messenger.model.vo.Mail" alias="Mail"/>
 		
