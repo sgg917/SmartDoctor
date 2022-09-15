@@ -351,7 +351,7 @@
                 </a>
                 <div class="collapse" id="number7">
                   <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="">조직도 조회</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="orgChart.me">조직도 조회</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">조직도 수정</a></li>
                   </ul>
                 </div>
