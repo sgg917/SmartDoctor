@@ -98,7 +98,11 @@
 		<collection resultMap="OPResult" property="RevOProom"/>
 	</resultMap>
 	
-
+	<!-- disease result -->
+	<resultMap id="DiseaseResult" type="Disease">
+		<result column="diseases_code" property="diseaseCode" />
+		<result column="disease" property="diseaseName" />		
+	</resultMap>
 	
 
 	
@@ -314,6 +318,14 @@
 		   and c.status = 'D'
 		 order
 		    by enroll_date desc
+	</select>
+	
+	<!-- 질병 전체 리스트 조회 -->
+	<select id="selectDiseaseList" resultMap="DiseaseResult">
+		select 
+		       diseases_code
+		     , disease
+		  from disease
 	</select>
 	
 	
