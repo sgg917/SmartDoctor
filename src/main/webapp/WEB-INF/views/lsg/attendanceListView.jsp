@@ -102,10 +102,10 @@ th {
 						<!-- 날짜, 상태 조회는 ajax -->
 						<input type="date" id="startDate" name="startDate"> ~ <input type="date" id="endDate" name="endDate">
 						<br><br>
-						<input type="checkbox" id="y" name="status" value="Y"> <label for="y">정상</label> &nbsp;&nbsp; 
-						<input type="checkbox" id="l" name="status" value="L"> <label for="l">지각</label> &nbsp;&nbsp;
-						<input type="checkbox" id="e" name="status" value="E"> <label for="e">조퇴</label> &nbsp;&nbsp; 
-						<input type="checkbox" id="n" name="status" value="N"> <label for="n">결근</label> &nbsp;&nbsp;
+						<input type="checkbox" id="y" name="status" value="정상"> <label for="y">정상</label> &nbsp;&nbsp; 
+						<input type="checkbox" id="l" name="status" value="지각"> <label for="l">지각</label> &nbsp;&nbsp;
+						<input type="checkbox" id="e" name="status" value="휴가"> <label for="e">휴가</label> &nbsp;&nbsp; 
+						<input type="checkbox" id="n" name="status" value="결근"> <label for="n">결근</label> &nbsp;&nbsp;
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						
 						<button type="button" onclick="searchAtt(1);" class="small-btn green-btn">조회</button>
@@ -138,7 +138,7 @@ th {
 												<td>${ a.startTime }</td>
 												<td>${ a.endTime }</td>
 												
-												<c:choose>
+												<%-- <c:choose>
 													<c:when test="${ a.status eq 'Y' }">
 														<td>정상</td>
 													</c:when>
@@ -151,7 +151,8 @@ th {
 													<c:otherwise>
 														<td>결근</td>
 													</c:otherwise>
-												</c:choose>
+												</c:choose> --%>
+												<td>${ a.status }</td>
 												
 											</tr>
 										</c:forEach>
@@ -407,7 +408,7 @@ th {
 											'<td>' + newList[i].startTime + '</td>' + 
 											'<td>' + newList[i].endTime + '</td>';
 												
-								if(newList[i].status == 'Y'){
+								/* if(newList[i].status == '정상'){
 									
 									txt += '<td>정상</td>';
 									
@@ -422,7 +423,8 @@ th {
 								}else{
 									
 									txt += '<td>결근</td>';
-								}
+								} */
+								txt += '<td>' + newList[i].status + '</td>';
 								
 								txt += '</tr>';
 							}	

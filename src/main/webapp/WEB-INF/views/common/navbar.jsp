@@ -192,7 +192,17 @@
 	                </div>
 	                <div class="nav-profile-text d-flex flex-column">
 	                  <span class="font-weight-bold mb-2">${ loginUser.empName }</span>
-	                  <span class="text-secondary text-small">${ loginUser.jobName }</span>
+	                  <table>
+	                  	<tr>
+	                  		<td>
+	                  			<span class="text-secondary text-small">${ loginUser.deptName }</span>
+	                  		</td>
+	                  		<td>
+	                  			<span class="text-secondary text-small">${ loginUser.jobName }</span>
+	                  		</td>
+	                  	</tr>
+	                  </table>
+	                  
 	                </div>
 	                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
 	              </a>
@@ -221,9 +231,6 @@
               </a>
               <div class="collapse" id="numberzero">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pay.mj">원무(지워야됨)</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="detail.mj">원무(지워야됨)</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="hospitalCalender.mj">병원 캘린더(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="exercise.jy">진료 대기(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.op">수술실 예약(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.pr">입원실 예약(지워야됨)</a></li>
@@ -255,8 +262,11 @@
               </a>
               <div class="collapse" id="number3">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">원무 조회</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">기타등등</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="reception.mj">접수</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="detail.mj">환자조회</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="rsvWaiting.mj">예약대기</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="room.mj">입원실현황</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="pay.mj">수납</a></li>
                 </ul>
               </div>
             </li>
@@ -270,7 +280,7 @@
                   <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="list.att?no=${ loginUser.empNo }">출퇴근 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="list.vac?no=${ loginUser.empNo }">휴가 관리</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">월간 근태 체크</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="goCalendar.att">월간 근태 체크</a></li>
                     <li class="nav-item"> <a class="nav-link" href="allList.att">사원 근태 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="allList.vac">사원 휴가 관리</a></li>
                   </ul>
@@ -305,8 +315,8 @@
               </a>
               <div class="collapse" id="numbertwo">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">개인 캘린더</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">병원 캘린더</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="hospitalCalender.mj">병원 캘린더</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="personalCalender.mj">개인 캘린더</a></li>
                 </ul>
               </div>
             </li>

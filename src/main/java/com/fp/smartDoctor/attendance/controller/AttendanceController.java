@@ -251,7 +251,7 @@ public class AttendanceController {
 		hm.put("type", type);
 		hm.put("keyword", keyword);
 		
-		System.out.println(hm);
+		//System.out.println(hm);
 		
 		// 검색 결과 사원 수
 		int listCount = aService.ajaxSearchListCount(hm);
@@ -272,5 +272,28 @@ public class AttendanceController {
 		
 		return new Gson().toJson(map);
 		
+	}
+	
+	@RequestMapping("goCalendar.att")
+	public String goAttendanceCalendar() {
+		return "lsg/attendanceCalendar";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="calendar.att", produces="application/json; charset=utf-8")
+	public String attendanceCalendar(Attendance a) {
+		
+		// 근태 리스트 조회
+		ArrayList<Attendance> alist = aService.selectAttendance(a);
+		
+		// 휴가 리스트 조회
+		ArrayList<Vacation> vlist = aService.ajaxSelectVacationList(a.getEmpNo());
+		
+		// 리스트 두개를 Map에 담아서 리턴
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("alist", alist);
+		map.put("vlist", vlist);
+		
+		return new Gson().toJson(map);
 	}
 }

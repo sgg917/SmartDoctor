@@ -155,8 +155,10 @@
 			  , job_no
 			  , dept_no
 			  , job_name
+			  , dept_name
 		   from member
            join job using (job_no)
+           join department using (dept_no)
 		  where (status = 'Y' 
              or status = 'A')
 		    and emp_no = #{empNo}

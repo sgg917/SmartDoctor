@@ -11,6 +11,7 @@ import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
+import com.fp.smartDoctor.treatment.model.vo.Surgery;
 
 @Repository
 public class TreatmentDao {
@@ -72,5 +73,10 @@ public class TreatmentDao {
 	// 질병 리스트 조회
 	public ArrayList<Disease> selectDiseaseList(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("treatmentMapper.selectDiseaseList");
+	}
+	
+	// 수술 전체 리스트 조회
+	public ArrayList<Surgery> selectSurgeryList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("treatmentMapper.selectSurgeryList");
 	}
 }

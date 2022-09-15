@@ -13,8 +13,11 @@ public interface AttendanceService {
 	// 근태 총 개수 조회용 메소드
 	int selectListCount(Attendance a);
 	
-	// 근태 리스트 조회용 메소드
+	// 근태 리스트 조회용 메소드 (페이징 ㅇ)
 	ArrayList<Attendance> selectAttendance(PageInfo pi, Attendance a);
+	
+	// 근태 리스트 조회용 메소드 (페이징 x)
+	ArrayList<Attendance> selectAttendance(Attendance a);
 	
 	// 오늘 출근 시간 조회용 메소드
 	String selectStartTime(int empNo);
@@ -52,7 +55,7 @@ public interface AttendanceService {
 	// 휴가를 사용한 사원들의 연차 잔여일수 조회용 메소드
 	ArrayList<Vacation> selectMemVacRemain();
 	
-	// 한 사원의 휴가 리스트 조회용 메소드 (페이징 x)
+	// 휴가 리스트 조회용 메소드 (페이징 x)
 	ArrayList<Vacation> ajaxSelectVacationList(int empNo);
 	
 	// 검색한 사원 수 조회용 메소드

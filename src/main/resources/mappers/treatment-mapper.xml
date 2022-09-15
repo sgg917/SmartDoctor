@@ -79,6 +79,8 @@
 		<result column="new" property="newOne" />
 		<result column="doctor_name" property="docName"/>
 		<result column="clinic_no" property="clinicNo"/>
+		<result column="만나이" property="age"/>
+		<result column="성별" property="gender"/>
 	</resultMap>
 	
 	<!-- surgery result -->
@@ -328,6 +330,14 @@
 		  from disease
 	</select>
 	
-	
-	
+	<!-- 수술 전체 리스트 조회 -->
+	<select id="selectSurgeryList" resultMap="SurgeryResult">
+		select
+		       surgery_no
+		     , surgery_name
+		     , period
+		     , s_payment
+		     , lead_time
+		  from surgery
+	</select>
 </mapper>
