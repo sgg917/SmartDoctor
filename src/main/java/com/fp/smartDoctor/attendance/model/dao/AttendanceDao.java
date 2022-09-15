@@ -110,4 +110,9 @@ public class AttendanceDao {
 		
 		return (ArrayList)sqlSession.selectList("memberMapper.ajaxSearchList", hm, rowBounds);
 	}
+	
+	public ArrayList<Attendance> selectAttendance(SqlSessionTemplate sqlSession, Attendance a){
+		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttendance", a);
+	}
+	
 }

@@ -295,7 +295,7 @@ th {
 					url:"search.vac",
 					type:"POST",
 					data:{
-						cpage:1,
+						cpage:no,
 						type:$('option[name=type]:selected').val(),
 						keyword:$('input[name=keyword]').val()
 					},

@@ -280,7 +280,7 @@
                   <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="list.att?no=${ loginUser.empNo }">출퇴근 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="list.vac?no=${ loginUser.empNo }">휴가 관리</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">월간 근태 체크</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="goCalendar.att">월간 근태 체크</a></li>
                     <li class="nav-item"> <a class="nav-link" href="allList.att">사원 근태 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="allList.vac">사원 휴가 관리</a></li>
                   </ul>

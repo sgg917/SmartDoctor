@@ -106,6 +106,11 @@ public class AttendanceServiceImpl implements AttendanceService {
 	public ArrayList<Member> ajaxSearchList(PageInfo pi, HashMap hm) {
 		return aDao.ajaxSearchList(sqlSession, pi, hm);
 	}
+
+	@Override
+	public ArrayList<Attendance> selectAttendance(Attendance a) {
+		return aDao.selectAttendance(sqlSession, a);
+	}
 	
 	
 

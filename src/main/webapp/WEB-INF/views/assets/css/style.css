@@ -4246,12 +4246,12 @@ textarea.form-control-lg {
 
 .btn-primary {
   color: #000;
-  background-color: #b66dff;
-  border-color: #b66dff; }
+  background-color: #1D5C83;
+  border-color: #1D5C83; }
   .btn-primary:hover {
     color: #000;
-    background-color: #c183ff;
-    border-color: #bd7cff; }
+    background-color: #1A3C40;
+    border-color: #1A3C40; }
   .btn-check:focus + .btn-primary, .btn-primary:focus {
     color: #000;
     background-color: #c183ff;
