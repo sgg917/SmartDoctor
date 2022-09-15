@@ -119,10 +119,7 @@
 	    font-size:16px;
 	}
 
-	#dropZone{
-	height:300px;
-	}
-	
+
     </style>
 	<!-- summernote -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -264,7 +261,7 @@
 										※현재 파일 <span><b>${fn:length(mtList)}</b></span>개
 									</c:if>
 								</td>
-								<td colspan="3"><input type="file" id="input_file" name="upfile" class="input-mail upfile" onchange="addFile()" multiple style="height: 100%;" /></td>
+								<td colspan="3"><button type="button" class="btn1 fileShow">파일첨부</button></td>
 							</tr>
 							
 							<tr>
@@ -274,9 +271,9 @@
 										<div class="upload-btn-wrapper">
 											<input type="file" id="input_file" name="upfile" class="input-mail upfile" onchange="addFile()" multiple style="height: 100%;" />
 										</div>
-								        <div id="dropZone" class="file-list" style="width: 896px; height: 100px; border: 1px solid lightgray;">
+								        <div id="dropZone" class="file-list" style="width: 896px; height: 300px; border: 1px solid lightgray;">
 								            <div id="fileDragDesc"> 
-								            <div class="mdi mdi-paperclip" style="display: inline-block; text-align: middle;"></div>이곳에 첨부파일을 끌어오세요 또는 <a href="">파일선택</a> </div>
+								            <div class="mdi mdi-paperclip" style="display: inline-block;"></div>이곳에 첨부파일을 끌어오세요 또는 <a href="">파일선택</a> </div>
 								            <table id="fileListTable" width="100%" border="0px">
 								                <tbody id="fileTableTbody">
 								                	
@@ -507,27 +504,27 @@
 			<script>
 				$(document).ready(function() {
 					$('#summernote').summernote({
-									spellCheck : true,
-									disableDragAndDrop : true,
-									codeviewFilter : false,
-									codeviewIframeFilter : true,
-									tabsize : 2,
-									width : 1160,
-									height : 600,
-									toolbar : [
-											[
-												'style',
-												[ 'fontname', 'fontsize',
-														'bold', 'italic',
-														'underline',
-														'clear' ] ],
-											[ 'color', [ 'color' ] ],
-											[ 'para',
-													[ 'ul', 'ol', 'paragraph' ] ],
-											[ 'insert',
-													[ 'link', 'picture', 'hr' ] ],
-											[ 'view', [ 'fullscreen' ] ] ]
-								});
+										spellCheck : true,
+										disableDragAndDrop : true,
+										codeviewFilter : false,
+										codeviewIframeFilter : true,
+										tabsize : 2,
+										width : 1160,
+										height : 600,
+										toolbar : [
+												[
+														'style',
+														[ 'fontname', 'fontsize',
+																'bold', 'italic',
+																'underline',
+																'clear' ] ],
+												[ 'color', [ 'color' ] ],
+												[ 'para',
+														[ 'ul', 'ol', 'paragraph' ] ],
+												[ 'insert',
+														[ 'link', 'picture', 'hr' ] ],
+												[ 'view', [ 'fullscreen' ] ] ]
+									});
 				 });
 			</script>
 				</div>
