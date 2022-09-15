@@ -42,6 +42,7 @@
 		<result column="line_now" property="lineNow" />
 		<result column="line_date" property="lineDate" />
 		<result column="emp_name" property="empName" />
+		<result column="job_name" property="jobName" />
 	</resultMap>
 	
 	<!-- 관리자_결재양식 리스트 조회 -->
@@ -245,9 +246,11 @@
 		     , line_refer
 		     , emp_name
 		     , line_date
+		     , job_name
 		  from appr_line l
 		  join approval v on (l.appr_no = v.appr_no)
 		  join member m on (l.emp_no = m.emp_no)
+		  join job j on (m.job_no = j.job_no)
 		 where l.appr_no = #{apprNo}
 		   and line_refer = 'N'
 	</select>
@@ -266,4 +269,50 @@
 		 where l.appr_no = #{apprNo}
 		   and line_refer = 'Y'
 	</select>
+	
+	<!-- 사용자_기안문서함 페이지 -->
+	<select id="selectReportListCount" resultType="_int">
+		select
+		       count(*)
+		  from approval
+		 where appr_storage = 'N'
+		   and emp_no = #{empNo}
+	</select>
+	
+	<select id="selectApprReportList" resultMap="signResult">
+		select
+		       v.appr_no
+		     , appr_title
+		     , to_char(v.enroll_date, 'YYYY-MM-DD') as "enroll_date"
+		     , appr_status
+		     , form_title
+		     , emp_name
+		  from approval v
+		  join appr_form f on (v.form_no = f.form_no)
+		  join member m on (v.emp_no = m.emp_no)
+		 where appr_storage = 'N'
+		   and v.emp_no = #{empNo}
+		 order
+		    by appr_no desc
+	</select>
+	
+	<!-- 사용자_기안문서함 상세조회 -->
+	<select id="selectApprReportDetail" resultMap="signResult">
+		select
+		       v.appr_no
+		     , appr_title
+		     , appr_content
+		     , to_char(v.enroll_date, 'YYYY-MM-DD') as "enroll_date"
+		     , origin_name
+		     , change_name
+		     , emp_name
+		     , dept_name
+		     , job_name
+		  from approval v
+		  join member m on (v.emp_no = m.emp_no)
+		  join department d on (m.dept_no = d.dept_no)
+		  join job j on (m.job_no = j.job_no)
+		 where v.appr_no = #{apprNo}
+	</select>
+	
 </mapper>

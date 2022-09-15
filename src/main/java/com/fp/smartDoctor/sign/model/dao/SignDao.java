@@ -82,8 +82,8 @@ public class SignDao {
 		return sqlSession.insert("signMapper.insertAppr", s);
 	}
 	
-	public int selectReferListCount(SqlSessionTemplate sqlSession, String memNo) {
-		return sqlSession.selectOne("signMapper.selectReferListCount", memNo);
+	public int selectReferListCount(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.selectOne("signMapper.selectReferListCount", empNo);
 	}
 	
 	public ArrayList<Sign> selectApprReferList(SqlSessionTemplate sqlSession, PageInfo pi, String empNo){
@@ -107,6 +107,21 @@ public class SignDao {
 		return sqlSession.selectOne("signMapper.selectApprReferDetail", apprNo);
 	}
 	
+	public int selectReportListCount(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.selectOne("signMapper.selectReportListCount", empNo);
+	}
 	
+	public ArrayList<Sign> selectApprReportList(SqlSessionTemplate sqlSession, PageInfo pi, String empNo){
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("signMapper.selectApprReportList", empNo, rowBounds);
+	}
+	
+	public Sign selectApprReportDetail(SqlSessionTemplate sqlSession, int apprNo) {
+		return sqlSession.selectOne("signMapper.selectApprReportDetail", apprNo);
+	}
 	
 }

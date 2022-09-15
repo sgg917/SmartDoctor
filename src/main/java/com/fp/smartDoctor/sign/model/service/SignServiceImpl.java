@@ -98,4 +98,16 @@ public class SignServiceImpl implements SignService {
 	public ArrayList<Line> selectApprRef(int apprNo) {
 		return sDao.selectApprRef(sqlSession, apprNo);
 	}
+	@Override
+	public int selectReportListCount(String empNo) {
+		return sDao.selectReportListCount(sqlSession, empNo);
+	}
+	@Override
+	public ArrayList<Sign> selectApprReportList(PageInfo pi, String empNo) {
+		return sDao.selectApprReportList(sqlSession, pi, empNo);
+	}
+	@Override
+	public Sign selectApprReportDetail(int apprNo) {
+		return sDao.selectApprReportDetail(sqlSession, apprNo);
+	}
 }

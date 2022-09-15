@@ -14415,5 +14415,18 @@ dl {
     justify-content:center; 
     line-height:8px;
   }
-
+  
+  /* 기안문서함 */
+  .badge-ongoing{
+  	background:RGB(65, 125, 122); 
+  	border:none;
+  }
+  .badge-disappr{
+  	background:crimson; 
+  	border:none;
+  }
+  .badge-complete{
+  	background:gray; 
+  	border:none;
+  }
 /*# sourceMappingURL=style.css.map */
