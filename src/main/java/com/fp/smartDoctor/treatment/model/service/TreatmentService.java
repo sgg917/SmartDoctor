@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
-import com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking;
+import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 
@@ -47,4 +47,7 @@ public interface TreatmentService {
 	
 	// 진료할 환자의 과거 내역 조회
 	ArrayList<Clinic> selectPatientInfo(int chartNo);
+	
+	// 질병 전체 리스트 조회
+	ArrayList<Disease> selectDiseaseList();
 }

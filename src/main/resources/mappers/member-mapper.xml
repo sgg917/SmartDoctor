@@ -103,7 +103,14 @@
 		                  join department d on (d.dept_no = m.dept_no)
 		                ) e
 		          join department d on(e.dept_no = d.dept_no)
-		         where #{type} like '%' || #{keyword} || '%'
+		         <choose>
+		         	<when test="type == 'dept_name'">
+		         		where dept_name like '%' || #{keyword} || '%'
+		         	</when>
+		         	<otherwise>
+		         		where emp_name like '%' || #{keyword} || '%'
+		         	</otherwise>
+		         </choose>
 		        )
 	</select>
 	
@@ -122,7 +129,14 @@
 		          join department d on (d.dept_no = m.dept_no)
 		        ) e
 		  join department d on(e.dept_no = d.dept_no)
-		 where #{type} like '%' || #{keyword} || '%'
+		 <choose>
+         	<when test="type == 'dept_name'">
+         		where dept_name like '%' || #{keyword} || '%'
+         	</when>
+         	<otherwise>
+         		where emp_name like '%' || #{keyword} || '%'
+         	</otherwise>
+         </choose>
 	</select>
 	
 	<!-- 로그인한 사원 정보 조회 -->
@@ -141,9 +155,12 @@
 			  , job_no
 			  , dept_no
 			  , job_name
+			  , dept_name
 		   from member
            join job using (job_no)
-		  where status = 'Y'
+           join department using (dept_no)
+		  where (status = 'Y' 
+             or status = 'A')
 		    and emp_no = #{empNo}
 		    and emp_pwd = #{empPwd}
 	</select>
