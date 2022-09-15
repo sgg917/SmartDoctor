@@ -251,9 +251,7 @@
 								<td><input type="checkbox">중요!</td>
 								<td colspan="3"><input type="text" class="inputs" name="mailTitle" style="width: 100%;"></td>
 							</tr>
-							
-							
-							<tr>
+							<tr class="cat1">
 								<td height="50px">첨부파일</td>
 								<td>
 									<button type="button" class="btn1 mdi mdi-arrow-up fileShow" style="background-color: lightgray; color: black; width: 25px;"></button>		
@@ -261,9 +259,9 @@
 										※현재 파일 <span><b>${fn:length(mtList)}</b></span>개
 									</c:if>
 								</td>
-								<td colspan="3"><button type="button" class="btn1 fileShow">파일첨부</button></td>
+								<td colspan="3"><button type="button"
+										class="btn1 fileShow">파일첨부</button></td>
 							</tr>
-							
 							<tr>
 								<td></td>
 								<td colspan="2">
@@ -271,9 +269,9 @@
 										<div class="upload-btn-wrapper">
 											<input type="file" id="input_file" name="upfile" class="input-mail upfile" onchange="addFile()" multiple style="height: 100%;" />
 										</div>
-								        <div id="dropZone" class="file-list" style="width: 896px; height: 300px; border: 1px solid lightgray;">
+								        <div id="dropZone" class="file-list" style="width: 896px; height: 100px; border: 1px solid lightgray;">
 								            <div id="fileDragDesc"> 
-								            <div class="mdi mdi-paperclip" style="display: inline-block;"></div>이곳에 첨부파일을 끌어오세요 또는 <a href="">파일선택</a> </div>
+								            <div class="mdi mdi-paperclip" style="display: inline-block; text-align: middle;"></div>이곳에 첨부파일을 끌어오세요 또는 <a href="">파일선택</a> </div>
 								            <table id="fileListTable" width="100%" border="0px">
 								                <tbody id="fileTableTbody">
 								                	
@@ -305,6 +303,72 @@
 							        </div>
 								</td>
 							</tr>
+							
+							
+							
+							<tr>
+						<th>첨부파일</th>
+						<td colspan="2">
+							<button type="button" class="bigBtn fileShow">추가</button>
+							<c:if test="${e.mailAttachment ne null}">
+								※현재 파일 <span><b>${fn:length(mtList)}</b></span>개
+							</c:if>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan="2">
+									<div class="fileWrap" style="display:none;">
+									<div class="upload-btn-wrapper">
+										<input type="file" id="input_file" multiple="multiple" style="height: 100%;" />
+										<button class="upload-btn fileShow">파일선택</button>
+									</div>
+							        <div id="dropZone" style="width: 896px; height: 100px; border: 1px solid lightgray;">
+							            <div id="fileDragDesc"> ※파일을 드래그 해주세요. </div>
+							            <table id="fileListTable" width="100%" border="0px">
+							                <tbody id="fileTableTbody">
+							                	
+							                </tbody>
+							            </table>
+							        </div>
+							        <input type="hidden" id="bff" name="boardFileFlag" value="${e.mailAttachment }">
+							        <input type="hidden" id="fileListSize" name="fileListSize" value="${fn:length(mtList)}">
+							        <div class="fileNameList" style="display:none;">
+							        	<table class="fnoTable" border="1">
+							        	<tr>
+							        	<c:forEach items="${ mtList }" var="mt">
+							        		<td><input type="hidden" name="fno" value="${mt.attachmentNo}">${mt.attachmentNo}</td>
+							        	</c:forEach>
+							        	</tr>
+							        	</table>
+							        </div>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<div id="btnArea">
+								<c:choose>
+									<c:when test="${empty e }">
+										<button id="submitBoard" type="button" class="bigBtn" onclick="uploadFile();" style="background: rgb(26, 188, 156);">등록</button>
+									</c:when>
+									<c:otherwise>
+										<button id="submitBoard" type="button" class="bigBtn" onclick="updateLoadFile();" style="background: rgb(26, 188, 156);">수정</button>
+									</c:otherwise>
+								</c:choose>
+								<button class="bigBtn" type="button" onclick="cancleBack();">취소</button>
+							</div>
+						</td>
+					</tr>
+							
+							
+							
+							
+							
+							
+							
+							
+							
 							<tr>
 								<td colspan="5"><textarea name="mailContent" style="width:100%;" class="yui3-cssreset"
 										id="summernote" name="editcontent"></textarea></td>
@@ -538,7 +602,91 @@
 
 
 <script>
+	//---------------- 첨부 파일 ---------------------
+	
+	var fileNo = 0; // 첨부파일 번호
+	var filesArr = new Array(); // 다중 첨부파일 들어갈 파일 배열
+	
+	/* 첨부파일 추가 */
+	function addFile() {
+	   
+		$(".fileMsg").remove();
 
+	   
+	   var maxFileCnt = 5; // 첨부파일 최대 개수
+	   var attFileCnt = document.querySelectorAll('.filebox').length; // 기존 추가된 첨부파일 개수
+	   var remainFileCnt = maxFileCnt - attFileCnt; // 추가로 첨부가능한 개수
+	   var files = $('.upfile')[0].files; // 현재 선택된 첨부파일 리스트 FileList
+	
+	   // 첨부파일 개수 확인
+	   if (files.length > remainFileCnt) {
+	      alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
+	      
+	      fileDataTransfer();
+	   }else{
+	      // 파일 배열에 담기
+	      let currFileArr = Array.from(files); // FileList => Array로 변환
+	      filesArr = filesArr.concat(currFileArr); // 추가한 fileList에 또 추가할 수 있도록 설정
+	      
+	      fileDataTransfer();
+	       
+	   }
+	   console.log(filesArr);
+	   renderingFileDiv(); // 추가 및 삭제할 때 마다 호출해서 index번호 초기화
+	   
+	}
+	
+	/* 첨부파일 목록 html */
+	function renderingFileDiv(){
+	   
+	   let htmlData = '';
+	   for(let i=0; i<filesArr.length; i++){
+	      // i => 삭제할 파일 인덱스 번호
+	      
+	      // 목록 추가
+	      htmlData += '<div id="file' + i + '" class="filebox">';
+	      htmlData += '   <span class="name">'+ filesArr[i].name + '</span>';
+	      htmlData += '   <a class="delete" onclick="deleteFile('+ i + 
+	               ');"><i class="far fa-minus-square"></i></a>';
+	      htmlData += '</div>';
+	   }
+	   
+	   $(".file-list").html(htmlData); // change가 발생할 때마다 목록 초기화한 뒤 넣어짐
+	
+	}
+	
+	/* 첨부파일 삭제 */
+	function deleteFile(fileNo) { // 매개변수 : 첨부된 파일 번호(fileNo, i)
+	
+	   console.log(fileNo);
+	   
+	   // class="fileMsg"에 있는 문구 삭제
+	   document.querySelector("#file" + fileNo).remove();
+	   
+	    filesArr.splice(fileNo, 1);   // 해당되는 index의 파일을 배열에서 제거(1 : 한개만 삭제하겠다 라는 의미)
+	   
+	    fileDataTransfer();
+	
+	    renderingFileDiv();
+	}
+	
+	
+	/* 첨부파일 담는 배열 */
+	function fileDataTransfer(){
+	   
+	   const dataTransfer = new DataTransfer();
+	
+	    filesArr.forEach(function(file){ 
+	    //남은 배열을 dataTransfer로 처리(Array -> FileList)
+	       dataTransfer.items.add(file); 
+	    });
+	    
+	    $('.upfile')[0].files = dataTransfer.files;   //제거 처리된 FileList를 돌려줌
+	}
+		
+	
+	
+	
 	
 	
 	

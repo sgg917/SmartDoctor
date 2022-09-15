@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,8 @@
 <!-- plugins:css -->
 <link rel="stylesheet"
 	href="resources/vendors/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="resources/vendors/css/vendor.bundle.base.css">
+<link rel="stylesheet"
+	href="resources/vendors/css/vendor.bundle.base.css">
 <!-- endinject -->
 <!-- Plugin css for this page -->
 <!-- End plugin css for this page -->
@@ -21,49 +23,27 @@
 <!-- Layout styles -->
 <link rel="stylesheet" href="resources/css/style.css">
 <!-- End layout styles -->
-<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="resources/images/favicon-16x16.png">
 
-<!-- jQuery library -->
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 
-<!-- Popper JS -->
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<!--@@ fullcalendar CDN 가져가세용~-->
+<link href='resources/fullcalendar/lib/main.css' rel='stylesheet' />
+<script src='resources/fullcalendar/lib/main.js'></script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- fullcalendar CDN -->
-<link
-	href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css'
-	rel='stylesheet' />
-<script
-	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
-<!-- fullcalendar 언어 CDN -->
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
-<link href='/resources/fullcalendar-5.6.0/lib/main.css' rel='stylesheet' />
-<script src='/resources/fullcalendar-5.6.0/lib/main.js'></script>
-<script>
-   
-         document.addEventListener('DOMContentLoaded', function() {
-           var calendarEl = document.getElementById('calendar');
-           var calendar = new FullCalendar.Calendar(calendarEl, {
-             initialView: 'dayGridMonth'
-           });
-           calendar.render();
-         });
-   
-   </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!--아래는 내가 먹인 스타일임 다 가져가야함-->
+
 <style>
-.wrap11 {
+.wrap111 {
 	width: 100%;
 	height: 100%;
 	background-color: white;
@@ -109,7 +89,35 @@ th {
 	margin: auto;
 }
 
+/* 풀캘린더 style */
+#calendar{
+	color:black;
+}
 
+.fc .fc-button{
+	height:30px;
+	padding:1;
+	font-size:0.8em;
+}
+
+.fc .fc-toolbar-title{
+	font-size:1.5em;
+}
+
+
+/* 모달 style */
+.wrap112{
+	width:700px;
+	background-color: #F2F2F2;
+	text-align: center;
+	border-radius: 30px 10px;
+}
+
+.mymodal2 .modal-backdrop {
+  /* display: block; 검은색레이어*/
+  display: none;
+  /* background clickable */
+}
 
 </style>
 
@@ -123,126 +131,283 @@ th {
 <body>
 
 	<div class="container-scroller">
-
-
-
 		<jsp:include page="../common/navbar.jsp" />
-
 		<div class="main-panel">
-		
 			<div class="content-wrapper">
-			<div class="wrap11">
-			<form id="enrollForm" method="post" action="insert.op">
-				<input type="hidden" id="opNo" class="form-control" value="${ op.bookingNo }" name="bookingNo">
-				<input type="hidden" id="cNo" class="form-control" value="${ c.clinicNo }" name="clinicNo">
-				<input type="hidden" id="sNo" class="form-control" value="${ s.surgeryNo }" name="surNo">
-				<br>
-				<!-- 이 안에서 작업해 주세요 -->
-				<h3>
-					<b>차트번호 수술실 예약</b>
-				</h3>
-				<hr>
-				<br>
-
+			
+				<div class="wrap111">
 				
-					<br>
-					<div class="wrap22">
-						<div class="part1">
-							<table class="table1">
-								<tr>
-									<td colspan="2" width="600px">
-										<div class="smallbtn1">입력</div>
-										<div style="display: inline-block; margin-left: 30px;">
-											<h3>2022-08-30</h3>
-										</div>
-										<hr>
-									</td>
-								</tr>
-								<tr>
-									<th>차트번호</th>
-									<td><input readonly name="clinic_no" value="" type="text" style="width: 300px;"></td>
-								</tr>
-								<tr>
-									<th>수진자명</th>
-									<td><input type="text" style="width: 300px;" readonly value=""></td>
-								</tr>
-								<tr>
-									<th>입원실</th>
-									<td>
-									<select name="roomName" id="roomName" style="width: 300px;">
-											<option value="x">선택안함</option>
-											<option value="a">2인실A</option>
-											<option value="b">2인실B</option>
-											<option value="c">4인실A</option>
-											<option value="d">4인실B</option>
-									</select> <!--
-				                    <button onclick="test();">확인</button>
-				                    <br>
-				                    선택한 나라: <span id="result">선택안함</span> --> <script>
-				                        function test(){
-				                            //현재 선택된(selected 상태) option 요소 가져오기
-				                            console.log($("option:selected").val());
-				                            console.log($("option:selected").html());
-				                
-				                            $("#result").html($("option:selected").html());
-				                
-				                        }
-				                    </script>
-				                    </td>
-								</tr>
-								<tr>
-									<th>입원날짜</th>
-									<td><input type="date" style="width: 300px;" name="surDate"><br></td>
-								</tr>
-								<tr>
-									<th>담당의</th>
-									<td><input type="text" style="width: 300px;" readOnly value="${ t.doctorName }" name="docName"></td>
-								</tr>
-								<tr>
-									<th>특이사항</th>
-									<td><textarea type="text" style="width: 300px; height: 100px; resize: none;" name="memo"></textarea></td>
-								</tr>
-
-
-							</table>
-						
+					<form id="enrollForm" method="post" action="insert.op">
+						<!-- 숨겨서 넘길 값--> 
+						<input type="hidden" id="clinicNo1" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
+						<input type="hidden" id="surgeryNo1" class="form-control" value="${ c.surgeryNo2 }" name="surgeryNo"> 
+						<input type="hidden" id="leadTime1" class="form-control" value="${ c.leadTime }" name="leadTime">
+						<input type="hidden" id="bookingNo1" class="form-control" value="${ c.bookingNo }" name="bookingNo">
+	
+						<br>
+						<h3> <b>차트번호 ${c.clinicNo} 입원실 예약</b> </h3>
+						<hr>
 						<br><br>
-						
-						<button type="submit" class="btn btn-danger"
-							style="height: 30px; width: 100px; padding: 0%; color: black; border:0; background-color: rgb(65, 125, 122);">예약</button>
-					
-						<br> <br> <br>
+						<div class="wrap22">
+							<div class="part1">
+								<table class="table1">
+									<tr>
+										<td colspan="2" width="600px">
+											<div class="smallbtn1">입력</div>
+											<div style="display: inline-block; margin-left: 30px;">
+												<h3>예약일자<c:set var="ymd" value="<%=new java.util.Date()%>" />
+													<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd" />
+												</h3>
+											</div>
+											<hr>
+										</td>
+									</tr>
+									<tr>
+										<th>차트번호</th>
+										<td><input readonly name="clinicNo" value="${c.clinicNo}" type="text"
+											style="width: 300px; background-color:#F2F2F2;"></td>
+									</tr>
+									<tr>
+										<th>수진자명</th>
+										<td><input type="text" name="patientName" style="width: 300px;  background-color:#F2F2F2;" readonly value="${ c.patientName }"></td>
+									</tr>
+									<tr>
+										<th>입원실</th>
+										<td>
+										<select name="proomName" id="proomName" style="width: 300px;">
+												<option value="x">선택안함</option>
+												<option value="PR4A">PR4A</option>
+												<option value="PR4B">PR4B</option>
+												<option value="PR2C">PR2C</option>
+												<option value="PR2D">PR2C</option>
+										</select> 
+				                   
+										</td>
+									</tr>
+									<tr>
+										<th>입원날짜</th>
+										<td>
+										<input type="date" class="datepicker" name="enterDate" style="width: 225px; height: 25.2px;">
+								   <br>
+								   </td>
+									</tr>
+									<tr>
+										<th>담당의</th>
+										<td><input type="text" style="width: 300px;" name="doctorName" value="${c.docName}"></td>
+									</tr>
+									<tr>
+										<th>특이사항</th>
+										<td>
+										<textarea style="width: 300px; height: 100px; resize: none;"name="pmemo"></textarea>
+										</td>
+									</tr>
+								</table>
+								
+								<br>
+								<br>
+								<button type="submit" class="btn btn-danger"
+									style="height: 30px; width: 100px; padding: 0%; color: black; border: 0; background-color: rgb(65, 125, 122);">예약</button>
+
+								<br><br><br><br><br><br><br><br>
+							</div>
+							<div id='calendar' class="calender1"></div>
 						</div>
-					</div>
-					<div id='calendar' class="calender1" ></div>
-					
-					
+						<br><br><br><br><br><br>
 					</form>
 				</div>
-				</div>
-				
-				
-				<jsp:include page="../common/footer.jsp" />
 			</div>
-</div>
+			<jsp:include page="../common/footer.jsp" />
+		</div>
+	</div>
 
+
+
+
+
+
+
+
+
+
+
+
+	<!-- 수술실 상세조회 모달 -->
+	<div class="modal fade insertModal" id="myModal1">
+	    <div class="modal-dialog">
+		    <div class="modal-content">
+		    </div>
+	    </div>
+  	</div>
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+	<script>
+	
+		$(function() {
+
+			$.ajax({
+				url : "list.ca",//입원실로 바꿔줘야함
+				success : function(list) {
+
+					//console.log(list);
+
+					let data = [];/* 내가 넘겨주고자 하는 값을 리스트로 다시 담아줘야함! */
+					for (let i = 0; i < list.length; i++) {
+						let obj = {
+							title : list[i].pbookingNo,
+							start : list[i].enterDate,
+							end : list[i].enterDate,
+							textColor : list[i].textColor,
+							backgroundColor : list[i].backgroundColor
+						};
+						data.push(obj);
+					}
+
+					// -------------------- 캘린더 렌더링 --------------------
+					var initialLocaleCode = 'ko';
+					var calendarEl = document.getElementById('calendar');
+					var calendar = new FullCalendar.Calendar(calendarEl, {
+						initialView : 'dayGridMonth',
+						locale : 'ko', // 한국어 설정
+						headerToolbar: {
+						    left: 'prev,next today',
+						    center: 'title',
+						    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+						},
+						slotMinTime: '09:00',
+					    slotMaxTime: '23:00',
+						selectable : true,
+						droppable : true,
+						editable : true,
+						events : data,
+						eventClick:function(arg) {
+							ModalOpen(arg);
+						}
+						
+					});
+
+					calendar.render();
+					// ------------------------------------------------------------
+
+				},
+				error : function() {
+					console.log("통신 실패")
+				}
+
+			})
+
+		});
+	
 		
+		//애는 중복 못하게 하지말고 select에서 if절로 이미 예약이 있는 시간대는 고르지 못하게 할 것!!!!!!!
+		$("input[name=surDate]").change(function(){
+			//수술실 선택 후 날짜까지 선택한 순간
+		     
+		   // db에 넣기
+		   $.ajax({
+		      url:"overlap.op",
+		      data:{
+		    	  	 surgeryRoom:$("#roomName").val(),
+		    	  	 surDate:$(this).val()
+		    	  	 
+		            },
+		      type:"POST",
+		      success:function(result){
+		         console.log(result); // 현재선택된 수술방이랑 현재선택된 날짜에 예약되어있는 리스트
+		         console.log(result[0].surEndTime);
+		         console.log(result[0].surStartTime);
+		         
+		        
+		         //여기요ㅠㅠㅠ
+		         //얘는 j=result[0].surStartTime 만 인식되서 시작값만 막히고
+		         for(let j=result[0].surStartTime; j<=result[0].surEndTime; j++){
+	                    $("select option[value*='"+ j + "']").prop('disabled',true).css("background", "lightgrey");
+	             }
+		         
+		         //얘는 j=result[0].surEndTime 만 인식되서 끝만 막힙니다ㅠㅠ
+		         for(let j=result[0].surEndTime; j<=result[0].surEndTime; j++){
+	                    $("select option[value*='"+ j + "']").prop('disabled',true).css("background", "lightgrey");
+	             }
+		         
+		      },
+		      error: function(){
+		         alert("오류로 인한 예약실패");
+		       }
+		   });
+		  })
+		
+		
+		
+		//수술정보 상세조회
+		$(".modal-content").load("detail.op2");
+		
+		function ModalOpen(arg){
+			
+			console.log(arg);
+			console.log(arg.event._def.title);  // 예약번호
+			
+			//해당 예약번호를 넘겨서 해당 수술예약 정보 상세 조회하는 ajax
+			//ajax success function 에서 조회된 정보를 #myModal1인 모달 div안 input요소에 value값으로 뿌리는
+			$.ajax({
+		      url:"detail.op",
+		      data:{ clinicNo : arg.event._def.title },
+		      success:function(surgery){
+		 	  	  	console.log(surgery);
+			 	  	$('input[name=clinicNo]').attr('value',surgery.clinicNo);
+			 	  	$('input[name=docName]').attr('value',surgery.docName);
+			 	  	$('input[name=patientName]').attr('value',surgery.patientName);
+			 	  	$('input[name=roomName]').attr('value',surgery.roomName);
+			 	  	$('input[name=surDate]').attr('value',surgery.surDate);
+			 	  	$('input[name=surEndTime]').attr('value',surgery.surEndTime);
+			 	  	$('input[name=surStartTime]').attr('value',surgery.surStartTime);
+		      },
+		      error: function(){
+		         alert("조회 실패");
+		       }
+		   });
+		    
+			$('#myModal1').modal('show');
+		  }
+		
+		//모달 숨기기
+		function ModalClose(){
+			$("#myModal1").modal("hide");
+		}
+		
+	</script>
+	<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음-->
 
-		<!-- plugins:js -->
-		<script src="resources/vendors/js/vendor.bundle.base.js"></script>
-		<!-- endinject -->
-		<!-- Plugin js for this page -->
-		<script src="resources/vendors/chart.js/Chart.min.js"></script>
-		<script src="resources/js/jquery.cookie.js" type="text/javascript"></script>
-		<!-- End plugin js for this page -->
-		<!-- inject:js -->
-		<script src="resources/js/off-canvas.js"></script>
-		<script src="resources/js/hoverable-collapse.js"></script>
-		<script src="resources/js/misc.js"></script>
-		<!-- endinject -->
-		<!-- Custom js for this page -->
-		<script src="resources/js/dashboard.js"></script>
-		<script src="resources/js/todolist.js"></script>
-		<!-- End custom js for this page -->
+
+	<!-- 예상 완료시간 조회 -->
+	<script>
+	
+		$(".surStartTime").change(function(){
+				var timeSArr = $(".surStartTime>option:selected").text().split(":");			
+				var timeLArr = "${c.leadTime}".split(":");
+				
+				let hour = Number(timeSArr[0]) + Number(timeLArr[0]);
+				let min = Number(timeSArr[1]) + Number(timeLArr[1]);
+				if(min < 10){
+					min = "0" + min;
+				}
+				
+				console.log(hour + ":" + min)
+				document.getElementById("surEndTime").value = hour + ":" + min;		
+								
+		})
+	
+	
+		
+	</script>
+	
+	
 </body>
 </html>

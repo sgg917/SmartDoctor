@@ -6,4 +6,6 @@ public class Dept {
 	private int upperNo;
 	private String deptName;
 	
+	// level 컬럼
+	private int level;
 }

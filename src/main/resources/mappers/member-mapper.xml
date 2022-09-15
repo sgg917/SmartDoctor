@@ -22,6 +22,7 @@
 		<result column="dept_no" property="deptNo" />
 		<result column="upper_no" property="upperNo" />
 		<result column="dept_name" property="deptName" />
+		<result column="level" property="level"/>
 	</resultMap>
 	
 	<!-- 사용자_결재라인 조직도 리스트 조회 -->
@@ -139,6 +140,33 @@
          </choose>
 	</select>
 	
+	<!-- 조직도 부서 조회 (슬) -->
+	<select id="selectOrgChartDept" resultMap="deptResult">
+		select 
+		       dept_no
+		     , dept_name
+		     , level
+		  from department
+		start with upper_no=0
+		connect by prior dept_no = upper_no
+		order siblings by dept_no
+	</select>
+	
+	<!-- 조직도 사원 조회 (슬) -->
+	<select id="selectOrgChartEmp" resultMap="memberResult">
+		select 
+		       emp_no
+		     , emp_name
+		     , email
+		     , profile_originname
+		     , job_name
+		     , dept_no
+		  from member
+		  join job using(job_no)
+		  left join department using (dept_no)
+		  order by job_no
+	</select>
+	
 	<!-- 로그인한 사원 정보 조회 -->
 	<select id="loginMember" resultMap="memberResult">
 		select 
@@ -158,7 +186,7 @@
 			  , dept_name
 		   from member
            join job using (job_no)
-           join department using (dept_no)
+           left join department using (dept_no)
 		  where (status = 'Y' 
              or status = 'A')
 		    and emp_no = #{empNo}

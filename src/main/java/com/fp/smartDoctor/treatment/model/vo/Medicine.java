@@ -1,4 +1,4 @@
-package com.fp.smartDoctor.messenger.model.vo;
+package com.fp.smartDoctor.treatment.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +11,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Mail {
-	private String userId;
+public class Medicine {
+	
+	private String medNo;
+	private String medName;
+
 }

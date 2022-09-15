@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Disease;
+import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 import com.fp.smartDoctor.treatment.model.vo.Surgery;
@@ -78,5 +79,10 @@ public class TreatmentDao {
 	// 수술 전체 리스트 조회
 	public ArrayList<Surgery> selectSurgeryList(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("treatmentMapper.selectSurgeryList");
+	}
+	
+	
+	public ArrayList<Medicine> selectMedList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("treatmentMapper.selectMedList");
 	}
 }

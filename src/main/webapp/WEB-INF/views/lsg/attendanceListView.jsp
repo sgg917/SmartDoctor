@@ -474,8 +474,8 @@ th {
 					},
 					success:function(startTime){
 						
-						//console.log(startTime);
-						$('#startWork').html("출근 &nbsp;&nbsp;&nbsp;&nbsp;" + startTime);
+						console.log(startTime);
+						$('#sTime').html("출근 &nbsp;&nbsp;&nbsp;&nbsp;" + startTime);
 						$('#startAttBtn').attr('disabled', true);
 					},
 					error:function(){

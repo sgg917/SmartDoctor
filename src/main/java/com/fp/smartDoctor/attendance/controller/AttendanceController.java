@@ -205,7 +205,7 @@ public class AttendanceController {
 		//ArrayList<Attendance> list = aService.selectAllAttendanceList(pi, null);
 		
 		
-		return "lsg/memberAttendanceListView";
+		return "lsg/allAttendanceListView";
 	}
 	
 	@RequestMapping("allList.vac")
@@ -296,4 +296,5 @@ public class AttendanceController {
 		
 		return new Gson().toJson(map);
 	}
+	
 }

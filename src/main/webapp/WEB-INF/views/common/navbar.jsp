@@ -8,6 +8,11 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Purple Admin</title>
+<!-- 모달 부트스트랩 -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
 <!-- plugins:css -->
 <link rel="stylesheet"
 	href="resources/vendors/mdi/css/materialdesignicons.min.css">
@@ -346,7 +351,7 @@
                 </a>
                 <div class="collapse" id="number7">
                   <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="">조직도 조회</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="orgChart.me">조직도 조회</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">조직도 수정</a></li>
                   </ul>
                 </div>

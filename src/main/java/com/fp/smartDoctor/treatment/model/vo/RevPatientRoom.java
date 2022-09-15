@@ -12,6 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class RevPatientRoom {
+	private int bookingNo;
 	private int proomNo;
 	private int clinicNo;
 	private String roomName;

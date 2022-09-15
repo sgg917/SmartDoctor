@@ -185,12 +185,6 @@ th {
 
 					<br> <br>
 
-					<button type="button" class="btn btn-danger"
-						style="height: 30px; width: 100px; padding: 0%; color: black; background-color: rgb(65, 125, 122);"
-						data-toggle="modal" data-target="#myModal2"
-						onclick="ModalClose()">수정</button>
-					<button type="button" class="btn btn-danger"
-						style="height: 30px; width: 100px; padding: 0%; color: black; background-color: red">수술취소</button>
 					<button type="button" class="btn btn-secondary"
 						style="height: 30px; width: 100px; padding: 0%; color: black;"
 						onclick="ModalClose()">뒤로가기</button>
@@ -204,10 +198,7 @@ th {
 	</div>
 			
 		
-	<!-- 수술실 수정 모달-->
-	<div class="modal fade insertModal mymodal2" id="myModal2">
-	    모달
-  	</div>
+	
 
 
 
