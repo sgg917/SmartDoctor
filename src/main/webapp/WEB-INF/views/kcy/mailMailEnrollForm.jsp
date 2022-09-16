@@ -137,9 +137,9 @@
 		<!-- 
 			
 			메뉴바에 넣어줘야함
-			<li><button class="subBtn" onclick='location.href="list.mil?currentPage=1&mailOwn=${loginUser.empId }"'>받은메일함</button></li>
-			<li><button class="subBtn" onclick='location.href="flist.mil?currentPage=1&mailOwn=${loginUser.empId }"'>보낸메일함</button></li>
-			<li><button class="subBtn" onclick='location.href="ilist.mil?currentPage=1&mailOwn=${loginUser.empId }"'>중요메일함</button></li>
+			<li><button class="subBtn" onclick='location.href="list.mil?currentPage=1&mailOwn=${loginUser.empNo }"'>받은메일함</button></li>
+			<li><button class="subBtn" onclick='location.href="flist.mil?currentPage=1&mailOwn=${loginUser.empNo }"'>보낸메일함</button></li>
+			<li><button class="subBtn" onclick='location.href="ilist.mil?currentPage=1&mailOwn=${loginUser.empNo }"'>중요메일함</button></li>
 			<li><button class="subBtn subActive" onclick='location.href="enrollForm.mil"'>메일작성</button></li>
 		 -->
 
@@ -159,7 +159,7 @@
 					<br>
 					<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="get">
 					<input type="hidden" name="mailnameFrom" value="${ loginUser.empName }">
-					<input type="hidden" name="empId" value="${ loginUser.empId }">
+					<input type="hidden" name="empNo" value="${ loginUser.empNo }">
 					<input type="hidden" id="mailNo" name="mailNo" value="${e.mailNo }">
 					<div class="ffnos" style="display:none;">
 					<c:forEach items="${ btList }" var="bt">
@@ -199,8 +199,8 @@
 								<td colspan="2">
 									<div>
 										<c:choose>
-											<c:when test="${!empty trans}">
-												<input id="n1" type="text" class="inputs inputDual1" name="mailTo" style="width:120px; float:left;" value="${trans}@ergate.com">
+											<c:when test="${!empty fulladress}">
+												<input id="n1" type="text" class="inputs inputDual1" name="mailTo" style="width:120px; float:left;" value="${fulladress}@smartdoctor.com">
 											</c:when>
 											<c:otherwise>
 												<input id="n1" type="text" class="inputs inputDual1" name="mailTo" style="width:120px; float:left;">
@@ -287,7 +287,7 @@
 								        	<table class="fnoTable" border="1">
 								        	<tr>
 								        	<c:forEach items="${ mtList }" var="mt">
-								        		<td><input type="hidden" name="fno" value="${mt.attachmentNo}">${mt.attachmentNo}</td>
+								        		<td><input type="hidden" name="fileNo" value="${mt.attachmentNo}">${mt.attachmentNo}</td>
 								        	</c:forEach>
 								        	</tr>
 								        	</table>
@@ -441,60 +441,7 @@
 
 
 
-					<!--drag&drop-->
-					<script>
-              
-
-                //초기화
-                $(document).ready(function(){
-                    init();
-                });
-
-                //파일 Drag&Drop 업로드(초기화 시 EventListener를 부여하는 방식)
-                const init = () => {
-                    const sec = document.querySelector('#upload-section');
-                    const btnUpload = sec.querySelector('.btn-upload');
-                    const inputFile = sec.querySelector('input[type="file"]');
-                    const uploadBox = sec.querySelector('.upload-box');
-                  
-                    //Chrome의 경우 DragOver한 파일을 Drop시 해당 파일 내용을 브라우저에 띄워주기 때문에
-                    //dragover와 drop 이벤트의 기본 기능을 preventDefault를 이용해 막아준다.
-                    
-                    uploadBox.addEventListener('dragover', function(e) {
-                        e.preventDefault();
-                    });
-                  
-                    uploadBox.addEventListener('drop', function(e){
-                        e.preventDefault();
-                    
-                        //DataTransfer로 받아올 수 있음
-                        const data = e.dataTransfer;
-                        //유효성 검사
-                        if(!isValid(data)) return;
-                    
-                        //파일이 있는 경우 text 교체
-                        $('#testFileNm').text(data.files[0] != null ? data.files[0].name : 'Drag&Drop');
-                        //* Drag&Drop 된 파일을 input file의 내용으로 교체
-                        $('#testFile')[0].files = data.files;
-                    });
-                }
-                  
-                //유효성 검사(필요한 부분만 가져와 사용하였음)
-                const isValid = (data) => {
-                    
-                    //파일 유효 검사
-                    if(data.types.indexOf('Files') < 0) return false;
-                    //파일 개수 검사(여러 개의 파일을 선택 후, Drag&Drop 하는 것을 방지)
-                    if(data.files.length > 1) {
-                        alert('파일은 하나씩 전송이 가능합니다.');
-                        return false;
-                    }
-                    return true;
-                    
-                }
-
-              </script>
-
+				
 
 
 			<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
@@ -551,13 +498,13 @@
 
 
 
-	var signerId = new Array();
+	var signerNo = new Array();
 	var signerName = new Array();
 	
 	// 받는사람아이디 받아오기
 	function getSid(data){
-		signerId = data;
-		console.log("받는사람: " + signerId);
+		signerNo = data;
+		console.log("받는사람: " + signerNo);
 	}
 	
 	// 받는사람이름 받아오기
@@ -583,13 +530,13 @@
 	
 	function cancleBack(){
 		if('${param.pageFrom}'=='inbox'){
-			location.href="list.mil?currentPage=1&mailOwn=" + '${loginUser.empId}';
+			location.href="list.mil?currentPage=1&mailOwn=" + '${loginUser.empNo}';
 		}else if('${param.pageFrom}'=='detail'){
-			location.href="list.mil?currentPage=1&mailOwn=" + '${loginUser.empId}';
+			location.href="list.mil?currentPage=1&mailOwn=" + '${loginUser.empNo}';
 		}else if('${param.pageFrom}'=='import'){
-			location.href="ilist.mil?currentPage=1&mailOwn=" + '${loginUser.empId}';
+			location.href="ilist.mil?currentPage=1&mailOwn=" + '${loginUser.empNo}';
 		}else{
-			location.href="flist.mil?currentPage=1&mailOwn=" + '${loginUser.empId}';
+			location.href="flist.mil?currentPage=1&mailOwn=" + '${loginUser.empNo}';
 		}
 		
 	}
@@ -807,7 +754,7 @@
 	 function uploadFile() {
 	     // 등록할 파일 리스트
 	     var uploadFileList = Object.keys(fileList);
-	     	//signerId - 받는사람 아이디
+	     	//signerNo - 받는사람 아이디
 	 	
 			//signerName = data; -- 받는 사람 이름
 		
@@ -817,14 +764,14 @@
 			//refName = data; -- 참조 이름
 			var refNameStr=refName.join(',');
 			
-		    console.log(signerId + signerName + refId, refNameStr);
+		    console.log(signerNo + signerName + refId, refNameStr);
 	        var form = $('#uploadForm');
 	        console.log(form[0]);
 	        var formData = new FormData(form[0]);
 	        formData.append('mailTitle', form[0].mailTitle.innerText);
 	        formData.append('mailContent', form[0].mailContent.innerText);
 	        formData.append('mailTo', form[0].mailTo.innerText);
-	        formData.append('empId', form[0].empId.innerText);
+	        formData.append('empNo', form[0].empNo.innerText);
 	        formData.append("mailnameTo", form[0].mailnameTo.innerText);
 	        formData.append("mailnameFrom", form[0].mailnameFrom.innerText);
 	        for (var i = 0; i < uploadFileList.length; i++) {
@@ -834,11 +781,11 @@
 	        /* console.log(formData.getAll('boardTitle'));
 	        console.log(formData.getAll('boardContent'));
 	        console.log(formData.getAll('boardWriter'));
-	        console.log(formData.getAll('empId'));
+	        console.log(formData.getAll('empNo'));
 	        console.log(formData.getAll('files')); */
 	        
 	        $.ajax({
-	            url : "insert.mil",
+	            url : "insert.em",
 	            data : formData,
 	            type : 'POST',
 	            enctype : 'multipart/form-data',
@@ -849,10 +796,10 @@
 	            success : function(result) {
 	                if (result >= 1) {
 	                    alert("게시글이 등록되었습니다.");
-	                    location.href="flist.mil?currentPage=1&mailOwn=${loginUser.empId}";
+	                    location.href="flist.mil?currentPage=1&mailOwn=${loginUser.empNo}";
 	                } else {
 	                    alert("게시글 등록에 실패하였습니다.");
-	                    location.href="flist.mil?currentPage=1&mailOwn=${loginUser.empId}";
+	                    location.href="flist.mil?currentPage=1&mailOwn=${loginUser.empNo}";
 	                }
 	                
 	            },

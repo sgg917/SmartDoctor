@@ -32,7 +32,7 @@ public class TreatmentController {
 	//입원실 예약 조회 호출
 	@RequestMapping("enrollForm.pr")
 	public String prEnrollForm() {
-		return "kcy/revPREnrollForm";
+		return "kcy/test";
 	}
 	
 	

@@ -58,6 +58,16 @@
 	<!-- xml 방식 단점: 다수의 개발자가 이용시 충돌 빈번, 장점: 관리의 편의성 상승  -->
 	
 	
+	<!-- 멀티파일 등록 빈 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding" value="EUC-KR" /> 
+		<beans:property name="maxUploadSize" value="10000000" />
+	</beans:bean>
+	
+	
+	
+	
+	
 	<interceptors>
 		<interceptor>
 			<mapping path="/myPage.me"/>
