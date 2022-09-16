@@ -75,20 +75,13 @@
 		  )
 		values
 		( 
-		       seq_enno.nextval
+		       seq_emno.nextval
 		     , default
 		     , #{mailFrom}
 		     , #{mailTo}
 		     , #{mailTitle}
 		     , #{mailContent}
-		     , <choose> 
-			   	  <when test='fileNo != ""'> 
-				  'Y'
-				  </when> 
-				  <otherwise> 
-				  'N'
-				  </otherwise> 
-			   </choose>
+		     , ''
 		     , sysdate
 		     , default
 		     , default
@@ -149,7 +142,7 @@
 		 where rownum = 1
 	</select>
 
-	<select id="loadMailnameTo" resultMap="memberResult">
+	<select id="loadMailnameTo" parameterType="String" resultType="String">
 		select emp_name 
 		  from member
 		 where emp_no = #{toname}

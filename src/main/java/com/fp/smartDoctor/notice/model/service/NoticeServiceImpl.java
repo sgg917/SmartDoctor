@@ -24,10 +24,17 @@ public class NoticeServiceImpl implements NoticeService{
 	public int selectListCount() {
 		return nDao.selectListCount(sqlSession);
 	}
-
+	
+	// 공지사항 리스트 조회
 	@Override
 	public ArrayList<Notice> selectList(PageInfo pi) {
 		return nDao.selectList(sqlSession, pi);
+	}
+
+	// 공지사항 작성하기
+	@Override
+	public int insertNotice(Notice n) {
+		return nDao.insertNotice(sqlSession, n);
 	}
 
 }

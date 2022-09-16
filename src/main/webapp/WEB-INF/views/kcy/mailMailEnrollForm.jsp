@@ -158,23 +158,24 @@
 					<br>
 					<br>
 					<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="get">
-					<input type="hidden" name="mailnameFrom" value="${ loginUser.empName }">
-					<input type="hidden" name="empNo" value="${ loginUser.empNo }">
-					<input type="hidden" id="mailNo" name="mailNo" value="${e.mailNo }">
-					<div class="ffnos" style="display:none;">
-					<c:forEach items="${ btList }" var="bt">
-						<input type="file" id="ffno" name="ffno" value="">
-					</c:forEach>
-					</div>
+						<input type="hidden" name="mailnameFrom" value="${ loginUser.empName }">
+						<input type="hidden" name="mailFrom" value="${ loginUser.email }">
+						<input type="hidden" name="empNo" value="${ loginUser.empNo }">
+						<input type="hidden" id="mailNo" name="mailNo" value="${e.mailNo }">
+						<div class="ffnos" style="display:none;">
+						<c:forEach items="${ btList }" var="bt">
+							<input type="file" id="ffno" name="ffno" value="">
+						</c:forEach>
+						</div>
 						<div class="wrap22">
 							<div class="left1">
-								<button type="submit" class="btn1">보내기
+								<button type="button" class="btn1" onclick="uploadFile();">보내기
 								<div class="mdi mdi-arrow-right-bold"style="font-size: 1.2em; display: inline-block; color: red;"></div>
 								</button>
 								<button type="button" class="btn1"
 									onClick="javascript:popOpen();">미리보기</button>
 								<button type="button" class="btn1">임시저장</button>
-								<button type="button" class="btn1">다시쓰기</button>
+								<button class="btn1" type="button" onclick="cancleBack();">다시쓰기</button>
 							</div>
 							<div class="right1">
 								
@@ -293,24 +294,16 @@
 								        	</table>
 												
 								        </div>
-								        <c:choose>
-													<c:when test="${empty e }">
-														<button id="submitBoard" type="button" class="btn1" onclick="uploadFile();" style="background: rgb(26, 188, 156);">등록</button>
-													</c:when>
-													<c:otherwise>
-														<button id="submitBoard" type="button" class="btn1" onclick="updateLoadFile();" style="background: rgb(26, 188, 156);">수정</button>
-													</c:otherwise>
-												</c:choose>
-												<button class="btn1" type="button" onclick="cancleBack();">취소</button>
+								        
 							        </div>
 								</td>
 							</tr>
 							<tr>
 								<td colspan="5"><textarea name="mailContent" style="width:100%;" class="yui3-cssreset"
-										id="summernote" name="editcontent"></textarea></td>
+										id="summernote" ></textarea></td>
 							</tr>
 							<tr>
-								<td colspan="5"><button type="submit"
+								<td colspan="5"><button type="button"
 										class=" btn1">템플릿</button>
 									<button type="submit" class="btn1">예약발송</button></td>
 							</tr>
@@ -485,24 +478,11 @@
 
 
 <script>
-
-	
-	
-	
-	
-
-
-
-
-
-
-
-
 	var signerNo = new Array();
 	var signerName = new Array();
 	
-	// 받는사람아이디 받아오기
-	function getSid(data){
+	// 받는사람사번 받아오기
+	function getSNo(data){
 		signerNo = data;
 		console.log("받는사람: " + signerNo);
 	}
@@ -540,6 +520,7 @@
 		}
 		
 	}
+	
 	$(document).ready(function() {
         $("#input_file").bind('change', function() {
             selectFile(this.files);
@@ -755,13 +736,10 @@
 	     // 등록할 파일 리스트
 	     var uploadFileList = Object.keys(fileList);
 	     	//signerNo - 받는사람 아이디
-	 	
 			//signerName = data; -- 받는 사람 이름
-		
 			//refId = data; -- 참조 아이디
-		
-		
 			//refName = data; -- 참조 이름
+			
 			var refNameStr=refName.join(',');
 			
 		    console.log(signerNo + signerName + refId, refNameStr);
@@ -795,22 +773,19 @@
 	            cache : false,
 	            success : function(result) {
 	                if (result >= 1) {
-	                    alert("게시글이 등록되었습니다.");
-	                    location.href="flist.mil?currentPage=1&mailOwn=${loginUser.empNo}";
+	                    alert("메일 전송 완료");
 	                } else {
-	                    alert("게시글 등록에 실패하였습니다.");
-	                    location.href="flist.mil?currentPage=1&mailOwn=${loginUser.empNo}";
+	                    alert("메일 전송 실패");
 	                }
 	                
 	            },
 	            error:function(){	// error : ajax 통신실패시 처리할 함수 지정
-						console.log("ajax 통신 실패!");
+						console.log("ajax 통신 실패");
 					},
-					complete:function(){// complete : ajax 통신 성공여부와 상관없이 실행
-						console.log("무조건 호출!!");
-					}
 	        });
 	 }
 	</script>
 </body>
 </html>
+
+[spring] Request processing failed; nested exception is java.lang.ClassCastException: class java.lang.Integer cannot be cast to class java.lang.Boolean (java.lang.Integer and java.lang.Boolean are in module java.base of loader 'bootstrap')

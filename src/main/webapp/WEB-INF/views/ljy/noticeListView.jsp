@@ -33,7 +33,7 @@
                   	<div style="float: left;">
                     	<h2 style="float: left;">공지사항</h2>
                     	<br>
-                    	<span class="card-description" style="float: left;">총 ${ listCount }건 <code style="color:white;">.table-hover</code></span>
+                    	<span class="card-description" style="float: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;총 ${ listCount }건 <code style="color:white;">.table-hover</code></span>
                     </div>
                     
 					<br><br><br><br>

@@ -27,11 +27,11 @@
                 <div class="card">
                   <div class="card-body">
                   
-                  <h2>공지사항</h2>
+                  <h2>공지사항 작성</h2>
 
 	              <div id="detail-area">
 					
-					<form id="noticeEnroll" method="post" action="insert.no" ecntype="multipart/form-data">
+					<form id="noticeEnroll" method="post" action="insert.no" enctype="multipart/form-data">
                 	<table class="table">
 
 	                  <thead>
@@ -43,22 +43,18 @@
 
 	                  <tbody>
 	                    <tr>
-	                      <th>작성일</th>
-	                      <td><input type="text" id="enrollDate" class="form-control" name="enrollDate" style="border: 0;  height: 1px;" required></td>
-	                    </tr>
-	                    <tr>
 	                      <th>첨부파일</th>
-	                      <td><input type="file" id="upfile" class="form-control-file border" style="border: 0; name="upfile"></td>
+	                      <td><input type="file" id="upfile" class="form-control-file border" style="border: 0;" name="upfile"></td>
 	                    </tr>
 	                    <tr>
 	                      <th colspan="2" style="text-align: center;">내용</th>
 	                    </tr>
 	                    <tr>
-	                      <td colspan="2"><textarea cols="100" rows="20" style="border: none; white-space:pre;"></textarea></td>
+	                      <td colspan="2"><textarea cols="100" rows="20" style="border: none; white-space:pre;" id="noticeContent" name="noticeContent"></textarea></td>
 	                    </tr>
 	                  </tbody>
                 	</table>
-					</form>
+					
 					
              	  </div>
 
@@ -66,6 +62,7 @@
 	                <button type="submit" class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 100px;">등록하기</button>
 	                <button type="reset" class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(237, 230, 214); color: rgb(29, 92, 99); border: none; width: 100px;">취소하기</button>
 	              </div>
+	              </form>
 	              
                   </div>
                 </div>
