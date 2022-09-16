@@ -39,6 +39,25 @@
 		    by notice_no desc
 	</select>
 
+	<insert id="insertNotice">
+		insert
+		  into notice
+		      (
+		        notice_no
+		      , notice_title
+		      , notice_content
+		      , notice_originname
+		      , notice_filepath
+		      )
+		values
+		      (
+		        seq_nno.nextval
+		      , #{noticeTitle}
+		      , #{noticeContent}
+		      , #{noticeOrigin}
+		      , #{noticePath}
+		      )
+	</insert>
 
 
 
