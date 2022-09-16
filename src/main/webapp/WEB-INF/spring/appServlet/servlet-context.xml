@@ -74,6 +74,8 @@
 			<mapping path="/enrollForm.bo"/>
 			<mapping path="/list.att"/>
 			<mapping path="/apprEnrollForm.si"/>
+			<mapping path="/apprReferList.si"/>
+			<mapping path="/apprReportList.si"/>
 			<beans:bean class="com.fp.smartDoctor.common.interceptor.LoginInterceptor" id="loginInterceptor"/>
 		</interceptor>
 	</interceptors>

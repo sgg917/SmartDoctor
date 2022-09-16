@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fp.smartDoctor.treatment.model.service.TreatmentService;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Disease;
+import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 import com.fp.smartDoctor.treatment.model.vo.Surgery;
@@ -128,6 +129,10 @@ public class TreatmentController {
 		// 수술 전체 리스트 조회
 		ArrayList<Surgery> sList = tService.selectSurgeryList();
 		mv.addObject("sList", sList).setViewName("ljy/enrollTreatment");
+		
+		// 약 전체 리스트 조회
+		ArrayList<Medicine> mList = tService.selectMedList();
+		mv.addObject("mList", mList).setViewName("ljy/enrollTreatment");
 
 		return mv;
 	}

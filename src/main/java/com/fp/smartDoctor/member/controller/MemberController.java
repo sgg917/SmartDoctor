@@ -1,5 +1,7 @@
 package com.fp.smartDoctor.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.smartDoctor.member.model.service.MemberService;
+import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 
 @Controller
@@ -78,6 +81,21 @@ public class MemberController {
 			session.setAttribute("alertMsg", "현재 비밀번호가 틀렸습니다. 다시 입력해주세요!");
 			return "redirect:changePwd.me";
 		}
+	}
+	
+	@RequestMapping("orgChart.me")
+	public ModelAndView selectOrganization(ModelAndView mv) {
+		
+		// 조직도 부서 조회
+		ArrayList<Dept> dlist = mService.selectOrgChartDept();
+		
+		// 조직도 사원 조회
+		ArrayList<Member> mlist = mService.selectOrgChartEmp();
+		
+		mv.addObject("dlist", dlist).addObject("mlist", mlist)
+		.setViewName("lsg/organizationChartView");
+		
+		return mv;
 	}
 	
 }

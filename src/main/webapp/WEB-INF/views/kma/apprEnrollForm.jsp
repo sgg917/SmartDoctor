@@ -466,7 +466,7 @@
 							      
 								let node = data.node
 								//console.log(node.key);
-								addApprLine(node.key);
+								addApprLine(node.key); // empNo 넘기기
 							}
 						});
 						
@@ -515,11 +515,10 @@
 					}else if( $("#apprLine").children(".ap-md-bd").length > 2 ){ // 3명 이상 선택 제한
 						
 						alert("최대 결재인원은 3명입니다.");
-						$("#appr-line").attr("disabled", true);
+						$("#appr-line").off('click');
 						
 					}else{ 
 						
-						$("#appr-line").attr("disabled", false);
 						$("#apprLine").append(data);
 					}
 					
@@ -535,11 +534,10 @@
 					}else if( $("#apprRef").children(".ap-md-bd").length > 2 ){ // 3명 이상 선택 제한
 						
 						alert("최대 결재인원은 3명입니다.");
-						$("#appr-ref").attr("disabled", true);
+						$("#appr-ref").off('click');
 						
 					}else{
 						
-						$("#appr-ref").attr("disabled", false);
 						$("#apprRef").append(data);
 					}
         			
@@ -553,7 +551,7 @@
 				$(this).closest('tr').remove();
 			})
 			
-			function selectedApprLine(){ // 결재라인 지정 선택하기 버튼 클릭시
+			function selectedApprLine(){ // 결재라인 지정 '선택하기' 버튼 클릭시
 				
 				let apprTotal = $("#apprLine").children(".ap-md-bd").length;
 				$("input[name=apprTotal]").attr('value', apprTotal); // 총결재자수 넘기기

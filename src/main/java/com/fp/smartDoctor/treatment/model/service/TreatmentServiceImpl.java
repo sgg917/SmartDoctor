@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.fp.smartDoctor.treatment.model.dao.TreatmentDao;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Disease;
+import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 import com.fp.smartDoctor.treatment.model.vo.Surgery;
@@ -100,6 +101,13 @@ public class TreatmentServiceImpl implements TreatmentService{
 	@Override
 	public ArrayList<Surgery> selectSurgeryList() {
 		ArrayList<Surgery> list = tDao.selectSurgeryList(sqlSession);
+		return list;
+	}
+
+	// 약 전체 리스트 조회
+	@Override
+	public ArrayList<Medicine> selectMedList() {
+		ArrayList<Medicine> list = tDao.selectMedList(sqlSession);
 		return list;
 	}
 	

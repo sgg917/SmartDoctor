@@ -24,5 +24,6 @@ public class Line {
 	private int lineNow;
 	private String lineDate;
 	private String empName;
+	private String jobName;
 	
 }

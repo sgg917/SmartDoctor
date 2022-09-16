@@ -53,11 +53,19 @@ public interface SignService {
 	int insertAppr(Sign s);
 	
 	// 사용자_참조문서함 페이지
-	int selectReferListCount(String memNo);
+	int selectReferListCount(String empNo);
 	ArrayList<Sign> selectApprReferList(PageInfo pi, String empNo);
 	
 	// 사용자_참조문서함 상세조회
 	ArrayList<Line> selectApprRef(int apprNo);
 	ArrayList<Line> selectApprLine(int apprNo);
 	Sign selectApprReferDetail(int apprNo);
+	
+	// 사용자_기안문서함 페이지
+	int selectReportListCount(String empNo);
+	ArrayList<Sign> selectApprReportList(PageInfo pi, String empNo);
+	
+	// 사용자_기안문서함 상세조회
+	int selectCommentCount(int apprNo);
+	Sign selectApprReportDetail(int apprNo);
 }

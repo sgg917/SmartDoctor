@@ -249,5 +249,42 @@ public class SignController {
 		return mv;
 	}
 	
+	// 사용자_기안문서함 페이지
+	@RequestMapping("apprReportList.si")
+	public ModelAndView selectApprReportList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, ModelAndView mv) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String empNo = loginUser.getEmpNo();
+		
+		int listCount = sService.selectReportListCount(empNo);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Sign> list = sService.selectApprReportList(pi, empNo);
+		
+		mv.addObject("pi", pi)
+		  .addObject("list", list)
+		  .setViewName("kma/apprReportList");
+		
+		return mv;
+	}
+	
+	// 사용자_기안문서함 상세보기
+	@RequestMapping("apprReportDetail.si")
+	public ModelAndView selectApprReportDetail(int apprNo, ModelAndView mv) {
+		
+		ArrayList<Line> ref = sService.selectApprRef(apprNo); // 참조자 조회
+		ArrayList<Line> line = sService.selectApprLine(apprNo); // 결재자 조회
+		int count = sService.selectCommentCount(apprNo); // 결재의견 개수 조회
+		Sign s = sService.selectApprReportDetail(apprNo);
+		
+		mv.addObject("s", s)
+		  .addObject("ref", ref)
+		  .addObject("line", line)
+		  .addObject("count", count)
+		  .setViewName("kma/apprReportDetail");
+		
+		return mv;
+	}
+	
 	
 }

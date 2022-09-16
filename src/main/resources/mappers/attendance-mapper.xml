@@ -28,6 +28,7 @@
 		<result column="emp_name" property="empName"/>
 	</resultMap>
 	
+	<!-- 한 사원의 근태 개수 조회 -->
 	<select id="selectListCount" resultType="_int">
 	SELECT COUNT(*)
 	  FROM (
@@ -70,6 +71,7 @@
 	        )
 	</select>
 	
+	<!-- 한 사원의 근태 리스트 조회 -->
 	<select id="selectAttendance" resultMap="attendanceResult">
 		SELECT
 		       NVL(EMP_NO, #{empNo}) "emp_no"
@@ -113,6 +115,7 @@
 		 ORDER BY WORKING_DAY DESC
 	</select>
 	
+	<!-- 출근 insert -->
 	<insert id="insertAttendance">
 		insert 
 		  into attendance
@@ -131,6 +134,7 @@
 		  )
 	</insert>
 	
+	<!-- 출근 여부 -->
 	<select id="selectStartTime" resultType="String">
 		select start_time
 		  from attendance
@@ -138,6 +142,7 @@
 		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
 	</select>
 	
+	<!-- 퇴근 여부 -->
 	<select id="selectEndTime" resultType="String">
 		select
 		       end_time
@@ -146,6 +151,7 @@
 		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
 	</select>
 	
+	<!-- 퇴근 & 근태 상태 update -->
 	<update id="endAttendance">
 		update attendance
 		   set end_time = to_char(sysdate, 'HH24:MI')
@@ -158,7 +164,7 @@
 		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
 	</update>
 	
-	<!-- 휴가 총 개수 조회 -->
+	<!-- 한 사원의 휴가 개수 조회 -->
 	<select id="selectVacListCount" resultType="_int">
 		select
 			   count(*)
@@ -166,7 +172,7 @@
 		 where emp_no = #{empNo}
 	</select>
 	
-	<!-- 휴가 리스트 조회 -->
+	<!-- 한 사원의 휴가 리스트 조회 -->
 	<select id="selectVacationList" resultMap="vacationResult">
 		select
 		       app_no "app_no"
@@ -183,7 +189,7 @@
 		    by app_no desc
 	</select>
 	
-	<!-- 휴가 잔여일수 조회 -->
+	<!-- 한 사원의 휴가 잔여일수 조회 -->
 	<select id="selectVacRemain" resultType="_int">
 		select 20 - nvl( sum(vac_days), 0)
 		  from vacation v
@@ -192,7 +198,7 @@
 		   and appr_status = '완료'
 	</select>
 	
-	<!-- 전 사원 근태 개수 조회 -->
+	<!-- 전 사원의 근태 개수 조회 -->
 	<select id="selectAllListCount" resultType="_int">
 		SELECT COUNT(*)
 		  FROM (
