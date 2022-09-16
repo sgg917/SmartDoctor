@@ -3,6 +3,7 @@ package com.fp.smartDoctor.messenger.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fp.smartDoctor.common.model.vo.PageInfo;
+import com.fp.smartDoctor.common.template.Pagination;
 import com.fp.smartDoctor.messenger.model.service.MessengerService;
 import com.fp.smartDoctor.messenger.model.vo.Email;
 import com.fp.smartDoctor.messenger.model.vo.MailAttachment;
@@ -111,7 +114,7 @@ public class MessengerController {
 				}else {
 					setFlag += 100;
 					flag = setFlag;
-				} // 혹시나 Math.random이 같은 값이 나올경우를 대비해서~
+				} // 같은 값이 나올경우
 				String changeName = saveFile(files[i], form, flag);
 				MailAttachment mt = new MailAttachment();
 				mt.setChangeName(changeName);
@@ -131,7 +134,23 @@ public class MessengerController {
 		
 	}
 
+	@RequestMapping("flist.em")
+	public String selectToList(int currentPage, String mailOwn, Model model) {
 
+		int listCount = mService.fselectListCount(mailOwn);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
+		
+		ArrayList<Email> list = mService.fselectList(pi, mailOwn);
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		for(int i=0; i<list.size(); i++) {
+			list.get(i).setMailDateStr(format1.format(list.get(i).getMailDate()));
+		}
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+
+		return "mail/mailSentbox";
+	}
 
 	 	
 	 	
