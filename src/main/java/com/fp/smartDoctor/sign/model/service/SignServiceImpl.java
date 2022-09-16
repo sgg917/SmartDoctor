@@ -110,4 +110,8 @@ public class SignServiceImpl implements SignService {
 	public Sign selectApprReportDetail(int apprNo) {
 		return sDao.selectApprReportDetail(sqlSession, apprNo);
 	}
+	@Override
+	public int selectCommentCount(int apprNo) {
+		return sDao.selectCommentCount(sqlSession, apprNo);
+	}
 }

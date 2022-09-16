@@ -21,9 +21,22 @@
 					<hr>
 					<br>
 					<div class="appr-table-wrapper" style="margin-left:30px;">
-						<button type="button" class="btn btn-success appr-write-btn">
-							<i class="mdi mdi-close" style="color: white;"></i>&nbsp; <span>상신취소</span>
-						</button>
+					
+						<c:choose>
+							<c:when test="${ s.apprStatus eq '대기' }">
+								<button type="button" class="btn btn-success appr-write-btn">
+									<i class="mdi mdi-close" style="color: white;"></i>&nbsp; 
+									<span>상신취소</span>
+								</button>
+							</c:when>
+							<c:when test="${ s.apprStatus eq '반려' || s.apprStatus eq '완료' }">
+								<button type="button" class="btn btn-success appr-write-btn">
+		                            <i class="mdi mdi-arrow-up-bold" style="color:white;"></i>&nbsp;&nbsp;
+		                            <span>재기안</span>
+	                          	</button>
+							</c:when>
+						</c:choose>
+						
 						<button type="button" class="btn btn-outline-success btn-green" 
 							    style="width: 100px;" onclick="history.back();">
 							<i class="mdi mdi-subdirectory-arrow-left menu-icon"></i>&nbsp; 
@@ -73,7 +86,7 @@
 											<th></th>
 											<th></th>
 										</tr>
-										<tr align="center">
+										<tr align="center" id="line-appr">
 											<td height="90"></td>
 											<td></td>
 											<td></td>
@@ -87,7 +100,7 @@
 									
 									<script>
 									
-										$(document).ready(function(){ // 처리 테이블에 출력할 요소
+										$(document).ready(function(){ // 테이블에 출력할 요소
 											
 											let jobArr = [];
 											<c:forEach var="i" items="${ line }">
@@ -108,14 +121,32 @@
 													
 												$(item).text(empArr[index]);
 											})
+											
+											let dateArr = [];
+											<c:forEach var="i" items="${ line }">
+												dateArr.push( "${i.lineDate}" );
+											</c:forEach>
+													
+											$('#line-appr').children().each(function(index, item){ // 승인도장 + 날짜 출력
+												
+												if( dateArr[index] != "" && typeof dateArr[index] != 'undefined' ){ 
+													$(item).html("<img src='resources/images/kma/approved.png'>" + dateArr[index]);
+												}												
+											})
+											
+											let refArr = [];
+											<c:forEach var="r" items="${ ref }">
+												refArr.push( "${r.empName}" );
+											</c:forEach>
+											
+											$("#ref-name").text(refArr.join(", ")); // 참조자 이름 출력
 										})
-										
 									</script>
 								</td>
 							</tr>
 							<tr>
 								<th>참조자</th>
-								<td colspan="5">서강준, 이도현</td>
+								<td colspan="5" id="ref-name"></td>
 							</tr>
 							<tr>
 								<th>첨부파일</th>
@@ -145,11 +176,11 @@
 						<table class="table table-bordered appr-table" id="appr-comment">
 							<tr>
 								<th colspan="5">&nbsp;결재의견 &nbsp;
-									<span>(${fn:length(line)})</span>
+									<span>(${count})</span>
 								</th>
 							</tr>
 							<c:choose> 
-								<c:when test="${ empty line }">
+								<c:when test="${ count eq 0 }">
 									<tr>
 										<td colspan="5" align="center">
 											결재의견이 없습니다.

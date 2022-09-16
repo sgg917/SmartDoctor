@@ -274,11 +274,13 @@ public class SignController {
 		
 		ArrayList<Line> ref = sService.selectApprRef(apprNo); // 참조자 조회
 		ArrayList<Line> line = sService.selectApprLine(apprNo); // 결재자 조회
+		int count = sService.selectCommentCount(apprNo); // 결재의견 개수 조회
 		Sign s = sService.selectApprReportDetail(apprNo);
 		
 		mv.addObject("s", s)
 		  .addObject("ref", ref)
 		  .addObject("line", line)
+		  .addObject("count", count)
 		  .setViewName("kma/apprReportDetail");
 		
 		return mv;

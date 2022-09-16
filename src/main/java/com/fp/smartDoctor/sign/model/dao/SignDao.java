@@ -120,8 +120,13 @@ public class SignDao {
 		return (ArrayList)sqlSession.selectList("signMapper.selectApprReportList", empNo, rowBounds);
 	}
 	
+	public int selectCommentCount(SqlSessionTemplate sqlSession, int apprNo) {
+		return sqlSession.selectOne("signMapper.selectCommentCount", apprNo);
+	}
+	
 	public Sign selectApprReportDetail(SqlSessionTemplate sqlSession, int apprNo) {
 		return sqlSession.selectOne("signMapper.selectApprReportDetail", apprNo);
 	}
+	
 	
 }

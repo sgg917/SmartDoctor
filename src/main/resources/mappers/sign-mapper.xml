@@ -238,6 +238,7 @@
 		   and line_refer = 'Y'
 	</select>
 	
+	<!-- 사용자_결재선 담기 -->
 	<select id="selectApprLine" resultMap="lineResult">
 		select
 		       line_status
@@ -245,7 +246,7 @@
 		     , line_disappr
 		     , line_refer
 		     , emp_name
-		     , line_date
+		     , to_char(line_date, 'YYYY-MM-DD') as "line_date"
 		     , job_name
 		  from appr_line l
 		  join approval v on (l.appr_no = v.appr_no)
@@ -255,6 +256,7 @@
 		   and line_refer = 'N'
 	</select>
 	
+	<!-- 사용자_참조자 담기 -->
 	<select id="selectApprRef" resultMap="lineResult">
 		select
 		       line_status
@@ -303,6 +305,7 @@
 		     , appr_title
 		     , appr_content
 		     , to_char(v.enroll_date, 'YYYY-MM-DD') as "enroll_date"
+		     , appr_status
 		     , origin_name
 		     , change_name
 		     , emp_name
@@ -313,6 +316,15 @@
 		  join department d on (m.dept_no = d.dept_no)
 		  join job j on (m.job_no = j.job_no)
 		 where v.appr_no = #{apprNo}
+	</select>
+	
+	<!-- 사용자_결재의견 개수 담기 -->
+	<select id="selectCommentCount" resultType="_int">
+		select
+		       count(*)
+		  from appr_line
+		 where line_comment is not null
+		   and appr_no = #{apprNo}
 	</select>
 	
 </mapper>
