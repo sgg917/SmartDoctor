@@ -166,6 +166,7 @@
 		  from member
 		  join job using(job_no)
 		  left join department using (dept_no)
+		 where status in ('Y', 'A')
 		  order by job_no
 	</select>
 	
