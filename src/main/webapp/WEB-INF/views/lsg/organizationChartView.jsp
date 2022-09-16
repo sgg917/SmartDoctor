@@ -111,233 +111,13 @@ li {
                     <div class="org-wrap" id="org-chart" style="width:80%; margin-right:10px;">
                         <br>
                         <h4><b><i class="mdi mdi-hospital-building"></i>율제병원</b></h4>
-                        <ul>
+                        <ul id="chartArea">
                           
-                          <c:forEach var="m" items="${ mlist }">
-                          
-                          <!-- 병원장 -->
-                          	<c:if test="${ m.jobName eq '병원장' }">
-	                          <li class="nav-item">
-	                            <a class="nav-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="ui-basic">
-	                                <i class="mdi mdi-account"></i>
-	                              <span class="menu-title">${m.jobName} ${m.empName}</span>
-	                            </a>
-	                          </li>
-                          	</c:if>
-                          	
-                          	<!-- 부서 -->
-                          	<c:if test="${ m.level eq 1 }">
-                      			<!-- 상위부서 -->
-		                          <li class="nav-item">
-		                            <a class="nav-link" data-bs-toggle="collapse" href="#dept"+1 aria-expanded="false" aria-controls="ui-basic">
-		                                <i class="mdi mdi-chevron-double-right"></i>
-		                              <span class="menu-title">${ m.deptName }</span>
-		                            </a>
-								
-								<c:choose>
-									<!-- 하위부서가 있을 경우 (진료부, 간호부) -->
-									<c:when test="${ m.level eq 2 and m.upperNo eq 1 }">
-									
-										
-										<!-- 진료부 하위요소 -->
-			                            <div class="collapse" id="dept"+1>
-			                                <ul class="nav flex-column sub-menu" style="padding-left:30px;">
-			                                    <!-- 일반외과 -->
-			                                    <li class="nav-item">
-			                                        <a class="nav-link" data-bs-toggle="collapse" href="#dept1-1" aria-expanded="false" aria-controls="ui-basic">
-			                                            <i class="mdi mdi-chevron-double-right"></i>
-			                                            <span class="menu-title">일반외과</span>
-			                                        </a>
-			                                    </li>
-			                                    <div class="collapse" id="dept1-1">
-			                                        <ul class="nav flex-column sub-menu" style="padding-left:20px;">
-			                                          <li class="nav-item"><a class="nav-link">이익준 교수</a></li>
-			                                          <li class="nav-item"><a class="nav-link">김말똥 전공의</a></li>
-			                                          <li class="nav-item"><a class="nav-link">장겨울 전공의</a></li>
-			                                          <li class="nav-item"><a class="nav-link">장윤복 레지던트</a></li>
-			                                        </ul>
-			                                    </div>
-			                                    <!-- 일반외과 끝 -->
-			                                </ul>
-			                            </div>
-			                            <!-- 진료부 하위요소 끝-->
-									</c:when>
-									<!-- 하위부서가 없는 경우 (원무부, 경영지원부) -->
-									<c:otherwise>
-									</c:otherwise>
-								</c:choose>
-								
-	                            <!-- 진료부 하위요소 -->
-	                            <div class="collapse" id="dept1">
-	                                <ul class="nav flex-column sub-menu" style="padding-left:30px;">
-	                                    <!-- 일반외과 -->
-	                                    <li class="nav-item">
-	                                        <a class="nav-link" data-bs-toggle="collapse" href="#dept1-1" aria-expanded="false" aria-controls="ui-basic">
-	                                            <i class="mdi mdi-chevron-double-right"></i>
-	                                            <span class="menu-title">일반외과</span>
-	                                        </a>
-	                                    </li>
-	                                    <div class="collapse" id="dept1-1">
-	                                        <ul class="nav flex-column sub-menu" style="padding-left:20px;">
-	                                          <li class="nav-item"><a class="nav-link">이익준 교수</a></li>
-	                                          <li class="nav-item"><a class="nav-link">김말똥 전공의</a></li>
-	                                          <li class="nav-item"><a class="nav-link">장겨울 전공의</a></li>
-	                                          <li class="nav-item"><a class="nav-link">장윤복 레지던트</a></li>
-	                                        </ul>
-	                                    </div>
-	                                    <!-- 일반외과 끝 -->
-	                                </ul>
-	                            </div>
-	                            <!-- 진료부 하위요소 끝-->
-	
-	                          </li>
-	                          <!-- 진료부 끝 -->
-                          	</c:if>
-                          	</c:forEach>
-                          
-
-
-                          <!-- 진료부-->
-                          <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#dept1" aria-expanded="false" aria-controls="ui-basic">
-                                <i class="mdi mdi-chevron-double-right"></i>
-                              <span class="menu-title">진료부</span>
-                            </a>
-
-                            <!-- 진료부 하위요소 -->
-                            <div class="collapse" id="dept1">
-                                <ul class="nav flex-column sub-menu" style="padding-left:30px;">
-                                    <!-- 일반외과 -->
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="collapse" href="#dept1-1" aria-expanded="false" aria-controls="ui-basic">
-                                            <i class="mdi mdi-chevron-double-right"></i>
-                                            <span class="menu-title">일반외과</span>
-                                        </a>
-                                    </li>
-                                    <div class="collapse" id="dept1-1">
-                                        <ul class="nav flex-column sub-menu" style="padding-left:20px;">
-                                          <li class="nav-item"><a class="nav-link">이익준 교수</a></li>
-                                          <li class="nav-item"><a class="nav-link">김말똥 전공의</a></li>
-                                          <li class="nav-item"><a class="nav-link">장겨울 전공의</a></li>
-                                          <li class="nav-item"><a class="nav-link">장윤복 레지던트</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- 일반외과 끝 -->
-                                    <!-- 일반내과 -->
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="collapse" href="#dept1-2" aria-expanded="false" aria-controls="ui-basic">
-                                            <i class="mdi mdi-chevron-double-right"></i>
-                                            <span class="menu-title">일반내과</span>
-                                        </a>
-                                    </li>
-                                    <div class="collapse" id="dept1-2">
-                                        <ul class="nav flex-column sub-menu" style="padding-left:20px;">
-                                          <li class="nav-item"><a class="nav-link">이익준 교수</a></li>
-                                          <li class="nav-item"><a class="nav-link">김말똥 전공의</a></li>
-                                          <li class="nav-item"><a class="nav-link">장겨울 전공의</a></li>
-                                          <li class="nav-item"><a class="nav-link">장윤복 레지던트</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- 일반내과 끝 -->
-                                    <!-- 정신과 -->
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="collapse" href="#dept1-3" aria-expanded="false" aria-controls="ui-basic">
-                                            <i class="mdi mdi-chevron-double-right"></i>
-                                            <span class="menu-title">정신과</span>
-                                        </a>
-                                    </li>
-                                    <div class="collapse" id="dept1-3">
-                                        <ul class="nav flex-column sub-menu" style="padding-left:20px;">
-                                          <li class="nav-item"><a class="nav-link">이익준 교수</a></li>
-                                          <li class="nav-item"><a class="nav-link">김말똥 전공의</a></li>
-                                          <li class="nav-item"><a class="nav-link">장겨울 전공의</a></li>
-                                          <li class="nav-item"><a class="nav-link">장윤복 레지던트</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- 정신과 끝 -->
-                                    <!-- 이비인후과 -->
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="collapse" href="#dept1-4" aria-expanded="false" aria-controls="ui-basic">
-                                            <i class="mdi mdi-chevron-double-right"></i>
-                                            <span class="menu-title">이비인후과</span>
-                                        </a>
-                                    </li>
-                                    <div class="collapse" id="dept1-4">
-                                        <ul class="nav flex-column sub-menu" style="padding-left:20px;">
-                                          <li class="nav-item"><a class="nav-link">이익준 교수</a></li>
-                                          <li class="nav-item"><a class="nav-link">김말똥 전공의</a></li>
-                                          <li class="nav-item"><a class="nav-link">장겨울 전공의</a></li>
-                                          <li class="nav-item"><a class="nav-link">장윤복 레지던트</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- 이비인후과 끝 -->
-                                </ul>
-                            </div>
-                            <!-- 진료부 하위요소 끝-->
-
-                          </li>
-                          <!-- 진료부 끝 -->
-
-                          <!-- 간호부 -->
-                          <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#dept2" aria-expanded="false" aria-controls="ui-basic">
-                                <i class="mdi mdi-chevron-double-right"></i>
-                              <span class="menu-title">간호부</span>
-                            </a>
-
-                            <div class="collapse" id="dept2">
-                              <ul class="nav flex-column sub-menu" style="padding-left:30px;">
-                                <li class="nav-item"><a class="nav-link">김길동</a></li>
-                                <li class="nav-item"><a class="nav-link">이길동</a></li>
-                                <li class="nav-item"><a class="nav-link">박길동</a></li>
-                                <li class="nav-item"><a class="nav-link">정길동</a></li>
-                              </ul>
-                            </div>
-
-                          </li>
-                          <!-- 간호부 끝 -->
-
-                          <!-- 원무부 -->
-                          <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#dept3" aria-expanded="false" aria-controls="ui-basic">
-                                <i class="mdi mdi-chevron-double-right"></i>
-                              <span class="menu-title">원무부</span>
-                            </a>
-
-                            <div class="collapse" id="dept3">
-                              <ul class="nav flex-column sub-menu" style="padding-left:30px;">
-                                <li class="nav-item"><a class="nav-link">김길동</a></li>
-                                <li class="nav-item"><a class="nav-link">이길동</a></li>
-                                <li class="nav-item"><a class="nav-link">박길동</a></li>
-                                <li class="nav-item"><a class="nav-link">정길동</a></li>
-                              </ul>
-                            </div>
-
-                          </li>
-                          <!-- 원무부 끝 -->
-
-                          <!-- 총무부 -->
-                          <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#dept4" aria-expanded="false" aria-controls="ui-basic">
-                                <i class="mdi mdi-chevron-double-right"></i>
-                              <span class="menu-title">총무부</span>
-                            </a>
-
-                            <div class="collapse" id="dept4">
-                              <ul class="nav flex-column sub-menu" style="padding-left:30px;">
-                                <li class="nav-item"><a class="nav-link">김길동</a></li>
-                                <li class="nav-item"><a class="nav-link">이길동</a></li>
-                                <li class="nav-item"><a class="nav-link">박길동</a></li>
-                                <li class="nav-item"><a class="nav-link">정길동</a></li>
-                              </ul>
-                            </div>
-
-                          </li>
-                          <!-- 총무부 끝 -->
-
                         </ul>
                     </div>
                 </div>
+                
+                
                 <!-- 부서별 사원 조회 영역 (오른쪽) -->
                 <div class="col-8">
                     <div class="org-wrap" id="org-mem" style="width:90%; margin-left:10px;">
@@ -349,7 +129,7 @@ li {
                         <table id="mem-tb" class="table">
                             <tr>
                                 <td>
-                                    <img src="assets/images/faces/face1.jpg">
+                                    <img src="views/assets/images/faces/face1.jpg">
                                 </td>
                                 <th>교수</th>
                                 <td>이익준</td>
@@ -357,7 +137,7 @@ li {
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="assets/images/faces/face2.jpg">
+                                    <img src="views/assets/images/faces/face2.jpg">
                                 </td>
                                 <th>레지던트</th>
                                 <td>이길동</td>
@@ -365,7 +145,7 @@ li {
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="assets/images/faces/face3.jpg">
+                                    <img src="views/assets/images/faces/face3.jpg">
                                 </td>
                                 <th>레지던트</th>
                                 <td>강길동</td>
@@ -373,7 +153,7 @@ li {
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="assets/images/faces/face4.jpg">
+                                    <img src="views/assets/images/faces/face4.jpg">
                                 </td>
                                 <th>레지던트</th>
                                 <td>송길동</td>
@@ -381,7 +161,7 @@ li {
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="assets/images/faces/face5.jpg">
+                                    <img src="views/assets/images/faces/face5.jpg">
                                 </td>
                                 <th>레지던트</th>
                                 <td>한길동</td>
@@ -407,6 +187,126 @@ li {
 
         </div>
       </div>
+      
+	<script>
+	$(function(){
+		// 조직도 출력용 함수
+		selectOrg();
+	})
+	
+	function selectOrg(){
+	
+		$.ajax({
+			url:"select.org",
+			type:"get",
+			success:function(map){
+				
+				// 부서 리스트 꺼내담기
+				var dlist = map.dlist;
+				
+				// 사원 리스트 꺼내담기
+				var mlist = map.mlist;
+				
+				// console.log(dlist); console.log(mlist);
+				
+				// 병원장 담기
+				var txt = "";
+				for(let i=0; i<mlist.length; i++){
+					
+					if(mlist[i].jobName == '병원장'){
+						
+						txt += '<li class="nav-item">';
+						txt +=     '<a class="nav-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="ui-basic">';
+						txt +=         '<i class="mdi mdi-account"></i> ';
+						txt +=         '<span class="menu-title">' + mlist[i].jobName + " " + mlist[i].empName + '</span>';
+						txt +=     '</a>';
+						txt += '</li>';
+					}
+				}
+				$("#chartArea").empty();
+				$('#chartArea').append(txt);
+				
+				var num = 0; // 상위부서 개수를 담을 변수 
+				// 상위부서 담기
+				for(let i=0; i<dlist.length; i++){
+					
+					// 상위부서인 경우 == level이 1, upperNo이 0
+					var upper = "";
+					if(dlist[i].level == 1 && dlist[i].upperNo == 0){
+						upper = '<li class="nav-item" id="nav' + dlist[i].deptNo + '">';
+						upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
+						upper += 		'<i class="mdi mdi-chevron-double-right"></i> ';
+						upper += 		'<span class="menu-title">' + dlist[i].deptName + '</span>';
+						upper += 	'</a>';
+						upper += 	'<div class="collapse" id="dept' + dlist[i].deptNo + '">';
+						upper += 		'<ul class="nav flex-column sub-menu" style="padding-left:30px;">';
+						upper += 		'</ul>';
+						upper += 	'</div>';
+						upper += '</li>';
+						
+						$('#chartArea').append(upper);
+						num++;
+                    }
+				}
+				console.log(num); // num == 4(상위부서 개수)
+				
+				// 하위부서 or 사원 담기
+				for(let i=0; i<dlist.length; i++){
+					var lower = "";
+					var emp = "";
+					
+					// 하위부서 담기
+					for(let j=1; j<=num; j++){
+						// 하위부서 존재 == level이 2, upperNo이 상위부서번호(1 or 2) => 하위부서 영역 만들기
+						if(dlist[i].level == 2 && dlist[i].upperNo == j){
+							
+                            lower = '<li class="nav-item">';
+                            lower +=	'<a class="nav-link" data-bs-toggle="collapse"' +
+                            			'href="#dept' + dlist[i].upperNo + '-' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
+                            lower +=       '<i class="mdi mdi-chevron-double-right"></i> ';
+                            lower +=        '<span class="menu-title">' + dlist[i].deptName + '</span>';
+                            lower +=	'</a>';
+                            lower += '</li>';
+                            lower += '<div class="collapse" id="dept' + dlist[i].upperNo + '-' + dlist[i].deptNo + '">';
+                            lower += 	'<ul class="nav flex-column sub-menu" style="padding-left:20px;">';
+                            lower += 	'</ul>';
+                        	lower += '</div>';
+							
+                            $('#dept' + j + '>ul').append(lower);
+                        }
+					}
+				}
+				
+                // 사원 담기
+                for(let i=0; i<mlist.length; i++){
+                	
+                	for(let j=0; j<dlist.length; j++ ){
+                		
+	                	if(mlist[i].deptNo == dlist[j].deptNo){
+	                		
+	                		emp = '<li class="nav-item"><a class="nav-link">' + mlist[i].empName + " " + mlist[i].jobName + '</a></li>';
+	                		
+	                		if(dlist[j].level == 2 && dlist[j].upperNo != 0){
+	                		// 부서가 '과'일 경우
+	                			$('#dept' + dlist[j].upperNo + "-" + dlist[j].deptNo + ">ul").append(emp);
+	                		
+	                		}else if(dlist[j].level == 1 && dlist[j].upperNo == 0){
+	                		// 상위부서일 경우
+	                		
+								$('#dept' + dlist[j].deptNo + ">ul").append(emp);
+	                		}
+	                	}
+                	}
+                	
+                }
+						
+				
+			},error:function(){
+				console.log("조직도 출력용 ajax통신 실패");
+			}
+		});
+	}	
+	</script>
 
       <!-- !!! 메인 끝 !!! -->
       <!-- content-wrapper ends -->

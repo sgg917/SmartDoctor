@@ -1,6 +1,7 @@
 package com.fp.smartDoctor.member.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.smartDoctor.member.model.service.MemberService;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
+import com.google.gson.Gson;
 
 @Controller
 public class MemberController {
@@ -84,18 +87,24 @@ public class MemberController {
 	}
 	
 	@RequestMapping("orgChart.me")
-	public ModelAndView selectOrganization(ModelAndView mv) {
-		
+	public String goOrgChart() {
+		return "lsg/organizationChartView";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="select.org", produces="application/json; charset=utf-8")
+	public String ajaxSelectOrganization() {
 		// 조직도 부서 조회
 		ArrayList<Dept> dlist = mService.selectOrgChartDept();
 		
 		// 조직도 사원 조회
 		ArrayList<Member> mlist = mService.selectOrgChartEmp();
 		
-		mv.addObject("dlist", dlist).addObject("mlist", mlist)
-		.setViewName("lsg/organizationChartView");
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("dlist", dlist);
+		map.put("mlist", mlist);
 		
-		return mv;
+		return new Gson().toJson(map);
 	}
 	
 }

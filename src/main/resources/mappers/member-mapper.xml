@@ -70,7 +70,7 @@
   		  from member
 	</select>
 	
-	<!-- =전체 사원 리스트 조회 (슬) -->
+	<!-- 전체 사원 리스트 조회 (슬) -->
 	<select id="selectMemberList" resultMap="memberResult">
 		select e.*, d.dept_name
 		  from (
@@ -145,6 +145,7 @@
 		select 
 		       dept_no
 		     , dept_name
+		     , upper_no
 		     , level
 		  from department
 		start with upper_no=0
@@ -161,6 +162,7 @@
 		     , profile_originname
 		     , job_name
 		     , dept_no
+		     , upper_no
 		  from member
 		  join job using(job_no)
 		  left join department using (dept_no)
