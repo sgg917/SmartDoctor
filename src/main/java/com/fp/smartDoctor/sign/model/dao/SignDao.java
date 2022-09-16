@@ -149,5 +149,21 @@ public class SignDao {
 		return sqlSession.selectOne("signMapper.selectApprReportDetail", apprNo);
 	}
 	
+	// 결재문서함 리스트 조회
+	public int selectGetListCount(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.selectOne("signMapper.selectGetListCount", empNo);
+	}
+	
+	public ArrayList<Sign> selectApprGetList(SqlSessionTemplate sqlSession, PageInfo pi, String empNo){
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("signMapper.selectApprGetList", empNo, rowBounds);
+	}
+	
+
+	
 	
 }

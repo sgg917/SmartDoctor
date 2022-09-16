@@ -202,10 +202,9 @@ public class SignController {
 		
 		ArrayList<Line> lineList = i.getLineList();
 		ArrayList<Line> refList = i.getRefList();
-		// lineList의 각 인덱스별 Line객체에 lineLevel 세팅하기
 		
 		int num = 1;
-		for(Line l : lineList) {
+		for(Line l : lineList) { // lineLevel 세팅
 			l.setLineLevel(num);
 			num++;
 		}
@@ -297,6 +296,43 @@ public class SignController {
 		  .addObject("line", line)
 		  .addObject("count", count)
 		  .setViewName("kma/apprReportDetail");
+		
+		return mv;
+	}
+	
+	// 사용자_결재문서함 페이지
+	@RequestMapping("apprGetList.si")
+	public ModelAndView selectApprGetList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, ModelAndView mv) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String empNo = loginUser.getEmpNo();
+		
+		int listCount = sService.selectGetListCount(empNo);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Sign> list = sService.selectApprGetList(pi, empNo);
+		
+		mv.addObject("pi", pi)
+		  .addObject("list", list)
+		  .setViewName("kma/apprGetList");
+		
+		return mv;
+	}
+	
+	// 사용자_결재문서함 상세보기
+	@RequestMapping("apprGetDetail.si")
+	public ModelAndView selectApprGetDetail(int apprNo, ModelAndView mv) {
+		
+		ArrayList<Line> ref = sService.selectApprRef(apprNo); // 참조자 조회
+		ArrayList<Line> line = sService.selectApprLine(apprNo); // 결재자 조회
+		int count = sService.selectCommentCount(apprNo); // 결재의견 개수 조회
+		Sign s = sService.selectApprReportDetail(apprNo);
+		
+		mv.addObject("s", s)
+		  .addObject("ref", ref)
+		  .addObject("line", line)
+		  .addObject("count", count)
+		  .setViewName("kma/apprGetDetail");
 		
 		return mv;
 	}

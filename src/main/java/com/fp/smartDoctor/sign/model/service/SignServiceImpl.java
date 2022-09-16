@@ -123,4 +123,13 @@ public class SignServiceImpl implements SignService {
 	public int insertRef(ArrayList<Line> refList) {
 		return sDao.insertRef(sqlSession, refList);
 	}
+	@Override
+	public int selectGetListCount(String empNo) {
+		return sDao.selectGetListCount(sqlSession, empNo);
+	}
+	@Override
+	public ArrayList<Sign> selectApprGetList(PageInfo pi, String empNo) {
+		return sDao.selectApprGetList(sqlSession, pi, empNo);
+	}
+
 }

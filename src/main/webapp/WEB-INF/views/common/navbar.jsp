@@ -303,7 +303,7 @@
                   <li class="nav-item"> <a class="nav-link" href="apprStandbyList.si">결재대기 문서</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">결재예정 문서</a></li>
                   <li class="nav-item"> <a class="nav-link" href="apprReportList.si">기안문서함</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">결재문서함</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="apprGetList.si">결재문서함</a></li>
                   <li class="nav-item"> <a class="nav-link" href="apprReferList.si">참조문서함</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">반려문서함</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">임시저장함</a></li>
