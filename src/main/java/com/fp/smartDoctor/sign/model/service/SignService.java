@@ -1,6 +1,7 @@
 package com.fp.smartDoctor.sign.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
@@ -50,6 +51,8 @@ public interface SignService {
 	ArrayList<Sign> selectApprStandbyList(PageInfo pi);
 	
 	// 사용자_결재요청
+	int insertLine(ArrayList<Line> lineList);
+	int insertRef(ArrayList<Line> refList);
 	int insertAppr(Sign s);
 	
 	// 사용자_참조문서함 페이지

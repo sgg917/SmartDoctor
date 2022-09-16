@@ -1,5 +1,7 @@
 package com.fp.smartDoctor.sign.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,5 +27,7 @@ public class Line {
 	private String lineDate;
 	private String empName;
 	private String jobName;
+	private ArrayList<Line> lineList;
+	private ArrayList<Line> RefList;
 	
 }

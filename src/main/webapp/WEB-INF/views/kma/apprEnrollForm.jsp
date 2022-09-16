@@ -551,10 +551,19 @@
 				$(this).closest('tr').remove();
 			})
 			
-			function selectedApprLine(){ // 결재라인 지정 '선택하기' 버튼 클릭시
+			function selectedApprLine(){ // 결재라인 지정 '선택하기' 버튼 클릭시 form에 넘길 요소
 				
 				let apprTotal = $("#apprLine").children(".ap-md-bd").length;
-				$("input[name=apprTotal]").attr('value', apprTotal); // 총결재자수 넘기기
+				$("input[name=apprTotal]").attr('value', apprTotal); // 총결재자수
+				
+				$("#apprLine").children(".ap-md-bd").each(function(index, item){ // 결재자들 
+					$("#insertAppr").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='lineList[" + index + "].empNo'>")
+				})
+				
+				$("#apprRef").children(".ap-md-bd").each(function(index, item){ // 참조자들
+					$("#insertAppr").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='RefList[" + index + "].empNo'>")
+				})
+				
 				$('#lineModal').modal('hide');
 			}
 		</script>

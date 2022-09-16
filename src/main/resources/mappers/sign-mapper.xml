@@ -187,6 +187,42 @@
 			 )
 	</insert>
 	
+	<insert id="insertLine">
+		insert
+		  into appr_line
+			  (
+			    line_no
+			  , line_level
+			  , emp_no
+			  , appr_no
+			  )
+			values
+			  (
+			    seq_alno.nextval
+			  , #{lineLevel}
+			  , #{empNo}
+			  , seq_apno.currval
+			  )
+	</insert>
+	
+	<insert id="insertRef">
+		insert
+		  into appr_line
+			  (
+			    line_no
+			  , line_refer
+			  , emp_no
+			  , appr_no
+			  )
+			values
+			  (
+			    seq_alno.nextval
+			  , 'Y'
+			  , #{empNo}
+			  , seq_apno.currval
+			  )
+	</insert>
+	
 	<!-- 사용자_참조문서함 페이지 -->
 	<select id="selectReferListCount" resultType="_int">
 		select

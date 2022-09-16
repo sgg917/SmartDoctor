@@ -190,7 +190,7 @@ public class SignController {
 	
 	// 사용자_결재요청
 	@RequestMapping("apprInsert.si")
-	public String insertAppr(Sign s, MultipartFile upfile, HttpSession session, Model model) {
+	public String insertAppr(Sign s, Line i, MultipartFile upfile, HttpSession session, Model model) {
 		
 		if(!upfile.getOriginalFilename().equals("")) {
 			
@@ -199,16 +199,31 @@ public class SignController {
 			s.setOriginName(upfile.getOriginalFilename());
 			s.setChangeName(saveFilePath);
 		}
-
-		int result = sService.insertAppr(s);
 		
-		if(result > 0) { // 성공
-			session.setAttribute("alertMsg", "성공적으로 결재요청하였습니다.");
-			return "redirect:apprEnrollForm.si";
+		ArrayList<Line> lineList = i.getLineList();
+		ArrayList<Line> refList = i.getRefList();
+		// lineList의 각 인덱스별 Line객체에 lineLevel 세팅하기
+		
+		int num = 1;
+		for(Line l : lineList) {
+			l.setLineLevel(num);
+			num++;
+		}
+		
+		int result = sService.insertAppr(s);
+		int lineResult = sService.insertLine(lineList);
+		int refResult = sService.insertRef(refList);
+		
+		if(lineResult > 0 && refResult > 0 && result > 0) { // 성공
+			
+				session.setAttribute("alertMsg", "성공적으로 결재요청하였습니다.");
+				return "redirect:apprEnrollForm.si";
 		}else {
+			
 			session.setAttribute("alertMsg", "결재요청에 실패하였습니다.");
 			return "redirect:apprEnrollForm.si";
 		}
+		
 	}
 	
 	// 사용자_연장근무신청 페이지

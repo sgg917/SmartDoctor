@@ -1,6 +1,7 @@
 package com.fp.smartDoctor.sign.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -76,6 +77,26 @@ public class SignDao {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		return (ArrayList)sqlSession.selectList("signMapper.selectApprStandbyList", null, rowBounds);
+	}
+	
+	public int insertLine(SqlSessionTemplate sqlSession, ArrayList<Line> lineList) {
+		
+		int result = 0;
+		for(Line l : lineList) {
+			result += sqlSession.insert("signMapper.insertLine", l);
+		}
+		
+		return result;
+	}
+	
+	public int insertRef(SqlSessionTemplate sqlSession, ArrayList<Line> refList) {
+
+		int result = 0;
+		for(Line l : refList) {
+			result += sqlSession.insert("signMapper.insertRef", l);
+		}
+		
+		return result;
 	}
 	
 	public int insertAppr(SqlSessionTemplate sqlSession, Sign s) {

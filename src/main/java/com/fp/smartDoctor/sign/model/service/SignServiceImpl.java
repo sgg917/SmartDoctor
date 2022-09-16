@@ -1,6 +1,7 @@
 package com.fp.smartDoctor.sign.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,5 +114,13 @@ public class SignServiceImpl implements SignService {
 	@Override
 	public int selectCommentCount(int apprNo) {
 		return sDao.selectCommentCount(sqlSession, apprNo);
+	}
+	@Override
+	public int insertLine(ArrayList<Line> lineList) {
+		return sDao.insertLine(sqlSession, lineList);
+	}
+	@Override
+	public int insertRef(ArrayList<Line> refList) {
+		return sDao.insertRef(sqlSession, refList);
 	}
 }
