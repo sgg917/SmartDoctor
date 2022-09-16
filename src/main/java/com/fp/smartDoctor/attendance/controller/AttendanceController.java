@@ -47,23 +47,25 @@ public class AttendanceController {
 		// 페이지 당 나타날 근태 정보 리스트에 담기
 		ArrayList<Attendance> list = aService.selectAttendance(pi, a);
 		
+		// 페이징 없이 전체 근태 정보 리스트에 담기
+		ArrayList<Attendance> alist = aService.selectAttendance(a);
+		
 		// 정상, 지각, 조퇴, 결근 횟수 변수에 담기
 		int y = 0; int l = 0; int e = 0; int n = 0;
 		
-		for(Attendance i : list) {
+		for(Attendance i : alist) {
+			System.out.println(i.getStatus());
 			switch(i.getStatus()) {
-			case "Y" : y++; break;
-			case "L" : l++; break;
-			case "E" : e++; break;
-			case "N" : n++; break;
+			case "정상" : y++; break;
+			case "지각" : l++; break;
+			case "휴가" : e++; break;
+			case "결근" : n++; break;
 			}
 		}
 		
-		//System.out.println("Y : " + y + ", L : " + l + ", E : " + e + ", N : " + n);
-		
 		// 근태 리스트, 페이징 정보, 근태 상태 별 횟수 담아서 포워딩
 		mv.addObject("list", list).addObject("pi",pi)
-		.addObject(y).addObject(l).addObject(e).addObject(n)
+		.addObject("y", y).addObject("l", l).addObject("e", e).addObject("n", n)
 		.setViewName("lsg/attendanceListView");
 		
 		return mv;
