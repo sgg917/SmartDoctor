@@ -30,6 +30,8 @@
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking" alias="ListSurgeryBooking"/>
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.Disease" alias="Disease"/>
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.Medicine" alias="Medicine"/>
+		
+		<typeAlias type="com.fp.smartDoctor.notice.model.vo.Notice" alias="Notice"/>
 	</typeAliases>
 	<!-- 유의사항 : 미리 등록해 두려면 해당 클래스가 진짜 존재해야함, 미리 클래스가 존재하지 않으면 서버 스타트 자체가 안됨 -->
 	
@@ -48,5 +50,6 @@
 	 	<mapper resource="/mappers/member-mapper.xml"/>
 	 	<mapper resource="/mappers/timeTable-mapper.xml"/>
 	 	<mapper resource="/mappers/treatment-mapper.xml"/>
+	 	<mapper resource="/mappers/notice-mapper.xml"/>
 	 </mappers>
 </configuration>

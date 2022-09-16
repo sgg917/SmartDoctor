@@ -14,13 +14,13 @@ import lombok.ToString;
 public class Notice {
 	
 	private int noticeNo;
-	private String nTitle;
-	private String nContent;
+	private String noticeTitle;
+	private String noticeContent;
 	private String enrollDate;
 	private String modifyDate;
 	private int count;
-	private String nOriginName;
-	private String nFilePath;
-	private String nStatus;
+	private String noticeOrigin;
+	private String noticePath;
+	private String noticeStatus;
 	
 }

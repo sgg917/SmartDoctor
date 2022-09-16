@@ -348,27 +348,21 @@
                       	<span>약 명칭</span>
                       	<br>
                       	
-                      	
-                      	
-                      	
-                      	
-                      	<%-- <c:forEach var="m" items="${ mList }">
-                      		<input type="checkbox" value="${ m.medNo }">${ m.medName }&nbsp;&nbsp;&nbsp;
-                      	</c:forEach> --%>
-                      	
-                      	
                       	<table>
-                      		
-	                      		<c:forEach var="m" items="${ mList }">
-	                      		<tr>
-	                      			<td><input type="checkbox" value="${ m.medNo }">${ m.medName }</td>
-	                      			<td><input type="checkbox" value="${ m.medNo }">${ m.medName }</td>
-	                      			<td><input type="checkbox" value="${ m.medNo }">${ m.medName }</td>
-	                      			<td><input type="checkbox" value="${ m.medNo }">${ m.medName }</td>
-	                      		</tr>
-                      			</c:forEach>
+                  			<c:forEach var="m" items="${ mList }" varStatus="s">
+                  				
+                  				<c:if test="${ s.index mod 4 eq 0 }">
+                  					<tr>
+                  				</c:if>
+                  				
+                  				<td><input type="checkbox" value="${ m.medNo }">${ m.medName }</td>
+                  				
+                  				<c:if test="${ s.index mod 4 eq 3 }">
+                  					</tr>
+                  				</c:if>
+                  				
+                  			</c:forEach>
                       	</table>
-                      	
                       
                       	<br>
                         <span>총 투여일수</span>

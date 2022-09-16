@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+
+	<resultMap id="noticeResult" type="Notice">
+		<result column="notice_no" property="noticeNo" />
+		<result column="notice_title" property="noticeTitle" />
+		<result column="notice_content" property="noticeContent" />
+		<result column="notice_edate" property="enrollDate" />
+		<result column="notice_mdate" property="modifyDate" />
+		<result column="notice_count" property="count" />
+		<result column="notice_originname" property="noticeOrigin" />
+		<result column="notice_filepath" property="noticePath" />
+		<result column="notice_status" property="noticeStatus" />
+	</resultMap>
+
+
+	<select id="selectListCount" resultType="_int">
+		select
+		       count(*)
+		  from notice
+		 where notice_status = 'Y'
+	</select>
+
+	<select id="selectList" resultMap="noticeResult">
+		select
+		        notice_no
+		      , notice_title
+		      , notice_content
+		      , to_char(to_date(notice_edate), 'YYYY-MM-DD') as "notice_edate"
+		      , notice_mdate
+		      , notice_count
+		      , notice_originname
+		      , notice_filepath
+		      , notice_status
+		  from notice
+		 where notice_status = 'Y'
+		 order 
+		    by notice_no desc
+	</select>
+
+
+
+
+
+
+
+
+</mapper>

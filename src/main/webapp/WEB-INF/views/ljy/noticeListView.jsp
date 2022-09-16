@@ -8,11 +8,14 @@
 <title>Insert title here</title>
 <style>
 	.wrap11{
-	width: 70%;
-	height: 100%;
-	background-color: white;
-	border-radius: 10px 20px 30px 40px;
-	box-shadow: 3px 3px 3px 3px lightgray;
+		width: 70%;
+		height: 100%;
+		background-color: white;
+		border-radius: 10px 20px 30px 40px;
+		box-shadow: 3px 3px 3px 3px lightgray;
+	}
+	#aaa:hover{
+		background: rgb(237, 230, 214);
 	}
 </style>
 </head>
@@ -30,7 +33,7 @@
                   	<div style="float: left;">
                     	<h2 style="float: left;">공지사항</h2>
                     	<br>
-                    	<span class="card-description" style="float: left;">총 ##### 건 <code style="color:white;">.table-hover</code></span>
+                    	<span class="card-description" style="float: left;">총 ${ listCount }건 <code style="color:white;">.table-hover</code></span>
                     </div>
                     
 					<br><br><br><br>
@@ -45,7 +48,7 @@
                     </div>
 
 
-                    <table class="table table-hover">
+                    <table id="noticeList" class="table table-hover">
 
                       <thead>
                         <tr>
@@ -55,63 +58,77 @@
                           <th>조회수</th>
                         </tr>
                       </thead>
-
+                      
                       <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>병원 단축 운영합니다.</td>
-                          <td>2022.08.18</td>
-                          <td>123</td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>야간운영공지</td>
-                          <td>2022.08.20</td>
-                          <td>80</td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>??????????????????</td>
-                          <td>2022.08.22</td>
-                          <td>23</td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td>공지사항 제목자리</td>
-                          <td>2022.09.04</td>
-                          <td>11</td>
-                        </tr>
-                        <tr>
-                          <td>5</td>
-                          <td>공지사항 제목자리</td>
-                          <td>2022.09.05</td>
-                          <td>8</td>
-                        </tr>
+	                      <c:choose>
+	                      	<c:when test="${ empty list }">
+	                      		<tr>
+	                      			<td colspan="4">현재 공지사항이 없습니다.</td>
+	                      		</tr>
+	                      	</c:when>
+	                      	<c:otherwise>
+	                      		<c:forEach var="n" items="${ list }">
+	                      			<tr>
+			                          <td class="no">${ n.noticeNo }</td>
+			                          <td>${ n.noticeTitle }</td> <!-- n.getnTitle(); -->
+			                          <td>${ n.enrollDate }</td>
+			                          <td>${ n.count }</td>
+			                        </tr>
+	                      		</c:forEach>
+	                      	</c:otherwise>
+	                      </c:choose>
                       </tbody>
-
+                      
+                     <script>
+                      	$(function(){
+                      		$("#noticeList>tbody>tr").click(function(){
+                      			location.href = "detail.no?no=" + $(this).children(".no").text();
+                      		})
+                      	})
+                      </script>
+                      
                     </table>
 
                     <div class="template-demo">
-                      <button type="button" class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 80px;">글작성</button>
+                      <a class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 80px;" href="enroll.no">글작성</a>
                     </div>
 
                     <br><br><br>
             
+            		<!-- 페이징바 -->
                     <div id="pagingbar">
                       <ul class="pagination"  style="justify-content: center;">
-                        <li class="page-item"><a class="page-link" href="#">&lsaquo;</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">&rsaquo;</a></li>
+                      	
+                      	<c:choose>
+                      		<c:when test="${ pi.currentPage eq 1 }">
+                      			<li class="page-item disabled"><a class="page-link">&lsaquo;</a></li>
+                      		</c:when>
+                      		<c:otherwise>
+                      			<li class="page-item"><a class="page-link" id="aaa" style="color: rgb(29, 92, 99);" href="list.no?cpage=${ pi.currentPage - 1 }">&lsaquo;</a></li>
+                      		</c:otherwise>
+                      	</c:choose>
+                      	
+                      	<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                      		<li class="page-item"><a class="page-link" id="aaa"  style="color: rgb(29, 92, 99);" href="list.no?cpage=${ p }">${ p }</a></li>
+                      	</c:forEach>
+                      	
+                      	<c:choose>
+                      		<c:when test="${ pi.currentPage eq pi.maxPage }">
+                      			<li class="page-item disabled"><a class="page-link">&rsaquo;</a></li>
+                      		</c:when>
+                      		<c:otherwise>
+                      			<li class="page-item"><a class="page-link" id="aaa" style="color: rgb(29, 92, 99);" href="list.no?cpage=${ pi.currentPage + 1 }">&rsaquo;</a></li>
+                      		</c:otherwise>
+                      	</c:choose>
                       </ul>
                     </div>
+                    
 
                   </div>
                 </div>
                 
-                <jsp:include page="../common/footer.jsp" />
             </div>
+            <jsp:include page="../common/footer.jsp" />
 		</div>
 		<br>
 	</div>
