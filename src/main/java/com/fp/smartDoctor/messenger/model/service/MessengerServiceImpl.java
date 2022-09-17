@@ -91,10 +91,20 @@ public class MessengerServiceImpl implements MessengerService {
 	
 	
 	//메일작성
+	
 	@Override
 	public int insertMail(Email insertE) {
 		return mDao.insertMail(sqlSession, insertE);
 	}
+	
+	//다중인서트를 위한 메일 작성
+	/*
+	@Override
+	public int insertMail(ArrayList<Email> insertE) {
+		return mDao.insertMail(sqlSession, insertE);
+	}
+	*/
+	
 	@Override
 	public int insertMailAttachment(MailAttachment mt) {
 		return mDao.insertMailAttachment(sqlSession, mt);

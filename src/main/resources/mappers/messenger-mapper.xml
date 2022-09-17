@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="messengerMapper">
-	<!-- Email result -->
-	<resultMap id="emailResult" type="Email">
+
+	<resultMap id="emailResultSet" type="Email">
 		<id column="mail_no" property="mailNo"/>
-		<result column="import_flag" property="mailImportFlag"/>
+		<result column="import_Flag" property="mailImportFlag"/>
 		<result column="mail_from" property="mailFrom"/>
 		<result column="mail_name_from" property="mailnameFrom"/>
 		<result column="mail_to" property="mailTo"/>
@@ -15,13 +15,11 @@
 		<result column="mail_content" property="mailContent"/>
 		<result column="mail_attachment" property="mailAttachment"/>
 		<result column="mail_date" property="mailDate"/>
-		<result column="mail_date_str" property="mailDateStr"/>
 		<result column="mail_read_flag" property="mailReadFlag"/>
 		<result column="mail_status" property="mailStatus"/>
 		
 	</resultMap>
 	
-	<!-- Email Attachment result -->
 	<resultMap id="attachResultSet" type="MailAttachment">
 		<id column="file_no" property="fileNo"/>
 		<result column="mail_no" property="mailNo"/>
@@ -30,31 +28,170 @@
 		<result column="file_path" property="filePath"/>
 		<result column="upload_date" property="uploadDate"/>
 		<result column="status" property="status"/>
-		<result column="mail_file_size" property="mailFileSize"/>
+		<result column="file_size" property="mailFileSize"/>
 	</resultMap>
 	
-	<!-- member result -->
-	<resultMap id="memberResult" type="Member">
-		<result column="emp_no" property="empNo" />
-		<result column="emp_name" property="empName" />
-		<result column="emp_pwd" property="empPwd" />
-		<result column="phone" property="phone" />
-		<result column="email" property="email" />
-		<result column="profile_originname" property="originName" />
-		<result column="profile_path" property="path" />
-		<result column="status" property="status" />
-		<result column="vac_all" property="vacAll" />
-		<result column="job_no" property="jobNo" />
-		<result column="dept_no" property="deptNo" />
-		<result column="job_name" property="jobName" />
-		<result column="dept_name" property="deptName" />
-	</resultMap>
+	<!-- 받은 메일 -->
+	<select id="selectListCount" parameterType="String" resultType="_int">
+		select count(*)
+		  from mail
+		 where mail_status='Y' and mail_to = #{mailTo} 
+	</select>
+	<select id="selectList" parameterType="String" resultMap="emailResultSet">
+		select * 
+		  from mail
+		 where mail_status='Y' and mail_to = #{mailTo}
+		 order by mail_no desc
+	</select>
 	
 	
 	
+	<!-- 보낸 메일 -->
+	<select id="fselectListCount" parameterType="String" resultType="_int">
+		select count(*)
+		  from mail
+		 where mail_status='Y' and mail_from = #{mailFrom}
+	</select>
+	<select id="fselectList" parameterType="String" resultMap="emailResultSet">
+		select * 
+		  from mail
+		 where mail_status='Y' and mail_from = #{mailFrom}
+		 order by mail_no desc
+	</select>
+
+	<!-- 중요 메일 -->
+	<select id="iselectListCount" parameterType="String" resultType="_int">
+		select count(*)
+		from (select * 
+			  from mail
+			  where mail_from = #{mailOwn} or mail_to = #{mailOwn})
+		where mail_status='Y' and import_Flag='Y'
+	</select>
+	<select id="iselectList" parameterType="String" resultMap="emailResultSet">
+		select *
+		from (select * 
+			  from mail
+			  where mail_from = #{mailOwn} or mail_to = #{mailOwn})
+		where mail_status='Y' and import_Flag='Y'
+		order by mail_date desc
+	</select>
 	
+	
+	
+	<select id="searchListCount" resultType="_int">
+		select count(*)
+		  from mail
+		 where mail_status='Y'
+		    <if test="mailTo != null">
+		    	and mail_To = #{mailTo}
+		    </if>
+		    <if test="mailFrom != null">
+		    	and mail_from = #{mailFrom}
+		    </if>
+		    <if test="mailnameFrom != null">
+				AND mail_name_from LIKE '%' || #{mailnameFrom} || '%'  
+			</if>
+			<if test="mailnameTo != null">
+				AND mail_name_to LIKE '%' || #{mailnameTo} || '%'
+			</if>
+			<if test="mailTitle != null">
+				AND mail_TITLE LIKE '%' || #{mailTitle} || '%'
+			</if>
+			<if test="mailContent != null">
+				AND mail_CONTENT LIKE '%' || #{mailContent} || '%'
+			</if>
+			
+	</select>
+	
+	<select id="searchList" resultMap="emailResultSet">
+		select * 
+		  from mail
+		 where mail_status='Y'
+		 	<if test="mailTo != null">
+		    	and mail_To = #{mailTo}
+		    </if>
+		    <if test="mailFrom != null">
+		    	and mail_from = #{mailFrom}
+		    </if>
+		 	<if test="mailnameFrom != null">
+				AND mail_name_From LIKE '%' || #{mailnameFrom} || '%'  
+			</if>
+			<if test="mailnameTo != null">
+				AND mail_name_to LIKE '%' || #{mailnameTo} || '%'
+			</if>
+			<if test="mailTitle != null">
+				AND mail_TITLE LIKE '%' || #{mailTitle} || '%'
+			</if>
+			<if test="mailContent != null">
+				AND mail_CONTENT LIKE '%' || #{mailContent} || '%'
+			</if>
+		 order by mail_no desc
+	</select>
+	
+	<select id="isearchListCount" resultType="_int">
+		select count(*)
+		from (select * 
+			  from mail
+			  where mail_from = #{mailOwn} mail_to = #{mailOwn})
+		where mail_status='Y' and import_Flag='Y'
+		    <if test="mailnameFrom != null">
+				and mail_name_from LIKE '%' || #{mailnameFrom} || '%'  
+			</if>
+			<if test="mailnameTo != null">
+				and mail_name_to LIKE '%' || #{mailnameTo} || '%'
+			</if>
+			<if test="mailTitle != null">
+				and mail_TITLE LIKE '%' || #{mailTitle} || '%'
+			</if>
+			<if test="mailContent != null">
+				and mail_CONTENT LIKE '%' || #{mailContent} || '%'
+			</if>
+			
+	</select>
+	
+	<select id="isearchList"  resultMap="emailResultSet">
+		select *
+		from (select * 
+			  from mail
+			  where mail_from = #{mailOwn} mail_to = #{mailOwn})
+		where mail_status='Y' and import_Flag='Y'
+		 	<if test="mailnameFrom != null">
+				and mail_name_From LIKE '%' || #{mailnameFrom} || '%'  
+			</if>
+			<if test="mailnameTo != null">
+				and mail_name_to LIKE '%' || #{mailnameTo} || '%'
+			</if>
+			<if test="mailTitle != null">
+				and mail_TITLE LIKE '%' || #{mailTitle} || '%'
+			</if>
+			<if test="mailContent != null">
+				and mail_CONTENT LIKE '%' || #{mailContent} || '%'
+			</if>
+		 order by mail_no desc
+	</select>
+	
+	
+	<update id="readFlagUpdate" parameterType="_int">
+		update mail set
+		mail_read_flag = 'Y'
+		where mail_no = #{mailNo}
+	</update>
+	
+	<select id="selectMail" parameterType="_int" resultMap="emailResultSet">
+		select * from mail
+		where mail_no = #{mailNo}
+	</select>
+	
+	<select id="fileList" parameterType="_int" resultMap="attachResultSet">
+		select * 
+		  from mail_attachment
+		 where mail_no=#{mailNo}
+		 order by file_no desc
+	</select>
+
+
 	<!-- 메일작성 -->
-	<insert id="insertMail">
+	<insert id="insertMail" parameterType="Email">
 		insert 
 		  into mail
 		  (
@@ -93,9 +230,9 @@
 		
 	</insert>
 	
-	<insert id="insertMailAttachment">
+	<insert id="insertMailAttachment" parameterType="MailAttachment">
 		insert 
-		  into mail_Attachment
+		  into mail_attachment
 		  (    file_no
 		     , mail_no
 		     , origin_name
@@ -106,14 +243,14 @@
 		     , status
 		  ) 
 		values
-		(      seq_mail_a_no.nextval
+		(      seq_emfno.nextval
 		     , 
 			   <choose> 
 			   	  <when test='mailNo != ""'> 
 				  #{mailNo}
 				  </when> 
 				  <otherwise> 
-				  seq_enno.currval
+				  seq_emno.currval
 				  </otherwise> 
 			   </choose>
 		     , #{originName}
@@ -126,49 +263,75 @@
 		
 	</insert>
 	
-	<update id="updateMailFlag">
-		update 
-		       email 
-		   set mail_attachment = 'N'
-		 where mail_no = #{currNo}
+	<update id="updateMailFlag" parameterType="_int">
+		update mail set
+		mail_attachment = 'N'
+		where mail_no = #{currNo}
 	</update>
 	
-	<select id="nowMailNo" resultMap="emailResult">
-		select mail_no 
-		  from 
-		  (    select * 
-		         from email
-		        order by mail_no desc) e
-		 where rownum = 1
+	<select id="nowMailNo" resultMap="emailResultSet">
+		select mail_no from (select * from mail
+		order by mail_no desc) e
+		where rownum = 1
 	</select>
 
 	<select id="loadMailnameTo" parameterType="String" resultType="String">
-		select emp_name 
-		  from member
-		 where emp_no = #{toname}
+		select emp_name from member
+		where emp_no = #{toname}
 	</select>
 
-	<update id="deleteMail">
-		update 
-		       email 
-		   set mail_status = 'N'
-		 where mail_no = #{mailNo}
+	<update id="deleteMail" parameterType="_int">
+		update mail set
+		mail_status = 'N'
+		where mail_no = #{mailNo}
 	</update>
 
-	<update id="importFlagUpdate">
-		update 
-		       email 
-		   set import_flag = 'Y'
-		 where mail_no = #{mailNo}
+	<update id="importFlagUpdate" parameterType="_int">
+		update mail set
+		import_Flag = 'Y'
+		where mail_no = #{mailNo}
+	</update>
+		<update id="unImportFlagUpdate" parameterType="_int">
+		update mail set
+		import_Flag = 'N'
+		where mail_no = #{mailNo}
 	</update>
 	
-	<update id="unImportFlagUpdate">
-		update 
-		       email 
-		   set mail_import_flag = 'N'
-		 where mail_no = #{mailNo}
-	</update>
+	<select id="notReadMail" parameterType="String" resultType="_int">
+	select count(*)
+	from mail
+	where mail_To = #{mailOwn} and mail_Read_Flag = 'N' and mail_status='Y'
+	</select>
+	<select id="fromMail" parameterType="String" resultType="_int">
+	select count(*)
+	from mail
+	where mail_To = #{mailOwn} and mail_status='Y'
+	</select>
+	<select id="importMail" parameterType="String" resultType="_int">
+	select count(*)
+	from mail
+	where mail_To = #{mailOwn} and import_Flag = 'Y' and mail_status='Y'
+	</select>
 	
-	
+	<select id="miniFromMailList" parameterType="String" resultMap="emailResultSet">
+		select * 
+		  from mail
+		 where mail_status='Y' and mail_to = #{mailOwn}
+		 order by mail_no desc
+	</select>
+	<select id="miniToMailList" parameterType="String" resultMap="emailResultSet">
+		select * 
+		  from mail
+		 where mail_status='Y' and mail_From = #{mailOwn}
+		 order by mail_no desc
+	</select>
+	<select id="miniImportMailList" parameterType="String" resultMap="emailResultSet">
+		select *
+		from (select * 
+			  from mail
+			  where mail_from = #{mailOwn} or mail_to = #{mailOwn})
+		where mail_status='Y' and import_Flag='Y'
+		order by mail_date desc
+	</select>
 	
 </mapper>

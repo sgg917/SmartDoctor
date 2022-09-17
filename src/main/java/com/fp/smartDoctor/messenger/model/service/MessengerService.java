@@ -34,6 +34,8 @@ public interface MessengerService{
 	
 	//메일작성
 	int insertMail(Email insertE);
+	//다중 인서트를 위한 메일작성
+	//int insertMail(ArrayList<Email> insertE);
 	int insertMailAttachment(MailAttachment mt);
 	int updateMailFlag(int currNo);
 	Email nowMailNo();

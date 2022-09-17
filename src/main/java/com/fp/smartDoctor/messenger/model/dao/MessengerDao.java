@@ -10,6 +10,7 @@ import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.messenger.model.vo.Email;
 import com.fp.smartDoctor.messenger.model.vo.MailAttachment;
 import com.fp.smartDoctor.messenger.model.vo.SearchCondition;
+import com.fp.smartDoctor.sign.model.vo.Line;
 
 @Repository
 public class MessengerDao {
@@ -107,7 +108,17 @@ public class MessengerDao {
 	
 	//메일 작성
 	public int insertMail(SqlSessionTemplate sqlSession, Email insertE) {
-		return sqlSession.insert("messengerMapper.insertMail", insertE);
+		/* 다중인서트
+		int result = 0;
+		for(Email l : insertE) {
+			result += sqlSession.insert("messengerMapper.insertMail", l);
+		}
+		
+		return result;
+		*/
+		
+		return sqlSession.insert("messengerMapper.insertMail");
+		
 	}
 	
 	public int insertMailAttachment(SqlSessionTemplate sqlSession, MailAttachment mt) {

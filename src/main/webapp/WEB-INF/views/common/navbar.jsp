@@ -333,11 +333,11 @@
               </a>
               <div class="collapse" id="number4">
                 <ul class="nav flex-column sub-menu">
-                	<li class="nav-item"> <a class="nav-link" href="enroll.em">메일쓰기</a></li>
-                  	<li class="nav-item"> <a class="nav-link" href="">받은메일함</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">보낸메일함</a></li>
+                	<li class="nav-item"> <a class="nav-link" href="enrollForm.mil">메일쓰기</a></li>
+                  	<li class="nav-item"> <a class="nav-link" href="list.mil?currentPage=1&mailOwn=${loginUser.empNo }">받은메일함</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="flist.mil?currentPage=1&mailOwn=${loginUser.empNo }">보낸메일함</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">임시메일함</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">중요보관함</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="ilist.mil?currentPage=1&mailOwn=${loginUser.empNo }">중요보관함</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">휴지통</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">주소록</a></li>
                 </ul>
