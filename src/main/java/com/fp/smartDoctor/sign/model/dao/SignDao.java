@@ -66,17 +66,17 @@ public class SignDao {
 		return sqlSession.selectOne("memberMapper.selectApprEmp", empNo);
 	}
 	
-	public int selectApprListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("signMapper.selectApprListCount");
+	public int selectApprListCount(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.selectOne("signMapper.selectApprListCount", empNo);
 	}
 	
-	public ArrayList<Sign> selectApprStandbyList(SqlSessionTemplate sqlSession, PageInfo pi){
+	public ArrayList<Sign> selectApprStandbyList(SqlSessionTemplate sqlSession, PageInfo pi, String empNo){
 		
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("signMapper.selectApprStandbyList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("signMapper.selectApprStandbyList", empNo, rowBounds);
 	}
 	
 	public int insertLine(SqlSessionTemplate sqlSession, ArrayList<Line> lineList) {

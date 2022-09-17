@@ -152,17 +152,6 @@ public class SignController {
 		return new Gson().toJson(map);
 	}
 	
-	// 사용자_결재라인 조직도 부서 조회 (ajax)
-	/*
-	@ResponseBody
-	@RequestMapping(value="apprLineDept.si", produces="application/json; charset=UTF-8")
-	public String selectApprLineDept() {
-		
-		ArrayList<Dept> list = sService.selectApprLineDept();
-		
-		return new Gson().toJson(list);
-	}*/
-	
 	// 사용자_결재라인 사원 조회 (ajax)
 	@ResponseBody
 	@RequestMapping(value="apprLineEmp.si", produces="application/json; charset=UTF-8")
@@ -174,12 +163,15 @@ public class SignController {
 	
 	// 사용자_결재대기함 페이지
 	@RequestMapping("apprStandbyList.si")
-	public ModelAndView selectApprStandbyList(@RequestParam(value="cpage", defaultValue="1")int currentPage, ModelAndView mv) {
+	public ModelAndView selectApprStandbyList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, ModelAndView mv) {
 		
-		int listCount = sService.selectApprListCount();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String empNo = loginUser.getEmpNo();
+		
+		int listCount = sService.selectApprListCount(empNo);
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		ArrayList<Sign> list = sService.selectApprStandbyList(pi);
+		ArrayList<Sign> list = sService.selectApprStandbyList(pi, empNo);
 		
 		mv.addObject("pi", pi)
 		  .addObject("list", list)
@@ -333,6 +325,24 @@ public class SignController {
 		  .addObject("line", line)
 		  .addObject("count", count)
 		  .setViewName("kma/apprGetDetail");
+		
+		return mv;
+	}
+	
+	// 사용자_결재대기 문서함 상세보기
+	@RequestMapping("apprStandbyDetail.si")
+	public ModelAndView selectApprStandbyDetail(int apprNo, ModelAndView mv) {
+		
+		ArrayList<Line> ref = sService.selectApprRef(apprNo); // 참조자 조회
+		ArrayList<Line> line = sService.selectApprLine(apprNo); // 결재자 조회
+		int count = sService.selectCommentCount(apprNo); // 결재의견 개수 조회
+		Sign s = sService.selectApprReportDetail(apprNo);
+		
+		mv.addObject("s", s)
+		  .addObject("ref", ref)
+		  .addObject("line", line)
+		  .addObject("count", count)
+		  .setViewName("kma/apprStandbyDetail");
 		
 		return mv;
 	}

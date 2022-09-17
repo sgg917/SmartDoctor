@@ -68,12 +68,12 @@ public class SignServiceImpl implements SignService {
 		return sDao.selectApprEmp(sqlSession, empNo);
 	}
 	@Override
-	public int selectApprListCount() {
-		return sDao.selectApprListCount(sqlSession);
+	public int selectApprListCount(String empNo) {
+		return sDao.selectApprListCount(sqlSession, empNo);
 	}
 	@Override
-	public ArrayList<Sign> selectApprStandbyList(PageInfo pi) {
-		return sDao.selectApprStandbyList(sqlSession, pi);
+	public ArrayList<Sign> selectApprStandbyList(PageInfo pi, String empNo) {
+		return sDao.selectApprStandbyList(sqlSession, pi, empNo);
 	}
 	@Override
 	public int insertAppr(Sign s) {

@@ -47,8 +47,8 @@ public interface SignService {
 	Member selectApprEmp(int empNo);
 	
 	// 사용자_결재대기함 페이지
-	int selectApprListCount();
-	ArrayList<Sign> selectApprStandbyList(PageInfo pi);
+	int selectApprListCount(String empNo);
+	ArrayList<Sign> selectApprStandbyList(PageInfo pi, String empNo);
 	
 	// 사용자_결재요청
 	int insertLine(ArrayList<Line> lineList);
@@ -75,6 +75,7 @@ public interface SignService {
 	// 사용자_결재문서함 리스트 조회
 	int selectGetListCount(String empNo);
 	ArrayList<Sign> selectApprGetList(PageInfo pi, String empNo);
+	
 	
 
 }

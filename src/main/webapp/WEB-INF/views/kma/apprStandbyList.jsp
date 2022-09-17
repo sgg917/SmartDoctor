@@ -37,7 +37,7 @@
 							</button>
 						</div>
 
-						<table class="table" id="appr-all-table">
+						<table class="table appr-standby-tb" id="appr-all-table">
 							<thead>
 								<tr>
 									<th>문서번호</th>
@@ -57,7 +57,7 @@
 									<c:otherwise>
 										<c:forEach var="a" items="${ list }">
 											<tr>
-												<td>${ a.apprNo }</td>
+												<td class="apprNo">${ a.apprNo }</td>
 												<td>${ a.formTitle }</td>
 												<td>${ a.apprTitle } &nbsp;
 													<!-- <i class="mdi mdi-paperclip" style="color: gray;"></i> -->
@@ -70,6 +70,14 @@
 								</c:choose>
 							</tbody>
 						</table>
+						
+						<script>
+							$(function(){
+			            		$(".appr-standby-tb>tbody>tr").click(function(){
+			            			location.href = 'apprStandbyDetail.si?apprNo=' + $(this).find(".apprNo").text();
+			            		})
+			            	})
+						</script>
 						
 						<!-- 페이징 -->
 						<nav aria-label="Page navigation example" class="appr-page">
