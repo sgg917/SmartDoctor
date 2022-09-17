@@ -7,6 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>결재문서함e</title>
+<style>
+	.disappr-tb{
+	 	color:red; 
+	 	margin:0; 
+	 	margin-top:5px; 
+	 	margin-bottom:12.9px;
+	 }
+</style>
 </head>
 <body>
 	<jsp:include page="../common/navbar.jsp" />
@@ -21,21 +29,20 @@
 					<hr>
 					<br>
 					<div class="appr-table-wrapper" style="margin-left:30px;">
-					
-						<c:choose>
-							<c:when test="${ s.apprStatus eq '대기' }">
-								<button type="button" class="btn btn-success appr-write-btn">
-									<i class="mdi mdi-close" style="color: white;"></i>&nbsp; 
-									<span>상신취소</span>
-								</button>
-							</c:when>
-							<c:when test="${ s.apprStatus eq '반려' || s.apprStatus eq '완료' }">
-								<button type="button" class="btn btn-success appr-write-btn">
-		                            <i class="mdi mdi-arrow-up-bold" style="color:white;"></i>&nbsp;&nbsp;
-		                            <span>재기안</span>
-	                          	</button>
-							</c:when>
-						</c:choose>
+						<c:if test="${ s.apprStatus eq '대기' || s.apprStatus eq '진행' }">
+							<c:if test="${ l.apprNow eq l.lineLevel }"> 
+								<button type="button" class="btn btn-success appr-write-btn" 
+	                                  data-bs-toggle="modal" data-bs-target="#apprModal" width="80px">
+	                            <i class="mdi mdi-check" style="color:white;"></i>&nbsp;
+	                            <span>결재하기</span>
+	                            </button>
+	                            <button type="button" class="btn btn-outline-success btn-green" 
+	                          			data-bs-toggle="modal" data-bs-target="#disapprModal" style="width:100px;">
+	                              <i class="mdi mdi-arrow-up-bold"></i>&nbsp;
+	                              <span>반려하기</span>
+	                            </button>
+							</c:if>
+						</c:if>
 						
 						<button type="button" class="btn btn-outline-success btn-green" 
 							    style="width: 100px;" onclick="history.back();">
@@ -126,11 +133,21 @@
 											<c:forEach var="i" items="${ line }">
 												dateArr.push( "${i.lineDate}" );
 											</c:forEach>
+											
+											let disArr = [];
+											<c:forEach var="i" items="${ line }">
+												disArr.push( "${i.lineDisappr}" );
+											</c:forEach>
 													
 											$('#line-appr').children().each(function(index, item){ // 승인도장 + 날짜 출력
 												
 												if( dateArr[index] != "" && typeof dateArr[index] != 'undefined' ){ 
-													$(item).html("<img src='resources/images/kma/approved.png'>" + dateArr[index]);
+													
+													if( disArr[index] == "Y"){ // 반려일 경우
+														$(item).html("<p class='disappr-tb'>(반려)</p>" + dateArr[index]);
+													}else{ // 승인일 경우
+														$(item).html("<img src='resources/images/kma/approved.png'>" + dateArr[index]);
+													}
 												}												
 											})
 											

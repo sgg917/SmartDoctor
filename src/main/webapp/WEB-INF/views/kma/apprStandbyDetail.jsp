@@ -23,14 +23,15 @@
 					<div class="appr-table-wrapper" style="margin-left:30px;">
 					
 						<button type="button" class="btn btn-success appr-write-btn" 
-                                  data-bs-toggle="modal" data-bs-target="#apprModal" width="80px">
-                            <i class="mdi mdi-check" style="color:white;"></i>&nbsp;
-                            <span>결재하기</span>
-                          </button>
-                          <button type="button" class="btn btn-outline-success btn-green" style="width:100px;">
-                            <i class="mdi mdi-arrow-up-bold"></i>&nbsp;
-                            <span>반려하기</span>
-                          </button>
+                                data-bs-toggle="modal" data-bs-target="#apprModal" width="80px">
+                          <i class="mdi mdi-check" style="color:white;"></i>&nbsp;
+                          <span>결재하기</span>
+                        </button>
+                        <button type="button" class="btn btn-outline-success btn-green" 
+                        			data-bs-toggle="modal" data-bs-target="#disapprModal" style="width:100px;">
+                          <i class="mdi mdi-arrow-up-bold"></i>&nbsp;
+                          <span>반려하기</span>
+                        </button>
 						
 						<button type="button" class="btn btn-outline-success btn-green" 
 							    style="width: 100px;" onclick="history.back();">
@@ -184,12 +185,16 @@
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="i" items="${ line }">
-										<tr>
-											<td colspan="5">
-												<b>${ i.empName }</b> &nbsp;&nbsp;|&nbsp;&nbsp;
-												${ i.lineComment }
-											</td>
-										</tr>
+										<c:choose>
+										<c:when test="${ not empty i.lineComment || i.lineComment ne '' }"> 
+											<tr>
+												<td colspan="5">
+													<b>${ i.empName }</b> &nbsp;&nbsp;|&nbsp;&nbsp;
+													${ i.lineComment }
+												</td>
+											</tr>
+										</c:when>
+										</c:choose>
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
@@ -198,6 +203,72 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- 결재하기 모달창 -->
+		<div class="modal fade" id="apprModal" tabindex="-1" aria-labelledby="apprModalLabel" aria-hidden="true">
+           <div class="modal-dialog modal-dialog-centered">
+             <div class="modal-content" style="background:white;">
+               <div class="modal-header">
+                 <h5 class="modal-title" id="apprModalLabel" style="margin-left:5px;">결재하기</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <form action="approve.si" method="post">
+               	   <input type="hidden" name="apprNo" value="${ s.apprNo }">
+               	   <input type="hidden" name="empNo" value="${ loginUser.empNo }">
+	               <div class="modal-body" style="height:220px;">
+	                 <div class="form-group row" style="width:450px; padding-left:10px; margin-top:7px;">
+	                   <label class="col-sm-3 col-form-label">결재문서명</label>
+	                   <div class="col-sm-9">
+	                     <input type="text" class="form-control appr-tb-input" value="${ s.apprTitle }" style="background:none; padding-left:0; border:none;" readonly>
+	                   </div>
+	                   <label class="col-sm-3 col-form-label">결재의견</label>
+	                   <div class="col-sm-9">
+	                   	 <textarea rows="5" cols="36" name="lineComment" style="margin-top:10px; border:1px solid lightgray;"></textarea>
+	                   </div>
+	                 </div>
+	               </div>
+	               <div class="modal-footer">
+	                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">취소</button>
+	                 <button type="submit" class="btn btn-success btn-sm" style="background:RGB(29, 92, 99); color:white;">확인</button>
+	               </div>
+               </form>
+             </div>
+           </div>
+        </div>
+        <!-- 결재모달창 end -->
+        
+        <!-- 반려하기 모달창 -->
+		<div class="modal fade" id="disapprModal" tabindex="-1" aria-labelledby="disapprModalLabel" aria-hidden="true">
+           <div class="modal-dialog modal-dialog-centered">
+             <div class="modal-content" style="background:white;">
+               <div class="modal-header">
+                 <h5 class="modal-title" id="disapprModalLabel" style="margin-left:5px;">반려하기</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <form action="disapprove.si" method="post">
+               	   <input type="hidden" name="apprNo" value="${ s.apprNo }">
+               	   <input type="hidden" name="empNo" value="${ loginUser.empNo }">
+	               <div class="modal-body" style="height:220px;">
+	                 <div class="form-group row" style="width:450px; padding-left:10px; margin-top:7px;">
+	                   <label class="col-sm-3 col-form-label">결재문서명</label>
+	                   <div class="col-sm-9">
+	                     <input type="text" class="form-control appr-tb-input" value="${ s.apprTitle }" style="background:none; padding-left:0; border:none;" readonly>
+	                   </div>
+	                   <label class="col-sm-3 col-form-label">반려사유</label>
+	                   <div class="col-sm-9">
+	                   	 <textarea rows="5" cols="36" name="lineComment" style="margin-top:10px; border:1px solid lightgray;"></textarea>
+	                   </div>
+	                 </div>
+	               </div>
+	               <div class="modal-footer">
+	                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">취소</button>
+	                 <button type="submit" class="btn btn-success btn-sm" style="background:RGB(29, 92, 99); color:white;">확인</button>
+	               </div>
+               </form>
+             </div>
+           </div>
+        </div>
+        <!-- 반려모달창 end -->
 		<jsp:include page="../common/footer.jsp" />
 	</div>
 </body>

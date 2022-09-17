@@ -313,17 +313,26 @@ public class SignController {
 	
 	// 사용자_결재문서함 상세보기
 	@RequestMapping("apprGetDetail.si")
-	public ModelAndView selectApprGetDetail(int apprNo, ModelAndView mv) {
+	public ModelAndView selectApprGetDetail(int apprNo, HttpSession session, ModelAndView mv) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String empNo = loginUser.getEmpNo();
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("apprNo", apprNo);
+		map.put("empNo", empNo);
 		
 		ArrayList<Line> ref = sService.selectApprRef(apprNo); // 참조자 조회
 		ArrayList<Line> line = sService.selectApprLine(apprNo); // 결재자 조회
 		int count = sService.selectCommentCount(apprNo); // 결재의견 개수 조회
+		Line l = sService.selectLineLevel(map); // 내결재순번 조회
 		Sign s = sService.selectApprReportDetail(apprNo);
 		
 		mv.addObject("s", s)
 		  .addObject("ref", ref)
 		  .addObject("line", line)
 		  .addObject("count", count)
+		  .addObject("l", l)
 		  .setViewName("kma/apprGetDetail");
 		
 		return mv;
@@ -345,6 +354,42 @@ public class SignController {
 		  .setViewName("kma/apprStandbyDetail");
 		
 		return mv;
+	}
+	
+	// 사용자_결재하기
+	@RequestMapping("approve.si")
+	public String updateApprove(Line l, HttpSession session) {
+		
+		int apprResult = sService.updateApproval(l);
+		int lineResult = sService.updateApprLine(l);
+
+		if(apprResult > 0 && lineResult > 0) {
+			
+			session.setAttribute("alertMsg", "결재 승인되었습니다.");
+			return "redirect:apprStandbyList.si";
+		}else {
+			
+			session.setAttribute("alertMsg", "결재처리에 실패하였습니다.");
+			return "redirect:apprStandbyList.si";
+		}
+	}
+	
+	// 사용자_반려하기
+	@RequestMapping("disapprove.si")
+	public String updateDisapprove(Line l, HttpSession session) {
+		
+		int apprResult = sService.updateDisapproval(l);
+		int lineResult = sService.updateDisapprLine(l);
+
+		if(apprResult > 0 && lineResult > 0) {
+			
+			session.setAttribute("alertMsg", "반려 처리되었습니다.");
+			return "redirect:apprStandbyList.si";
+		}else {
+			
+			session.setAttribute("alertMsg", "결재처리에 실패하였습니다.");
+			return "redirect:apprStandbyList.si";
+		}
 	}
 	
 	

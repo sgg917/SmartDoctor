@@ -23,11 +23,11 @@ public class Line {
 	private String lineRefer;
 	private int empNo;
 	private int apprNo;
-	private int lineNow;
 	private String lineDate;
 	private String empName;
 	private String jobName;
 	private ArrayList<Line> lineList;
 	private ArrayList<Line> RefList;
+	private int apprNow;
 	
 }

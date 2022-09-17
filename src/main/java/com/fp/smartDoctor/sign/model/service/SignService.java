@@ -50,7 +50,7 @@ public interface SignService {
 	int selectApprListCount(String empNo);
 	ArrayList<Sign> selectApprStandbyList(PageInfo pi, String empNo);
 	
-	// 사용자_결재요청
+	// 사용자_결재요청(상신)
 	int insertLine(ArrayList<Line> lineList);
 	int insertRef(ArrayList<Line> refList);
 	int insertAppr(Sign s);
@@ -76,6 +76,15 @@ public interface SignService {
 	int selectGetListCount(String empNo);
 	ArrayList<Sign> selectApprGetList(PageInfo pi, String empNo);
 	
+	// 사용자_결재문서함 상세조회
+	Line selectLineLevel(HashMap<String, Object> map);
 	
+	// 사용자_결재하기
+	int updateApproval(Line l);
+	int updateApprLine(Line l);
+	
+	// 사용자_반려하기
+	int updateDisapproval(Line l);
+	int updateDisapprLine(Line l);
 
 }

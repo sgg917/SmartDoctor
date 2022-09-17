@@ -39,10 +39,10 @@
 		<result column="line_refer" property="lineRefer" />
 		<result column="emp_no" property="empNo" />
 		<result column="appr_no" property="apprNo" />
-		<result column="line_now" property="lineNow" />
 		<result column="line_date" property="lineDate" />
 		<result column="emp_name" property="empName" />
 		<result column="job_name" property="jobName" />
+		<result column="appr_now" property="apprNow" />
 	</resultMap>
 	
 	<!-- 관리자_결재양식 리스트 조회 -->
@@ -411,6 +411,60 @@
 		   and line_refer= 'N'
 	</select>-->
 	
+	<!-- 사용자_결재하기 -->
+	<update id="updateApproval">
+		update 
+		       approval
+		   set appr_status =
+		       case when appr_status = '대기' then '진행'
+		            when appr_status = '진행' and appr_now = appr_total then '완료'
+		            else '진행'
+		       end 
+		     , appr_now =
+		       case when appr_status = '진행' and appr_now = appr_total then appr_now
+		            else appr_now + 1
+		        end
+		 where appr_no = #{apprNo}
+	</update>
 	
+	<update id="updateApprLine">
+		update 
+		       appr_line
+		   set line_status = 'Y'
+		     , line_comment = #{lineComment}
+		     , line_date = sysdate
+		 where emp_no = #{empNo}
+		   and appr_no = #{apprNo}
+	</update>
+	
+	<!-- 사용자_반려하기 -->
+	<update id="updateDisapproval">
+		update 
+		       approval
+		   set appr_status = '반려'
+		 where appr_no = #{apprNo}
+	</update>
+	
+	<update id="updateDisapprLine">
+		update
+		       appr_line
+		   set line_status = 'Y'
+		     , line_comment = #{lineComment}
+		     , line_disappr = 'Y'
+		     , line_date = sysdate
+		 where appr_no = #{apprNo}
+		   and emp_no = #{empNo}
+	</update>
+	
+	<!-- 사용자_내결재 순번 담기 -->
+	<select id="selectLineLevel" resultMap="lineResult">
+		select 
+		       appr_now
+		     , line_level
+		  from approval v 
+		  join appr_line l on (v.appr_no = l.appr_no)
+		 where v.appr_no = #{apprNo}
+		   and l.emp_no = #{empNo}
+	</select>
 	
 </mapper>

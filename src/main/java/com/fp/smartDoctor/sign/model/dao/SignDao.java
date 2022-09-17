@@ -163,7 +163,28 @@ public class SignDao {
 		return (ArrayList)sqlSession.selectList("signMapper.selectApprGetList", empNo, rowBounds);
 	}
 	
-
+	// 내결재 순번 조회
+	public Line selectLineLevel(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.selectOne("signMapper.selectLineLevel", map);
+	}
+	
+	// 결재하기
+	public int updateApproval(SqlSessionTemplate sqlSession, Line l) {
+		return sqlSession.update("signMapper.updateApproval", l);
+	}
+	
+	public int updateApprLine(SqlSessionTemplate sqlSession, Line l) {
+		return sqlSession.update("signMapper.updateApprLine", l);
+	}
+	
+	// 반려하기
+	public int updateDisapproval(SqlSessionTemplate sqlSession, Line l) {
+		return sqlSession.update("signMapper.updateDisapproval", l);
+	}
+	
+	public int updateDisapprLine(SqlSessionTemplate sqlSession, Line l) {
+		return sqlSession.update("signMapper.updateDisapprLine", l);
+	}
 	
 	
 }

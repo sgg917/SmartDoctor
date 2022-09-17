@@ -131,5 +131,25 @@ public class SignServiceImpl implements SignService {
 	public ArrayList<Sign> selectApprGetList(PageInfo pi, String empNo) {
 		return sDao.selectApprGetList(sqlSession, pi, empNo);
 	}
+	@Override
+	public int updateApproval(Line l) {
+		return sDao.updateApproval(sqlSession, l);
+	}
+	@Override
+	public int updateApprLine(Line l) {
+		return sDao.updateApprLine(sqlSession, l);
+	}
+	@Override
+	public int updateDisapproval(Line l) {
+		return sDao.updateDisapproval(sqlSession, l);
+	}
+	@Override
+	public int updateDisapprLine(Line l) {
+		return sDao.updateDisapprLine(sqlSession, l);
+	}
+	@Override
+	public Line selectLineLevel(HashMap<String, Object> map) {
+		return sDao.selectLineLevel(sqlSession, map);
+	}
 
 }
