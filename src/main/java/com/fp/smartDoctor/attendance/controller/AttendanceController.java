@@ -197,17 +197,24 @@ public class AttendanceController {
 	
 	// 사원 근태 관리 페이지 조회
 	@RequestMapping("allList.att")
-	public String selectAllAttendanceList(@RequestParam(value="cpage", defaultValue="1")int cpage) {
+	public ModelAndView selectAllAttendanceList(@RequestParam(value="cpage", defaultValue="1")int cpage, ModelAndView mv) {
 		
-		//int listCount = aService.selectAllListCount();
+		// 전사 근태 개수 조회
+		int listCount = aService.selectAllListCount();
 		
-		//PageInfo pi = new PageInfo();
-		//pi = new Pagination().getPageInfo(listCount,  cpage, 5, 5);
+		PageInfo pi = new PageInfo();
+		pi = new Pagination().getPageInfo(listCount,  cpage, 5, 10);
 		
-		//ArrayList<Attendance> list = aService.selectAllAttendanceList(pi, null);
+		// 전사 근태 리스트 조회
+		ArrayList<Attendance> list = aService.selectAllAttendanceList(pi);
 		
+		// System.out.println(pi);
+		// System.out.println(list);
 		
-		return "lsg/allAttendanceListView";
+		mv.addObject("pi", pi).addObject("list", list)
+		.setViewName("lsg/allAttendanceListView");
+		
+		return mv;
 	}
 	
 	@RequestMapping("allList.vac")
@@ -298,5 +305,4 @@ public class AttendanceController {
 		
 		return new Gson().toJson(map);
 	}
-	
 }

@@ -120,66 +120,68 @@ th {
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>2022-08-01</td>
-							<td>원무부</td>
-							<td>홍길동</td>
-							<td>8:57</td>
-							<td>18:00</td>
-							<td>8시간</td>
-							<td>정상</td>
-						</tr>
-						<tr>
-							<td>2022-08-01</td>
-							<td>원무부</td>
-							<td>홍길동</td>
-							<td>8:57</td>
-							<td>18:00</td>
-							<td>8시간</td>
-							<td>정상</td>
-						</tr>
-						<tr>
-							<td>2022-08-01</td>
-							<td>원무부</td>
-							<td>홍길동</td>
-							<td>8:57</td>
-							<td>18:00</td>
-							<td>8시간</td>
-							<td>조퇴</td>
-						</tr>
-						<tr>
-							<td>2022-08-01</td>
-							<td>원무부</td>
-							<td>홍길동</td>
-							<td>8:57</td>
-							<td>18:00</td>
-							<td>8시간</td>
-							<td>지각</td>
-						</tr>
-						<tr>
-							<td>2022-08-01</td>
-							<td>원무부</td>
-							<td>홍길동</td>
-							<td>8:57</td>
-							<td>18:00</td>
-							<td>8시간</td>
-							<td>결근</td>
-						</tr>
+						<c:choose>
+							<c:when test="${ empty list }">
+								<tr>
+									<td colspan="7" style="text-align:center;">
+										조회 내역이 없습니다.
+									</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="a" items="${ list }">
+									<tr>
+										<td>${ a.attDate }</td>
+										<td>${ a.deptName }</td>
+										<td>${ a.empName }</td>
+										<td>${ a.startDate }</td>
+										<td>${ a.endDate }</td>
+										<c:choose>
+											<c:when test="${ a.totalTime eq '0' }">
+												<td>${ a.totalTime }</td>
+											</c:when>
+											<c:otherwise>
+												<td>${ Math.ceil(a.totalTime/60) }시간</td>
+											</c:otherwise>
+										</c:choose>
+										<td>${ a.status }</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</tbody>
 				</table>
 				<!-- 사원 근태 조회 테이블 끝-->
 				<br>
 				<!-- 사원 근태 조회 페이징-->
+				<!-- 테이블 페이징 -->
 				<div class="pagination" style="width: 100%;">
-					<ul class="pagination" style="margin: auto;">
-						<li class="page-item"><a class="page-link" href="#">&lt;</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item active"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+					<ul class="pagination" id="pageArea" style="margin: auto;">
+					
+						<c:if test="${ pi.currentPage ne 1 }">
+							<li class="page-item"><a class="page-link" href="allList.att?cpage=${pi.currentPage-1}">&lt;</a></li>
+						</c:if>
+					
+						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							
+							<c:choose>
+								<c:when test="${ p eq pi.currentPage }">
+									<li class="page-item active"><a class="page-link" href="allList.att?cpage=${p}">${p}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link" href="allList.att?cpage=${p}">${p}</a></li>
+								</c:otherwise>
+							</c:choose>
+							
+						</c:forEach>
+							
+						<c:if test="${ pi.currentPage ne pi.maxPage }">
+							<li class="page-item"><a class="page-link" href="allList.att?cpage=${pi.currentPage+1}">&gt;</a></li>
+						</c:if>
 					</ul>
 				</div>
 				<!-- 사원 근태 조회 페이징 끝-->
+				
 				<br>
 				<br>
 			</div>

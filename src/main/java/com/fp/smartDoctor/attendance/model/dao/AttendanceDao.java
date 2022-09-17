@@ -66,14 +66,14 @@ public class AttendanceDao {
 		return sqlSession.selectOne("attendanceMapper.selectAllListCount");
 	}
 	
-	public ArrayList<Attendance> selectAllAttendanceList(SqlSessionTemplate sqlSession, PageInfo pi, Attendance a){
+	public ArrayList<Attendance> selectAllAttendanceList(SqlSessionTemplate sqlSession, PageInfo pi){
 		
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAllAttendanceList", a, rowBounds);
+		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAllAttendanceList", null, rowBounds);
 	}
 	
 	public int selectMemListCount(SqlSessionTemplate sqlSession) {

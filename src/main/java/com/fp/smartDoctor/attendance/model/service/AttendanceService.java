@@ -43,8 +43,8 @@ public interface AttendanceService {
 	// 전사 근태 개수 조회용 메소드
 	int selectAllListCount();
 	
-	// 전사 근태 리스트 조회용 메소드
-	ArrayList<Attendance> selectAllAttendanceList(PageInfo pi, Attendance a);
+	// 전사 근태 리스트 조회용 메소드 (페이징 ㅇ)
+	ArrayList<Attendance> selectAllAttendanceList(PageInfo pi);
 	
 	// 전체 사원 수 조회용 메소드
 	int selectMemListCount();

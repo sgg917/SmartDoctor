@@ -9,10 +9,12 @@
 		<result column="start_time" property="startTime"/>
 		<result column="end_time" property="endTime"/>
 		<result column="status" property="status"/>
-		<result column="total_time" property="totalTIme"/>
+		<result column="total_time" property="totalTime"/>
 		<result column="over_time" property="overTime"/>
 		<result column="modify_date" property="modifyDate"/>
 		<result column="modify_no" property="modifyNo"/>
+		<result column="dept_name" property="deptName"/>
+		<result column="emp_name" property="empName"/>
 	</resultMap>
 	
 	<resultMap id="vacationResult" type="Vacation">
@@ -115,6 +117,100 @@
 		 ORDER BY WORKING_DAY DESC
 	</select>
 	
+	<!-- 전사 근태 개수 조회 -->
+	<select id="selectAllListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM (
+		        SELECT
+		               NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "ATT_DATE"
+		             , C.DEPT_NAME
+		             , C.EMP_NAME
+		             , NVL(START_TIME, '-') "START_TIME"
+		             , NVL(END_TIME, '-') "END_TIME"
+		             , NVL(TOTAL_TIME, 0) "TOTAL_TIME"
+		             , NVL(A.STATUS, '결근') "STATUS"
+		          FROM ATTENDANCE A
+		         RIGHT JOIN (
+		                    SELECT WORKING_DAY, WEEK, EMP_NO, EMP_NAME, DEPT_NAME
+		                      FROM (
+		                            SELECT TRUNC(TO_DATE(SYSDATE), 'MM') + LEVEL - 1 "WORKING_DAY"
+		                                 , TO_CHAR(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'DY') "WEEK"
+		                              FROM DUAL
+		                            CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(TO_DATE(SYSDATE)), 'DD')
+		                            ), (
+		                                SELECT E.EMP_NO
+		                                     , E.EMP_NAME
+		                                     , CASE WHEN D.DEPT_NAME != E.DEPT_NAME THEN D.DEPT_NAME || ' ' || E.DEPT_NAME
+		                                            ELSE D.DEPT_NAME
+		                                             END "DEPT_NAME"
+		                                  FROM (
+		                                        SELECT 
+		                                               EMP_NO
+		                                             , EMP_NAME
+		                                             , CASE WHEN D1.UPPER_NO = 0 THEN D1.DEPT_NO
+		                                                    ELSE D1.UPPER_NO
+		                                                END AS DEPT_NO
+		                                             , DEPT_NAME
+		                                          FROM MEMBER M
+		                                          LEFT JOIN DEPARTMENT D1 ON (D1.DEPT_NO = M.DEPT_NO)
+		                                        ) E
+		                                  LEFT JOIN DEPARTMENT D ON (E.DEPT_NO = D.DEPT_NO)
+		                                )
+		                    ) C ON (ATT_DATE = WORKING_DAY AND A.EMP_NO = C.EMP_NO)
+		         WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
+		           AND WEEK IN ('월', '화', '수', '목', '금')
+		           AND NVL(TO_DATE(ATT_DATE), TO_DATE(WORKING_DAY)) BETWEEN TO_DATE('2022-09-01') AND TO_DATE('2022-09-15')
+		           AND NVL(A.STATUS, '결근') IN ('정상', '지각', '결근', '휴가')
+		         ORDER BY WORKING_DAY DESC 
+		        )
+	</select>
+	
+	<!-- 전사 근태 리스트 조회 -->
+	<select id="selectAllAttendanceList" resultMap="attendanceResult">
+		SELECT
+		       NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "ATT_DATE"
+		     , C.DEPT_NAME
+		     , C.EMP_NO
+		     , C.EMP_NAME
+		     , NVL(START_TIME, '-') "START_TIME"
+		     , NVL(END_TIME, '-') "END_TIME"
+		     , NVL(TOTAL_TIME, 0) "TOTAL_TIME"
+		     , NVL(A.STATUS, '결근') "STATUS"
+		  FROM ATTENDANCE A
+		 RIGHT JOIN (
+		            SELECT WORKING_DAY, WEEK, EMP_NO, EMP_NAME, DEPT_NAME
+		              FROM (
+		                    SELECT TRUNC(TO_DATE(SYSDATE), 'MM') + LEVEL - 1 "WORKING_DAY"
+		                         , TO_CHAR(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'DY') "WEEK"
+		                      FROM DUAL
+		                    CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(TO_DATE(SYSDATE)), 'DD')
+		                    ), (
+		                        SELECT E.EMP_NO
+		                             , E.EMP_NAME
+		                             , CASE WHEN D.DEPT_NAME != E.DEPT_NAME THEN D.DEPT_NAME || ' ' || E.DEPT_NAME
+		                                    ELSE D.DEPT_NAME
+		                                     END "DEPT_NAME"
+		                          FROM (
+		                                SELECT 
+		                                       EMP_NO
+		                                     , EMP_NAME
+		                                     , CASE WHEN D1.UPPER_NO = 0 THEN D1.DEPT_NO
+		                                            ELSE D1.UPPER_NO
+		                                        END AS DEPT_NO
+		                                     , DEPT_NAME
+		                                  FROM MEMBER M
+		                                  LEFT JOIN DEPARTMENT D1 ON (D1.DEPT_NO = M.DEPT_NO)
+		                                ) E
+		                          LEFT JOIN DEPARTMENT D ON (E.DEPT_NO = D.DEPT_NO)
+		                        )
+		            ) C ON (ATT_DATE = WORKING_DAY AND A.EMP_NO = C.EMP_NO)
+		 WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
+		   AND WEEK IN ('월', '화', '수', '목', '금')
+		   AND NVL(TO_DATE(ATT_DATE), TO_DATE(WORKING_DAY)) BETWEEN TO_DATE('2022-09-01') AND TO_DATE('2022-09-15')
+		   AND NVL(A.STATUS, '결근') IN ('정상', '지각', '결근', '휴가')
+		 ORDER BY WORKING_DAY DESC 
+	</select>
+	
 	<!-- 출근 insert -->
 	<insert id="insertAttendance">
 		insert 
@@ -155,10 +251,13 @@
 	<update id="endAttendance">
 		update attendance
 		   set end_time = to_char(sysdate, 'HH24:MI')
-		   	 , total_time = ( to_date(end_time, 'HH24:MI') - to_date(start_time, 'HH24:MI') ) * 24 * 60 - 60
-		     , status = 
-		     case when end_time >= '18:00' then '정상'
-		     	  when start_time >= '09:00' then '지각'
+		   	 , total_time = 
+			 case when to_date(end_time, 'HH:MI') &gt; to_date('04:00', 'HH:MI') then '( to_date(end_time, "HH24:MI") - to_date(start_time, "HH24:MI") ) * 24 * 60 - 60'
+		          when to_date(end_time, 'HH:MI') &lt;= to_date('04:00', 'HH:MI') then '( to_date(end_time, "HH24:MI") - to_date(start_time, "HH24:MI") ) * 24 * 60'
+		     end
+     		 , status = 
+		     case when end_time &gt;= '18:00' then '정상'
+		     	  when start_time &gt;= '09:00' then '지각'
 		     end
 		 where emp_no = #{empNo}
 		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
@@ -196,31 +295,6 @@
 		  join approval on (app_no = appr_no)
 		 where v.emp_no = #{empNo}
 		   and appr_status = '완료'
-	</select>
-	
-	<!-- 전 사원의 근태 개수 조회 -->
-	<select id="selectAllListCount" resultType="_int">
-		SELECT COUNT(*)
-		  FROM (
-		        SELECT
-		               NVL(EMP_NO, 0)
-		             , NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD'))
-		             , START_TIME
-		             , END_TIME
-		             , NVL(STATUS, '결근')
-		          FROM ATTENDANCE
-		         RIGHT JOIN (
-		                    SELECT TRUNC(TO_DATE(SYSDATE), 'MM') + LEVEL - 1 "WORKING_DAY"
-		                         , TO_CHAR(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'DY') "WEEK"
-		                      FROM DUAL
-		                    CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(TO_DATE(SYSDATE)), 'DD')
-		                    ) ON (ATT_DATE = WORKING_DAY)
-		         WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
-		           AND WEEK IN ('월', '화', '수', '목', '금')
-		           AND NVL(TO_DATE(ATT_DATE), TO_DATE(WORKING_DAY)) BETWEEN TO_DATE('2022-09-01') AND TO_DATE(SYSDATE)
-		           AND NVL(STATUS, '결근') IN ('정상', '지각', '결근')
-		         ORDER BY WORKING_DAY DESC
-		        )
 	</select>
 	
 	<!-- 휴가를 사용한 사원들의 휴가잔여일수 조회 -->

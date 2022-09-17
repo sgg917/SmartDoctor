@@ -73,8 +73,8 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public ArrayList<Attendance> selectAllAttendanceList(PageInfo pi, Attendance a) {
-		return aDao.selectAllAttendanceList(sqlSession, pi, a);
+	public ArrayList<Attendance> selectAllAttendanceList(PageInfo pi) {
+		return aDao.selectAllAttendanceList(sqlSession, pi);
 	}
 
 	@Override

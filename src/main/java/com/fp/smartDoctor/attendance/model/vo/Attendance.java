@@ -30,4 +30,7 @@ public class Attendance {
 	private String[] statusArr;
 	// 출퇴근 여부 확인용 필드
 	private String attResult;
+	// 부서명 조회용 필드
+	private String deptName;
+	private String empName;
 }
