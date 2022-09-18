@@ -31,6 +31,22 @@
 		<result column="file_size" property="mailFileSize"/>
 	</resultMap>
 	
+	<resultMap id="memberResult" type="Member">
+		<result column="emp_no" property="empNo" />
+		<result column="emp_name" property="empName" />
+		<result column="emp_pwd" property="empPwd" />
+		<result column="phone" property="phone" />
+		<result column="email" property="email" />
+		<result column="profile_originname" property="originName" />
+		<result column="profile_path" property="path" />
+		<result column="status" property="status" />
+		<result column="vac_all" property="vacAll" />
+		<result column="job_no" property="jobNo" />
+		<result column="dept_no" property="deptNo" />
+		<result column="job_name" property="jobName" />
+		<result column="dept_name" property="deptName" />
+	</resultMap>
+	
 	<!-- 받은 메일 -->
 	<select id="selectListCount" parameterType="String" resultType="_int">
 		select count(*)
@@ -334,4 +350,29 @@
 		order by mail_date desc
 	</select>
 	
+	<!-- dept no 수정해야함 -->
+	<!-- 조직도 부서별 사원 조회 -->
+	<select id="selectDeptEmpList" parameterType="string" resultMap="memberResult">
+		select 
+			   emp_name
+			 , d.dept_name
+			 , emp_no
+		  from member m
+		  join department d on(m.dept_no = d.dept_no)
+	 	<choose>
+	 		<when test="keyword.equals('D0')">
+	 			and m.dept_no='1'
+	 		</when>
+	 		<when test="keyword.equals('D1')">
+	 			and m.dept_no='2'
+	 		</when>
+	 		<when test="keyword.equals('D2')">
+	 			and m.dept_no='3'
+	 		</when>
+	 		<when test="keyword.equals('D3')">
+	 			and m.dept_no='5'
+	 		</when>
+	 	</choose>
+	 	order by emp_name
+	</select>
 </mapper>

@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.common.template.Pagination;
+import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.messenger.model.service.MessengerService;
 import com.fp.smartDoctor.messenger.model.vo.Email;
 import com.fp.smartDoctor.messenger.model.vo.MailAttachment;
@@ -213,7 +214,7 @@ public class MessengerController {
 	public String enrollForm(@RequestParam(required=false)String empNo, Model model) {
 		empNo = empNo;
 		model.addAttribute("trans", empNo);
-		return "kcy/mailMailEnrollForm";
+		return "kcy/mailSendForm";
 	}
 	
 	@ResponseBody
@@ -293,7 +294,7 @@ public class MessengerController {
 		currentTime += flag;
 		
 		// 확장자 (String ext)
-		String ext = originName.substring(originName.lastIndexOf(".")); // ".jpg"
+		String ext = originName.substring(originName.lastIndexOf("."));
 		
 		String changeName = currentTime + ext;
 		
@@ -395,5 +396,11 @@ public class MessengerController {
 		return list;
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value="deptEmpList.gr", produces="application/json; charset=utf-8")
+	public String selectDeptEmpList(String keyword) {
+		
+		ArrayList<Member> array = milService.selectDeptEmpList(keyword);
+		return new Gson().toJson(array);
+	}
 }

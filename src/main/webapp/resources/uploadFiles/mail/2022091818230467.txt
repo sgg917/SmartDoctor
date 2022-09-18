@@ -1,0 +1,176 @@
+mapper
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="messengerMapper">
+	<!-- Email result -->
+	<resultMap id="emailResult" type="Email">
+		<id column="mail_no" property="mailNo"/>
+		<result column="import_flag" property="mailImportFlag"/>
+		<result column="mail_from" property="mailFrom"/>
+		<result column="mail_name_from" property="mailnameFrom"/>
+		<result column="mail_to" property="mailTo"/>
+		<result column="mail_name_to" property="mailnameTo"/>
+		<result column="mail_title" property="mailTitle"/>
+		<result column="mail_with" property="mailWith"/>
+		<result column="mail_name_with" property="mailnameWith"/>
+		<result column="mail_content" property="mailContent"/>
+		<result column="mail_attachment" property="mailAttachment"/>
+		<result column="mail_date" property="mailDate"/>
+		<result column="mail_date_str" property="mailDateStr"/>
+		<result column="mail_read_flag" property="mailReadFlag"/>
+		<result column="mail_status" property="mailStatus"/>
+		
+	</resultMap>
+	
+	<!-- Email Attachment result -->
+	<resultMap id="attachResultSet" type="MailAttachment">
+		<id column="file_no" property="fileNo"/>
+		<result column="mail_no" property="mailNo"/>
+		<result column="origin_name" property="originName"/>
+		<result column="change_name" property="changeName"/>
+		<result column="file_path" property="filePath"/>
+		<result column="upload_date" property="uploadDate"/>
+		<result column="status" property="status"/>
+		<result column="mail_file_size" property="mailFileSize"/>
+	</resultMap>
+	
+	<!-- member result -->
+	<resultMap id="memberResult" type="Member">
+		<result column="emp_no" property="empNo" />
+		<result column="emp_name" property="empName" />
+		<result column="emp_pwd" property="empPwd" />
+		<result column="phone" property="phone" />
+		<result column="email" property="email" />
+		<result column="profile_originname" property="originName" />
+		<result column="profile_path" property="path" />
+		<result column="status" property="status" />
+		<result column="vac_all" property="vacAll" />
+		<result column="job_no" property="jobNo" />
+		<result column="dept_no" property="deptNo" />
+		<result column="job_name" property="jobName" />
+		<result column="dept_name" property="deptName" />
+	</resultMap>
+	
+	
+	
+	
+	<!-- 메일작성 -->
+	<insert id="insertMail">
+		insert 
+		  into mail
+		  (
+		  	   mail_no
+		  	 , import_flag
+		  	 , mail_from
+		  	 , mail_to
+		  	 , mail_title
+		  	 , mail_content
+		  	 , mail_attachment
+		  	 , mail_date
+		  	 , mail_read_flag
+		  	 , mail_status
+		  	 , mail_name_from
+		  	 , mail_name_to
+		  	 , mail_with
+		  	 , mail_name_with
+		  )
+		values
+		( 
+		       seq_emno.nextval
+		     , default
+		     , #{mailFrom}
+		     , #{mailTo}
+		     , #{mailTitle}
+		     , #{mailContent}
+		     , ''
+		     , sysdate
+		     , default
+		     , default
+		     , #{mailnameFrom}
+		     , #{mailnameTo}
+		     , #{mailWith}
+		     , #{mailnameWith}
+		)
+		
+	</insert>
+	
+	<insert id="insertMailAttachment">
+		insert 
+		  into mail_attachment
+		  (    file_no
+		     , mail_no
+		     , origin_name
+		     , change_name
+		     , file_path
+		     , upload_date
+		     , mail_file_size
+		     , status
+		  ) 
+		values
+		(      seq_emfno.nextval
+		     , 
+			   <choose> 
+			   	  <when test='mailNo != ""'> 
+				  #{mailNo}
+				  </when> 
+				  <otherwise> 
+				  seq_emno.currval
+				  </otherwise> 
+			   </choose>
+		     , #{originName}
+		     , #{changeName}
+		     , #{filePath}
+		     , sysdate
+		     , #{mailFileSize}
+		     , 'Y'
+		) 
+		
+	</insert>
+	
+	<update id="updateMailFlag">
+		update 
+		       email 
+		   set mail_attachment = 'N'
+		 where mail_no = #{currNo}
+	</update>
+	
+	<select id="nowMailNo" resultMap="emailResult">
+		select mail_no 
+		  from 
+		  (    select * 
+		         from email
+		        order by mail_no desc) e
+		 where rownum = 1
+	</select>
+
+	<select id="loadMailnameTo" parameterType="String" resultType="String">
+		select emp_name 
+		  from member
+		 where emp_no = #{toname}
+	</select>
+
+	<update id="deleteMail">
+		update 
+		       email 
+		   set mail_status = 'N'
+		 where mail_no = #{mailNo}
+	</update>
+
+	<update id="importFlagUpdate">
+		update 
+		       email 
+		   set import_flag = 'Y'
+		 where mail_no = #{mailNo}
+	</update>
+	
+	<update id="unImportFlagUpdate">
+		update 
+		       email 
+		   set mail_import_flag = 'N'
+		 where mail_no = #{mailNo}
+	</update>
+	
+	
+	
+</mapper>

@@ -10,24 +10,29 @@
 <title>Insert title here</title>
 <style>
 /* ==========페이지영역========== */
-    .outer{
-        padding-left: 320px;
-        float: left;
-        width: 100%;
-        min-height: 100%;
-        background-color: rgba(224, 224, 224, 0.12);
+.wrap11 {
+		width: 100%;
+		background-color: white;
+		border-radius: 30px 10px;
+		box-shadow: 3px 3px 3px 3px lightgray;
+		text-align: center;
+		height: 100%;
+	}
+ 
+   .topBar {
+      	background-color: rgb(65, 125, 122);
+		width: 100%;
+		height: 50px;
+		color: white;
+		font-size: 25px;
+		box-sizing: border-box;
+		padding-top: 10px;
+		padding-left: 30px;
+		font-weight: 500;
+		border-radius: 30px 10px;
     }
-    .topBar {
-        background-color:rgba(22, 160, 133, 0.39);
-        width: 100%;
-        height: 50px;
-        color: white;
-        font-size: 25px;
-        box-sizing: border-box;
-        padding-top: 10px;
-        padding-left: 30px;
-        font-weight: 500;
-    }
+
+
 
     /* 서브메뉴바 영역 */
     .subMenuArea{
@@ -64,11 +69,8 @@
 
     /* 콘텐츠영역 */
     .contentArea {
-        margin-top: 50px;
-        margin-left:100px;
-        width:1600px;
-        height:auto;
-        float:left;
+       margin:auto;
+       width:90%;
     }
     /* 콘텐츠영역 */
 
@@ -90,6 +92,8 @@
 }
 /* 중간버튼 스타일 */
 /* 검색창 스타일 */
+
+
 .searchBar>select {
 	height: 36px;
 	width: 70px;
@@ -130,7 +134,7 @@
 	text-align: left;
 }
 #rightArea {
-	text-align: right;
+	text-align: left;
 }
 
 
@@ -175,10 +179,7 @@
 
 /* 페이징바 스타일 */
 /* 게시판 스타일 */
-.boardTable {
-	width: 1400px;
-	height: 400px;
-}
+
 
 .boardTable, .boardTable th, .boardTable td {
 	border-width: 1px 0;
@@ -215,6 +216,10 @@
 /* 변경된 체크박스 이미지 위치 조정 */
 .mailTable tr td label img, .mailTable tr th label img {
 	 margin-top:3.5px;
+}
+
+.mailTable{	
+	width:1050px;
 }
 
 /* 계정 주소 표시를 위한 ToolTip 설정 */
@@ -254,48 +259,22 @@
 </style>   
 </head>
 <body>
-	<!-- 이곳에 메뉴바 include -->
-	<jsp:include page="../common/navbar.jsp"/>
-	<!-- 이곳에 메뉴바 include -->
+<div class="container-scroller">
+	<jsp:include page="../common/navbar.jsp" />
+	<div class="main-panel">
+		<div class="content-wrapper">
+			<div class="wrap11" style="height: 100%;">
 
 	<div class="outer">
 		<div class="topBar">
 			<!-- 메뉴명 -->
-			<span>사내메일</span>
+			<span>받은 메일함</span>
 		</div>
-		<div class="subMenuArea">
-			<ul id="subMenuList">
-				<!-- 서브메뉴 버튼 영역. 기본:subBtn , 활성화시: subBtn subActive 클래스 추가해주세요 -->
-				<li>
-					<form action="list.mil" method="post">
-					<input type="hidden" name="currentPage" value="1">
-					<input type="hidden" name="mailOwn" value="${loginUser.empNo}">
-						<button class="subBtn subActive">받은메일함</button>
-					</form>
-				</li>
-				<li>
-					
-					<button class="subBtn" onclick='location.href="flist.mil?currentPage=1&mailOwn=${loginUser.empNo}"'>보낸메일함</button>
-					
-				</li>
-				<li>
-					
-					<button class="subBtn" onclick='location.href="ilist.mil?currentPage=1&mailOwn=${loginUser.empNo}"'>중요메일함</button>
-					
-				</li>
-				<li>
-					
-					<button class="subBtn" onclick='location.href="enrollForm.mil?currentPage=1&pageFrom=inbox"'>메일작성</button>
-					
-				</li>
-			</ul>
-			
-		</div>
+		
 		<div class="contentArea">
-			<!-- 내용 작성 영역 입니다-->
 			<br>
 			<!-- 버튼과 검색바 같이 들어가는 DIV -->
-			<div btnAndSearch>
+			<div class="btnAndSearch">
 				<table class="bas">
 					<tr>
 						<td id="leftArea">
@@ -345,7 +324,7 @@
 					        </div>
    						</th>
 						<th width="80">
-								<label><input type="checkbox" class="importbox" id="importAll" name="ichk"><img src="${pageContext.servletContext.contextPath }/resources/icons/star_border-black-48dp.svg"></label>
+								<label><input type="checkbox" class="importbox" id="importAll" name="ichk"><img src="resources/images/star_border-black-48dp.svg"></label>
 						</th>
 						<th width="220">보낸사람</th>
 						<th>제목</th>
@@ -366,10 +345,10 @@
 							<td>
 								<c:choose>
 									<c:when test="${b.mailImportFlag eq 'Y' }">
-										<label><input type="checkbox" class="importbox" name="ichk"><img src="${pageContext.servletContext.contextPath }/resources/icons/star-black-48dp.svg"></label>
+										<label><input type="checkbox" class="importbox" name="ichk"><img src="resources/images/star-black-48dp.svg"></label>
 									</c:when>
 									<c:otherwise>
-										<label><input type="checkbox" class="importbox" name="ichk"><img src="${pageContext.servletContext.contextPath }/resources/icons/star_border-black-48dp.svg"></label>
+										<label><input type="checkbox" class="importbox" name="ichk"><img src="resources/images/star_border-black-48dp.svg"></label>
 									</c:otherwise>
 								</c:choose>
 							</td>
@@ -391,10 +370,10 @@
 							<td>
 								<c:choose>
 									<c:when test="${b.mailImportFlag eq 'Y' }">
-										<label><input type="checkbox" class="importbox" name="ichk"><img src="${pageContext.servletContext.contextPath }/resources/icons/star-black-48dp.svg"></label>
+										<label><input type="checkbox" class="importbox" name="ichk"><img src="resources/images/star-black-48dp.svg"></label>
 									</c:when>
 									<c:otherwise>
-										<label><input type="checkbox" class="importbox" name="ichk"><img src="${pageContext.servletContext.contextPath }/resources/icons/star_border-black-48dp.svg"></label>
+										<label><input type="checkbox" class="importbox" name="ichk"><img src="resources/images/star_border-black-48dp.svg"></label>
 									</c:otherwise>
 								</c:choose>
 							</td>
@@ -504,6 +483,14 @@
 
 		</div>
 	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+
+	
+	
+	
 	<script>
 	
 	//최상단 체크박스 클릭
@@ -524,20 +511,20 @@
 	     if($("#importAll").prop("checked")){
 	            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
 	            $("input[name=ichk]").prop("checked",true);
-	            $("input[name=ichk]").parent().find('img').attr('src','${pageContext.servletContext.contextPath }/resources/icons/star-black-48dp.svg');
+	            $("input[name=ichk]").parent().find('img').attr('src','resources/images/star-black-48dp.svg');
 	            //클릭이 안되있으면
 	     }else{
 	            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
 	            $("input[name=ichk]").prop("checked",false);
-	            $("input[name=ichk]").parent().find('img').attr('src','${pageContext.servletContext.contextPath }/resources/icons/star_border-black-48dp.svg');
+	            $("input[name=ichk]").parent().find('img').attr('src','resources/images/star_border-black-48dp.svg');
 	     }
 	 });
 	$(document).ready(function() { 
 		$(".importbox").on('click', function() { 
 			if ( $(this).prop('checked') ) {
-				$(this).parent().find('img').attr('src','${pageContext.servletContext.contextPath }/resources/icons/star-black-48dp.svg');
+				$(this).parent().find('img').attr('src','resources/images/star-black-48dp.svg');
 			}else { 
-				$(this).parent().find('img').attr('src','${pageContext.servletContext.contextPath }/resources/icons/star_border-black-48dp.svg');
+				$(this).parent().find('img').attr('src','resources/images/star_border-black-48dp.svg');
 			} 
 		});
 		

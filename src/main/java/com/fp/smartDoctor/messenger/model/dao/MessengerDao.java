@@ -7,10 +7,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
+import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.messenger.model.vo.Email;
 import com.fp.smartDoctor.messenger.model.vo.MailAttachment;
 import com.fp.smartDoctor.messenger.model.vo.SearchCondition;
-import com.fp.smartDoctor.sign.model.vo.Line;
 
 @Repository
 public class MessengerDao {
@@ -173,6 +173,8 @@ public class MessengerDao {
 		return (ArrayList)sqlSession.selectList("messengerMapper.miniImportMailList", mailOwn);
 	}
 	
-	
+	public ArrayList<Member> selectDeptEmpList(SqlSessionTemplate sqlSession, String keyword) {
+		return (ArrayList)sqlSession.selectList("messengerMapper.selectDeptEmpList", keyword);
+	}
 	
 }
