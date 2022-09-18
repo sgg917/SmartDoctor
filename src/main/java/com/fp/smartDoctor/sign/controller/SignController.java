@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fp.smartDoctor.attendance.model.vo.Vacation;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.common.template.FileUpload;
 import com.fp.smartDoctor.common.template.Pagination;
@@ -429,7 +430,43 @@ public class SignController {
 		
 	}
 	
+	// 사용자_휴가 신청페이지
+	@RequestMapping("vacationForm.si")
+	public String VacationEnrollForm() {
+		return "kma/vacationForm";
+	}
 	
-	
+	// 사용자_휴가 결재신청
+	@RequestMapping("insertVacation.si")
+	public String insertApprVacation(Line i, Sign s, Vacation v, HttpSession session) {
+		
+		ArrayList<Line> lineList = i.getLineList();
+		ArrayList<Line> refList = i.getRefList();
+		
+		int num = 1;
+		for(Line l : lineList) { // lineLevel 세팅
+			l.setLineLevel(num);
+			num++;
+		}
+		
+		int result = sService.insertApprVacation(s);
+		int lineResult = sService.insertLine(lineList);
+		int vacResult = sService.insertVacation(v);
+		
+		if(refList != null) { // 참조자가 있을 시에만 insert 요청
+			sService.insertRef(refList);
+		}
+		
+		if(lineResult > 0  && result > 0 && vacResult > 0) { // 성공
+			
+			session.setAttribute("alertMsg", "성공적으로 결재요청하였습니다.");
+			return "redirect:vacationForm.si";
+		}else {
+			
+			session.setAttribute("alertMsg", "결재요청에 실패하였습니다.");
+			return "redirect:vacationForm.si";
+		}
+		
+	}
 	
 }

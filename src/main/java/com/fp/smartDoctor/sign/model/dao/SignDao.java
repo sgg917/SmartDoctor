@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.fp.smartDoctor.attendance.model.vo.Vacation;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
@@ -196,5 +197,13 @@ public class SignDao {
 		return sqlSession.insert("signMapper.insertOvertime", o);
 	}
 	
+	// 휴가 신청
+	public int insertApprVacation(SqlSessionTemplate sqlSession, Sign s) {
+		return sqlSession.insert("attendanceMapper.insertApprVacation", s);
+	}
+	
+	public int insertVacation(SqlSessionTemplate sqlSession, Vacation v) {
+		return sqlSession.insert("attendanceMapper.insertVacation", v);
+	}
 	
 }
