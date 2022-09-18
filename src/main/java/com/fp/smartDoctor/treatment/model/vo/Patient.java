@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class Patient {
 
-	private int chartNo;
+	private String chartNo;
 	private String lastDep;
 	private String patientName;
 	private String idNo;
