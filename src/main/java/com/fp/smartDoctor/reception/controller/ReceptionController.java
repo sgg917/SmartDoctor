@@ -31,7 +31,7 @@ public class ReceptionController {
 	@RequestMapping(value= "list.pt", produces="apllication/json; charset=utf-8")
 	public String ajaxSelectReplyList(@RequestParam(value="cpage", defaultValue="1") int currentPage) {
 		int listCount = rService.selectListCount();
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
 		ArrayList<Patient> list = rService.selectList(pi);
 		return new Gson().toJson(list); // "[{}, {}, {} ..]"
 	}
@@ -117,10 +117,13 @@ public class ReceptionController {
 	
 	// 환자 선택
 	@RequestMapping("select.pt")
-	public ModelAndView selectBoard(int chartNo, ModelAndView mv) {
+	public ModelAndView selectPatient(int chartNo, ModelAndView mv) {
 		
 		
 		Patient p = rService.selectPatient(chartNo);
+		
+		//System.out.println(p);
+		
 		String beforeFV = p.getFirstVisit();
 		p.setFirstVisit(beforeFV.substring(0,11));
 		String beforeLV = p.getLastVisit();
