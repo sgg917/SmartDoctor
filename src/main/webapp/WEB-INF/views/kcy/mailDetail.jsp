@@ -231,10 +231,10 @@
 						<div class="importantIcon">
 							<c:choose>
 									<c:when test="${e.mailImportFlag eq 'Y' }">
-										<img src="${pageContext.servletContext.contextPath }/resources/icons/star-black-48dp.svg">
+										<img src="resources/images/star-black-48dp.svg">
 									</c:when>
 									<c:otherwise>
-										<img src="${pageContext.servletContext.contextPath }/resources/icons/star_border-black-48dp.svg">
+										<img src="resources/images/star_border-black-48dp.svg">
 									</c:otherwise>
 							</c:choose>
 							
@@ -247,11 +247,11 @@
 				<table class="infoBar">
 					<tr>
 						<td>보낸사람</td>
-						<td>${e.mailFrom }@ergate.com</td>
+						<td>${e.mailFrom }@smartdoctor.com</td>
 					</tr>
 					<tr>
 						<td>받는사람</td>
-						<td>${e.mailTo }@ergate.com</td>
+						<td>${e.mailTo }@smartdoctor.com</td>
 					</tr>
 					<tr>
 						<td>보낸날짜</td>
@@ -274,7 +274,7 @@
 								<b class="fileShow">첨부파일</b>
 							</td>
 							<td>
-								<img class="fileShow"src="${pageContext.servletContext.contextPath }/resources/icons/save_alt.png" style="transform:translate(0,-2px) scale(0.5);" class="bigBtn fileShow">
+								<img class="fileShow"src="resources/images/save_alt.png" style="transform:translate(0,-2px) scale(0.5);" class="bigBtn fileShow">
 							</td>
 							<td colspan="6">
 							</td>

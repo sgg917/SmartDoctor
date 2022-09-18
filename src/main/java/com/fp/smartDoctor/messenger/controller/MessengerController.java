@@ -56,6 +56,9 @@ public class MessengerController {
 
 		return "kcy/mailInbox";
 	}
+	
+	
+	
 	@RequestMapping("flist.mil")
 	public String selectToList(int currentPage, String mailOwn, Model model) {
 
@@ -73,6 +76,9 @@ public class MessengerController {
 
 		return "kcy/mailSentbox";
 	}
+	
+	
+	
 	@RequestMapping("ilist.mil")
 	public String selectImportToList(int currentPage, String mailOwn, Model model) {
 
@@ -90,6 +96,7 @@ public class MessengerController {
 
 		return "kcy/mailImportantbox";
 	}
+	
 	
 	
 	@RequestMapping("search.mil")
@@ -122,6 +129,8 @@ public class MessengerController {
 		return "kcy/mailInbox";
 	}
 	
+	
+	
 	@RequestMapping("fsearch.mil")
 	public String fsearchEmailList(String condition, String keyword, String mailOwn, int currentPage, Model model) {
 		
@@ -153,6 +162,8 @@ public class MessengerController {
 		model.addAttribute("sc", 1);	// 검색된 값인지 일반 게시글 리스트인지 구별하기 위한 값 반환 (sc가 1이면 검색결과, sc라는 키값이 없으면 일반 글목록)
 		return "kcy/mailSentbox";
 	}
+	
+	
 	
 	@RequestMapping("isearch.mil")
 	public String isearchEmailList(String condition, String keyword, String mailOwn, int currentPage, Model model) {
@@ -188,6 +199,7 @@ public class MessengerController {
 	}
 	
 	
+	
 	@RequestMapping("detail.mil")
 	public String detailMail(int mailNo, int currentPage, String mailOwn, Model model, String pt) {
 
@@ -210,6 +222,9 @@ public class MessengerController {
 	}
 	
 	
+	
+	
+	//메일 작성
 	@RequestMapping("enrollForm.mil")
 	public String enrollForm(@RequestParam(required=false)String empNo, Model model) {
 		empNo = empNo;
@@ -245,12 +260,12 @@ public class MessengerController {
 		}
 		
 		insertE.setMailnameFrom(fromname[0]);
-		
+		System.out.println(insertE);
 		
 		int result = 0;
 		result = milService.insertMail(insertE);
 		String resources = form.getSession().getServletContext().getRealPath("resources");
-		String filePath = resources + "\\mailFiles\\";
+		String filePath = resources + "/mailFiles/";
 		if(files.length > 0) {
 			int flag = 0;
 			int setFlag = 0;
@@ -261,7 +276,7 @@ public class MessengerController {
 				}else {
 					setFlag += 100;
 					flag = setFlag;
-				} // 혹시나 Math.random이 같은 값이 나올경우를 대비해서~
+				} // 같은 값이 나올 경우 대비
 				String changeName = saveFile(files[i], form, flag);
 				MailAttachment mt = new MailAttachment();
 				mt.setChangeName(changeName);
@@ -279,6 +294,8 @@ public class MessengerController {
 		
 		return result;
 	}
+	
+	
 	
 	public String saveFile(MultipartFile file, HttpServletRequest request, int flag) {
 		
@@ -307,6 +324,8 @@ public class MessengerController {
 		return changeName;
 	}
 	
+	
+	
 	public void deleteFile(String fileName, HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources + "\\uploadFiles\\mail\\";
@@ -322,6 +341,8 @@ public class MessengerController {
 		  return "kcy/mailAddToList";
 	  }
 	  
+	  
+	  
 	@RequestMapping("delete.mil")
 	public String deleteMail(int mailNo[], String mailOwn, Model model) {
 		
@@ -332,6 +353,8 @@ public class MessengerController {
 		
 		return "redirect:list.mil?currentPage=1&mailOwn=" + mailOwn;
 	}  
+	
+	
 	
 	@ResponseBody
 	@RequestMapping("importFlagUpdate.mil")
@@ -348,6 +371,9 @@ public class MessengerController {
 			
 		return result;
 	}
+	
+	
+	
 	@RequestMapping("replyMail.mil")
 	public String replyMail(int mailNo, Model model) {
 		Email e = milService.selectMail(mailNo);
@@ -355,6 +381,9 @@ public class MessengerController {
 		model.addAttribute("f", 0);
 		return "kcy/mailSentDetail";
 	}
+	
+	
+	
 	@RequestMapping("transMail.mil")
 	public String transMail(int mailNo, Model model) {
 		Email e = milService.selectMail(mailNo);
@@ -362,6 +391,8 @@ public class MessengerController {
 		model.addAttribute("f", 1);
 		return "kcy/mailSentDetail";
 	}
+	
+	
 	
 	@ResponseBody
 	@RequestMapping("mailCount.mil")
@@ -375,6 +406,8 @@ public class MessengerController {
 		return mc;
 	}
 	
+	
+	
 	@ResponseBody
 	@RequestMapping("miniFromMailList.mil")
 	public ArrayList<Email> miniFromMailList(String mailOwn) {
@@ -382,6 +415,9 @@ public class MessengerController {
 		ArrayList<Email> list = milService.miniFromMailList(mailOwn);
 		return list;
 	}
+	
+	
+	
 	@ResponseBody
 	@RequestMapping("miniToMailList.mil")
 	public ArrayList<Email> miniToMailList(String mailOwn) {
@@ -389,12 +425,22 @@ public class MessengerController {
 		ArrayList<Email> list = milService.miniToMailList(mailOwn);
 		return list;
 	}
+	
+	
+	
 	@ResponseBody
 	@RequestMapping("miniImportMailList.mil")
 	public ArrayList<Email> miniImportMailList(String mailOwn) {
 		ArrayList<Email> list = milService.miniImportMailList(mailOwn);
 		return list;
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	@ResponseBody
 	@RequestMapping(value="deptEmpList.gr", produces="application/json; charset=utf-8")

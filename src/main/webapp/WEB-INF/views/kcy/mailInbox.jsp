@@ -34,47 +34,13 @@
 
 
 
-    /* 서브메뉴바 영역 */
-    .subMenuArea{
-        background-color: white;
-        width: 100%;
-        height: 70px;
-    }
-    #subMenuList{margin: 0;list-style:none;padding-left: 0;}
-    #subMenuList li{
-        margin-top: 10px;
-        margin-left: 20px;
-        float:left;
-        text-decoration-style: none;
-    }
-    /* 서브메뉴바 영역 */
-
-    /* 서브메뉴바 메뉴버튼(기본) */
-    .subBtn{
-        border:0;
-        width:150px;
-        height:50px;
-        font-size: 19px;
-        color:rgb(127, 127, 127);
-        background-color: white;
-        border-radius: 25px;
-    }
-    .subBtn:hover{cursor: pointer;}
-    /* 서브메뉴바 메뉴버튼(기본) */
-    /* 서브메뉴바 메뉴버튼(현재페이지일때) */
-    .subActive{
-        border:4px solid rgb(26, 188, 156);
-    }
-    /* 서브메뉴바 메뉴버튼(현재페이지일때) */
-
+    
     /* 콘텐츠영역 */
     .contentArea {
        margin:auto;
        width:90%;
     }
-    /* 콘텐츠영역 */
 
-/* ==========페이지영역========== */
 
 /* 중간버튼 스타일 */
 .middleBtn {
@@ -352,7 +318,7 @@
 									</c:otherwise>
 								</c:choose>
 							</td>
-							<td><span data-tooltip-text="${b.mailFrom }@ergate.com">${b.mailnameFrom }</span></td>
+							<td><span data-tooltip-text="${b.mailFrom }@smartdoctor.com">${b.mailnameFrom }</span></td>
 							<td>${b.mailTitle }</td>
 							<td>${b.mailDateStr }</td>
 						</tr>
@@ -377,7 +343,7 @@
 									</c:otherwise>
 								</c:choose>
 							</td>
-							<td><span data-tooltip-text="${b.mailFrom }@ergate.com">${b.mailnameFrom }</span></td>
+							<td><span data-tooltip-text="${b.mailFrom }@smartdoctor.com">${b.mailnameFrom }</span></td>
 							<td>${b.mailTitle }</td>
 							<td>${b.mailDateStr }</td>
 						</tr>

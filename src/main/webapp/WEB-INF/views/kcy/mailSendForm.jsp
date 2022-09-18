@@ -335,13 +335,13 @@
 	
 	
 	<script>
-	var signerId = new Array();
+	var signerNo = new Array();
 	var signerName = new Array();
 	
 	// 받는사람아이디 받아오기
 	function getSid(data){
 		signerId = data;
-		console.log("받는사람: " + signerId);
+		console.log("받는사람: " + signerNo);
 	}
 	
 	// 받는사람이름 받아오기
@@ -350,13 +350,13 @@
 		console.log("받는사람: " + signerName);
 	}
 	
-	var refId = new Array();
+	var refNo = new Array();
 	var refName = new Array();
 	
 	// 참조 아이디 받아오기
 	function getRefId(data){
-		refId = data;
-		console.log("참조: " + refId);
+		refNo = data;
+		console.log("참조: " + refNo);
 	}
 	
 	// 참조 이름 받아오기
@@ -601,7 +601,7 @@
 			//refName = data; -- 참조 이름
 			var refNameStr=refName.join(',');
 			
-		    console.log(signerId + signerName + refId, refNameStr);
+		    console.log(signerNo + signerName + refNo, refNameStr);
 	        var form = $('#uploadForm');
 	        console.log(form[0]);
 	        var formData = new FormData(form[0]);
@@ -615,11 +615,11 @@
 	            formData.append('files', fileList[uploadFileList[i]]);
 	        }
 	        
-	        /* console.log(formData.getAll('boardTitle'));
-	        console.log(formData.getAll('boardContent'));
-	        console.log(formData.getAll('boardWriter'));
+	        console.log(formData.getAll('mailTitle'));
+	        console.log(formData.getAll('mailContent'));
+	        console.log(formData.getAll('mailnameFrom'));
 	        console.log(formData.getAll('empNo'));
-	        console.log(formData.getAll('files')); */
+	        console.log(formData.getAll('mailnameTo'));
 	        
 	        $.ajax({
 	            url : "insert.mil",
