@@ -55,4 +55,24 @@ public class NoticeServiceImpl implements NoticeService{
 		return nDao.deleteNotice(sqlSession, noticeNo);
 	}
 
+	// 공지사항 수정
+	@Override
+	public int updateNotice(Notice n) {
+		return nDao.updateNotice(sqlSession, n);
+	}
+
+	// 공지사항 검색 글 총 갯수 세기
+	@Override
+	public int selectSearchCount(String keyword) {
+		return nDao.selectSearchCount(sqlSession, keyword);
+	}
+
+	// 공지사항 검색 글 리스트 조회
+	@Override
+	public ArrayList<Notice> selectSearchList(String keyword, PageInfo pi) {
+		return nDao.selectSearchList(sqlSession, keyword, pi);
+	}
+	
+	
+
 }

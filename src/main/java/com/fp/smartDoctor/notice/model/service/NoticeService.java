@@ -20,5 +20,12 @@ public interface NoticeService {
 	
 	// 공지사항 삭제
 	int deleteNotice(int noticeNo);
+	
+	// 공지사항 수정
+	int updateNotice(Notice n);
+	
+	// 공지사항 검색
+	int selectSearchCount(String keyword);
+	ArrayList<Notice> selectSearchList(String keyword, PageInfo pi);
 
 }

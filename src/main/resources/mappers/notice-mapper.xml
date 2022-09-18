@@ -85,6 +85,41 @@
 		 where notice_no = #{noticeNo}
 	</update>
 
+	<update id="updateNotice">
+		update 
+		       notice
+		   set notice_title = #{noticeTitle}
+		     , notice_content = #{noticeContent}
+		     , notice_mdate = sysdate
+		     , notice_originname = #{noticeOrigin}
+		 where notice_no = #{noticeNo}
+	</update>
 
+	<select id="selectSearchCount" resultType="_int">
+		select
+		       count(*)
+		  from notice
+		 where notice_status = 'Y'
+		   and notice_title 
+		  like '%' || #{keyword} || '%'
+	</select>
+
+	<select id="selectSearchList" resultMap="noticeResult">
+		select
+		        notice_no
+		      , notice_title
+		      , notice_content
+		      , to_char(to_date(notice_edate), 'YYYY-MM-DD') as "notice_edate"
+		      , notice_mdate
+		      , notice_count
+		      , notice_originname
+		      , notice_filepath
+		      , notice_status
+		  from notice
+		 where notice_status = 'Y'
+		   and notice_title like '%' || #{keyword} || '%'
+		 order
+		    by notice_no desc
+	</select>
 
 </mapper>
