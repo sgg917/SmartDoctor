@@ -22,6 +22,7 @@ import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.service.SignService;
 import com.fp.smartDoctor.sign.model.vo.Form;
 import com.fp.smartDoctor.sign.model.vo.Line;
+import com.fp.smartDoctor.sign.model.vo.Overtime;
 import com.fp.smartDoctor.sign.model.vo.Sign;
 import com.google.gson.Gson;
 
@@ -201,14 +202,17 @@ public class SignController {
 			num++;
 		}
 		
+		if(refList != null) { // 참조자가 있을 시에만 insert 요청
+			sService.insertRef(refList);
+		}
+		
 		int result = sService.insertAppr(s);
 		int lineResult = sService.insertLine(lineList);
-		int refResult = sService.insertRef(refList);
 		
-		if(lineResult > 0 && refResult > 0 && result > 0) { // 성공
+		if(lineResult > 0  && result > 0) { // 성공
 			
-				session.setAttribute("alertMsg", "성공적으로 결재요청하였습니다.");
-				return "redirect:apprEnrollForm.si";
+			session.setAttribute("alertMsg", "성공적으로 결재요청하였습니다.");
+			return "redirect:apprEnrollForm.si";
 		}else {
 			
 			session.setAttribute("alertMsg", "결재요청에 실패하였습니다.");
@@ -391,6 +395,41 @@ public class SignController {
 			return "redirect:apprStandbyList.si";
 		}
 	}
+	
+	// 사용자_연장근무 결재신청
+	@RequestMapping("insertOvertime.si")
+	public String insertApprOvertime(Line i, Sign s, Overtime o, HttpSession session) {
+		
+		ArrayList<Line> lineList = i.getLineList();
+		ArrayList<Line> refList = i.getRefList();
+		
+		int num = 1;
+		for(Line l : lineList) { // lineLevel 세팅
+			l.setLineLevel(num);
+			num++;
+		}
+		
+		int result = sService.insertApprOvertime(s);
+		int lineResult = sService.insertLine(lineList);
+		int overtime = sService.insertOvertime(o);
+		
+		if(refList != null) { // 참조자가 있을 시에만 insert 요청
+			sService.insertRef(refList);
+		}
+		
+		if(lineResult > 0  && result > 0 && overtime > 0) { // 성공
+			
+			session.setAttribute("alertMsg", "성공적으로 결재요청하였습니다.");
+			return "redirect:apprOvertimeForm.si";
+		}else {
+			
+			session.setAttribute("alertMsg", "결재요청에 실패하였습니다.");
+			return "redirect:apprOvertimeForm.si";
+		}
+		
+	}
+	
+	
 	
 	
 }

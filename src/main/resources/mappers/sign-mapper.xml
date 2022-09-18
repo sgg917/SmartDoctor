@@ -45,6 +45,18 @@
 		<result column="appr_now" property="apprNow" />
 	</resultMap>
 	
+	<resultMap id="overtimeResult" type="Overtime">
+		<result column="appr_no" property="apprNo"/>
+		<result column="emp_no" property="empNo"/>
+		<result column="over_date" property="overDate"/>
+		<result column="start_time" property="startTime"/>
+		<result column="end_time" property="endTime"/>
+		<result column="total_time" property="totalTime"/>
+		<result column="over_cause" property="overCause"/>
+		<result column="over_status" property="overStatus"/>
+		<result column="enroll_date" property="enrollDate"/>
+	</resultMap>
+	
 	<!-- 관리자_결재양식 리스트 조회 -->
 	<select id="selectListCount" resultType="_int">
 		select
@@ -365,7 +377,7 @@
 		select
 		       count(*)
 		  from appr_line
-		 where line_comment is not null
+		 where line_status = 'Y'
 		   and appr_no = #{apprNo}
 	</select>
 	
@@ -416,12 +428,11 @@
 		update 
 		       approval
 		   set appr_status =
-		       case when appr_status = '대기' then '진행'
-		            when appr_status = '진행' and appr_now = appr_total then '완료'
+		       case when appr_status in('대기', '진행') and appr_now = appr_total then '완료'
 		            else '진행'
 		       end 
 		     , appr_now =
-		       case when appr_status = '진행' and appr_now = appr_total then appr_now
+		       case when appr_status in('대기', '진행') and appr_now = appr_total then appr_now
 		            else appr_now + 1
 		        end
 		 where appr_no = #{apprNo}
@@ -467,4 +478,48 @@
 		   and l.emp_no = #{empNo}
 	</select>
 	
+	<!-- 사용자_연장근무 신청 -->
+	<insert id="insertApprOvertime">
+		insert
+		  into approval
+		  	 (
+		  	   appr_no
+			 , appr_title
+			 , appr_total
+			 , emp_no
+			 , form_no
+		  	 ) 
+		values
+			 (
+			   seq_apno.nextval
+			 , #{apprTitle}
+			 , #{apprTotal}
+			 , #{empNo}
+			 , 2
+			 )
+	</insert>
+	
+	<insert id="insertOvertime">
+		insert
+		  into overtime
+		  	 (
+		  	   appr_no
+             , emp_no
+             , over_date
+             , start_time
+             , end_time
+             , total_time
+             , over_cause
+		  	 ) 
+		values
+			 (
+			   seq_apno.currval
+			 , #{empNo}
+			 , #{overDate}
+			 , #{startTime}
+			 , #{endTime}
+			 , #{totalTime}
+			 , #{overCause}
+			 )
+	</insert>
 </mapper>

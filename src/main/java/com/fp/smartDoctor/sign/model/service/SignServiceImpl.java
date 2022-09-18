@@ -13,6 +13,7 @@ import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.dao.SignDao;
 import com.fp.smartDoctor.sign.model.vo.Form;
 import com.fp.smartDoctor.sign.model.vo.Line;
+import com.fp.smartDoctor.sign.model.vo.Overtime;
 import com.fp.smartDoctor.sign.model.vo.Sign;
 
 @Service
@@ -150,6 +151,14 @@ public class SignServiceImpl implements SignService {
 	@Override
 	public Line selectLineLevel(HashMap<String, Object> map) {
 		return sDao.selectLineLevel(sqlSession, map);
+	}
+	@Override
+	public int insertApprOvertime(Sign s) {
+		return sDao.insertApprOvertime(sqlSession, s);
+	}
+	@Override
+	public int insertOvertime(Overtime o) {
+		return sDao.insertOvertime(sqlSession, o);
 	}
 
 }

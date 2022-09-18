@@ -12,6 +12,7 @@ import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.vo.Form;
 import com.fp.smartDoctor.sign.model.vo.Line;
+import com.fp.smartDoctor.sign.model.vo.Overtime;
 import com.fp.smartDoctor.sign.model.vo.Sign;
 
 @Repository
@@ -90,7 +91,7 @@ public class SignDao {
 	}
 	
 	public int insertRef(SqlSessionTemplate sqlSession, ArrayList<Line> refList) {
-
+		
 		int result = 0;
 		for(Line l : refList) {
 			result += sqlSession.insert("signMapper.insertRef", l);
@@ -184,6 +185,15 @@ public class SignDao {
 	
 	public int updateDisapprLine(SqlSessionTemplate sqlSession, Line l) {
 		return sqlSession.update("signMapper.updateDisapprLine", l);
+	}
+	
+	// 연장근무 신청
+	public int insertApprOvertime(SqlSessionTemplate sqlSession, Sign s) {
+		return sqlSession.insert("signMapper.insertApprOvertime", s);
+	}
+	
+	public int insertOvertime(SqlSessionTemplate sqlSession, Overtime o) {
+		return sqlSession.insert("signMapper.insertOvertime", o);
 	}
 	
 	
