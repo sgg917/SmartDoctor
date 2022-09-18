@@ -85,7 +85,7 @@ public class TreatmentServiceImpl implements TreatmentService{
 
 	// 진료할 환자의 과거 내역 조회
 	@Override
-	public ArrayList<Clinic> selectPatientInfo(int chartNo) {
+	public ArrayList<Clinic> selectPatientInfo(String chartNo) {
 		ArrayList<Clinic> list = tDao.selectPatientInto(sqlSession, chartNo);
 		return list;
 	}

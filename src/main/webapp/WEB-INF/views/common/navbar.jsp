@@ -179,7 +179,6 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
             
-              <!-- 로그인 전 -->
               <c:choose>
               	<c:when test="${ empty loginUser }">
               		<div align="center">

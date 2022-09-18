@@ -26,5 +26,6 @@ public class Patient {
 	private String newOne;//초진내진여부
 	private int age;
 	private String gender;
+	private String diagnosis;
 
 }
