@@ -156,15 +156,13 @@ input {
 							</tr>
 							<tr>
 								<td width="100">이름</td>
-								<td colspan="5" style="text-align: left;">
-									${p.patientName}
+								<td colspan="5" style="text-align: left;">${p.patientName}
 									<input type="hidden" value="${p.chartNo}" id="chartNo">
 								</td>
 							</tr>
 							<tr>
 								<td>주민번호</td>
-								<td colspan="5" style="text-align: left;">
-									${p.idNo}</td>
+								<td colspan="5" style="text-align: left;">${p.idNo}</td>
 							</tr>
 							<tr>
 								<td style="padding-left: 5px; padding-right: 5px;">최초내원일</td>
@@ -191,14 +189,15 @@ input {
 							<tr>
 								<td width="100">진료과</td>
 								<td><select name="deptNo" id="deptNo">
-									<option value="">선택</option>
+										<option value="">선택</option>
 										<c:forEach var="d" items="${ deptList }">
 											<option value="${ d.deptNo }">${ d.deptName }</option>
 										</c:forEach>
 								</select></td>
 								<td width="70" style="padding-left: 0;">교수</td>
-								<td style="padding-left: 0;"><select name="empNo" id="empNo">
-								<option value="">선택</option>
+								<td style="padding-left: 0;"><select name="empNo"
+									id="empNo">
+										<option value="">선택</option>
 										<c:forEach var="p" items="${ profList }">
 											<option value="${ p.empNo }">${ p.empName }</option>
 										</c:forEach>
@@ -206,11 +205,13 @@ input {
 							</tr>
 							<tr>
 								<td height="120">증상</td>
-								<td colspan="3"><textarea name="diagnosisContent" id="diagnosisContent"></textarea></td>
+								<td colspan="3"><textarea name="diagnosisContent"
+										id="diagnosisContent"></textarea></td>
 							</tr>
 						</table>
 						<br>
-						<button class="click button" style="width: 110px;" onclick="enrollTreatment();">접수</button>
+						<button class="click button" style="width: 110px;"
+							onclick="enrollTreatment();">접수</button>
 					</div>
 
 
@@ -225,18 +226,19 @@ input {
 							<tr height="30">
 								<td width="120" style="padding: 5px;"><button
 										class="button maintitle">진료대기</button></td>
-										
-								<td width="280" style="padding: 5px;"><select name="deptNo" id="deptNo">
-								<option value="">전체</option>
-									<c:forEach var="d" items="${ deptList }">
-										<option value="${ d.deptNo }">${ d.deptName }</option>
-									</c:forEach>
+
+								<td width="280" style="padding: 5px;"><select name="deptNo"
+									id="deptNo">
+										<option value="">전체</option>
+										<c:forEach var="d" items="${ deptList }">
+											<option value="${ d.deptNo }">${ d.deptName }</option>
+										</c:forEach>
 								</select></td>
 							</tr>
 						</table>
 
 						<div class="list">
-							<table align="center" width="100%">
+							<table align="center" width="100%" id="waitingListArea">
 								<thead>
 									<tr>
 										<th style="padding: 0;"><label for="c">전체</label> <input
@@ -257,14 +259,6 @@ input {
 										<td>25</td>
 										<td>내과</td>
 									</tr>
-									<tr>
-										<td><input type="checkbox"></td>
-										<td>3</td>
-										<td>박서준</td>
-										<td>남</td>
-										<td>25</td>
-										<td>내과</td>
-									</tr>
 
 								</tbody>
 							</table>
@@ -279,11 +273,12 @@ input {
 								<td width="120" style="padding: 5px;">
 									<button class="button maintitle">진료중</button>
 								</td>
-								<td width="280" style="padding: 5px;"><select name="deptNo" id="deptNo">
-								<option value="">전체</option>
-									<c:forEach var="d" items="${ deptList }">
-										<option value="${ d.deptNo }">${ d.deptName }</option>
-									</c:forEach>
+								<td width="280" style="padding: 5px;"><select name="deptNo"
+									id="deptNo">
+										<option value="">전체</option>
+										<c:forEach var="d" items="${ deptList }">
+											<option value="${ d.deptNo }">${ d.deptName }</option>
+										</c:forEach>
 								</select></td>
 							</tr>
 						</table>
@@ -474,69 +469,113 @@ input {
 
 
 			<script>
+				/*
+				$(function(){
+					ajaxSelectClinicList();
+				})
+				 */
 				function openModal() { // 환자 조회용 ajax 함수
 
-					$
-							.ajax({
-								url : "list.pt",
-								data : {
-									cpage : 1
-								},
-								success : function(list) {
+					$.ajax({
+						url : "list.pt",
+						data : {
+							cpage : 0
+						},
+						success : function(list) {
 
-									console.log(list);
+							console.log(list);
 
-									let value = "";
-									for (let i = 0; i < list.length; i++) {
+							let value = "";
+							for (let i = 0; i < list.length; i++) {
 
-										value += "<tr>"
-												+ "<td><input type='radio' name='chartNo' value='" + list[i].chartNo + "'></td>"
-												+ "<td>" + list[i].patientName
-												+ "</td>" + "<td>"
-												+ list[i].idNo + "</td>"
-												+ "</tr>";
+								value += "<tr>"
+										+ "<td><input type='radio' name='chartNo' value='" + list[i].chartNo + "'></td>"
+										+ "<td>" + list[i].patientName
+										+ "</td>" + "<td>"
+										+ list[i].idNo + "</td>"
+										+ "</tr>";
 
-									}
+							}
 
-									$("#patientListArea tbody").html(value);
+							$("#patientListArea tbody").html(value);
 
-									$('#searchPatient').modal('show');
+							$('#searchPatient').modal('show');
 
-								},
-								error : function() {
-									console.log("댓글리스트 조회용 ajax통신 실패");
-								}
-							})
+						},
+						error : function() {
+							console.log("환자 조회용 ajax 통신 실패");
+						}
+					})
 
 				}
 
+				/*
 				$("#searchPatient").change(function() {
 					selectPatientList();
 				});
-
+				 */
 				function modalClose() {
 					$('#searchPatient').modal('hide');
 				}
-				
-				function enrollTreatment(){
-					$.ajax({
-						url:"insert.tr",
-						data:{
-							chartNo:$("#chartNo").val(),
-							deptNo:$("#deptNo").val(),
-							empNo:$("#empNo").val(),
-							diagnosisContent:$("#diagnosisContent").val(),
-							fee:15000
-						},
-						success:function(result){
-							console.log(result);
-							location.href ="reception.mj";
 
-						},error:function(){
+				function enrollTreatment() {
+					$.ajax({
+						url : "insert.tr",
+						data : {
+							chartNo : $("#chartNo").val(),
+							deptNo : $("#deptNo").val(),
+							empNo : $("#empNo").val(),
+							diagnosisContent : $("#diagnosisContent").val(),
+							fee : 15000
+						},
+						success : function(result) {
+							console.log(result);
+							location.href = "reception.mj";
+
+						},
+						error : function() {
 							console.log("ajax통신 실패");
 						}
 					});
 				}
+
+				/*    	
+				function ajaxSelectClinicList(){ 
+					
+					$.ajax({
+						url:"clist.pt",
+						success:function(list){
+							
+							console.log(list);
+							
+							let value = "";
+							for(let i=0; i<list.length; i++){
+								
+								value +="<tr><td><input type='checkbox'></td>"
+								<td>2</td>
+								<td>박서준</td>
+								<td>남</td>
+								<td>25</td>
+								<td>내과</td>
+							</tr>
+							
+								value += "<tr>"
+								        +	"<th>" + list[i].replyWriter + "</th>"
+								        +	"<td>" + list[i].replyContent + "</td>"
+								        +	"<td>" + list[i].createDate + "</td>"
+								        +"</tr>";
+							}
+							
+							$("#replyArea tbody").html(value);
+							$("#rcount").text(list.length);
+							
+						},error:function(){
+							console.log("댓글리스트 조회용 ajax통신 실패");
+						}
+					})
+					
+				}
+				 */
 			</script>
 
 			<jsp:include page="../common/footer.jsp" />
