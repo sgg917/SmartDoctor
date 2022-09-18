@@ -324,68 +324,73 @@ th {
 					},
 					success:function(map){
 						
-						// console.log(map);
+						//console.log(map);
 						
 						// 검색 결과 변수에 담기
 						var newPi = map.pi;
 						var newList = map.list;
+						//console.log(newPi.currentPage);
 						
 						var txt = "";
 						var ptxt = "";
 						
-						if(newList == null){
-							txt = '<tr>';
+						if(newList == null || newList == ""){
+							txt += '<tr>';
 							txt += 	'<td colspan="7" style="text-align:center;">';
 							txt +=		'조회 내역이 없습니다.';
 							txt +=	'</td>';
 							txt += '</tr>';
 						}else {
-							for(let i=0; i<list.length; i++){
+							for(let i=0; i<newList.length; i++){
 								
 								// 결근인 근태 정보는 수정 불가
-								if(list[i].status == '결근'){
+								if(newList[i].status == '결근'){
 									txt += '<tr>'
 								}else{
 									txt += '<tr class="open-modal" data-bs-toggle="modal" data-bs-target="#updateAttModal">';
 								}
 								
-								txt += '<input type="hidden" value="' + list[i].empNo + '">';
-								txt += '<td class="attDate">' + list[i].attDate + '</td>';
-								txt += '<td class="deptName">' + list[i].deptName + '</td>';
-								txt += '<td class="empName">' + list[i].empName + '</td>';
-								txt += '<td class="startTime">' + list[i].startTime + '</td>';
-								txt += '<td class="endTime">' + list[i]].endTime + '</td>';
-								
-								if(list[i].totalTime == '0'){
-									txt += '<td class="totalTime">' + list[i].totalTime + '</td>';
+								txt += '<input type="hidden" value="' + newList[i].empNo + '">';
+								txt += '<td class="attDate">' + newList[i].attDate + '</td>';
+								if(newList[i].deptName == null){
+									txt += '<td class="deptName"> </td>';
 								}else{
-									if(list[i].totalTime < 60){
-										txt += '<td class="totalTime">' + list[i].totalTime + '</td>';
+									txt += '<td class="deptName">' + newList[i].deptName + '</td>';
+								}
+								txt += '<td class="empName">' + newList[i].empName + '</td>';
+								txt += '<td class="startTime">' + newList[i].startTime + '</td>';
+								txt += '<td class="endTime">' + newList[i].endTime + '</td>';
+								
+								if(newList[i].totalTime == '0'){
+									txt += '<td class="totalTime">' + newList[i].totalTime + '</td>';
+								}else{
+									if(newList[i].totalTime < 60){
+										txt += '<td class="totalTime">' + newList[i].totalTime + '</td>';
 									}else{
-										txt += '<td class="totalTime">' + Math.ceil(list[i].totalTime/60) + '</td>';
+										txt += '<td class="totalTime">' + Math.ceil(newList[i].totalTime/60) + '</td>';
 									}
 								}
 								
-								txt += '<td class="status">' + list[i].status + '</td>';
+								txt += '<td class="status">' + newList[i].status + '</td>';
 								txt += '</tr>';
 							}
 						}
 						
 						if(newPi.currentPage != 1){
-							ptxt += '<li class="page-item"><a class="page-link" href="searchAllAtt(' + newPi.currentPage-1 + ');">&lt;</a></li>';
+							ptxt += '<li class="page-item"><a class="page-link" onclick="searchAllAtt(' + (newPi.currentPage-1) + ');">&lt;</a></li>';
 						}
 						
 						for(let p=newPi.startPage; p<=newPi.endPage; p++){
 							
 							if(p == newPi.currentPage){
-								ptxt += '<li class="page-item active"><a class="page-link" href="searchAllAtt(' + p + ');">' + p + '</a></li>';
+								ptxt += '<li class="page-item active"><a class="page-link" onclick="searchAllAtt(' + p + ');">' + p + '</a></li>';
 							}else{
-								ptxt += '<li class="page-item"><a class="page-link" href="searchAllAtt(' + p + ');">' + p + '</a></li>';
+								ptxt += '<li class="page-item"><a class="page-link" onclick="searchAllAtt(' + p + ');">' + p + '</a></li>';
 							}
 						}
 						
 						if(newPi.currentPage != newPi.maxPage){
-							ptxt += '<li class="page-item"><a class="page-link" href="searchAllAtt(' + newPi.currentPage+1 + ');">&gt;</a></li>';
+							ptxt += '<li class="page-item"><a class="page-link" onclick="searchAllAtt(' + (newPi.currentPage+1) + ');">&gt;</a></li>';
 						}
 						
 						$('#memAtt>tbody').empty();
