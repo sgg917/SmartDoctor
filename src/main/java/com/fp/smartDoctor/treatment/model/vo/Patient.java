@@ -14,7 +14,7 @@ import lombok.ToString;
 public class Patient {
 
 	private int chartNo;
-	private int lastDep;
+	private String lastDep;
 	private String patientName;
 	private String idNo;
 	private String address;

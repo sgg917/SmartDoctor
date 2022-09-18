@@ -51,5 +51,6 @@
 	 	<mapper resource="/mappers/timeTable-mapper.xml"/>
 	 	<mapper resource="/mappers/treatment-mapper.xml"/>
 	 	<mapper resource="/mappers/notice-mapper.xml"/>
+	 	<mapper resource="/mappers/reception-mapper.xml"/>
 	 </mappers>
 </configuration>
