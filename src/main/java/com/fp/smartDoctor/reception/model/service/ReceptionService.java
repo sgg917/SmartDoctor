@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
+import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 
 public interface ReceptionService {
@@ -25,5 +26,7 @@ public interface ReceptionService {
 	// 5. 의사 조회
 	ArrayList<Member> selectProfList();
 	
+	// 6. 진료 등록
+	int insertTreatment(Clinic c);
 
 }

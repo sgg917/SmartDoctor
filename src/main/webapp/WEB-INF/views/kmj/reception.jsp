@@ -151,20 +151,20 @@ input {
 								</td>
 								<td width="100" style="padding: 5px;">
 									<button type="button" class="button" style="height: 30px"
-										data-toggle="modal" data-target="#enrollPatient">환자접수</button>
+										data-toggle="modal" data-target="#enrollPatient">환자등록</button>
 								</td>
 							</tr>
 							<tr>
 								<td width="100">이름</td>
 								<td colspan="5" style="text-align: left;">
-									<input type="text" value="${p.patientName}">
+									${p.patientName}
 									<input type="hidden" value="${p.chartNo}" id="chartNo">
 								</td>
 							</tr>
 							<tr>
 								<td>주민번호</td>
 								<td colspan="5" style="text-align: left;">
-									<input type="text" value="${p.idNo}"></td>
+									${p.idNo}</td>
 							</tr>
 							<tr>
 								<td style="padding-left: 5px; padding-right: 5px;">최초내원일</td>
@@ -190,25 +190,27 @@ input {
 							</tr>
 							<tr>
 								<td width="100">진료과</td>
-								<td><select name="" id="">
+								<td><select name="deptNo" id="deptNo">
 									<option value="">선택</option>
 										<c:forEach var="d" items="${ deptList }">
 											<option value="${ d.deptNo }">${ d.deptName }</option>
 										</c:forEach>
 								</select></td>
 								<td width="70" style="padding-left: 0;">교수</td>
-								<td style="padding-left: 0;"><select name="" id="">
-										<option value="">김교수</option>
-										<option value="">박교수</option>
+								<td style="padding-left: 0;"><select name="empNo" id="empNo">
+								<option value="">선택</option>
+										<c:forEach var="p" items="${ profList }">
+											<option value="${ p.empNo }">${ p.empName }</option>
+										</c:forEach>
 								</select></td>
 							</tr>
 							<tr>
 								<td height="120">증상</td>
-								<td colspan="3"><textarea name="" id=""></textarea></td>
+								<td colspan="3"><textarea name="diagnosisContent" id="diagnosisContent"></textarea></td>
 							</tr>
 						</table>
 						<br>
-						<button class="click button" style="width: 110px;">접수</button>
+						<button class="click button" style="width: 110px;" onclick="enrollTreatment();">접수</button>
 					</div>
 
 
@@ -223,12 +225,12 @@ input {
 							<tr height="30">
 								<td width="120" style="padding: 5px;"><button
 										class="button maintitle">진료대기</button></td>
-								<td width="280" style="padding: 5px;"><select name="" id="">
-										<option value="" align="center">전체</option>
-										<option value="" align="center">외과</option>
-										<option value="" align="center">내과</option>
-										<option value="" align="center">정신과</option>
-										<option value="" align="center">마취과</option>
+										
+								<td width="280" style="padding: 5px;"><select name="deptNo" id="deptNo">
+								<option value="">전체</option>
+									<c:forEach var="d" items="${ deptList }">
+										<option value="${ d.deptNo }">${ d.deptName }</option>
+									</c:forEach>
 								</select></td>
 							</tr>
 						</table>
@@ -277,12 +279,11 @@ input {
 								<td width="120" style="padding: 5px;">
 									<button class="button maintitle">진료중</button>
 								</td>
-								<td width="280" style="padding: 5px;"><select name="" id="">
-										<option value="" align="center">전체</option>
-										<option value="" align="center">외과</option>
-										<option value="" align="center">내과</option>
-										<option value="" align="center">정신과</option>
-										<option value="" align="center">마취과</option>
+								<td width="280" style="padding: 5px;"><select name="deptNo" id="deptNo">
+								<option value="">전체</option>
+									<c:forEach var="d" items="${ deptList }">
+										<option value="${ d.deptNo }">${ d.deptName }</option>
+									</c:forEach>
 								</select></td>
 							</tr>
 						</table>
@@ -439,15 +440,15 @@ input {
 								<table class="table-bordered">
 									<tr>
 										<td>이름</td>
-										<td><input type="text" name="patientName"></td>
+										<td><input type="text" name="patientName" required></td>
 									</tr>
 									<tr>
 										<td>주민등록번호</td>
-										<td><input type="text" name="idNo"></td>
+										<td><input type="text" name="idNo" required></td>
 									</tr>
 									<tr>
 										<td>연락처</td>
-										<td><input type="text" name="phone"></td>
+										<td><input type="text" name="phone" required></td>
 									</tr>
 									<tr>
 										<td>보호자 연락처</td>
@@ -455,7 +456,7 @@ input {
 									</tr>
 									<tr>
 										<td>주소</td>
-										<td><input type="text" name="address"></td>
+										<td><input type="text" name="address" required></td>
 									</tr>
 									<tr>
 										<td>메모</td>
@@ -495,14 +496,6 @@ input {
 												+ list[i].idNo + "</td>"
 												+ "</tr>";
 
-										/*
-										 value += "<tr>"
-										 + "<input type='hidden' value=" + ${p.chartNo} + ">"
-										 + "<td><input type='checkbox'></td>"
-										 + "<td>" + ${ p.patientName } + "</td>"
-										 + " <td>" + ${ p.idNo } + "</td>"
-										 + "</tr>";
-										 */
 									}
 
 									$("#patientListArea tbody").html(value);
@@ -523,6 +516,26 @@ input {
 
 				function modalClose() {
 					$('#searchPatient').modal('hide');
+				}
+				
+				function enrollTreatment(){
+					$.ajax({
+						url:"insert.tr",
+						data:{
+							chartNo:$("#chartNo").val(),
+							deptNo:$("#deptNo").val(),
+							empNo:$("#empNo").val(),
+							diagnosisContent:$("#diagnosisContent").val(),
+							fee:15000
+						},
+						success:function(result){
+							console.log(result);
+							location.href ="reception.mj";
+
+						},error:function(){
+							console.log("ajax통신 실패");
+						}
+					});
 				}
 			</script>
 

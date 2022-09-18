@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
+import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 
 @Repository
@@ -41,5 +42,9 @@ public class ReceptionDao {
 	
 	public ArrayList<Member> selectProfList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("receptionMapper.selectProfList");
+	}
+	
+	public int insertTreatment(SqlSessionTemplate sqlSession, Clinic c) {
+		return sqlSession.insert("receptionMapper.insertTreatment", c);
 	}
 }
