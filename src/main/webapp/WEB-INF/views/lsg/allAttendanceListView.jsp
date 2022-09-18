@@ -38,6 +38,10 @@
 	font-weight: 400;
 }
 
+.btn-gradient-primary {
+	background:#1D5C83 !important;
+}
+
 /* 조건 검색 테이블 스타일 */
 #memAtt-condition {
 	margin-top: 50px;
@@ -130,21 +134,37 @@ th {
 							</c:when>
 							<c:otherwise>
 								<c:forEach var="a" items="${ list }">
-									<tr>
-										<td>${ a.attDate }</td>
-										<td>${ a.deptName }</td>
-										<td>${ a.empName }</td>
-										<td>${ a.startDate }</td>
-										<td>${ a.endDate }</td>
+									<!-- 결근인 근태 정보는 수정 불가 -->
+									<c:choose>
+										<c:when test="${ a.status eq '결근' }">
+											<tr>
+										</c:when>
+										<c:otherwise>
+											<tr class="open-modal" data-bs-toggle="modal" data-bs-target="#updateAttModal">
+										</c:otherwise>
+									</c:choose>
+										<input type="hidden" value="${ a.empNo }">
+										<td class="attDate">${ a.attDate }</td>
+										<td class="deptName">${ a.deptName }</td>
+										<td class="empName">${ a.empName }</td>
+										<td class="startTime">${ a.startTime }</td>
+										<td class="endTime">${ a.endTime }</td>
 										<c:choose>
 											<c:when test="${ a.totalTime eq '0' }">
-												<td>${ a.totalTime }</td>
+												<td class="totalTime">${ a.totalTime }</td>
 											</c:when>
 											<c:otherwise>
-												<td>${ Math.ceil(a.totalTime/60) }시간</td>
+												<c:choose>
+													<c:when test="${ a.totalTime lt 60 }">
+														<td class="totalTime">${ a.totalTime }</td>
+													</c:when>
+													<c:otherwise>
+														<td class="totalTime">${ Math.ceil(a.totalTime/60) }</td>
+													</c:otherwise>
+												</c:choose>
 											</c:otherwise>
 										</c:choose>
-										<td>${ a.status }</td>
+										<td class="status">${ a.status }</td>
 									</tr>
 								</c:forEach>
 							</c:otherwise>
@@ -189,7 +209,16 @@ th {
 
 		<script>
 			$(function() {
-				$('#memAtt>tbody>tr').click(function() {
+				$('.open-modal').click(function() {
+					// input 요소에 근태 정보 넣어주기
+					$('input[type=hidden]').val( $(this).children('input[type=hidden]').val() );
+					$('input[name=attDate]').val( $(this).children(".attDate").text() );
+					$('input[name=deptName]').val( $(this).children('.deptName').text() );
+					$('input[name=empName]').val( $(this).children('.empName').text() );
+					$('input[name=startTime]').val( $(this).children('.startTime').text() );
+					$('input[name=endTime]').val( $(this).children('.endTime').text() );
+					$('input[name=totalTime]').val( $(this).children('.totalTime').text() );
+					$('option[value=' + $(this).children(".status").text() + ']').attr('selected', true);
 					$('#updateAttModal').modal('show');
 				})
 			})
@@ -209,64 +238,62 @@ th {
 
 					<!-- Modal body -->
 					<div class="modal-body" style="background: white;">
-						<form class="forms-sample" action="" method="post">
+						<form class="forms-sample" action="update.att" method="post">
+							<input type="hidden" name="empNo">
+							<input type="hidden" name="modifyNo" value="${ loginUser.empNo }">
 							<div class="form-group row">
-								<label for="date" class="col-sm-3 col-form-label">날짜</label>
+								<label for="attDate" class="col-sm-3 col-form-label">날짜</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="date" name=""
-										value="2022-08-20" disabled>
+									<input type="text" class="form-control" name="attDate" readonly>
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="department" class="col-sm-3 col-form-label">부서</label>
+								<label for="deptName" class="col-sm-3 col-form-label">부서</label>
 								<div class="col-sm-9">
-									<input type="email" class="form-control" id="department"
-										name="" value="원무부" disabled>
+									<input type="email" class="form-control" name="deptName" disabled>
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="userName" class="col-sm-3 col-form-label">이름</label>
+								<label for="empName" class="col-sm-3 col-form-label">이름</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="userName" name=""
-										value="홍길동" disabled>
+									<input type="text" class="form-control" name="empName" disabled>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="startTime" class="col-sm-3 col-form-label">출근시간</label>
 								<div class="col-sm-9">
-									<input type="time" class="form-control" id="startTime" name="">
+									<input type="time" class="form-control" id="startTime" name="startTime">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="endTime" class="col-sm-3 col-form-label">출근시간</label>
 								<div class="col-sm-9">
-									<input type="time" class="form-control" id="endTime" name="">
+									<input type="time" class="form-control" id="endTime" name="endTime">
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="attTime" class="col-sm-3 col-form-label">근무시간</label>
+								<label for="totalTime" class="col-sm-3 col-form-label">근무시간</label>
 								<div class="col-sm-9">
-									<input type="number" class="form-control" id="attTime">
+									<input type="number" class="form-control" id="totalTime" name="totalTime">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="status" class="col-sm-3 col-form-label">상태</label>
 								<div class="col-sm-9">
 									<div class="input-group">
-										<select name="" id="status" class="form-control"
+										<select name="status" id="status" class="form-control"
 											style="height: 50px;">
-											<option value="Y">정상</option>
-											<option value="L">지각</option>
-											<option value="E">조퇴</option>
-											<option value="N">결근</option>
+											<option name="status" value="정상">정상</option>
+											<option name="status" value="지각">지각</option>
+											<option name="status" value="휴가">휴가</option>
+											<option name="status" value="결근">결근</option>
 										</select>
 									</div>
 								</div>
 							</div>
 							<br>
-							<button type="submit" class="btn btn-gradient-primary me-2"
-								style="margin-left: 90px;">수정</button>
-							<button class="btn btn-light" data-dismiss="modal">취소</button>
+							<button type="submit" class="btn btn-gradient-primary me-2" style="margin-left: 120px;">수정</button>
+							<button type="button" class="btn btn-light" data-bs-dismiss="modal" >취소</button>
 						</form>
 					</div>
 
