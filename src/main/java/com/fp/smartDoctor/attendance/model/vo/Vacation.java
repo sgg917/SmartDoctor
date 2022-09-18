@@ -27,5 +27,6 @@ public class Vacation {
 	private int vacRemain;
 	// 사원 이름
 	private String empName;
-	
+	// 연차 승인여부
+	private String vacStatus;
 }

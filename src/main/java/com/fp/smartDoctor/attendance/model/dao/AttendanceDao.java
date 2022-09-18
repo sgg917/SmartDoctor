@@ -115,4 +115,8 @@ public class AttendanceDao {
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttendance", a);
 	}
 	
+	public int updateAttendance(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.update("attendanceMapper.updateAttendance", a);
+	}
+	
 }

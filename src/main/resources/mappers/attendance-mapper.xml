@@ -28,6 +28,7 @@
 		<result column="status" property="status"/> 
 		<result column="vac_remain" property="vacRemain"/>
 		<result column="emp_name" property="empName"/>
+		<result column="vac_status" property="vacStatus"/>
 	</resultMap>
 	
 	<!-- 한 사원의 근태 개수 조회 -->
@@ -323,5 +324,61 @@
 		  join approval on (app_no = appr_no)
 		 where v.emp_no = #{empNo}
 	</select>
+	
+	<update id="updateAttendance">
+		update attendance
+		   set status = #{status}
+		   	 , start_time = #{startTime}
+		     , end_time = #{endTime}
+		     , total_time = #{totalTime}
+		     , modify_no = #{modifyNo}
+		     , modify_date = to_char(sysdate, 'YYYY-MM-DD')
+		 where emp_no = #{empNo}
+		   and att_date = #{attDate}
+	</update>
+	
+	<!-- 전자결재_휴가 신청 -->
+	<insert id="insertApprVacation">
+		insert
+		  into approval
+		  	 (
+		  	   appr_no
+			 , appr_title
+			 , appr_total
+			 , emp_no
+			 , form_no
+		  	 ) 
+		values
+			 (
+			   seq_apno.nextval
+			 , #{apprTitle}
+			 , #{apprTotal}
+			 , #{empNo}
+			 , 1
+			 )
+	</insert>
+	
+	<!-- 전자결재_휴가 신청 -->
+	<insert id="insertVacation">
+		insert
+		  into vacation
+		     (
+		       app_no
+		     , emp_no
+		     , start_date
+		     , end_date
+		     , vac_days
+		     , vac_cause
+		     )
+		values
+			 (
+			   seq_apno.currval
+			 , #{empNo}
+			 , #{startDate}
+			 , #{endDate}
+			 , #{vacDays}
+			 , #{vacCause}
+			 )
+	</insert>
 	
 </mapper>

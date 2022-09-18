@@ -17,6 +17,7 @@ import com.fp.smartDoctor.common.template.Pagination;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.reception.model.service.ReceptionService;
+import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.google.gson.Gson;
 
@@ -41,7 +42,7 @@ public class ReceptionController {
 		
 		ArrayList<Dept> deptList = rService.selectDeptList();
 		ArrayList<Member> profList = rService.selectProfList();
-		System.out.println(deptList);
+//		System.out.println(deptList);
 		
 		model.addAttribute("deptList", deptList);
 		model.addAttribute("profList", profList);
@@ -94,6 +95,7 @@ public class ReceptionController {
 		return "kmj/payDone";
 	}
 	
+	// 환자 등록
 	@RequestMapping("insert.pt")
 	public String insertPatient(Patient p, HttpSession session, Model model) {
 		
@@ -113,6 +115,7 @@ public class ReceptionController {
 		
 	}
 	
+	// 환자 선택
 	@RequestMapping("select.pt")
 	public ModelAndView selectBoard(int chartNo, ModelAndView mv) {
 		
@@ -124,12 +127,38 @@ public class ReceptionController {
 		p.setLastVisit(beforeLV.substring(0,11));
 		
 		if(p != null) {
-			mv.addObject("p",p).setViewName("kmj/reception");
+			mv.addObject("p",p);
+			ArrayList<Dept> deptList = rService.selectDeptList();
+			ArrayList<Member> profList = rService.selectProfList();
+			
+			mv.addObject("deptList", deptList);
+			mv.addObject("profList", profList);
+			mv.setViewName("kmj/reception");
 			
 		}else {
 			mv.addObject("errorMsg", "환자 선택 실패").setViewName("common/errorPage");
 		}
 		
 		return mv;
+	}
+	
+	// 진료 접수
+	@ResponseBody
+	@RequestMapping("insert.tr")
+	public String ajaxInsertTreatment(Clinic c, HttpSession session, Model model) {
+		
+		// 넘어온 첨부파일이 없을 경우 b : 제목, 작성자, 내용
+		// 넘어온 첨부파일이 있을 경우 b : 제목, 작성자, 내용, 파일원본명, 파일저장경로
+		System.out.println(c.getChartNo());
+		System.out.println(c.getDeptNo());
+		System.out.println(c.getEmpNo());
+		System.out.println(c.getDiagnosisContent());
+		System.out.println(c);
+		
+		
+		int result = rService.insertTreatment(c);
+		
+		return result > 0 ? "success" : "fail";
+		
 	}
 }

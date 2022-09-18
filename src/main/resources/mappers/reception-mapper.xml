@@ -165,10 +165,48 @@
 
 	<select id="selectProfList" resultMap="memberResult">
 		select
-		       dept_no
-		     , dept_name
-		  from department
-	     where upper_no = 1
+		       emp_no
+		     , emp_name
+		  from member
+          join job using(job_no)
+         where job_no = 2
 	</select>
+	
+		<!-- 환자 insert -->
+	<insert id="insertTreatment">
+		insert
+		into clinic
+		(
+		  clinic_no
+		, chart_no
+		, dept_no
+		, enroll_time
+		, enroll_date
+		, diagnosis_content
+		, surgery
+		, enter
+		, status
+		, surgery_no2
+		, diseases_code
+		, emp_no
+		, fee
+		)
+		values
+		(
+		seq_clno.nextval
+		, #{chartNo}
+		, #{deptNo}
+		, TO_CHAR(SYSDATE, 'HH24:MI:SS')
+		, TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		, #{diagnosisContent}
+		, default
+		, default
+		, 'W'
+		, default
+		, default
+		, #{empNo}
+		, #{fee}
+		)
+	</insert>
 
 </mapper>

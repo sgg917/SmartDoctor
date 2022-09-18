@@ -13,5 +13,12 @@ public interface NoticeService {
 	
 	// 공지사항 작성하기
 	int insertNotice(Notice n);
+	
+	// 공지사항 상세조회
+	int increaseCount(int noticeNo);
+	Notice selectNotice(int noticeNo);
+	
+	// 공지사항 삭제
+	int deleteNotice(int noticeNo);
 
 }

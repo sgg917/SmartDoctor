@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fp.smartDoctor.attendance.model.vo.Vacation;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.common.template.FileUpload;
 import com.fp.smartDoctor.common.template.Pagination;
@@ -22,6 +23,7 @@ import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.service.SignService;
 import com.fp.smartDoctor.sign.model.vo.Form;
 import com.fp.smartDoctor.sign.model.vo.Line;
+import com.fp.smartDoctor.sign.model.vo.Overtime;
 import com.fp.smartDoctor.sign.model.vo.Sign;
 import com.google.gson.Gson;
 
@@ -201,14 +203,17 @@ public class SignController {
 			num++;
 		}
 		
+		if(refList != null) { // 참조자가 있을 시에만 insert 요청
+			sService.insertRef(refList);
+		}
+		
 		int result = sService.insertAppr(s);
 		int lineResult = sService.insertLine(lineList);
-		int refResult = sService.insertRef(refList);
 		
-		if(lineResult > 0 && refResult > 0 && result > 0) { // 성공
+		if(lineResult > 0  && result > 0) { // 성공
 			
-				session.setAttribute("alertMsg", "성공적으로 결재요청하였습니다.");
-				return "redirect:apprEnrollForm.si";
+			session.setAttribute("alertMsg", "성공적으로 결재요청하였습니다.");
+			return "redirect:apprEnrollForm.si";
 		}else {
 			
 			session.setAttribute("alertMsg", "결재요청에 실패하였습니다.");
@@ -392,5 +397,76 @@ public class SignController {
 		}
 	}
 	
+	// 사용자_연장근무 결재신청
+	@RequestMapping("insertOvertime.si")
+	public String insertApprOvertime(Line i, Sign s, Overtime o, HttpSession session) {
+		
+		ArrayList<Line> lineList = i.getLineList();
+		ArrayList<Line> refList = i.getRefList();
+		
+		int num = 1;
+		for(Line l : lineList) { // lineLevel 세팅
+			l.setLineLevel(num);
+			num++;
+		}
+		
+		int result = sService.insertApprOvertime(s);
+		int lineResult = sService.insertLine(lineList);
+		int overtime = sService.insertOvertime(o);
+		
+		if(refList != null) { // 참조자가 있을 시에만 insert 요청
+			sService.insertRef(refList);
+		}
+		
+		if(lineResult > 0  && result > 0 && overtime > 0) { // 성공
+			
+			session.setAttribute("alertMsg", "성공적으로 결재요청하였습니다.");
+			return "redirect:apprOvertimeForm.si";
+		}else {
+			
+			session.setAttribute("alertMsg", "결재요청에 실패하였습니다.");
+			return "redirect:apprOvertimeForm.si";
+		}
+		
+	}
+	
+	// 사용자_휴가 신청페이지
+	@RequestMapping("vacationForm.si")
+	public String VacationEnrollForm() {
+		return "kma/vacationForm";
+	}
+	
+	// 사용자_휴가 결재신청
+	@RequestMapping("insertVacation.si")
+	public String insertApprVacation(Line i, Sign s, Vacation v, HttpSession session) {
+		
+		ArrayList<Line> lineList = i.getLineList();
+		ArrayList<Line> refList = i.getRefList();
+		
+		int num = 1;
+		for(Line l : lineList) { // lineLevel 세팅
+			l.setLineLevel(num);
+			num++;
+		}
+		
+		int result = sService.insertApprVacation(s);
+		int lineResult = sService.insertLine(lineList);
+		int vacResult = sService.insertVacation(v);
+		
+		if(refList != null) { // 참조자가 있을 시에만 insert 요청
+			sService.insertRef(refList);
+		}
+		
+		if(lineResult > 0  && result > 0 && vacResult > 0) { // 성공
+			
+			session.setAttribute("alertMsg", "성공적으로 결재요청하였습니다.");
+			return "redirect:vacationForm.si";
+		}else {
+			
+			session.setAttribute("alertMsg", "결재요청에 실패하였습니다.");
+			return "redirect:vacationForm.si";
+		}
+		
+	}
 	
 }

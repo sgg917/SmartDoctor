@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -304,5 +306,23 @@ public class AttendanceController {
 		map.put("vlist", vlist);
 		
 		return new Gson().toJson(map);
+	}
+	
+	@RequestMapping("update.att")
+	public String updateAttendance(Attendance a, HttpSession session, Model model) {
+		
+		System.out.println(a);
+		
+		// 근태 업데이트
+		int result = aService.updateAttendance(a);
+		
+		if(result > 0) {
+			
+			session.setAttribute("alertMsg", "성공적으로 수정되었습니다.");
+			return "redirect:allList.att";
+		}else {
+			model.addAttribute("errorMsg", "근태 수정에 실패하였습니다.");
+			return "common/errorPage";
+		}
 	}
 }

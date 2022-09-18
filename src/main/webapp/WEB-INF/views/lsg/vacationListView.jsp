@@ -191,10 +191,10 @@ th {
                     <c:choose>
                     	<c:when test="${ pi.currentPage ne pi.maxPage }">
                     		<li class="page-item"><a class="page-link" href="list.vac?cpage=${pi.currentPage+1}&no=${loginUser.empNo}">&gt;</a></li>
-                    		<li style="width:450px;"><button class="btn green-btn medium-btn" style="float:right;" onclick="">휴가 신청</button></li>
+                    		<li style="width:450px;"><button class="btn green-btn medium-btn" style="float:right;" onclick="location.href='vacationForm.si';">휴가 신청</button></li>
                   		</c:when>
                   		<c:otherwise>
-                  			<li style="width:550px;"><button class="btn green-btn medium-btn" style="float:right;" onclick="">휴가 신청</button></li>
+                  			<li style="width:550px;"><button class="btn green-btn medium-btn" style="float:right;" onclick="location.href='vacationForm.si';">휴가 신청</button></li>
                   		</c:otherwise>
                   	</c:choose>
                   </ul>

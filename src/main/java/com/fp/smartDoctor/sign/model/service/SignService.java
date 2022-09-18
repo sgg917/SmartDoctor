@@ -3,11 +3,13 @@ package com.fp.smartDoctor.sign.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.fp.smartDoctor.attendance.model.vo.Vacation;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.sign.model.vo.Form;
 import com.fp.smartDoctor.sign.model.vo.Line;
+import com.fp.smartDoctor.sign.model.vo.Overtime;
 import com.fp.smartDoctor.sign.model.vo.Sign;
 
 public interface SignService {
@@ -86,5 +88,13 @@ public interface SignService {
 	// 사용자_반려하기
 	int updateDisapproval(Line l);
 	int updateDisapprLine(Line l);
+	
+	// 사용자_연장근무 신청
+	int insertApprOvertime(Sign s);
+	int insertOvertime(Overtime o);
+	
+	// 사용자_휴가 신청
+	int insertApprVacation(Sign s);
+	int insertVacation(Vacation v);
 
 }
