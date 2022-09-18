@@ -13,8 +13,8 @@ import lombok.ToString;
 @ToString
 public class Patient {
 
-	private int chartNo;
-	private int lastDep;
+	private String chartNo;
+	private String lastDep;
 	private String patientName;
 	private String idNo;
 	private String address;

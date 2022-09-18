@@ -111,6 +111,11 @@ public class AttendanceServiceImpl implements AttendanceService {
 	public ArrayList<Attendance> selectAttendance(Attendance a) {
 		return aDao.selectAttendance(sqlSession, a);
 	}
+
+	@Override
+	public int updateAttendance(Attendance a) {
+		return aDao.updateAttendance(sqlSession, a);
+	}
 	
 	
 

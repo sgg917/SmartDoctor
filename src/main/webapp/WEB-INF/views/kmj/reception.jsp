@@ -136,7 +136,7 @@ input {
 					<div class="rvlvd-side-a">
 						<table class="table bggray title">
 							<tr height="40">
-								<td width="400"><b>환자접수</B></td>
+								<td width="400"><b>환자접수</b></td>
 							</tr>
 						</table>
 						<br>
@@ -147,36 +147,38 @@ input {
 								<td width="100" style="padding: 5px;">
 									<button type="button" class="button" style="height: 30px"
 										data-toggle="modal" data-target="#searchPatient"
-										>환자검색</button>
+										onclick="openModal();">환자검색</button>
 								</td>
 								<td width="100" style="padding: 5px;">
 									<button type="button" class="button" style="height: 30px"
-										data-toggle="modal" data-target="#enrollPatient"
-										>환자접수</button>
+										data-toggle="modal" data-target="#enrollPatient">환자접수</button>
 								</td>
 							</tr>
 							<tr>
 								<td width="100">이름</td>
-								<td colspan="3"><input type="text" readonly value="현빈"></td>
+								<td colspan="5" style="text-align: left;">
+									<input type="text" value="${p.patientName}">
+									<input type="hidden" value="${p.chartNo}" id="chartNo">
+								</td>
 							</tr>
 							<tr>
 								<td>주민번호</td>
-								<td colspan="3"><input type="text" readonly
-									value="888888-1******"></td>
+								<td colspan="5" style="text-align: left;">
+									<input type="text" value="${p.idNo}"></td>
 							</tr>
 							<tr>
-								<td>최초내원일</td>
-								<td colspan="3"><input type="text" readonly
-									value="2022-09-12"></td>
-							</tr>
-							<tr>
-								<td>최근내원일</td>
-								<td colspan="3"><input type="text" readonly
-									value="2022-09-12"></td>
+								<td style="padding-left: 5px; padding-right: 5px;">최초내원일</td>
+								<td width="110" style="padding-right: 5px; text-align: left;">${p.firstVisit}</td>
+								<td style="padding-left: 5px; padding-right: 5px;">최근내원일</td>
+								<td style="padding-left: 5px; padding-right: 5px;">${p.lastVisit}</td>
 							</tr>
 							<tr>
 								<td>최근진료과</td>
-								<td colspan="3"><input type="text" readonly value="외과"></td>
+								<td colspan="3" style="text-align: left;">${p.lastDep}</td>
+							</tr>
+							<tr>
+								<td>메모</td>
+								<td colspan="5" style="text-align: left;">${p.memo}</td>
 							</tr>
 						</table>
 						<br> <br> <br> <br> <br>
@@ -189,8 +191,10 @@ input {
 							<tr>
 								<td width="100">진료과</td>
 								<td><select name="" id="">
-										<option value="">정형외과</option>
-										<option value="">내과</option>
+									<option value="">선택</option>
+										<c:forEach var="d" items="${ deptList }">
+											<option value="${ d.deptNo }">${ d.deptName }</option>
+										</c:forEach>
 								</select></td>
 								<td width="70" style="padding-left: 0;">교수</td>
 								<td style="padding-left: 0;"><select name="" id="">
@@ -346,77 +350,120 @@ input {
 				</div>
 			</div>
 
-			<!-- 환자검색용 Modal -->
 			<div class="modal" id="searchPatient">
 				<div class="modal-dialog">
 					<div class="modal-content">
 
 						<div class="modal-header">
-							<h4 class="modal-title">비밀번호 변경</h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">환자검색</h4>
+							<button type="button" class="close" data-dismiss="modal"
+								onclick="modalClose();">&times;</button>
 						</div>
 
 						<div class="modal-body" align="center">
-							<form action="updatePwd.me" method="post">
-								<input type="hidden" name="userId" value="${ loginUser.userId }">
-								<table border="1">
-									<tr>
-										<td>현재 비밀번호</td>
-										<td><input type="password" name="userPwd" required></td>
-									</tr>
-									<tr>
-										<td>변경할 비밀번호</td>
-										<td><input type="password" name="updatePwd" required></td>
-									</tr>
+							<div id="header2">
+								<input type="text" class="form-control input-sm"
+									placeholder="이름 입력"
+									style="width: 200px; height: 30px; display: inline;">&nbsp;<img
+									src="resources/images/search.jpg">
+							</div>
+							<form action="select.pt" method="post">
+								<table id="patientListArea" border="1"
+									style="text-align: center;">
+									<thead>
+										<tr>
+											<th width="40px">선택</th>
+											<th width="100px">이름</th>
+											<th width="150px">주민등록번호</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
 								</table>
 								<br>
-								<button type="submit" class="btn btn-sm btn-secondary">비밀번호
-									변경</button>
+								<button type="submit" class="btn btn-sm btn-secondary">선택</button>
 							</form>
+
+							<!-- 페이징바 -->
+							<div id="pagingbar">
+								<ul class="pagination" style="justify-content: center;">
+
+									<c:choose>
+										<c:when test="${ pi.currentPage eq 1 }">
+											<li class="page-item disabled"><a class="page-link">&lsaquo;</a></li>
+										</c:when>
+										<c:otherwise>
+											<li class="page-item"><a class="page-link" id="aaa"
+												style="color: rgb(29, 92, 99);"
+												href="reception.mj?cpage=${ pi.currentPage - 1 }">&lsaquo;</a></li>
+										</c:otherwise>
+									</c:choose>
+
+									<c:forEach var="p" begin="${ pi.startPage }"
+										end="${ pi.endPage }">
+										<li class="page-item"><a class="page-link" id="aaa"
+											style="color: rgb(29, 92, 99);"
+											href="reception.mj?cpage=${ p }">${ p }</a></li>
+									</c:forEach>
+
+									<c:choose>
+										<c:when test="${ pi.currentPage eq pi.maxPage }">
+											<li class="page-item disabled"><a class="page-link">&rsaquo;</a></li>
+										</c:when>
+										<c:otherwise>
+											<li class="page-item"><a class="page-link" id="aaa"
+												style="color: rgb(29, 92, 99);"
+												href="reception.mj?cpage=${ pi.currentPage + 1 }">&rsaquo;</a></li>
+										</c:otherwise>
+									</c:choose>
+								</ul>
+							</div>
 						</div>
 
 					</div>
 				</div>
 			</div>
 
-			<!-- 환자 등록용 Modal -->
 			<div class="modal" id="enrollPatient">
 				<div class="modal-dialog">
 					<div class="modal-content">
 
 						<div class="modal-header">
-							<h4 class="modal-title">환자등록</h4>
+							환자등록
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 
 						<div class="modal-body" align="center">
-							<form action="updatePwd.me" method="post">
-								<input type="hidden" name="userId" value="${ loginUser.userId }">
-								<table>
+							<form action="insert.pt" method="post">
+								<table class="table-bordered">
 									<tr>
-										<th>이름</th>
+										<td>이름</td>
 										<td><input type="text" name="patientName"></td>
 									</tr>
 									<tr>
 										<td>주민등록번호</td>
-										<td><input type="text" name="patient"></td>
+										<td><input type="text" name="idNo"></td>
 									</tr>
 									<tr>
 										<td>연락처</td>
-										<td><input type="text" name="patient"></td>
+										<td><input type="text" name="phone"></td>
 									</tr>
 									<tr>
 										<td>보호자 연락처</td>
-										<td><input type="text" name="patient"></td>
+										<td><input type="text" name="protector"></td>
 									</tr>
 									<tr>
 										<td>주소</td>
-										<td><input type="text" name="patient"></td>
+										<td><input type="text" name="address"></td>
+									</tr>
+									<tr>
+										<td>메모</td>
+										<td><input type="text" name="memo"></td>
 									</tr>
 								</table>
 								<br>
-								<button type="submit" class="btn btn-sm btn-secondary">비밀번호
-									변경</button>
+								<button type="submit" class="btn btn-sm btn-secondary button">등록하기</button>
 							</form>
 						</div>
 
@@ -424,14 +471,59 @@ input {
 				</div>
 			</div>
 
+
 			<script>
-				
-				/*function openSearchModal() {
-					$('#searchPatient').modal('show');
+				function openModal() { // 환자 조회용 ajax 함수
+
+					$
+							.ajax({
+								url : "list.pt",
+								data : {
+									cpage : 1
+								},
+								success : function(list) {
+
+									console.log(list);
+
+									let value = "";
+									for (let i = 0; i < list.length; i++) {
+
+										value += "<tr>"
+												+ "<td><input type='radio' name='chartNo' value='" + list[i].chartNo + "'></td>"
+												+ "<td>" + list[i].patientName
+												+ "</td>" + "<td>"
+												+ list[i].idNo + "</td>"
+												+ "</tr>";
+
+										/*
+										 value += "<tr>"
+										 + "<input type='hidden' value=" + ${p.chartNo} + ">"
+										 + "<td><input type='checkbox'></td>"
+										 + "<td>" + ${ p.patientName } + "</td>"
+										 + " <td>" + ${ p.idNo } + "</td>"
+										 + "</tr>";
+										 */
+									}
+
+									$("#patientListArea tbody").html(value);
+
+									$('#searchPatient').modal('show');
+
+								},
+								error : function() {
+									console.log("댓글리스트 조회용 ajax통신 실패");
+								}
+							})
+
 				}
-				function openEnrollPatientModal() {
-					$('#enrollPatient').modal('show');
-				}*/
+
+				$("#searchPatient").change(function() {
+					selectPatientList();
+				});
+
+				function modalClose() {
+					$('#searchPatient').modal('hide');
+				}
 			</script>
 
 			<jsp:include page="../common/footer.jsp" />

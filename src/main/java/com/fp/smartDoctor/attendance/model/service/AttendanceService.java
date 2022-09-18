@@ -64,4 +64,6 @@ public interface AttendanceService {
 	// 검색한 사원 리스트 조회용 메소드
 	ArrayList<Member> ajaxSearchList(PageInfo pi, HashMap hm);
 	
+	// 근태 수정용 메소드
+	int updateAttendance(Attendance a);
 }
