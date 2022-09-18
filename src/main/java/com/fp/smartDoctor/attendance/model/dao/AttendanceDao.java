@@ -119,4 +119,16 @@ public class AttendanceDao {
 		return sqlSession.update("attendanceMapper.updateAttendance", a);
 	}
 	
+	public int ajaxSearchAttListCount(SqlSessionTemplate sqlSession, HashMap hm) {
+		return sqlSession.selectOne("attendanceMapper.ajaxSearchAttListCount", hm);
+	}
+	
+	public ArrayList<Attendance> ajaxSearchAttendance(SqlSessionTemplate sqlSession, PageInfo pi, HashMap hm){
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("attendanceMapper.ajaxSearchAttendance", hm, rowBounds);
+	}
 }

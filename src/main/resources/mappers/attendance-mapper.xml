@@ -336,4 +336,113 @@
 		   and att_date = #{attDate}
 	</update>
 	
+	<select id="ajaxSearchAttListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM (
+		    SELECT
+		           NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "ATT_DATE"
+		         , C.EMP_NO
+		         , C.DEPT_NAME
+		         , C.EMP_NAME
+		         , NVL(START_TIME, '-') "START_TIME"
+		         , NVL(END_TIME, '-') "END_TIME"
+		         , NVL(TOTAL_TIME, 0) "TOTAL_TIME"
+		         , NVL(A.STATUS, '결근') "STATUS"
+		      FROM ATTENDANCE A
+		     RIGHT JOIN (
+		                SELECT WORKING_DAY, WEEK, EMP_NO, EMP_NAME, DEPT_NAME
+		                  FROM (
+		                        SELECT TRUNC(TO_DATE(SYSDATE), 'MM') + LEVEL - 1 "WORKING_DAY"
+		                             , TO_CHAR(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'DY') "WEEK"
+		                          FROM DUAL
+		                        CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(TO_DATE(SYSDATE)), 'DD')
+		                        ), (
+		                            SELECT E.EMP_NO
+		                                 , E.EMP_NAME
+		                                 , CASE WHEN D.DEPT_NAME != E.DEPT_NAME THEN D.DEPT_NAME || ' ' || E.DEPT_NAME
+		                                        ELSE D.DEPT_NAME
+		                                         end "DEPT_NAME"
+		                              FROM (
+		                                    SELECT 
+		                                           EMP_NO
+		                                         , EMP_NAME
+		                                         , CASE WHEN D1.UPPER_NO = 0 THEN D1.DEPT_NO
+		                                                ELSE D1.UPPER_NO
+		                                            END AS DEPT_NO
+		                                         , DEPT_NAME
+		                                      FROM MEMBER M
+		                                      LEFT JOIN DEPARTMENT D1 ON (D1.DEPT_NO = M.DEPT_NO)
+		                                    ) E
+		                              LEFT JOIN DEPARTMENT D ON (E.DEPT_NO = D.DEPT_NO)
+		                            )
+		                ) C ON (ATT_DATE = WORKING_DAY AND A.EMP_NO = C.EMP_NO)
+		     WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
+		       AND WEEK IN ('월', '화', '수', '목', '금')
+		       AND NVL(TO_DATE(ATT_DATE), TO_DATE(WORKING_DAY)) BETWEEN TO_DATE('2022-09-01') AND TO_DATE('2022-09-15')
+		       AND NVL(A.STATUS, '결근') IN ('정상', '지각', '결근', '휴가')
+		   <choose>
+		   	<when test="type == 'dept_name'">
+			   AND DEPT_NAME LIKE '%' || #{keyword} || '%' 
+		   	</when>
+		   	<otherwise>
+		   	   AND EMP_NAME LIKE '%' || #{keyword} || '%'
+		   	</otherwise>
+		   </choose>
+		 ORDER BY WORKING_DAY DESC 
+		 	)
+	</select>
+	
+	<select id="ajaxSearchAttendance" resultMap="attendanceResult">
+		SELECT
+	           NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "ATT_DATE"
+	         , C.EMP_NO
+	         , C.DEPT_NAME
+	         , C.EMP_NAME
+	         , NVL(START_TIME, '-') "START_TIME"
+	         , NVL(END_TIME, '-') "END_TIME"
+	         , NVL(TOTAL_TIME, 0) "TOTAL_TIME"
+	         , NVL(A.STATUS, '결근') "STATUS"
+	      FROM ATTENDANCE A
+	     RIGHT JOIN (
+	                SELECT WORKING_DAY, WEEK, EMP_NO, EMP_NAME, DEPT_NAME
+	                  FROM (
+	                        SELECT TRUNC(TO_DATE(SYSDATE), 'MM') + LEVEL - 1 "WORKING_DAY"
+	                             , TO_CHAR(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'DY') "WEEK"
+	                          FROM DUAL
+	                        CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(TO_DATE(SYSDATE)), 'DD')
+	                        ), (
+	                            SELECT E.EMP_NO
+	                                 , E.EMP_NAME
+	                                 , CASE WHEN D.DEPT_NAME != E.DEPT_NAME THEN D.DEPT_NAME || ' ' || E.DEPT_NAME
+	                                        ELSE D.DEPT_NAME
+	                                         end "DEPT_NAME"
+	                              FROM (
+	                                    SELECT 
+	                                           EMP_NO
+	                                         , EMP_NAME
+	                                         , CASE WHEN D1.UPPER_NO = 0 THEN D1.DEPT_NO
+	                                                ELSE D1.UPPER_NO
+	                                            END AS DEPT_NO
+	                                         , DEPT_NAME
+	                                      FROM MEMBER M
+	                                      LEFT JOIN DEPARTMENT D1 ON (D1.DEPT_NO = M.DEPT_NO)
+	                                    ) E
+	                              LEFT JOIN DEPARTMENT D ON (E.DEPT_NO = D.DEPT_NO)
+	                            )
+	                ) C ON (ATT_DATE = WORKING_DAY AND A.EMP_NO = C.EMP_NO)
+	     WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
+	       AND WEEK IN ('월', '화', '수', '목', '금')
+	       AND NVL(TO_DATE(ATT_DATE), TO_DATE(WORKING_DAY)) BETWEEN TO_DATE('2022-09-01') AND TO_DATE('2022-09-15')
+	       AND NVL(A.STATUS, '결근') IN ('정상', '지각', '결근', '휴가')
+	   <choose>
+	   	<when test="type == 'dept_name'">
+		   AND DEPT_NAME LIKE '%' || #{keyword} || '%' 
+	   	</when>
+	   	<otherwise>
+	   	   AND EMP_NAME LIKE '%' || #{keyword} || '%'
+	   	</otherwise>
+	   </choose>
+	 ORDER BY WORKING_DAY DESC
+	</select>
+	
 </mapper>
