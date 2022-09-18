@@ -58,10 +58,32 @@
 		      , #{noticePath}
 		      )
 	</insert>
+	
+	<update id="increaseCount">
+		update notice
+		   set notice_count = notice_count + 1
+		 where notice_no = #{noticeNo}
+		   and notice_status = 'Y'
+	</update>
 
+	<select id="selectNotice" resultMap="noticeResult">
+		select 
+		       notice_no
+		     , notice_title
+		     , notice_content
+		     , to_char(to_date(notice_edate), 'YYYY-MM-DD') as "notice_edate"
+		     , notice_originname
+		     , notice_filepath  
+		  from notice
+		 where notice_no = #{noticeNo}
+	</select>
 
-
-
+	<update id="deleteNotice">
+		update 
+		       notice
+		   set notice_status = 'N'
+		 where notice_no = #{noticeNo}
+	</update>
 
 
 
