@@ -70,7 +70,7 @@
 	                      		<c:forEach var="n" items="${ list }">
 	                      			<tr>
 			                          <td class="no">${ n.noticeNo }</td>
-			                          <td>${ n.noticeTitle }</td> <!-- n.getnTitle(); -->
+			                          <td>${ n.noticeTitle }</td>
 			                          <td>${ n.enrollDate }</td>
 			                          <td>${ n.count }</td>
 			                        </tr>

@@ -239,6 +239,7 @@
                   <li class="nav-item"> <a class="nav-link" href="exercise.jy">진료 대기(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.op">수술실 예약(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.pr">입원실 예약(지워야됨)</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="chatPage.ch">채팅화면(지워야됨)</a></li>
                 </ul>
               </div>
             </li>
@@ -305,10 +306,10 @@
                   <li class="nav-item"> <a class="nav-link" href="apprReportList.si">기안문서함</a></li>
                   <li class="nav-item"> <a class="nav-link" href="apprGetList.si">결재문서함</a></li>
                   <li class="nav-item"> <a class="nav-link" href="apprReferList.si">참조문서함</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">반려문서함</a></li>
                   <li class="nav-item"> <a class="nav-link" href="">임시저장함</a></li>
-                  <!-- 관리자만 볼 수 있는 기능 -->
-                  <li class="nav-item"> <a class="nav-link" href="formList.si">결재양식 관리</a></li>
+                  <c:if test="${ loginUser.status eq 'A' }">
+                  	<li class="nav-item"> <a class="nav-link" href="formList.si">결재양식 관리</a></li>
+                  </c:if>
                 </ul>
               </div>
             </li>

@@ -31,48 +31,75 @@
 		<result column="file_size" property="mailFileSize"/>
 	</resultMap>
 	
+	<resultMap id="memberResult" type="Member">
+		<result column="emp_no" property="empNo" />
+		<result column="emp_name" property="empName" />
+		<result column="emp_pwd" property="empPwd" />
+		<result column="phone" property="phone" />
+		<result column="email" property="email" />
+		<result column="profile_originname" property="originName" />
+		<result column="profile_path" property="path" />
+		<result column="status" property="status" />
+		<result column="vac_all" property="vacAll" />
+		<result column="job_no" property="jobNo" />
+		<result column="dept_no" property="deptNo" />
+		<result column="job_name" property="jobName" />
+		<result column="dept_name" property="deptName" />
+	</resultMap>
+	
 	<!-- 받은 메일 -->
-	<select id="selectListCount" parameterType="String" resultType="_int">
+	<select id="selectListCount" resultType="_int">
 		select count(*)
 		  from mail
-		 where mail_status='Y' and mail_to = #{mailTo} 
+		 where mail_status='Y' 
+		   and mail_to = #{mailTo} 
 	</select>
-	<select id="selectList" parameterType="String" resultMap="emailResultSet">
+	
+	<select id="selectList" resultMap="emailResultSet">
 		select * 
 		  from mail
-		 where mail_status='Y' and mail_to = #{mailTo}
+		 where mail_status='Y' 
+		   and mail_to = #{mailTo}
 		 order by mail_no desc
 	</select>
 	
 	
 	
 	<!-- 보낸 메일 -->
-	<select id="fselectListCount" parameterType="String" resultType="_int">
+	<select id="fselectListCount" resultType="_int">
 		select count(*)
 		  from mail
-		 where mail_status='Y' and mail_from = #{mailFrom}
+		 where mail_status='Y' 
+		   and mail_from = #{mailFrom}
 	</select>
-	<select id="fselectList" parameterType="String" resultMap="emailResultSet">
+	
+	<select id="fselectList" resultMap="emailResultSet">
 		select * 
 		  from mail
-		 where mail_status='Y' and mail_from = #{mailFrom}
+		 where mail_status='Y' 
+		   and mail_from = #{mailFrom}
 		 order by mail_no desc
 	</select>
 
 	<!-- 중요 메일 -->
-	<select id="iselectListCount" parameterType="String" resultType="_int">
+	<select id="iselectListCount" resultType="_int">
 		select count(*)
-		from (select * 
-			  from mail
-			  where mail_from = #{mailOwn} or mail_to = #{mailOwn})
-		where mail_status='Y' and import_Flag='Y'
+		  from (select * 
+			      from mail
+			     where mail_from = #{mailOwn} 
+			        or mail_to = #{mailOwn})
+		 where mail_status='Y' 
+		   and import_Flag='Y'
 	</select>
-	<select id="iselectList" parameterType="String" resultMap="emailResultSet">
+	
+	<select id="iselectList" resultMap="emailResultSet">
 		select *
 		from (select * 
-			  from mail
-			  where mail_from = #{mailOwn} or mail_to = #{mailOwn})
-		where mail_status='Y' and import_Flag='Y'
+			    from mail
+			   where mail_from = #{mailOwn} 
+			      or mail_to = #{mailOwn})
+		where mail_status='Y' 
+		  and import_Flag='Y'
 		order by mail_date desc
 	</select>
 	
@@ -191,7 +218,7 @@
 
 
 	<!-- 메일작성 -->
-	<insert id="insertMail" parameterType="Email">
+	<insert id="insertMail">
 		insert 
 		  into mail
 		  (
@@ -219,7 +246,7 @@
 		     , #{mailTitle}
 		     , #{mailContent}
 		     , ''
-		     , sysdate
+		     , to_char(sysdate,'YYYY-MM-DD')
 		     , default
 		     , default
 		     , #{mailnameFrom}
@@ -230,7 +257,7 @@
 		
 	</insert>
 	
-	<insert id="insertMailAttachment" parameterType="MailAttachment">
+	<insert id="insertMailAttachment">
 		insert 
 		  into mail_attachment
 		  (    file_no
@@ -263,75 +290,125 @@
 		
 	</insert>
 	
-	<update id="updateMailFlag" parameterType="_int">
-		update mail set
-		mail_attachment = 'N'
-		where mail_no = #{currNo}
+	<update id="updateMailFlag">
+		update mail 
+		   set mail_attachment = 'N'
+		 where mail_no = #{currNo}
 	</update>
 	
 	<select id="nowMailNo" resultMap="emailResultSet">
-		select mail_no from (select * from mail
-		order by mail_no desc) e
-		where rownum = 1
+		select mail_no 
+		  from (select * 
+		          from mail
+		         order by mail_no desc) e
+		 where rownum = 1
 	</select>
 
-	<select id="loadMailnameTo" parameterType="String" resultType="String">
-		select emp_name from member
-		where emp_no = #{toname}
+	<select id="loadMailnameTo" resultType="String">
+		select emp_name 
+		  from member
+		 where emp_no = #{toname}
 	</select>
 
-	<update id="deleteMail" parameterType="_int">
-		update mail set
-		mail_status = 'N'
-		where mail_no = #{mailNo}
+	<update id="deleteMail">
+		update mail 
+		   set
+		       mail_status = 'N'
+		 where mail_no = #{mailNo}
 	</update>
 
-	<update id="importFlagUpdate" parameterType="_int">
-		update mail set
-		import_Flag = 'Y'
-		where mail_no = #{mailNo}
-	</update>
-		<update id="unImportFlagUpdate" parameterType="_int">
-		update mail set
-		import_Flag = 'N'
-		where mail_no = #{mailNo}
+	<update id="importFlagUpdate">
+		update mail 
+		   set
+		       import_Flag = 'Y'
+		 where mail_no = #{mailNo}
 	</update>
 	
-	<select id="notReadMail" parameterType="String" resultType="_int">
-	select count(*)
-	from mail
-	where mail_To = #{mailOwn} and mail_Read_Flag = 'N' and mail_status='Y'
+	<update id="unImportFlagUpdate">
+		update mail 
+		   set
+		       import_Flag = 'N'
+		 where mail_no = #{mailNo}
+	</update>
+	
+	<select id="notReadMail" resultType="_int">
+		select count(*)
+		  from mail
+		 where mail_To = #{mailOwn} 
+		   and mail_Read_Flag = 'N' 
+		   and mail_status='Y'
 	</select>
+	
 	<select id="fromMail" parameterType="String" resultType="_int">
-	select count(*)
-	from mail
-	where mail_To = #{mailOwn} and mail_status='Y'
+		select count(*)
+		  from mail
+		 where mail_To = #{mailOwn} 
+		   and mail_status='Y'
 	</select>
+	
 	<select id="importMail" parameterType="String" resultType="_int">
-	select count(*)
-	from mail
-	where mail_To = #{mailOwn} and import_Flag = 'Y' and mail_status='Y'
+		select count(*)
+		  from mail
+		 where mail_To = #{mailOwn} 
+		   and import_Flag = 'Y' 
+		   and mail_status='Y'
 	</select>
 	
 	<select id="miniFromMailList" parameterType="String" resultMap="emailResultSet">
 		select * 
 		  from mail
-		 where mail_status='Y' and mail_to = #{mailOwn}
+		 where mail_status='Y' 
+		   and mail_to = #{mailOwn}
 		 order by mail_no desc
 	</select>
+	
 	<select id="miniToMailList" parameterType="String" resultMap="emailResultSet">
 		select * 
 		  from mail
-		 where mail_status='Y' and mail_From = #{mailOwn}
+		 where mail_status='Y' 
+		   and mail_From = #{mailOwn}
 		 order by mail_no desc
 	</select>
+	
 	<select id="miniImportMailList" parameterType="String" resultMap="emailResultSet">
 		select *
 		from (select * 
-			  from mail
-			  where mail_from = #{mailOwn} or mail_to = #{mailOwn})
-		where mail_status='Y' and import_Flag='Y'
+			    from mail
+			   where mail_from = #{mailOwn} 
+			      or mail_to = #{mailOwn})
+		where mail_status='Y' 
+		  and import_Flag='Y'
 		order by mail_date desc
 	</select>
 	
+	
+	
+	
+	
+	
+	<!-- dept no 수정해야함 -->
+	<!-- 조직도 부서별 사원 조회 -->
+	<select id="selectDeptEmpList" parameterType="string" resultMap="memberResult">
+		select 
+			   emp_name
+			 , d.dept_name
+			 , emp_no
+		  from member m
+		  join department d on(m.dept_no = d.dept_no)
+	 	<choose>
+	 		<when test="keyword.equals('D0')">
+	 			and m.dept_no='1'
+	 		</when>
+	 		<when test="keyword.equals('D1')">
+	 			and m.dept_no='2'
+	 		</when>
+	 		<when test="keyword.equals('D2')">
+	 			and m.dept_no='3'
+	 		</when>
+	 		<when test="keyword.equals('D3')">
+	 			and m.dept_no='5'
+	 		</when>
+	 	</choose>
+	 	order by emp_name
+	</select>
 </mapper>

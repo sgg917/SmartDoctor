@@ -3,6 +3,7 @@ package com.fp.smartDoctor.messenger.model.service;
 import java.util.ArrayList;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
+import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.messenger.model.vo.Email;
 import com.fp.smartDoctor.messenger.model.vo.MailAttachment;
 import com.fp.smartDoctor.messenger.model.vo.SearchCondition;
@@ -55,5 +56,8 @@ public interface MessengerService{
 	ArrayList<Email> miniToMailList(String mailOwn);
 	ArrayList<Email> miniImportMailList(String mailOwn);
 	
+	
+	// 조직도 부서별 사원 조회
+	ArrayList<Member> selectDeptEmpList(String keyword);
 	
 }

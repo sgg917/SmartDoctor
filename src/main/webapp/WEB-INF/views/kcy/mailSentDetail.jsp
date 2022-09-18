@@ -244,7 +244,7 @@
 					<tr>
 						<th>받는사람</th>
 						<td>
-							<div><input id="n0" type="text" class="inputs inputDual1" name="mailTo" style="width:120px; float:left;" value="${m.mailFrom}@ergate.com"></div>
+							<div><input id="n0" type="text" class="inputs inputDual1" name="mailTo" style="width:120px; float:left;" value="${m.mailFrom}@smartdoctor.com"></div>
 							<div><input id="n1" type="text" class="inputs inputDual" name="mailTo" style="width:120px; float:left;"></div>
 							<div><input id="n2" type="text" class="inputs inputDual" name="mailTo" style="width:120px; float:left;"></div>
 							<div><input id="n3" type="text" class="inputs inputDual" name="mailTo" style="width:120px; float:left;"></div>
@@ -682,19 +682,16 @@ ${m.mailContent }
 	            cache : false,
 	            success : function(result) {
 	                if (result >= 1) {
-	                    alert("게시글이 등록되었습니다.");
+	                    alert("메일 전송 완료");
 	                    location.href="flist.mil?currentPage=1&mailOwn=${loginUser.empNo}";
 	                } else {
-	                    alert("게시글 등록에 실패하였습니다.");
+	                    alert("메일 전송 실패");
 	                    location.href="flist.mil?currentPage=1&mailOwn=${loginUser.empNo}";
 	                }
 	                
 	            },
-	            error:function(){	// error : ajax 통신실패시 처리할 함수 지정
-						console.log("ajax 통신 실패!");
-					},
-					complete:function(){// complete : ajax 통신 성공여부와 상관없이 실행
-						console.log("무조건 호출!!");
+	            error:function(){	
+						console.log("ajax 통신 실패");
 					}
 	        });
 	 }

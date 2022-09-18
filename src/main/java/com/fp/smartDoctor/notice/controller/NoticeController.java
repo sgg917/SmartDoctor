@@ -1,5 +1,6 @@
 package com.fp.smartDoctor.notice.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -44,7 +45,7 @@ public class NoticeController {
 		
 	}
 	
-	// 공지사항 글 작성
+	// 공지사항 글 작성 페이지 조회
 	@RequestMapping("enroll.no")
 	public String enrollNotice() {
 		return "ljy/noticeEnrollForm";
@@ -74,7 +75,64 @@ public class NoticeController {
 			return "ljy/boardEnrollForm";
 		}
 		
+	}
+	
+	// 공지사항 상세페이지
+	@RequestMapping("detail.no")
+	public ModelAndView selectNotice(int no, ModelAndView mv) {
 		
+		int result = nService.increaseCount(no);
+		
+		if(result > 0) {
+			Notice n = nService.selectNotice(no);
+			mv.addObject("n", n)
+			  .setViewName("ljy/noticeDetailView");
+		}else {
+			mv.addObject("errorMsg", "상세조회 실패")
+			  .setViewName("ljy/noticeListView");
+		}
+		
+		return mv;
+	}
+	
+	// 공지사항 삭제하기
+	@RequestMapping("delete.no")
+	public String deleteNotice(int no, String noticePath, Model model, HttpSession session) {
+		
+		System.out.println(noticePath);
+		
+		int result = nService.deleteNotice(no);
+		
+		if(result > 0) {
+			// 삭제 성공
+			
+			// 기존에 첨부파일 있었을 떄
+			if(!noticePath.equals("")) { // 기존의 첨부파일 제거
+				new File( session.getServletContext().getRealPath(noticePath) ).delete();
+			}
+			
+			session.setAttribute("alertMsg", "성공적으로 공지사항이 삭제되었습니다.");
+			return "redirect:list.no";
+			
+		}else {
+			// 삭제 실패
+			model.addAttribute("errorMsg", "공지사항 삭제 실패");
+			return "ljy/noticeListView";
+		}
+	}
+	
+	// 공지사항 수정하기 화면조회
+	@RequestMapping("updateForm.no")
+	public String updateForm(int no, Model model) {
+		Notice n = nService.selectNotice(no);
+		model.addAttribute("n", n);
+		return "ljy/noticeUpdateForm";
+	}
+	
+	// 공지사항 수정하기
+	@RequestMapping("update.no")
+	public String updateNotice() {
+		return "ljy/noticeListView";
 	}
 
 }

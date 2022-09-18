@@ -13,7 +13,6 @@
 	rel="stylesheet">	
 <style>
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-
 html, body {
 	margin: 0;
 	height: 100%;
@@ -35,7 +34,7 @@ html, body {
 	margin: 0;
 	width: 100%;
 	height: 50px;
-	background-color: rgba(22, 160, 133, 0.68);
+	background-color: rgb(65, 125, 122);
 	font-size: 25px;
 	padding: 10px;
 	color: white;
@@ -216,7 +215,7 @@ div {
 	height: 25px;
 	border: 0px;
 	border-radius: 5px;
-	background: rgb(26, 188, 156); /* 회색 : rgb(190, 190, 190) */
+	background: rgb(65, 125, 122); /* 회색 : rgb(190, 190, 190) */
 	color: white;
 	font-size: 12px;
 }
@@ -227,7 +226,7 @@ div {
 	height: 35px;
 	border: 0px;
 	border-radius: 5px;
-	background: rgb(26, 188, 156); /* 회색 : rgb(190, 190, 190) */
+	background: rgb(65, 125, 122); /* 회색 : rgb(190, 190, 190) */
 	color: white;
 	font-size: 15px;
 }
@@ -268,29 +267,25 @@ div {
 
 
 	<div class="popup-outer">
-		<div class="popup-title">결재라인 설정</div>
+		<div class="popup-title">주소록</div>
 		<div class="popup-content">
 			<!-- 검색바 -->
 			<div class="searchBar">
 				<select id="condition" name="condition">
 					<option value="empName">이름</option>
-					<optio value="rankTitle">직급</option>
-					<option value="jobTitle">직책</option>
-					<option value="deptTitle">부서</option>
-				</select> <input id="keyword" type="text" placeholder="이름/직급/직책/부서 검색">
-				<svg  onclick="searchEmpProfile();" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-					fill="black" width="48px" height="48px">
-									<path
-						d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-									<path d="M0 0h24v24H0z" fill="none" /></svg>
+					<option value="jobName">직책</option>
+					<option value="deptName">부서</option>
+				</select> <input id="keyword" type="text" placeholder="이름/직책/부서 검색">
+				<svg  onclick="searchEmpProfile();" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="48px" height="48px">
+				<path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+				<path d="M0 0h24v24H0z" fill="none" /></svg>
 			<button type="button" class="bigBtn" id="signerSubmit" style="margin-left: 680px;">등록</button>
 			
 			
 			<script>
 				$(document).on("click","#signerSubmit",function(){
 					
-					//opener.testConsole("zzzz");
-					//window.close();
+					
 					
 					var v = $(".signSel tbody").text();
 					if(v==""){
@@ -314,30 +309,30 @@ div {
 						
 						var n1 = $("#signList tbody tr input[name=empNo]").eq(0).val();
 						if(n1){
-							opener.document.getElementById("n1").value=n1 + "@ergate.com";
+							opener.document.getElementById("n1").value=n1 + "@smartdoctor.com";
 						}						
 						
 						var n2 = $("#signList tbody tr input[name=empNo]").eq(1).val();
 						if(n2){
-							opener.document.getElementById("n2").value=n2 + "@ergate.com";
+							opener.document.getElementById("n2").value=n2 + "@smartdoctor.com";
 						}
 						
 						var n3 = $("#signList tbody tr input[name=empNo]").eq(2).val();
 						if(n3){
-							opener.document.getElementById("n3").value=n3 + "@ergate.com";
+							opener.document.getElementById("n3").value=n3 + "@smartdoctor.com";
 						}
 						var n4 = $("#signList tbody tr input[name=empNo]").eq(3).val();
 						if(n4){
-							opener.document.getElementById("n4").value=n4 + "@ergate.com";
+							opener.document.getElementById("n4").value=n4 + "@smartdoctor.com";
 						}
 						var n5 = $("#signList tbody tr input[name=empNo]").eq(4).val();
 						if(n5){
-							opener.document.getElementById("n5").value=n5 + "@ergate.com";
+							opener.document.getElementById("n5").value=n5 + "@smartdoctor.com";
 						}
 						
 						var n6 = $("#signList tbody tr input[name=empNo]").eq(5).val();
 						if(n6){
-							opener.document.getElementById("n6").value=n6 + "@ergate.com";
+							opener.document.getElementById("n6").value=n6 + "@smartdoctor.com";
 
 						}
 						
@@ -346,11 +341,11 @@ div {
 						
 						
 						//결재자 아이디 배열에 담기
-						var signerId=new Array();
+						var signerNo=new Array();
 						var cnt = $("#signList tbody input[name=empNo]").length;
 						for(var i=0;i<cnt;i++){
-							var signerIdStr = $("#signList tbody input[name=empNo]").eq(i).val();
-							signerId.push(signerIdStr);
+							var signerNoStr = $("#signList tbody input[name=empNo]").eq(i).val();
+							signerNo.push(signerNoStr);
 						}
 						//결재자 이름 배열에 담기
 						var signerName=new Array();
@@ -360,7 +355,7 @@ div {
 						}
 
 						
-						opener.getSid(signerId);
+						opener.getSid(signerNo);
 						opener.getSname(signerName);
 						
 						
@@ -382,27 +377,27 @@ div {
 						
 						var l1 = $("#refList tbody tr input[name=empNo]").eq(0).val();
 						if(l1){
-						opener.document.getElementById("l1").value=l1 + "@ergate.com";
+						opener.document.getElementById("l1").value=l1 + "@smartdoctor.com";
 						}
 						var l2 = $("#refList tbody tr input[name=empNo]").eq(1).val();
 						if(l2){
-						opener.document.getElementById("l2").value=l2 + "@ergate.com";
+						opener.document.getElementById("l2").value=l2 + "@smartdoctor.com";
 						}
 						var l3 = $("#refList tbody tr input[name=empNo]").eq(2).val();
 						if(l3){
-						opener.document.getElementById("l3").value=l3 + "@ergate.com";
+						opener.document.getElementById("l3").value=l3 + "@smartdoctor.com";
 						}
 						var l4 = $("#refList tbody tr input[name=empNo]").eq(3).val();
 						if(l4){
-						opener.document.getElementById("l4").value=l4 + "@ergate.com";
+						opener.document.getElementById("l4").value=l4 + "@smartdoctor.com";
 						}
 						var l5 = $("#refList tbody tr input[name=empNo]").eq(4).val();
 						if(l5){
-						opener.document.getElementById("l5").value=l5 + "@ergate.com";
+						opener.document.getElementById("l5").value=l5 + "@smartdoctor.com";
 						}
 						var l6 = $("#refList tbody tr input[name=empNo]").eq(5).val();
 						if(l6){
-						opener.document.getElementById("l6").value=l6 + "@ergate.com";
+						opener.document.getElementById("l6").value=l6 + "@smartdoctor.com";
 						}
 						
 						// 수신참조자이름 출력/변수에 담기
@@ -437,14 +432,12 @@ div {
 				<div id="groupArea">
 					<ul class="group_tree">
 						<li><input type="checkbox" id="root"> 
-						<label for="root" class="deptList" key="all"> ERgate</label>
+						<label for="root" class="deptList" key="all"> smart doctor</label>
 							 <ul>
-			                        <li class="deptList" key="D0">└ 임원</li>
-			                        <li class="deptList" key="D1">└ 개발팀</li>
-			                        <li class="deptList" key="D2">└ 회계팀</li>
-			                        <li class="deptList" key="D3">└ 기술팀</li>
-			                        <li class="deptList" key="D4">└ 총무팀</li>
-			                        <li class="deptList" key="D5">└ 인사팀</li>
+			                        <li class="deptList" key="D0">└ 진료부</li>
+			                        <li class="deptList" key="D1">└ 간호부</li>
+			                        <li class="deptList" key="D2">└ 원무부</li>
+			                        <li class="deptList" key="D3">└ 경원지원부</li>
 			                    </ul>
 							</li>
 					</ul>
@@ -459,7 +452,7 @@ div {
 									<th width="40"><input class="checkBoxAll" type="checkbox" id="checkall" style="zoom: 1.7;"></th>
 									<th>이름</th>
 									<th>부서</th>
-									<th width="120">직책/직급</th>
+									<th width="120">직책</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -481,11 +474,13 @@ div {
 										<tr>
 											<th width="100">이름</th>
 											<th>부서</th>
-											<th width="120">직책/직급</th>
+											<th width="120">직책</th>
 											<th width="40"></th>
 										</tr>
 									</thead>
-									<tbody></tbody>
+									<tbody>
+									
+									</tbody>
 								</table>
 						</div>	
 					</div>
@@ -501,7 +496,7 @@ div {
 									<tr>
 										<th width="100">이름</th>
 										<th>부서</th>
-										<th width="120">직책/직급</th>
+										<th width="120">직책</th>
 										<th width="40"></th>
 									</tr>
 								</thead>
@@ -548,7 +543,6 @@ div {
 				var nameVal = $(this).parent().parent().children("input[name=empName]").clone().wrapAll("<div/>").parent().html();
 				var name = $(this).parent().parent().children(".name").clone().wrapAll("<div/>").parent().html();
 				var dept = $(this).parent().parent().children(".dept").clone().wrapAll("<div/>").parent().html();
-				var jobRank = $(this).parent().parent().children(".jobRank").clone().wrapAll("<div/>").parent().html();
 				
 			
 				var regExp = new RegExp($(this).parent().parent().children("input[name=empNo]").val());
@@ -586,7 +580,6 @@ div {
 			var nameVal = $(this).parent().parent().children("input[name=empName]").clone().wrapAll("<div/>").parent().html();
 			var name = $(this).parent().parent().children(".name").clone().wrapAll("<div/>").parent().html();
 			var dept = $(this).parent().parent().children(".dept").clone().wrapAll("<div/>").parent().html();
-			var jobRank = $(this).parent().parent().children(".jobRank").clone().wrapAll("<div/>").parent().html();
 			
 		
 			var regExp = new RegExp($(this).parent().parent().children("input[name=empNo]").val());
@@ -635,9 +628,8 @@ div {
 							
 							var empName = eList[i].empName;
 							var empNo = eList[i].empNo;
-							var empRank = eList[i].rankTitle;
-							var empJob = eList[i].jobTitle;
-							var empDept = eList[i].deptTitle;
+							var empJob = eList[i].jobName;
+							var empDept = eList[i].deptName;
 							
 							value += '<tr><input type="hidden" name="empNo" value="'+empNo+'">' +
 									 '<input type="hidden" name="empName" value="'+empName+'">' +
@@ -684,9 +676,8 @@ div {
 
 						var empName = list[i].empName;
 						var empNo = list[i].empNo;
-						var empRank = list[i].rankTitle;
-						var empJob = list[i].jobTitle;
-						var empDept = list[i].deptTitle;
+						var empJob = list[i].jobName;
+						var empDept = list[i].deptName;
 						
 						value += '<tr><input type="hidden" name="empNo" value="'+empNo+'">' + 
 						 '<td><input name="chk" class="checkBox" type="checkbox"></td>' +

@@ -51,7 +51,7 @@
 								<c:choose>
 									<c:when test="${ empty list }">
 										<tr>
-											<td colspan="5">결재대기 문서가 없습니다.</td>
+											<td colspan="5" align="center">결재대기 문서가 없습니다.</td>
 										</tr>
 									</c:when>
 									<c:otherwise>
