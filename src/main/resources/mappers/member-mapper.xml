@@ -35,7 +35,7 @@
 			 , dept_name
 			 , job_name
 		  from member m 
-		  join department d on (m.dept_no = d.dept_no)
+		  left join department d on (m.dept_no = d.dept_no)
 		  join job j on (m.job_no = j.job_no)
 		 where status = 'Y'
 		 order
