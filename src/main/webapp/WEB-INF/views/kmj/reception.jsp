@@ -243,8 +243,8 @@ input {
 							<table align="center" width="100%" id="waitingListArea">
 								<thead>
 									<tr>
-										<th style="padding: 0;"><label for="c">전체</label> <input
-											type="checkbox" id="c" style="width: 15px;"></th>
+										<th style="padding: 0;"><label for="selectAll">전체</label> <input
+											type="checkbox" id="selectAll" style="width: 15px;" onclick='selectAll(this)'></th>
 										<th>순번</th>
 										<th>이름</th>
 										<th>성별</th>
@@ -505,7 +505,7 @@ input {
 							let waitingValue = "";
 							
 							for(let i=0; i<wlist.length; i++){
-								waitingValue += "<tr><td><input type='checkbox'id='changeChartNo' value='" + wlist[i].chartNo + "'></td>"
+								waitingValue += "<tr><td><input type='checkbox'name='change' value='" + wlist[i].chartNo + "'></td>"
 											+"<td>" + (i+1) + "</td>"
 									        +"<td>" + wlist[i].patientName + "</td>"
 									        +"<td>" + wlist[i].gender + "</td>"
@@ -540,10 +540,17 @@ input {
 				
 				// 진료중으로 상태변경
 				function ajaxChangePatientStatus() {
+					
+					let changeArray = new Array();
+					
+					$('input:checkbox[name=change]:checked').each(function() {
+						changeArray.push(this.value);
+				    });
+
 					$.ajax({
 						url : "change.pt",
 						data : {
-							changeChartNo : $("#changeChartNo").val()
+							changeArray : changeArray
 						},
 						success : function(result) {
 							console.log(result);
@@ -555,6 +562,15 @@ input {
 					});
 				}
 				
+				// 전체 체크
+				function selectAll(selectAll)  {
+					  const checkboxes 
+					       = document.getElementsByName('change');
+					  
+					  checkboxes.forEach((checkbox) => {
+					    checkbox.checked = selectAll.checked;
+					  })
+					}
 			</script>
 
 			<jsp:include page="../common/footer.jsp" />

@@ -268,7 +268,7 @@
               <div class="collapse" id="number3">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="reception.mj">접수</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="detail.mj">환자조회</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="list.mj">환자조회</a></li>
                   <li class="nav-item"> <a class="nav-link" href="rsvWaiting.mj">예약대기</a></li>
                   <li class="nav-item"> <a class="nav-link" href="room.mj">입원실현황</a></li>
                   <li class="nav-item"> <a class="nav-link" href="pay.mj">수납</a></li>
