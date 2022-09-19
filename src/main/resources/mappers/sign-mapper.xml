@@ -370,10 +370,12 @@
 		     , emp_name
 		     , dept_name
 		     , job_name
+		     , v.form_no
 		  from approval v
 		  join member m on (v.emp_no = m.emp_no)
 		  join department d on (m.dept_no = d.dept_no)
 		  join job j on (m.job_no = j.job_no)
+		  join appr_form f on (v.form_no = f.form_no)
 		 where v.appr_no = #{apprNo}
 	</select>
 	
@@ -528,7 +530,16 @@
 			 )
 	</insert>
 	
-	
+	<select id="selectOvertime" resultMap="overtimeResult">
+		select
+		       to_char(over_date, 'YYYY"년 "MM"월 "DD"일 ("DY")"') as "over_date"
+		     , start_time
+		     , end_time
+		     , total_time
+		     , over_cause
+		  from overtime
+		 where appr_no = #{apprNo}
+	</select>
 	
 	
 </mapper>

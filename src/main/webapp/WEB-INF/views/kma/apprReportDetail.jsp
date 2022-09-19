@@ -139,7 +139,7 @@
 												
 												$('#line-dept').children().each(function(index, item){ // 부서 출력
 													
-													if(deptArr[index] != "" && typeof deptArr[index] != 'undefined'){
+													if(deptArr[index] != "" && typeof deptArr[index] != 'undefined' && deptArr[index] != null){
 														$(item).text(deptArr[index]);
 													}
 												})
@@ -175,7 +175,11 @@
 												})
 												
 												$("#line-dept").children().each(function(index, item){ // 결재자들 부서명 form에 넘기기 
-													$("#againReport").append("<input type='hidden' value='" + $(item).text() + "' name='lineList[" + index + "].deptName'>");
+													
+													if( $(item).text() != null && $(item).text() != "" && $(item).text() != "undefined"){
+														$("#againReport").append("<input type='hidden' value='" + $(item).text() + "' name='lineList[" + index + "].deptName'>");
+													}
+													
 													
 													
 												})
@@ -213,18 +217,77 @@
 				                        </c:choose>
 									</td>
 								</tr>
-								<tr>
-									<td colspan="8" align="center" id="apprContent">
-										<br><br>
-										${ s.apprContent }
-										<br><br>
-									</td>
-								</tr>
 							</table>
+							
+							<c:choose>
+								<c:when test="${ s.formNo eq 1 }">
+									<!-- 결재양식이 휴가신청서일 경우 -->
+									<br><br>
+									<h3 align="center" style="font-weight: 550;">휴가 신청서</h3>
+									<br>
+									<br>
+									<table class="table table-bordered appr-table" >
+			                            <tr>
+			                              <th width="350">종류</th>
+			                              <td>연차</td>
+			                            </tr>
+			                            <tr>
+			                              <th>일수</th>
+			                              <td>${ v.vacDays }일</td>
+			                            </tr>
+			                            <tr>
+			                              <th>사유</th>
+			                              <td>${ v.vacCause }</td>
+			                            </tr>
+			                        </table>
+								</c:when>
+								<c:when test="${ s.formNo eq 2 }">
+									<!-- 결재양식이 연장근무일 경우 -->
+									<br><br>
+									<h3 align="center" style="font-weight: 550;">연장근무 신청서</h3>
+									<br>
+									<br>
+									<table class="table table-bordered appr-table">
+										<tr>
+											<th width="350">근무날짜</th>
+											<td>${ o.overDate }</td>
+										</tr>
+										<tr>
+											<th>근무시작시간</th>
+											<td colspan="5">${ o.startTime }</td>
+										</tr>
+										<tr>
+											<th>근무종료시간</th>
+											<td colspan="5">${ o.endTime }</td>
+										</tr>
+										<tr>
+											<th>총근무시간</th>
+											<td colspan="5">${ o.totalTime }시간</td>
+										</tr>
+										<tr>
+											<th>근무사유</th>
+											<td colspan="5">${ o.overCause }</td>
+										</tr>
+									</table>
+								</c:when>
+								<c:otherwise>
+									<!-- 결재양식이 에디터폼일 경우 -->
+									<table class="table table-bordered appr-table" >
+										<tr>
+											<td colspan="8" align="center" id="apprContent">
+												<br><br>
+												${ s.apprContent }
+												<br><br>
+											</td>
+										</tr>
+									</table>
+								</c:otherwise>
+							</c:choose>
+								
 						</form>
-						<br>
+						<br><br>
 						<hr>
-						<br>
+						<br><br>
 						<table class="table table-bordered appr-table" id="appr-comment">
 							<tr>
 								<th colspan="5">&nbsp;결재의견 &nbsp;

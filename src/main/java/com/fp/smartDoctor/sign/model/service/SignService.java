@@ -73,6 +73,8 @@ public interface SignService {
 	// 사용자_기안문서함 상세조회
 	int selectCommentCount(int apprNo);
 	Sign selectApprReportDetail(int apprNo);
+	Overtime selectOvertime(int apprNo);
+	Vacation selectVacation(int apprNo);
 	
 	// 사용자_결재문서함 리스트 조회
 	int selectGetListCount(String empNo);

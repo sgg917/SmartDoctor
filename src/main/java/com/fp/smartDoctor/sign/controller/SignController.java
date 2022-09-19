@@ -286,12 +286,16 @@ public class SignController {
 		ArrayList<Line> ref = sService.selectApprRef(apprNo); // 참조자 조회
 		ArrayList<Line> line = sService.selectApprLine(apprNo); // 결재자 조회
 		int count = sService.selectCommentCount(apprNo); // 결재의견 개수 조회
+		Overtime o = sService.selectOvertime(apprNo); // 연장근무 양식일 경우 내용 담기
+		Vacation v = sService.selectVacation(apprNo); // 휴가 양식일 경우 내용 담기
 		Sign s = sService.selectApprReportDetail(apprNo);
 		
 		mv.addObject("s", s)
 		  .addObject("ref", ref)
 		  .addObject("line", line)
 		  .addObject("count", count)
+		  .addObject("o", o)
+		  .addObject("v", v)
 		  .setViewName("kma/apprReportDetail");
 		
 		return mv;
@@ -330,6 +334,8 @@ public class SignController {
 		ArrayList<Line> ref = sService.selectApprRef(apprNo); // 참조자 조회
 		ArrayList<Line> line = sService.selectApprLine(apprNo); // 결재자 조회
 		int count = sService.selectCommentCount(apprNo); // 결재의견 개수 조회
+		Overtime o = sService.selectOvertime(apprNo); // 연장근무 양식일 경우 내용 담기
+		Vacation v = sService.selectVacation(apprNo); // 휴가 양식일 경우 내용 담기
 		Line l = sService.selectLineLevel(map); // 내결재순번 조회
 		Sign s = sService.selectApprReportDetail(apprNo);
 		
@@ -338,6 +344,8 @@ public class SignController {
 		  .addObject("line", line)
 		  .addObject("count", count)
 		  .addObject("l", l)
+		  .addObject("o", o)
+		  .addObject("v", v)
 		  .setViewName("kma/apprGetDetail");
 		
 		return mv;
@@ -350,12 +358,16 @@ public class SignController {
 		ArrayList<Line> ref = sService.selectApprRef(apprNo); // 참조자 조회
 		ArrayList<Line> line = sService.selectApprLine(apprNo); // 결재자 조회
 		int count = sService.selectCommentCount(apprNo); // 결재의견 개수 조회
+		Overtime o = sService.selectOvertime(apprNo); // 연장근무 양식일 경우 내용 담기
+		Vacation v = sService.selectVacation(apprNo); // 휴가 양식일 경우 내용 담기
 		Sign s = sService.selectApprReportDetail(apprNo);
 		
 		mv.addObject("s", s)
 		  .addObject("ref", ref)
 		  .addObject("line", line)
 		  .addObject("count", count)
+		  .addObject("o", o)
+		  .addObject("v", v)
 		  .setViewName("kma/apprStandbyDetail");
 		
 		return mv;

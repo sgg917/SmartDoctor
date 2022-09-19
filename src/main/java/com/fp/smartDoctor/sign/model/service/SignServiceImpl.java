@@ -169,5 +169,13 @@ public class SignServiceImpl implements SignService {
 	public int insertVacation(Vacation v) {
 		return sDao.insertVacation(sqlSession, v);
 	}
+	@Override
+	public Overtime selectOvertime(int apprNo) {
+		return sDao.selectOvertime(sqlSession, apprNo);
+	}
+	@Override
+	public Vacation selectVacation(int apprNo) {
+		return sDao.selectVacation(sqlSession, apprNo);
+	}
 
 }

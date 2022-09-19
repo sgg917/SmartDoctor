@@ -490,4 +490,15 @@
 			 )
 	</insert>
 	
+	<!-- 휴가신청서 조회 -->
+	<select id="selectVacation" resultMap="vacationResult">
+		select
+		       start_date
+		     , end_date
+		     , vac_days
+		     , vac_cause
+		  from vacation
+		 where app_no = #{apprNo}
+	</select>
+	
 </mapper>

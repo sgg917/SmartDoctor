@@ -400,7 +400,8 @@
 			
 			$(document).ready(function(){ // 결재라인에 이미 선택되어있는 결재자 리스트
 				
-				let line = ${lineList};
+				//let line = ${lineList}.replaceAll("", "null");
+				//let line = ${lineList};
 				for(let i in line){
 					console.log(line[i].deptName);
 				}
