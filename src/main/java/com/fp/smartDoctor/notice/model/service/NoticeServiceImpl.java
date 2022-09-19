@@ -73,6 +73,4 @@ public class NoticeServiceImpl implements NoticeService{
 		return nDao.selectSearchList(sqlSession, keyword, pi);
 	}
 	
-	
-
 }

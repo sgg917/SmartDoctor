@@ -56,7 +56,7 @@
                             			첨부파일이 없습니다.
                             		</c:when>
                             		<c:otherwise>
-                            			<a href="${ n.noticeOrigin }" download="${ n.noticeOrigin }">${ n.noticeOrigin }</a>
+                            			<a href="${ n.noticePath }" download="${ n.noticeOrigin }">${ n.noticeOrigin }</a>
                             		</c:otherwise>
                             	</c:choose>
                             </td>
@@ -65,7 +65,7 @@
                             <th colspan="2" style="text-align: center;">내용</th>
                           </tr>
                           <tr>
-                            <td colspan="2"><textarea cols="100" rows="20" style="border: none; width: 670px;">${ n.noticeContent }</textarea></td>
+                            <td colspan="2"><textarea cols="100" rows="20" style="border: none; width: 100%;">${ n.noticeContent }</textarea></td>
                           </tr>
                         </tbody>
                       </table>
