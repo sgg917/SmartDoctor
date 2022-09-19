@@ -53,5 +53,6 @@ public class Clinic {
 	//진료 상태 조회
 	private String gender;
 	private int age;
+	private String idNo;
 
 }

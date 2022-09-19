@@ -161,14 +161,6 @@ public class ReceptionController {
 	@RequestMapping("insert.tr")
 	public String ajaxInsertTreatment(Clinic c, HttpSession session, Model model) {
 		
-		/*
-		System.out.println(c.getChartNo());
-		System.out.println(c.getDeptNo());
-		System.out.println(c.getEmpNo());
-		System.out.println(c.getDiagnosisContent());
-		System.out.println(c);
-		*/
-		
 		int result = rService.insertTreatment(c);
 		
 		return result > 0 ? "success" : "fail";
@@ -208,5 +200,23 @@ public class ReceptionController {
 		//int result = rService.ajaxChangePatientStatus(changeChartNo);
 		
 		return result > 0 ? "success" : "fail";
+	}
+	
+	// 예약 대기 환자 조회 	
+	@ResponseBody
+	@RequestMapping(value = "rsvWaitinglist.pt")
+	public Map<String, Object> returnRsvWaitingMap() throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<Clinic> slist = rService.ajaxSurgeryWaitingList();
+		
+		ArrayList<Clinic> plist = rService.ajaxPRoomWaitingList();
+
+		
+		/* map.put(jsp에서 사용할 이름, 넘길 자바변수);  */
+		map.put("slist", slist);
+		map.put("plist", plist);
+		
+		return map;
 	}
 }

@@ -59,4 +59,12 @@ public class ReceptionDao {
 	public int ajaxChangePatientStatus(SqlSessionTemplate sqlSession, int changeChartNo) {
 		return sqlSession.update("receptionMapper.ajaxChangePatientStatus", changeChartNo);
 	}
+	
+	public ArrayList<Clinic> ajaxSurgeryWaitingList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("receptionMapper.ajaxSurgeryWaitingList");
+	}
+	
+	public ArrayList<Clinic> ajaxPRoomWaitingList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("receptionMapper.ajaxPRoomWaitingList");
+	}
 }

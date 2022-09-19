@@ -139,7 +139,7 @@ input {
 
 					<br>
 					<div id="tableArea" align="center">
-						<table class="table">
+						<table class="table" id="PRoomWaitingArea">
 							<thead>
 								<tr>
 									<th width="85px">차트번호</th>
@@ -151,14 +151,7 @@ input {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">예약하기</button></td>
-								</tr>
+
 
 							</tbody>
 						</table>
@@ -171,7 +164,7 @@ input {
 
 					<br>
 					<div id="tableArea" align="center">
-						<table class="table">
+						<table class="table" id="SurgeryWaitingArea">
 							<thead>
 								<tr>
 									<th width="85px" style="padding: 0;">차트번호</th>
@@ -183,38 +176,7 @@ input {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">예약하기</button></td>
-								</tr>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">예약하기</button></td>
-								</tr>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">예약하기</button></td>
-								</tr>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">예약하기</button></td>
-								</tr>
+
 							</tbody>
 						</table>
 					</div>
@@ -224,6 +186,81 @@ input {
 				<br><br>
 			</div>
 		</div>
+		
+		<script>
+		
+			$(function(){
+				ajaxSelectWaitingList();
+			})
+			
+			// 예약 대기 환자 조회 	
+			function ajaxSelectWaitingList(){ 
+				
+				$.ajax({
+					url:"rsvWaitinglist.pt",
+					success:function(data){
+						
+						let slist = data.slist;
+						let plist = data.plist;
+						
+						console.log(slist);
+						console.log(plist);
+						
+						let surgeryValue = "";
+						
+						for(let i=0; i<slist.length; i++){
+							
+							surgeryValue += "<tr><td>" + slist[i].chartNo + "</td>"
+										+"<td>" + slist[i].patientName + "</td>"
+								        +"<td>" + slist[i].gender + "</td>"
+								        +"<td>" + slist[i].idNo + "</td>"
+								        +"<td>" + slist[i].deptName + "</td>"
+								        +"<td><button class='button' name='rsvSurgery' value='" + slist[i].clinicNo + "'>예약하기</button></td>"
+								        +"</tr>";
+								        
+						}
+						
+						let pRoomValue = "";
+						
+						for(let i=0; i<plist.length; i++){
+							
+							pRoomValue += "<tr><td>" + plist[i].chartNo + "</td>"
+										+"<td>" + plist[i].patientName + "</td>"
+								        +"<td>" + plist[i].gender + "</td>"
+								        +"<td>" + plist[i].idNo + "</td>"
+								        +"<td>" + plist[i].deptName + "</td>"
+								        +"<td><button class='button' name='rsvPRoom' value='"  + slist[i].clinicNo + "'>예약하기</button></td>"
+								        +"</tr>";
+								        
+							}
+						
+						
+						$("#PRoomWaitingArea tbody").html(surgeryValue);
+						$("#SurgeryWaitingArea tbody").html(pRoomValue);
+						
+						
+					},error:function(){
+						console.log("예약 대기 환자 조회용 ajax통신 실패");
+					}
+				})
+				
+			}
+			
+		// => 동적으로 만들어진 요소에 이벤트 부여 방법!!!!!
+
+		$(document).on("click","button[name=rsvSurgery]",function(){
+
+		location.href = "enrollForm.op?clinicNo=" + $(this).attr('value');
+
+		})
+		
+		$(document).on("click","button[name=rsvPRoom]",function(){
+
+		location.href = "enrollForm.pr?clinicNo=" + $(this).attr('value');
+
+		})
+		
+		</script>
 		<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
