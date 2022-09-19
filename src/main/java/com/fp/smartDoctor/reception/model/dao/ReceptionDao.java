@@ -47,4 +47,12 @@ public class ReceptionDao {
 	public int insertTreatment(SqlSessionTemplate sqlSession, Clinic c) {
 		return sqlSession.insert("receptionMapper.insertTreatment", c);
 	}
+	
+	public ArrayList<Clinic> ajaxSelectWaitingPatient(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("receptionMapper.ajaxSelectWaitingPatient");
+	}
+	
+	public ArrayList<Clinic> ajaxSelectIngPatient(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("receptionMapper.ajaxSelectIngPatient");
+	}
 }
