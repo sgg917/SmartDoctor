@@ -24,6 +24,7 @@ public class Member {
 	private int vacAll;
 	private int jobNo;
 	private int deptNo;
+	private int upperNo;
 	private String jobName;
 	private String deptName;
 
