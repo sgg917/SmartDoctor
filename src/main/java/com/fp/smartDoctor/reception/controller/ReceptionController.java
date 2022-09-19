@@ -46,6 +46,12 @@ public class ReceptionController {
 	}
 	
 	// 환자 조회 페이지
+	@RequestMapping("list.mj")
+	public String list() {
+		return "kmj/patientList";
+	}
+	
+	// 환자 조회 페이지
 	@RequestMapping("detail.mj")
 	public String detail() {
 		return "kmj/patientDetail";
