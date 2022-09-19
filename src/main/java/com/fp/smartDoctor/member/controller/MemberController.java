@@ -126,4 +126,8 @@ public class MemberController {
 		return new Gson().toJson(map);
 	}
 	
+	@RequestMapping("adOrgChart.me")
+	public String goAdOrgChart() {
+		return "lsg/AdminOrganizationChartView";
+	}
 }

@@ -469,4 +469,17 @@ public class SignController {
 		
 	}
 	
+	// 사용자_기안문서함 재기안
+	@RequestMapping("againReport.si")
+	public ModelAndView againReport(Sign s, Line l, ModelAndView mv) {
+		
+		ArrayList<Line> lineList = l.getLineList();
+		System.out.println(lineList);
+		mv.addObject("s", s)
+		  .addObject("lineList", lineList)
+		  .setViewName("kma/againReport");
+		
+		return mv;
+	}
+	
 }
