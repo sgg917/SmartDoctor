@@ -325,7 +325,7 @@
                 </div>
               </div>
 
-              <!-- 모달모달모달 -->
+              <!-- 약처방 모달모달모달 -->
               <div class="container">
                 
                 <!-- The Modal -->
@@ -381,7 +381,7 @@
                       
                       <!-- Modal footer -->
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">저장</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="ajaxEnrollMed();">저장</button>
                       </div>
                       
                     </div>
@@ -389,6 +389,24 @@
                 </div>
                 
               </div>
+              <!-- 모달 끝 -->
+              
+              
+              <script>
+              	function ajaxEnrollMed(){
+              		$.ajax({
+              			url: "insert.pmd",
+              			data: {
+              				
+              			},
+              		})
+              	}
+              
+              </script>
+              
+              
+              
+              
 			</div>
 			<jsp:include page="../common/footer.jsp" />
 		</div>
