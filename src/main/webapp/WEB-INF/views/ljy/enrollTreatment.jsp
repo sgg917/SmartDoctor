@@ -115,13 +115,10 @@
 	  font-size: 10px !important;
 	}
 	
-	/* 날짜 */
+	/* 왼쪽 상단 날짜 */
 	.fc-toolbar-title{
-	  font-size: 10px !important;
+	  font-size: 15px !important;
 	}
-	
-	
-	
 	
 </style>
 </head>
