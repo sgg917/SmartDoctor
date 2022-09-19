@@ -38,4 +38,8 @@ public class MemberDao {
 	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.insert("memberMapper.insertMember", m);
 	}
+	
+	public int updateAdmin(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateAdmin", m);
+	}
 }
