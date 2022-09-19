@@ -250,13 +250,13 @@ input {
 
 		$(document).on("click","button[name=rsvSurgery]",function(){
 
-		location.href = "enrollForm.op?clinicNo=" + $(this).attr('value');
+		location.href = "enrollForm.pr?clinicNo=" + $(this).attr('value');
 
 		})
 		
 		$(document).on("click","button[name=rsvPRoom]",function(){
 
-		location.href = "enrollForm.pr?clinicNo=" + $(this).attr('value');
+		location.href = "enrollForm.op?clinicNo=" + $(this).attr('value');
 
 		})
 		
