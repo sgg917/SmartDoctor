@@ -44,4 +44,11 @@ public interface ReceptionService {
 	// 11. 입원실 예약 대기 환자 조회
 	ArrayList<Clinic> ajaxPRoomWaitingList();
 
+	// 12. 예약 완료 후 surgery 상태 변경
+	int ajaxUpdateClinicSurgery(int clinicNo);
+	
+	// 12. 예약 완료 후 enter 상태 변경
+	int ajaxUpdateClinicEnter(int clinicNo);
+	
+	
 }
