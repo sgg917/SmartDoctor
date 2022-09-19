@@ -34,4 +34,8 @@ public class MemberDao {
 	public ArrayList<Member> selectEmp(SqlSessionTemplate sqlSession, Dept d){
 		return (ArrayList)sqlSession.selectList("memberMapper.selectEmp", d);
 	}
+
+	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.insert("memberMapper.insertMember", m);
+	}
 }

@@ -260,5 +260,34 @@
 		 where emp_no = #{empNo}
 	</update>
 	
+	<!-- 직원 가입 -->
+	<insert id="insertMember">
+		insert
+		  into member
+		  (
+		    emp_no
+		  , emp_name
+		  , emp_pwd
+		  , phone
+		  , email
+		  , profile_originname
+		  , profile_path
+		  , job_no
+		  , dept_no
+		  )
+		  values
+		  (
+		    #{empNo}
+		  , #{empName}
+		  , #{empPwd}
+		  , #{phone}
+		  , #{email}
+		  , #{originName}
+		  , #{path}
+		  , #{jobNo}
+		  , #{deptNo}
+		  )
+	</insert>
+	
 
 </mapper>

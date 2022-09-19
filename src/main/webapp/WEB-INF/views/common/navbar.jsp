@@ -362,6 +362,16 @@
                 <i class="mdi mdi-hospital menu-icon"></i>
               </a>
             </li>
+            
+            <c:if test="${ loginUser.status eq 'A' }">
+	            <li class="nav-item">
+	              <a class="nav-link" href="enroll.me">
+	                <span class="menu-title">직원가입</span>
+	                <i class="mdi mdi-account-multiple-plus menu-icon"></i>
+	              </a>
+	            </li>
+            </c:if>
+            
           </ul>
         </nav>
         
