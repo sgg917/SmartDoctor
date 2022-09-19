@@ -155,14 +155,13 @@ public class ReceptionController {
 	@RequestMapping("insert.tr")
 	public String ajaxInsertTreatment(Clinic c, HttpSession session, Model model) {
 		
-		// 넘어온 첨부파일이 없을 경우 b : 제목, 작성자, 내용
-		// 넘어온 첨부파일이 있을 경우 b : 제목, 작성자, 내용, 파일원본명, 파일저장경로
+		/*
 		System.out.println(c.getChartNo());
 		System.out.println(c.getDeptNo());
 		System.out.println(c.getEmpNo());
 		System.out.println(c.getDiagnosisContent());
 		System.out.println(c);
-		
+		*/
 		
 		int result = rService.insertTreatment(c);
 		
@@ -170,7 +169,7 @@ public class ReceptionController {
 		
 	}
 	
-	
+	// 진료 대기, 진료중 환자 조회
 	@ResponseBody
 	@RequestMapping(value = "clist.pt")
 	public Map<String, Object> returnMap() throws Exception {
@@ -188,18 +187,16 @@ public class ReceptionController {
 		return map;
 	}
 	
-	// 진료대기/진료중 환자 조회용 메소드
-	/*
+	// 진료중으로 상태변경
 	@ResponseBody
-	@RequestMapping(value= "clist.pt", produces="apllication/json; charset=utf-8")
-	public String ajaxSelectWaitingPatient() {
+	@RequestMapping("change.pt")
+	public String ajaxChangePatientStatus(@RequestParam(value="changeChartNo") int changeChartNo, Model model) {
 		
-		//진료대기
-		ArrayList<Clinic> wlist = rService.ajaxSelectWaitingPatient();
+		System.out.println("차트번호" + changeChartNo);
 		
-		//진료중
-		ArrayList<Clinic> plist = rService.ajaxSelectIngPatient();
-		return new Gson().toJson(wlist);
+		int result = rService.ajaxChangePatientStatus(changeChartNo);
+		
+		return result > 0 ? "success" : "fail";
+
 	}
-	*/
 }

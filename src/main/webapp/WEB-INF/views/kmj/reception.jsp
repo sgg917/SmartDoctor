@@ -211,7 +211,7 @@ input {
 						</table>
 						<br>
 						<button class="click button" style="width: 110px;"
-							onclick="enrollTreatment();">접수</button>
+							onclick="ajaxEnrollTreatment();">접수</button>
 					</div>
 
 
@@ -237,35 +237,34 @@ input {
 							</tr>
 						</table>
 						
-						<form action="change.pt" method="post">
-							<div class="list">
+
+						<div class="list">
 	
-								<table align="center" width="100%" id="waitingListArea">
-									<thead>
-										<tr>
-											<th style="padding: 0;"><label for="c">전체</label> <input
-												type="checkbox" id="c" style="width: 15px;"></th>
-											<th>순번</th>
-											<th>이름</th>
-											<th>성별</th>
-											<th>나이</th>
-											<th>진료과</th>
-										</tr>
-									</thead>
-									<tbody>
-	
-	
-									</tbody>
-								</table>
+							<table align="center" width="100%" id="waitingListArea">
+								<thead>
+									<tr>
+										<th style="padding: 0;"><label for="c">전체</label> <input
+											type="checkbox" id="c" style="width: 15px;"></th>
+										<th>순번</th>
+										<th>이름</th>
+										<th>성별</th>
+										<th>나이</th>
+										<th>진료과</th>
+									</tr>
+								</thead>
+								<tbody>
+
+
+								</tbody>
+							</table>
 						</div>
 
-						<br>
-						<button class="click button" style="width: 110px;">상태변경</button>
-						</form>
+						<button class="click button" style="width: 110px;" onclick="ajaxChangePatientStatus();">상태변경</button>
+
 						
 						<br> <br>
 
-						<table class="table" style="margin-top: 6px;">
+						<table class="table" style="margin-top: 4px;">
 							<tr height="30">
 								<td width="120" style="padding: 5px;">
 									<button class="button maintitle">진료중</button>
@@ -430,7 +429,8 @@ input {
 					ajaxSelectClinicList();
 				})
 				
-				function openModal() { // 환자 조회용 ajax 함수
+				// 환자 조회용 ajax 함수
+				function openModal() {
 
 					$.ajax({
 						url : "list.pt",
@@ -453,7 +453,7 @@ input {
 
 							}
 
-							$("#waitingListArea tbody").html(value);
+							$("#patientListArea tbody").html(value);
 
 							$('#searchPatient').modal('show');
 
@@ -465,16 +465,12 @@ input {
 
 				}
 
-				/*
-				$("#searchPatient").change(function() {
-					selectPatientList();
-				});
-				 */
 				function modalClose() {
 					$('#searchPatient').modal('hide');
 				}
 
-				function enrollTreatment() {
+				// 진료 접수
+				function ajaxEnrollTreatment() {
 					$.ajax({
 						url : "insert.tr",
 						data : {
@@ -495,7 +491,7 @@ input {
 					});
 				}
 
-				    	
+				// 진료 대기, 진료중 환자 조회    	
 				function ajaxSelectClinicList(){ 
 					
 					$.ajax({
@@ -509,7 +505,7 @@ input {
 							let waitingValue = "";
 							
 							for(let i=0; i<wlist.length; i++){
-								waitingValue += "<tr><td><input type='checkbox'name='chartNo' value='" + wlist[i].chartNo + "'></td>"
+								waitingValue += "<tr><td><input type='checkbox'id='changeChartNo' value='" + wlist[i].chartNo + "'></td>"
 											+"<td>" + (i+1) + "</td>"
 									        +"<td>" + wlist[i].patientName + "</td>"
 									        +"<td>" + wlist[i].gender + "</td>"
@@ -540,6 +536,23 @@ input {
 						}
 					})
 					
+				}
+				
+				// 진료중으로 상태변경
+				function ajaxChangePatientStatus() {
+					$.ajax({
+						url : "change.pt",
+						data : {
+							changeChartNo : $("#changeChartNo").val()
+						},
+						success : function(result) {
+							console.log(result);
+							location.href = "reception.mj";
+						},
+						error : function() {
+							console.log("ajax통신 실패");
+						}
+					});
 				}
 				
 			</script>

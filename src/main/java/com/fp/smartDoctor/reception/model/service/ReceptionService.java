@@ -32,7 +32,10 @@ public interface ReceptionService {
 	// 7. 진료 대기 환자 조회
 	ArrayList<Clinic> ajaxSelectWaitingPatient();
 	
-	// 7. 진료 중 환자 조회
+	// 8. 진료 중 환자 조회
 	ArrayList<Clinic> ajaxSelectIngPatient();
+	
+	// 9. 진료 상태 변경
+	int ajaxChangePatientStatus(int changeChartNo);
 
 }

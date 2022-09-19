@@ -259,10 +259,12 @@
 		                  when substr(id_no, 8, 1) in ('2', '4') then '여'
 		               end "gender"
                      , dept_name
+                     , enroll_date||' '||enroll_time as "enroll"
 		           from clinic c
                    join patient using(chart_no)
                    join department using(dept_no)
               where status = 'W'
+              order by "enroll" asc
 		        )
 	</select>
 	
@@ -283,10 +285,21 @@
 		                  when substr(id_no, 8, 1) in ('2', '4') then '여'
 		               end "gender"
                      , dept_name
+                     , enroll_date||' '||enroll_time as "enroll"
 		           from clinic c
                    join patient using(chart_no)
                    join department using(dept_no)
               where status = 'P'
+              order by "enroll" asc
 		        )
 	</select>
+	
+	<update id="ajaxChangePatientStatus">
+		update
+			   clinic
+		   set status = 'P'
+		 where chart_no = #{changeChartNo}
+		   and status = 'W'
+	</update>
+	
 </mapper>

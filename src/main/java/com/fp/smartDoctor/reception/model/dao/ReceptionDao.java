@@ -55,4 +55,8 @@ public class ReceptionDao {
 	public ArrayList<Clinic> ajaxSelectIngPatient(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("receptionMapper.ajaxSelectIngPatient");
 	}
+	
+	public int ajaxChangePatientStatus(SqlSessionTemplate sqlSession, int changeChartNo) {
+		return sqlSession.update("receptionMapper.ajaxChangePatientStatus", changeChartNo);
+	}
 }
