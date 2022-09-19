@@ -81,5 +81,14 @@ public class ReceptionServiceImpl implements ReceptionService{
 	public ArrayList<Clinic> ajaxPRoomWaitingList() {
 		return rDao.ajaxPRoomWaitingList(sqlSession);
 	}
-
+	
+	@Override
+	public int ajaxUpdateClinicSurgery(int clinicNo) {
+		return rDao.ajaxUpdateClinicSurgery(sqlSession, clinicNo);
+	}
+	
+	@Override
+	public int ajaxUpdateClinicEnter(int clinicNo) {
+		return rDao.ajaxUpdateClinicEnter(sqlSession, clinicNo);
+	}
 }

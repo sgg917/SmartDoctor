@@ -219,4 +219,26 @@ public class ReceptionController {
 		
 		return map;
 	}
+	
+	// 예약 완료 후 surgery 상태 변경
+	@ResponseBody
+	@RequestMapping("updateSurgery.cl")
+	public int ajaxUpdateClinicSurgery(@RequestParam("clinicNo") int clinicNo, HttpSession session, Model model) {
+		
+		int result = rService.ajaxUpdateClinicSurgery(clinicNo);
+		
+		return result > 0 ? clinicNo : -1;
+		
+	}
+	
+	// 예약 완료 후 enter 상태 변경
+	@ResponseBody
+	@RequestMapping("updateEnter.cl")
+	public int ajaxUpdateClinicEnter(@RequestParam("clinicNo") int clinicNo, HttpSession session, Model model) {
+		
+		int result = rService.ajaxUpdateClinicEnter(clinicNo);
+		
+		return result > 0 ? clinicNo : -1;
+		
+	}
 }

@@ -364,4 +364,18 @@
                order by "enroll" asc
 	          )
 	</select>
+	
+	<update id="ajaxUpdateClinicSurgery">
+		update
+			   clinic
+		   set surgery = 'D'
+		 where chart_no = #{chartNo}
+	</update>
+	
+	<update id="ajaxUpdateClinicEnter">
+		update
+			   clinic
+		   set enter = 'D'
+		 where chart_no = #{chartNo}
+	</update>
 </mapper>
