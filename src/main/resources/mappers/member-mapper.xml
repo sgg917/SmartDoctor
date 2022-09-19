@@ -204,6 +204,7 @@
 		     , job_name
 		     , d.dept_no
 		     , upper_no
+		     , j.job_no
 		  from member m
 		  left join department d on (d.dept_no = m.dept_no)
 		  left join job j on (j.job_no = m.job_no)
