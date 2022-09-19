@@ -52,4 +52,10 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.selectEmp(sqlSession, d);
 	}
 
+	// 직원가입
+	@Override
+	public int insertMember(Member m) {
+		return mDao.insertMember(sqlSession, m);
+	}
+
 }

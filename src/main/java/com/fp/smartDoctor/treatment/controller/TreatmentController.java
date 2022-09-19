@@ -30,13 +30,7 @@ public class TreatmentController {
 	@Autowired 
 	private TreatmentService tService;
 	 
-	//입원실 예약 조회 호출
-	@RequestMapping("enrollForm.pr")
-	public String prEnrollForm() {
-		return "kcy/test";
-	}
-	
-	
+		
 	//수술실 예약 풀캘린더 조회
 	/*
  	@RequestMapping("enrollForm.op")
@@ -233,4 +227,110 @@ public class TreatmentController {
 		}
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+ 	//입원실 달력 정보조회
+ 	@ResponseBody
+ 	@RequestMapping(value="list.cp", produces="application/json; charset=utf-8")
+ 	public String selectpCalendarList() {
+ 		List<RevOProom> calendar = tService.getCalendar();
+ 		return new Gson().toJson(calendar);
+ 	}
+ 	
+
+ 	//입원실 예약 조회
+	@ResponseBody
+	@RequestMapping(value="detail.pr", produces="application/json; charset=utf-8")
+	public String selectRevProom(int clinicNo) {
+		Clinic c = tService.selectRevOProom(clinicNo);
+		return new Gson().toJson(c);
+		
+	}
+	
+	//입원실 예약조회 모달 호출
+	@RequestMapping("detail.pr2")
+    public String Modal2() {
+        return "kcy/revORDetail";
+    }
+
+	
+	//입원실 예약조회 달력 호출
+	@RequestMapping("list.pr")
+    public String prList() {
+        return "kcy/revORList";
+    }
+	
+	
+	//입원실 예약을 위한 정보 조회
+	@ResponseBody
+ 	@RequestMapping(value="enrollForm.pr", produces="application/json; charset=utf-8")
+	public ModelAndView selectforInsertRevP(int clinicNo, ModelAndView mv) {
+		
+		Clinic c=tService.selectforInsertRevOP(clinicNo);
+		
+		mv.addObject("c", c).setViewName("kcy/revPREnrollForm");
+		
+		return mv;
+	}
+
+	
+	
+	//입원실 예약
+	@ResponseBody
+	@RequestMapping(value="insert.pr", produces="application/json; charset=utf-8")
+	public ModelAndView insertpr(HttpServletRequest request, HttpSession session,ModelAndView mv) {
+		
+		String surgeryNo = request.getParameter("surgeryNo");
+		String clinicNo = request.getParameter("clinicNo");
+		String roomName = request.getParameter("roomName");
+		String surDate = request.getParameter("surDate");
+		String surEndTime = request.getParameter("surEndTime");
+		String surStartTime = request.getParameter("surStartTime");
+		String patientName = request.getParameter("patientName");
+		String doctorName = request.getParameter("doctorName");
+		String memo = request.getParameter("memo");
+		
+		HashMap<String, String> paraMap = new HashMap<String, String>();
+		paraMap.put("surgeryNo", surgeryNo);
+		paraMap.put("clinicNo", clinicNo);
+		paraMap.put("roomName", roomName);
+		paraMap.put("surDate", surDate);
+		paraMap.put("surEndTime", surEndTime);
+		paraMap.put("surStartTime", surStartTime);
+		paraMap.put("doctorName", doctorName);
+		paraMap.put("memo", memo);
+		paraMap.put("patientName", patientName);
+		
+		int result = tService.insertReservation(paraMap);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "수술실 예약이 완료되었습니다.");
+			mv.setViewName("redirect:/");
+			//예약한 다음 수술실 예약 페이지 이전페이지로 이동 시킬것임 수정해야 함
+		}else {
+			session.setAttribute("errorMsg", "수술실 예약에 실패하였습니다.");
+			mv.setViewName("common/errorPage");
+			return mv;
+		}
+		
+		return mv;
+	}
+	
+	
+
+	
+	
+	
+
+	
+	
+
 }

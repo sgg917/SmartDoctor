@@ -53,7 +53,7 @@
 	                        <tr>
 	                          <td><input type="text" name="keyword" value="${keyword}" class="form-control input-sm" placeholder="검색어 입력" style="width: 300px; height: 30px;"></td>
 	                          <td><button type="submit" class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 80px;">검색</button>
-	                            
+	                          <td><a class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(237, 230, 214); color: rgb(29, 92, 99); border: none; width: 80px;" href="list.no">초기화</a> 
 	                        </tr>
 	                      </table>
 	                    </div>

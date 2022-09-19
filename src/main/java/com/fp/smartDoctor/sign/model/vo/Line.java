@@ -29,5 +29,6 @@ public class Line {
 	private ArrayList<Line> lineList;
 	private ArrayList<Line> RefList;
 	private int apprNow;
+	private String deptName;
 	
 }

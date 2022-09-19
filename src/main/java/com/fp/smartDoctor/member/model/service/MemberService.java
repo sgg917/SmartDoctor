@@ -17,10 +17,14 @@ public interface MemberService {
 	
 	// 조직도 사원 조회 - 슬
 	ArrayList<Member> selectOrgChartEmp();
-	
+
 	// 조직도 부서별 사원 수 조회 - 슬
 	int selectEmpCount(Dept d);
 	
 	// 조직도 부서별 사원 조회 - 슬
 	ArrayList<Member> selectEmp(Dept d);
+
+	// 사원가입
+	int insertMember(Member m);
+
 }

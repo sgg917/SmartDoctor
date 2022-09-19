@@ -53,7 +53,7 @@ public class NoticeController {
 	
 	// 공지사항 작성하기
 	@RequestMapping("insert.no")
-	public String insertNotice(Notice n, MultipartFile upfile, HttpSession session, Model model) {
+	public String insertNotice(Notice n, MultipartFile upfile, HttpSession session) {
 		
 		if(!upfile.getOriginalFilename().equals("")) {
 			// 업로드한 파일 있을 때
@@ -174,6 +174,7 @@ public class NoticeController {
 		mv.addObject("pi", pi)
 		  .addObject("list", list)
 		  .addObject("searchCount", searchCount)
+		  .addObject("keyword", keyword)
 		  .setViewName("ljy/noticeListView");
 		
 		return mv;

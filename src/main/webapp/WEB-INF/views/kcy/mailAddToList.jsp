@@ -13,6 +13,7 @@
 	rel="stylesheet">	
 <style>
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
 html, body {
 	margin: 0;
 	height: 100%;
@@ -34,7 +35,7 @@ html, body {
 	margin: 0;
 	width: 100%;
 	height: 50px;
-	background-color: rgb(65, 125, 122);
+	background-color: RGB(65, 125, 122) ;
 	font-size: 25px;
 	padding: 10px;
 	color: white;
@@ -215,7 +216,7 @@ div {
 	height: 25px;
 	border: 0px;
 	border-radius: 5px;
-	background: rgb(65, 125, 122); /* 회색 : rgb(190, 190, 190) */
+	background: RGB(65, 125, 122) ; /* 회색 : rgb(190, 190, 190) */
 	color: white;
 	font-size: 12px;
 }
@@ -226,7 +227,7 @@ div {
 	height: 35px;
 	border: 0px;
 	border-radius: 5px;
-	background: rgb(65, 125, 122); /* 회색 : rgb(190, 190, 190) */
+	background: RGB(65, 125, 122) ; /* 회색 : rgb(190, 190, 190) */
 	color: white;
 	font-size: 15px;
 }
@@ -259,7 +260,11 @@ div {
 
 
 .btnDel{
-	color:rgb(190, 190, 190);
+	color:rgbRGB(65, 125, 122) ;
+}
+
+.deptList{
+	cursor:pointer;
 }
 </style>
 </head>
@@ -273,79 +278,52 @@ div {
 			<div class="searchBar">
 				<select id="condition" name="condition">
 					<option value="empName">이름</option>
-					<option value="jobName">직책</option>
-					<option value="deptName">부서</option>
-				</select> <input id="keyword" type="text" placeholder="이름/직책/부서 검색">
-				<svg  onclick="searchEmpProfile();" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="48px" height="48px">
-				<path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-				<path d="M0 0h24v24H0z" fill="none" /></svg>
+					<optio value="rankTitle">직급</option>
+					<option value="jobTitle">직책</option>
+					<option value="deptTitle">부서</option>
+				</select> <input id="keyword" type="text" placeholder="이름/직급/직책/부서 검색">
+				<svg  onclick="searchEmpProfile();" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+					fill="black" width="48px" height="48px">
+									<path
+						d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+									<path d="M0 0h24v24H0z" fill="none" /></svg>
 			<button type="button" class="bigBtn" id="signerSubmit" style="margin-left: 680px;">등록</button>
 			
 			
 			<script>
 				$(document).on("click","#signerSubmit",function(){
 					
-					
+					//opener.testConsole("zzzz");
+					//window.close();
 					
 					var v = $(".signSel tbody").text();
 					if(v==""){
-						alert("결재자는 1명 이상 존재해야 합니다.");
+						alert("선택자 1명 이상 존재해야 합니다.");
 						return false;
 					}else{
 						
 						// 결재자 정보 부모화면에 출력
 						var m1 = $("#signList tbody tr").eq(0).children().eq(2).text();
 						opener.document.getElementById("m1").value=m1;
-						var m2 = $("#signList tbody tr").eq(1).children().eq(2).text();
-						opener.document.getElementById("m2").value=m2;
-						var m3 = $("#signList tbody tr").eq(2).children().eq(2).text();
-						opener.document.getElementById("m3").value=m3;
-						var m4 = $("#signList tbody tr").eq(3).children().eq(2).text();
-						opener.document.getElementById("m4").value=m4;
-						var m5 = $("#signList tbody tr").eq(4).children().eq(2).text();
-						opener.document.getElementById("m5").value=m5;
-						var m6 = $("#signList tbody tr").eq(5).children().eq(2).text();
-						opener.document.getElementById("m6").value=m6;
+						
 						
 						var n1 = $("#signList tbody tr input[name=empNo]").eq(0).val();
 						if(n1){
 							opener.document.getElementById("n1").value=n1 + "@smartdoctor.com";
 						}						
 						
-						var n2 = $("#signList tbody tr input[name=empNo]").eq(1).val();
-						if(n2){
-							opener.document.getElementById("n2").value=n2 + "@smartdoctor.com";
-						}
-						
-						var n3 = $("#signList tbody tr input[name=empNo]").eq(2).val();
-						if(n3){
-							opener.document.getElementById("n3").value=n3 + "@smartdoctor.com";
-						}
-						var n4 = $("#signList tbody tr input[name=empNo]").eq(3).val();
-						if(n4){
-							opener.document.getElementById("n4").value=n4 + "@smartdoctor.com";
-						}
-						var n5 = $("#signList tbody tr input[name=empNo]").eq(4).val();
-						if(n5){
-							opener.document.getElementById("n5").value=n5 + "@smartdoctor.com";
-						}
-						
-						var n6 = $("#signList tbody tr input[name=empNo]").eq(5).val();
-						if(n6){
-							opener.document.getElementById("n6").value=n6 + "@smartdoctor.com";
-
-						}
+				
 						
 						
 						
 						
 						
 						//결재자 아이디 배열에 담기
-						var signerNo=new Array();
+						var signerId=new Array();
 						var cnt = $("#signList tbody input[name=empNo]").length;
 						for(var i=0;i<cnt;i++){
-							var signerNoStr = $("#signList tbody input[name=empNo]").eq(i).val();
-							signerNo.push(signerNoStr);
+							var signerIdStr = $("#signList tbody input[name=empNo]").eq(i).val();
+							signerId.push(signerIdStr);
 						}
 						//결재자 이름 배열에 담기
 						var signerName=new Array();
@@ -355,7 +333,7 @@ div {
 						}
 
 						
-						opener.getSid(signerNo);
+						opener.getSid(signerId);
 						opener.getSname(signerName);
 						
 						
@@ -364,41 +342,12 @@ div {
 						// 참조자 쪽
 						var i1 = $("#refList tbody tr").eq(0).children().eq(2).text();
 						opener.document.getElementById("i1").value=i1;
-						var i2 = $("#refList tbody tr").eq(1).children().eq(2).text();
-						opener.document.getElementById("i2").value=i2;
-						var i3 = $("#refList tbody tr").eq(2).children().eq(2).text();
-						opener.document.getElementById("i3").value=i3;
-						var i4 = $("#refList tbody tr").eq(3).children().eq(2).text();
-						opener.document.getElementById("i4").value=i4;
-						var i5 = $("#refList tbody tr").eq(4).children().eq(2).text();
-						opener.document.getElementById("i5").value=i5;
-						var i6 = $("#refList tbody tr").eq(5).children().eq(2).text();
-						opener.document.getElementById("i6").value=i6;
 						
 						var l1 = $("#refList tbody tr input[name=empNo]").eq(0).val();
 						if(l1){
 						opener.document.getElementById("l1").value=l1 + "@smartdoctor.com";
 						}
-						var l2 = $("#refList tbody tr input[name=empNo]").eq(1).val();
-						if(l2){
-						opener.document.getElementById("l2").value=l2 + "@smartdoctor.com";
-						}
-						var l3 = $("#refList tbody tr input[name=empNo]").eq(2).val();
-						if(l3){
-						opener.document.getElementById("l3").value=l3 + "@smartdoctor.com";
-						}
-						var l4 = $("#refList tbody tr input[name=empNo]").eq(3).val();
-						if(l4){
-						opener.document.getElementById("l4").value=l4 + "@smartdoctor.com";
-						}
-						var l5 = $("#refList tbody tr input[name=empNo]").eq(4).val();
-						if(l5){
-						opener.document.getElementById("l5").value=l5 + "@smartdoctor.com";
-						}
-						var l6 = $("#refList tbody tr input[name=empNo]").eq(5).val();
-						if(l6){
-						opener.document.getElementById("l6").value=l6 + "@smartdoctor.com";
-						}
+			
 						
 						// 수신참조자이름 출력/변수에 담기
 						var refName=new Array();
@@ -432,16 +381,17 @@ div {
 				<div id="groupArea">
 					<ul class="group_tree">
 						<li><input type="checkbox" id="root"> 
-						<label for="root" class="deptList" key="all"> smart doctor</label>
+						<label for="root" class="deptList" key="all"> 율제병원</label>
 							 <ul>
-			                        <li class="deptList" key="D0">└ 진료부</li>
-			                        <li class="deptList" key="D1">└ 간호부</li>
-			                        <li class="deptList" key="D2">└ 원무부</li>
-			                        <li class="deptList" key="D3">└ 경원지원부</li>
+			                        <li class="deptList" key="D1">└ 진료부</li>
+			                        <li class="deptList" key="D2">└ 간호부</li>
+			                        <li class="deptList" key="D3">└ 원무부</li>
+			                        <li class="deptList" key="D4">└ 경영지원부</li>
 			                    </ul>
 							</li>
 					</ul>
 				</div>
+
 
 				<!-- 중앙 리스트영역 -->
 				<div id="listArea">
@@ -452,7 +402,7 @@ div {
 									<th width="40"><input class="checkBoxAll" type="checkbox" id="checkall" style="zoom: 1.7;"></th>
 									<th>이름</th>
 									<th>부서</th>
-									<th width="120">직책</th>
+									<th width="120">직책/직급</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -474,13 +424,11 @@ div {
 										<tr>
 											<th width="100">이름</th>
 											<th>부서</th>
-											<th width="120">직책</th>
+											<th width="120">직책/직급</th>
 											<th width="40"></th>
 										</tr>
 									</thead>
-									<tbody>
-									
-									</tbody>
+									<tbody></tbody>
 								</table>
 						</div>	
 					</div>
@@ -496,7 +444,7 @@ div {
 									<tr>
 										<th width="100">이름</th>
 										<th>부서</th>
-										<th width="120">직책</th>
+										<th width="120">직책/직급</th>
 										<th width="40"></th>
 									</tr>
 								</thead>
@@ -532,17 +480,18 @@ div {
 		});
 		
 		
-		// 결재자 추가
+		// 선택 추가
 		
 		var value1 = "";
 		
 		$(document).on("click",".selSigner",function(){
 			
 			 $('.checkBox:checked').each(function() {
-				var id = $(this).parent().parent().children("input[name=empNo]").clone().wrapAll("<div/>").parent().html();
+				var empNo = $(this).parent().parent().children("input[name=empNo]").clone().wrapAll("<div/>").parent().html();
 				var nameVal = $(this).parent().parent().children("input[name=empName]").clone().wrapAll("<div/>").parent().html();
 				var name = $(this).parent().parent().children(".name").clone().wrapAll("<div/>").parent().html();
 				var dept = $(this).parent().parent().children(".dept").clone().wrapAll("<div/>").parent().html();
+				var job = $(this).parent().parent().children(".job").clone().wrapAll("<div/>").parent().html();
 				
 			
 				var regExp = new RegExp($(this).parent().parent().children("input[name=empNo]").val());
@@ -554,14 +503,18 @@ div {
 					return false;
 				}
 				 
-				value1 += '<tr>' +  id +nameVal+ name + dept + jobRank
+				value1 += '<tr>' +  empNo +nameVal+ name + dept + job
 		       			+ '<td><span class="material-icons btnDel">remove_circle</span></td>'
 		       			+ '</tr>';
 		       			
 				$(".signSel tbody").append(value1);
 				value1="";
-				//var test1 = $(".signSel").html();
-			//console.log("출력!!!"+test1);
+			
+				console.log(regExp);
+				console.log(dept);
+				console.log(nameVal);
+				console.log(name);
+				console.log(job);
 		   });
 			
 		});
@@ -576,10 +529,11 @@ div {
 	
 	$(document).on("click",".selRef",function(){
 		$('.checkBox:checked').each(function() {
-			var id = $(this).parent().parent().children("input[name=empNo]").clone().wrapAll("<div/>").parent().html();
+			var empNo = $(this).parent().parent().children("input[name=empNo]").clone().wrapAll("<div/>").parent().html();
 			var nameVal = $(this).parent().parent().children("input[name=empName]").clone().wrapAll("<div/>").parent().html();
 			var name = $(this).parent().parent().children(".name").clone().wrapAll("<div/>").parent().html();
 			var dept = $(this).parent().parent().children(".dept").clone().wrapAll("<div/>").parent().html();
+			var job = $(this).parent().parent().children(".job").clone().wrapAll("<div/>").parent().html();
 			
 		
 			var regExp = new RegExp($(this).parent().parent().children("input[name=empNo]").val());
@@ -591,7 +545,7 @@ div {
 				return false;
 			}
 			 
-			value2 += '<tr>' +  id +nameVal+ name + dept + jobRank
+			value2 += '<tr>' + empNo+nameVal+ name + dept + job
 	       			+ '<td><span class="material-icons btnDel">remove_circle</span></td>'
 	       			+ '</tr>';
 	       			
@@ -617,7 +571,7 @@ div {
 				data:{"keyword":keyword}, 
 				async: false,
 				success: function(eList){
-				 	//console.log(eList);
+				 	console.log(eList);
 					var value = "";
 					
 					if(eList.length == 0){ // 리스트가 비어있을 경우
@@ -628,15 +582,15 @@ div {
 							
 							var empName = eList[i].empName;
 							var empNo = eList[i].empNo;
-							var empJob = eList[i].jobName;
-							var empDept = eList[i].deptName;
+							var deptName = eList[i].deptName;
+							var jobName = eList[i].jobName;
 							
 							value += '<tr><input type="hidden" name="empNo" value="'+empNo+'">' +
 									 '<input type="hidden" name="empName" value="'+empName+'">' +
 									 '<td><input name="chk" class="checkBox" type="checkbox"></td>' +
 									 '<td class="name">'+empName + '</td>' +
-									 '<td class="dept">'+ empDept + '</td>' +
-									 '<td class="jobRank" width="120">'+empJob+'/'+empRank+'</td></tr>';							 
+									 '<td class="dept">'+ deptName + '</td>' +
+									 '<td class="job" width="120">'+jobName+'</td></tr>';							 
 							
 						}
 						$(".empList tbody").html(value);
@@ -644,7 +598,7 @@ div {
 					
 				},
 				error:function(){
-					console.log("조직도 부서별 사원 리스트 조회 실패");
+					console.log("사원 리스트 조회 실패");
 				}
 			});
 		});
@@ -676,20 +630,20 @@ div {
 
 						var empName = list[i].empName;
 						var empNo = list[i].empNo;
-						var empJob = list[i].jobName;
-						var empDept = list[i].deptName;
+						var jobName = list[i].jobName;
+						var deptName = list[i].deptName;
 						
 						value += '<tr><input type="hidden" name="empNo" value="'+empNo+'">' + 
 						 '<td><input name="chk" class="checkBox" type="checkbox"></td>' +
 						 '<td>'+empName + '</td>' +
-						 '<td>'+ empDept + '</td>' +
-						 '<td width="120">'+empJob+'/'+empRank+'</td></tr>';	
+						 '<td>'+ deptName + '</td>' +
+						 '<td width="120">'+jobName+'</td></tr>';	
 					}
 				}
 				$(".empList tbody").html(value);
 			},
 			error:function(){
-				console.log("조직도 사원 리스트조회용 통신 실패");
+				console.log("리스트조회용 통신 실패");
 			}
 			
 		})

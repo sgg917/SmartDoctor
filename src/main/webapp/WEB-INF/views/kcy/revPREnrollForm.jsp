@@ -192,6 +192,13 @@ th {
 								   </td>
 									</tr>
 									<tr>
+										<th>퇴원날짜</th>
+										<td>
+										<input type="date" class="datepicker" name="leaveDate" style="width: 225px; height: 25.2px;">
+								   <br>
+								   </td>
+									</tr>
+									<tr>
 										<th>담당의</th>
 										<td><input type="text" style="width: 300px;" name="doctorName" value="${c.docName}"></td>
 									</tr>
@@ -254,7 +261,7 @@ th {
 		$(function() {
 
 			$.ajax({
-				url : "list.ca",//입원실로 바꿔줘야함
+				url : "list.cp",//입원실로 바꿔줘야함
 				success : function(list) {
 
 					//console.log(list);
@@ -264,7 +271,7 @@ th {
 						let obj = {
 							title : list[i].pbookingNo,
 							start : list[i].enterDate,
-							end : list[i].enterDate,
+							end : list[i].leaveDate,
 							textColor : list[i].textColor,
 							backgroundColor : list[i].backgroundColor
 						};
@@ -307,42 +314,7 @@ th {
 		});
 	
 		
-		//애는 중복 못하게 하지말고 select에서 if절로 이미 예약이 있는 시간대는 고르지 못하게 할 것!!!!!!!
-		$("input[name=surDate]").change(function(){
-			//수술실 선택 후 날짜까지 선택한 순간
-		     
-		   // db에 넣기
-		   $.ajax({
-		      url:"overlap.op",
-		      data:{
-		    	  	 surgeryRoom:$("#roomName").val(),
-		    	  	 surDate:$(this).val()
-		    	  	 
-		            },
-		      type:"POST",
-		      success:function(result){
-		         console.log(result); // 현재선택된 수술방이랑 현재선택된 날짜에 예약되어있는 리스트
-		         console.log(result[0].surEndTime);
-		         console.log(result[0].surStartTime);
-		         
-		        
-		         //여기요ㅠㅠㅠ
-		         //얘는 j=result[0].surStartTime 만 인식되서 시작값만 막히고
-		         for(let j=result[0].surStartTime; j<=result[0].surEndTime; j++){
-	                    $("select option[value*='"+ j + "']").prop('disabled',true).css("background", "lightgrey");
-	             }
-		         
-		         //얘는 j=result[0].surEndTime 만 인식되서 끝만 막힙니다ㅠㅠ
-		         for(let j=result[0].surEndTime; j<=result[0].surEndTime; j++){
-	                    $("select option[value*='"+ j + "']").prop('disabled',true).css("background", "lightgrey");
-	             }
-		         
-		      },
-		      error: function(){
-		         alert("오류로 인한 예약실패");
-		       }
-		   });
-		  })
+		
 		
 		
 		
@@ -386,27 +358,7 @@ th {
 	<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음-->
 
 
-	<!-- 예상 완료시간 조회 -->
-	<script>
 	
-		$(".surStartTime").change(function(){
-				var timeSArr = $(".surStartTime>option:selected").text().split(":");			
-				var timeLArr = "${c.leadTime}".split(":");
-				
-				let hour = Number(timeSArr[0]) + Number(timeLArr[0]);
-				let min = Number(timeSArr[1]) + Number(timeLArr[1]);
-				if(min < 10){
-					min = "0" + min;
-				}
-				
-				console.log(hour + ":" + min)
-				document.getElementById("surEndTime").value = hour + ":" + min;		
-								
-		})
-	
-	
-		
-	</script>
 	
 	
 </body>

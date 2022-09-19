@@ -6,11 +6,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mailSendForm</title>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
+<title>SMART DOCTOR</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+
+<!-- fancyTree -->
+<link href="//cdn.jsdelivr.net/npm/jquery.fancytree@2.27/dist/skin-win8/ui.fancytree.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
-.wrap11 {
+    .wrap11 {
 		width: 100%;
 		background-color: white;
 		border-radius: 30px 10px;
@@ -18,8 +23,31 @@
 		text-align: center;
 		height: 100%;
 	}
- 
-   .topBar {
+	
+	.smallbtn1 {
+		border-radius: 10px 10px 10px 10px;
+		width: 50px;
+		height: 20px;
+		background-color: rgb(26, 188, 156);
+		font-size: 0.8em;
+		display: inline-block;
+	}
+	
+	.left1 {
+		display: inline-block;
+		font-size: 0.7em;
+		float: left;
+	}
+	
+	.right1 {
+		display: inline-block;
+		font-size: 0.7em;
+		float: right;
+	}
+	
+    
+  
+    .topBar {
       	background-color: rgb(65, 125, 122);
 		width: 100%;
 		height: 50px;
@@ -32,17 +60,8 @@
 		border-radius: 30px 10px;
     }
 
+   
 
-
-    
-    /* 콘텐츠영역 */
-    .contentArea {
-       margin:auto;
-       width:90%;
-    }
-
-    /* 콘텐츠영역 */
-	/* 중간버튼 스타일 */
 	.btn1 {
 		width: 80px;
 		height: 30px;
@@ -52,19 +71,10 @@
 		color: white;
 		font-size: 15px;
 	}
-	.middleBtn2 {
-		width: 80px;
-		height: 30px;
-		border: 0px;
-		border-radius: 5px;
-		background: rgb(65, 125, 122);
-		color: white;
-		font-size: 15px;
-	}
-	.middleBtn:hover {
-		cursor: pointer;
-	}
-	/* 중간버튼 스타일 */
+/* --------------------------------------------------------------------*/
+
+
+   
 	/* input창 스타일(가로크기는 자유) */
 	input {
 		height: 25px;
@@ -82,11 +92,7 @@
 	/* textarea스타일 */
 		
 	/* 입력폼 영역 */
-	.inputForm {
-		width:100%;
-		
-		margin:auto;
-	}
+	
 	.mailUpload {
 		text-align:left;
 		margin:auto;
@@ -113,8 +119,7 @@
 	.mailUpload tr:nth-child(4) th,.mailUpload tr:nth-child(4) td {
 		padding-top:10px;
 	}
-	/* 입력폼 영역 */
-	/* 큰버튼 스타일 */
+	
 	.bigBtn {
 		width: 140px;
 		height: 40px;
@@ -128,9 +133,8 @@
 	.bigBtn:hover {
 		cursor: pointer;
 	}
-	/* 큰버튼 스타일 */
-	/* 파일 첨부 관련 */
- 	/* 파일 첨부 관련 */
+	
+	
  	.upload-btn-wrapper {
 	    position: relative;
 	    overflow: hidden;
@@ -138,7 +142,7 @@
 	}
 	        
 	.upload-btn {
-	    border: 2px solid gray;
+	    border: 0px;
 	    color: gray;
 	    background-color: white;
 	    padding: 8px 20px;
@@ -200,7 +204,7 @@
 </style>
 </head>
 <body>
-	<div class="container-scroller">
+<div class="container-scroller">
 	<jsp:include page="../common/navbar.jsp" />
 	<div class="main-panel">
 		<div class="content-wrapper">
@@ -211,11 +215,10 @@
 					<span>메일쓰기</span>
 				</div>
 				<br><br><br>
-		<div class="contentArea">
-			<div class="inputForm">
-				<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="get">
-				<table class="mailUpload" id="boardDetail">
-				<tr>
+					
+							<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="get">
+								<table class="mailUpload" id="boardDetail">
+									<tr>
 										<td colspan="2">
 											<div class="left1">
 												<c:choose>
@@ -237,36 +240,34 @@
 											</div>
 										</td>
 									</tr>
-					<tr>
-						<th>받는사람</th>
-						<td>
-							<div><input id="n0" type="text" class="inputs" name="mailTo" style="width:950px; float:left;" value="${m.mailFrom}@smartdoctor.com"></div>
-							<div><input id="m1" type="hidden" class="inputs" name="mailnameTo"></div>
-						<td><button type="button" class="middleBtn2" onclick="window.open('openSigner.mil','mailAddToList','_blank');">주소록</button></td>
-					</tr>
-					<tr>
-						<th>참조</th>
-						<td>
-							<div><input id="l0" type="text" class="inputs" name="mailWith" style="width:950px; float:left;" value="${m.mailWith }"></div>
-							<div><input id="i1" type="hidden" class="inputs" name="mailnameWith"></div>
-							
-						</td>
-					</tr>
-					<tr>
-						<th>제목</th>
-						<td colspan="2">
-							<c:choose>
-								<c:when test="${f eq 0 }">
-									<input type="text" class="inputs" name="mailTitle" style="width:1030px;" value="[RE:]${m.mailTitle }">
-								</c:when>
-								<c:otherwise>
-									<input type="text" class="inputs" name="mailTitle" style="width:1030px;" value="${m.mailTitle }">
-								</c:otherwise>
-							</c:choose>
-
-						</td>
-					</tr>
-					<tr>
+									<tr>
+										<th>받는사람</th>
+										<td>
+											<div>
+												<c:choose>
+													<c:when test="${!empty trans}">
+														<input id="n1" type="text" class="inputs" name="mailTo" style="width:950px; float:left;" value="${trans}@smartdoctor.com">
+													</c:when>
+													<c:otherwise>
+														<input id="n1" type="text" class="inputs" name="mailTo" style="width:950px; float:left;">
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div><input id="m1" type="hidden" class="inputs" name="mailnameTo" ></div>
+										<td><button type="button" class="btn1" onclick="window.open('openSigner.mil','mailAddToList','_blank');">주소록</button></td>
+									</tr>
+									<tr>
+										<th>참조</th>
+										<td>
+											<div><input id="l1" type="text" class="inputs " name="mailWith" style="width:950px; float:left;"></div>
+											<div><input id="i1" type="hidden" class="inputs" name="mailnameWith"></div>
+										</td>
+									</tr>
+									<tr>
+										<th>제목</th>
+										<td colspan="2"><input type="text" class="inputs" name="mailTitle" style="width:1030px;"></td>
+									</tr>
+									<tr>
 										<th>첨부파일 <button type="button" class="mdi mdi-arrow-down btn1 fileShow" style="background-color: lightgray; color: black; width: 25px;"></button>
 											<c:if test="${e.mailAttachment ne null}">
 												※현재 파일 <span><b>${fn:length(mtList)}</b></span>개
@@ -306,60 +307,41 @@
 									        </div>
 										</td>
 									</tr>
-					<tr>
-						<th>내용</th>
-							
-						<td colspan="2">
-<textarea class="textArea" rows="25" cols="125" name="mailContent" style="resize:none;">
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
----------------original Message-------------
-
-${m.mailContent }
-</textarea>
-						</td>
-					</tr>
-					
-					
-				</table>
-				<input type="hidden" name="mailnameFrom" value="${ loginUser.empName }">
-				<input type="hidden" name="empNo" value="${ loginUser.empNo }">
-				<input type="hidden" id="mailNo" name="mailNo" value="${e.mailNo }">
-				<div class="ffnos" style="display:none;">
-				<c:forEach items="${ btList }" var="bt">
-					<input type="file" id="ffno" name="ffno" value="">
-				</c:forEach>
-				
+									<tr>
+										<th>내용</th>
+										<td colspan="2"><textarea class="textArea" rows="25" cols="125" name="mailContent" style="resize:none;"></textarea></td>
+									</tr>
+								</table>
+								<input type="hidden" name="mailnameFrom" value="${ loginUser.empName }">
+								<input type="hidden" name="empNo" value="${ loginUser.empNo }">
+								<input type="hidden" id="mailNo" name="mailNo" value="${e.mailNo }">
+								<div class="ffnos" style="display:none;">
+								<c:forEach items="${ btList }" var="bt">
+									<input type="file" id="ffno" name="ffno" value="">
+								</c:forEach>
+								
+								</div>
+							</form>
+							<br><br><br><br><br>
+						
 				</div>
-				</form>
-				<br><br><br><br><br><br><br><br><br><br>
 			</div>
-			
+		<jsp:include page="../common/footer.jsp" />
 		</div>
 	</div>
-	</div>
-	</div>
-	</div>
+	
+	
+	
+	
 	
 	<script>
-	var signerId = new Array();
+	var signerNo = new Array();
 	var signerName = new Array();
 	
 	// 받는사람아이디 받아오기
 	function getSid(data){
 		signerId = data;
-		console.log("받는사람: " + signerId);
+		console.log("받는사람: " + signerNo);
 	}
 	
 	// 받는사람이름 받아오기
@@ -368,13 +350,13 @@ ${m.mailContent }
 		console.log("받는사람: " + signerName);
 	}
 	
-	var refId = new Array();
+	var refNo = new Array();
 	var refName = new Array();
 	
 	// 참조 아이디 받아오기
 	function getRefId(data){
-		refId = data;
-		console.log("참조: " + refId);
+		refNo = data;
+		console.log("참조: " + refNo);
 	}
 	
 	// 참조 이름 받아오기
@@ -527,7 +509,7 @@ ${m.mailContent }
 	                 // 확장자 체크
 	                 alert("등록 불가 확장자");
 	                 break; */
-	             if ($.inArray(ext, [ 'hwp', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'pdf','PNG', 'png', 'jpeg', 'gif', 'zip' ]) <= 0) {
+	             if ($.inArray(ext, [ 'hwp', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'pdf','PNG', 'png', 'jpeg', 'gif', 'zip','jpg','JPG' ]) <= 0) {
 	                 // 확장자 체크
 	                 /* alert("등록이 불가능한 파일 입니다.");
 	                 break; */
@@ -619,7 +601,7 @@ ${m.mailContent }
 			//refName = data; -- 참조 이름
 			var refNameStr=refName.join(',');
 			
-		    console.log(signerId + signerName + refId, refNameStr);
+		    console.log(signerNo + signerName + refNo, refNameStr);
 	        var form = $('#uploadForm');
 	        console.log(form[0]);
 	        var formData = new FormData(form[0]);
@@ -632,11 +614,12 @@ ${m.mailContent }
 	        for (var i = 0; i < uploadFileList.length; i++) {
 	            formData.append('files', fileList[uploadFileList[i]]);
 	        }
-	        /* console.log(formData.getAll('boardTitle'));
-	        console.log(formData.getAll('boardContent'));
-	        console.log(formData.getAll('boardWriter'));
+	        
+	        console.log(formData.getAll('mailTitle'));
+	        console.log(formData.getAll('mailContent'));
+	        console.log(formData.getAll('mailnameFrom'));
 	        console.log(formData.getAll('empNo'));
-	        console.log(formData.getAll('files')); */
+	        console.log(formData.getAll('mailnameTo'));
 	        
 	        $.ajax({
 	            url : "insert.mil",
@@ -657,9 +640,10 @@ ${m.mailContent }
 	                }
 	                
 	            },
-	            error:function(){	
-						console.log("ajax 통신 실패");
+	            error:function(){	// error : ajax 통신실패시 처리할 함수 지정
+						console.log("ajax 통신 실패!");
 					}
+					
 	        });
 	 }
 	</script>

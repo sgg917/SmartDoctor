@@ -6,6 +6,7 @@ import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.messenger.model.vo.Email;
 import com.fp.smartDoctor.messenger.model.vo.MailAttachment;
+import com.fp.smartDoctor.messenger.model.vo.Search;
 import com.fp.smartDoctor.messenger.model.vo.SearchCondition;
 
 public interface MessengerService{
@@ -57,7 +58,8 @@ public interface MessengerService{
 	ArrayList<Email> miniImportMailList(String mailOwn);
 	
 	
-	// 조직도 부서별 사원 조회
+	// 주소록 부서별 사원 조회
 	ArrayList<Member> selectDeptEmpList(String keyword);
-	
+	// 주소록 키워드 검색 
+	ArrayList<Member> selectEmpListSearch(Search search);
 }

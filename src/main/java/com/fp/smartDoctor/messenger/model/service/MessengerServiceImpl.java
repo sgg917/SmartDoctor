@@ -11,6 +11,7 @@ import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.messenger.model.dao.MessengerDao;
 import com.fp.smartDoctor.messenger.model.vo.Email;
 import com.fp.smartDoctor.messenger.model.vo.MailAttachment;
+import com.fp.smartDoctor.messenger.model.vo.Search;
 import com.fp.smartDoctor.messenger.model.vo.SearchCondition;
 
 @Service
@@ -162,8 +163,18 @@ public class MessengerServiceImpl implements MessengerService {
 		return mDao.miniImportMailList(sqlSession, mailOwn);
 	}
 
+	
+	
+	
+	
+	
 	@Override
 	public ArrayList<Member> selectDeptEmpList(String keyword) {
 		return mDao.selectDeptEmpList(sqlSession, keyword);
+	}
+	
+	@Override
+	public ArrayList<Member> selectEmpListSearch(Search search) {
+		return mDao.selectEmpListSearch(sqlSession, search);
 	}
 }

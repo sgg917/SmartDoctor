@@ -1,6 +1,8 @@
 package com.fp.smartDoctor.member.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -9,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fp.smartDoctor.common.model.vo.PageInfo;
+import com.fp.smartDoctor.common.template.FileUpload;
 import com.fp.smartDoctor.member.model.service.MemberService;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
@@ -126,4 +130,47 @@ public class MemberController {
 		return new Gson().toJson(map);
 	}
 	
+	@RequestMapping("adOrgChart.me")
+	public String goAdOrgChart() {
+		return "lsg/AdminOrganizationChartView";
+	}
+
+	// 직원가입 페이지 호출
+	@RequestMapping("enroll.me")
+	public String enrollForm() {
+		return "ljy/memberEnrollForm";
+	}
+	
+	// 직원 가입하기 
+	
+	@RequestMapping("insert.me")
+	public String insertMember(String empNo, Member m, HttpSession session, MultipartFile upfile) {
+		
+		String currentTime = new SimpleDateFormat("YYMM").format(new Date());
+		int ranNum = (int)(Math.random() * 9000 + 1000);
+		String changeEmpNo = currentTime + ranNum;
+		
+		String newEmail = changeEmpNo + "@smartdoctor.com";
+		
+		m.setEmpNo(changeEmpNo);
+		m.setEmpPwd(changeEmpNo);
+		m.setEmail(newEmail);
+		
+		String saveFilepath = FileUpload.saveFile(upfile, session, "resources/profile_images/");
+		m.setOriginName(upfile.getOriginalFilename());
+		m.setPath(saveFilepath);
+		
+		int result = mService.insertMember(m);
+		
+		if(result > 0) {
+			// insert 성공
+			session.setAttribute("alertMsg", "성공적으로 가입되었습니다.");
+			return "redirect:/";
+		}else {
+			session.setAttribute("errorMsg", "가입 실패");
+			return "ljy/memberEnrollForm";
+		}
+		
+	}
+
 }

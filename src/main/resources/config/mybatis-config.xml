@@ -31,6 +31,7 @@
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.ListSurgeryBooking" alias="ListSurgeryBooking"/>
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.Disease" alias="Disease"/>
 		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.Medicine" alias="Medicine"/>
+		<typeAlias type="com.fp.smartDoctor.treatment.model.vo.RevPatientRoom" alias="RevPatientRoom"/>
 		
 		<typeAlias type="com.fp.smartDoctor.notice.model.vo.Notice" alias="Notice"/>
 		

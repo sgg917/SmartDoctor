@@ -237,7 +237,7 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="exercise.jy">진료 대기(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="enrollForm.op">수술실 예약(지워야됨)</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="enrollForm.pr">입원실 예약(지워야됨)</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="enrollfrom.pr">입원실 예약(지워야됨)</a></li>
                   <li class="nav-item"> <a class="nav-link" href="chatPage.ch">채팅화면(지워야됨)</a></li>
                 </ul>
               </div>
@@ -352,7 +352,7 @@
                 <div class="collapse" id="number7">
                   <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="orgChart.me">조직도 조회</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">조직도 수정</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="adOrgChart.me">조직도 수정</a></li>
                   </ul>
                 </div>
               </li>
@@ -362,6 +362,16 @@
                 <i class="mdi mdi-hospital menu-icon"></i>
               </a>
             </li>
+            
+            <c:if test="${ loginUser.status eq 'A' }">
+	            <li class="nav-item">
+	              <a class="nav-link" href="enroll.me">
+	                <span class="menu-title">직원가입</span>
+	                <i class="mdi mdi-account-multiple-plus menu-icon"></i>
+	              </a>
+	            </li>
+            </c:if>
+            
           </ul>
         </nav>
         

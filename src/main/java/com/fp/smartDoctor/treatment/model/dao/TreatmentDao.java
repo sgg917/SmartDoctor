@@ -85,4 +85,36 @@ public class TreatmentDao {
 	public ArrayList<Medicine> selectMedList(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("treatmentMapper.selectMedList");
 	}
+	
+	
+	
+	
+	//입원실 예약 상세조회
+		public Clinic selectRevProom(SqlSessionTemplate sqlSession,int bookingNo) {
+		return sqlSession.selectOne("treatmentMapper.selectProom", bookingNo);
+	}
+	
+	//입원실 예약을 위한 정보조회
+	public Clinic selectforInsertRevPR(SqlSessionTemplate sqlSession, int clinicNo) {
+		//ListSurgeryBooking list  = new ListSurgeryBooking();
+		
+		Clinic c = sqlSession.selectOne("treatmentMapper.forinsertProom",clinicNo);
+		return c;
+	}
+	
+	
+	
+	//입원실 예약 풀캘린더 정보 조회
+	public List<RevOProom> getpCalendar(SqlSessionTemplate sqlSession)  {
+		List<RevOProom> calendar = sqlSession.selectList("treatmentMapper.pcalendarList");
+		return calendar;
+	}
+	
+	
+	//입원실 예약(insert)
+	public int insertPR(SqlSessionTemplate sqlSession, HashMap<String, String> paraMap) {
+		return sqlSession.insert("treatmentMapper.insertp", paraMap);
+	}
+
+		
 }

@@ -113,5 +113,30 @@ public class TreatmentServiceImpl implements TreatmentService{
 	
 	
 	
+	//입원실예약 상세조회 서비스(select)
+	@Override
+	public Clinic selectRevProom(int bookingNo) {
+		return tDao.selectRevProom(sqlSession, bookingNo);
+	}
+	
+	//입원실예약을위한 정보조회 서비스(select)
+	@Override
+	public  Clinic selectforInsertRevPR(int clinicNo) {
+		return tDao.selectforInsertRevPR(sqlSession, clinicNo);
+	}
+	
+	//압원실 캘린더 조회
+	@Override
+	public List<RevOProom> getpCalendar() {
+		return tDao.getpCalendar(sqlSession);
+	}
+
+	//입원실 예약
+	@Override
+	public int insertPR(HashMap<String, String> paraMap) {
+		return tDao.insertPR(sqlSession, paraMap);
+	}
+
+
 
 }
