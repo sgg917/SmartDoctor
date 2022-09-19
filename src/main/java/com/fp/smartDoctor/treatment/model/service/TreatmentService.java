@@ -58,4 +58,16 @@ public interface TreatmentService {
 	
 	// 약 전체 리스트 조회
 	ArrayList<Medicine> selectMedList();
+	
+	//입원예약 상세조회 서비스(select)
+	Clinic selectRevProom(int bookingNo);
+	
+	//입원예약을 위한 기본정보 조회 서비스(select)
+	Clinic selectforInsertRevPR(int clinicNo);
+	
+	//입원실 예약하기(insert)
+	int insertPR(HashMap<String, String> paraMap);
+	
+	//입원예약 풀캘린더
+	List<RevOProom> getpCalendar();
 }

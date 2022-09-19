@@ -47,6 +47,8 @@
 		<result column="dept_name" property="deptName" />
 	</resultMap>
 	
+	
+	
 	<!-- 받은 메일 -->
 	<select id="selectListCount" resultType="_int">
 		select count(*)
@@ -56,7 +58,21 @@
 	</select>
 	
 	<select id="selectList" resultMap="emailResultSet">
-		select * 
+		select 
+			   mail_no
+		  	 , import_flag
+		  	 , mail_from
+		  	 , mail_to
+		  	 , mail_title
+		  	 , mail_content
+		  	 , mail_attachment
+		  	 , mail_date
+		  	 , mail_read_flag
+		  	 , mail_status
+		  	 , mail_name_from
+		  	 , mail_name_to
+		  	 , mail_with
+		  	 , mail_name_with 
 		  from mail
 		 where mail_status='Y' 
 		   and mail_to = #{mailTo}
@@ -74,7 +90,21 @@
 	</select>
 	
 	<select id="fselectList" resultMap="emailResultSet">
-		select * 
+		select 
+			   mail_no
+		  	 , import_flag
+		  	 , mail_from
+		  	 , mail_to
+		  	 , mail_title
+		  	 , mail_content
+		  	 , mail_attachment
+		  	 , mail_date
+		  	 , mail_read_flag
+		  	 , mail_status
+		  	 , mail_name_from
+		  	 , mail_name_to
+		  	 , mail_with
+		  	 , mail_name_with 
 		  from mail
 		 where mail_status='Y' 
 		   and mail_from = #{mailFrom}
@@ -84,7 +114,21 @@
 	<!-- 중요 메일 -->
 	<select id="iselectListCount" resultType="_int">
 		select count(*)
-		  from (select * 
+		  from (select 
+				       mail_no
+				  	 , import_flag
+				  	 , mail_from
+				  	 , mail_to
+				  	 , mail_title
+				  	 , mail_content
+				  	 , mail_attachment
+				  	 , mail_date
+				  	 , mail_read_flag
+				  	 , mail_status
+				  	 , mail_name_from
+				  	 , mail_name_to
+				  	 , mail_with
+				  	 , mail_name_with 
 			      from mail
 			     where mail_from = #{mailOwn} 
 			        or mail_to = #{mailOwn})
@@ -94,7 +138,21 @@
 	
 	<select id="iselectList" resultMap="emailResultSet">
 		select *
-		from (select * 
+		from (select  
+				       mail_no
+				  	 , import_flag
+				  	 , mail_from
+				  	 , mail_to
+				  	 , mail_title
+				  	 , mail_content
+				  	 , mail_attachment
+				  	 , mail_date
+				  	 , mail_read_flag
+				  	 , mail_status
+				  	 , mail_name_from
+				  	 , mail_name_to
+				  	 , mail_with
+				  	 , mail_name_with  
 			    from mail
 			   where mail_from = #{mailOwn} 
 			      or mail_to = #{mailOwn})
@@ -245,8 +303,8 @@
 		     , #{mailTo}
 		     , #{mailTitle}
 		     , #{mailContent}
-		     , ''
-		     , to_char(sysdate,'YYYY-MM-DD')
+		     , 'Y'
+		     , to_date(sysdate,'YYYY-MM-DD')
 		     , default
 		     , default
 		     , #{mailnameFrom}
@@ -386,29 +444,64 @@
 	
 	
 	
-	<!-- dept no 수정해야함 -->
 	<!-- 조직도 부서별 사원 조회 -->
-	<select id="selectDeptEmpList" parameterType="string" resultMap="memberResult">
+	<select id="selectDeptEmpList" resultMap="memberResult">
 		select 
-			   emp_name
-			 , d.dept_name
-			 , emp_no
-		  from member m
-		  join department d on(m.dept_no = d.dept_no)
+		       emp_name
+		     , emp_no
+		     , m.job_no
+		     , m.dept_no
+		     , d.dept_name
+		     , d.upper_no
+		     , j.job_name
+		  from Member m	
+		  join job j on (m.job_no=j.job_no)
+		  join department d on (m.dept_no=d.dept_no)
+		 where m.dept_no is not null
 	 	<choose>
-	 		<when test="keyword.equals('D0')">
-	 			and m.dept_no='1'
-	 		</when>
 	 		<when test="keyword.equals('D1')">
-	 			and m.dept_no='2'
+	 			and m.dept_no in (1,5,6,7,8)
 	 		</when>
 	 		<when test="keyword.equals('D2')">
-	 			and m.dept_no='3'
+	 			and m.dept_no in (2,9,10)
 	 		</when>
 	 		<when test="keyword.equals('D3')">
-	 			and m.dept_no='5'
+	 			and m.dept_no='3'
+	 		</when>
+	 		<when test="keyword.equals('D4')">
+	 			and m.dept_no='4'
 	 		</when>
 	 	</choose>
 	 	order by emp_name
 	</select>
+	
+	
+	<!-- 조직도 키워드 검색 -->
+	<select id="selectEmpListSearch" resultMap="memberResult">
+		select 
+			   emp_name
+		     , emp_no
+		     , m.job_no
+		     , m.dept_no
+		     , d.dept_name
+		     , d.upper_no
+		     , j.job_name
+		  from member m	
+		  join job j on (m.job_no=j.job_no)
+		  join department d on (m.dept_no=d.dept_no)
+		 where m.dept_no is not null
+		 <choose>
+			 <when test="condition == 'empName'">		
+					and emp_name like '%' || #{keyword} || '%'
+				</when>
+	           	<when test="condition == 'jobTitle'">	
+	    			and job_name like '%' || #{keyword} || '%'
+	    		</when>
+	    		<otherwise>
+	    			and dept_name like '%' || #{keyword} || '%'
+	    		</otherwise>
+		 </choose>
+		order by emp_name		 
+	</select>
+	
 </mapper>

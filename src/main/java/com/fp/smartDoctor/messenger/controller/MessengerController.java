@@ -26,8 +26,10 @@ import com.fp.smartDoctor.messenger.model.service.MessengerService;
 import com.fp.smartDoctor.messenger.model.vo.Email;
 import com.fp.smartDoctor.messenger.model.vo.MailAttachment;
 import com.fp.smartDoctor.messenger.model.vo.MailCount;
+import com.fp.smartDoctor.messenger.model.vo.Search;
 import com.fp.smartDoctor.messenger.model.vo.SearchCondition;
 import com.google.gson.Gson;
+
 
 
 
@@ -265,7 +267,7 @@ public class MessengerController {
 		int result = 0;
 		result = milService.insertMail(insertE);
 		String resources = form.getSession().getServletContext().getRealPath("resources");
-		String filePath = resources + "/mailFiles/";
+		String filePath = resources + "\\uploadFiles\\mail\\";
 		if(files.length > 0) {
 			int flag = 0;
 			int setFlag = 0;
@@ -333,7 +335,7 @@ public class MessengerController {
 		deleteFile.delete();
 	}
 	
-	  //결재라인등록팝업 요청용
+	  //주소록
 	  @RequestMapping("openSigner.mil")
 	  public String openSigner(String documentNo,HttpSession session,Model model) {
 
@@ -442,11 +444,23 @@ public class MessengerController {
 	
 	
 	
+	//조직도 부서별 사원 조회
 	@ResponseBody
 	@RequestMapping(value="deptEmpList.gr", produces="application/json; charset=utf-8")
 	public String selectDeptEmpList(String keyword) {
 		
 		ArrayList<Member> array = milService.selectDeptEmpList(keyword);
+		return new Gson().toJson(array);
+	}
+	
+	
+	
+	//조직도 키워드 검색 
+	@ResponseBody
+	@RequestMapping(value="empListSearch.gr", produces="application/json; charset=utf-8" )
+	public String selectEmpListSearch(Search search) {
+		
+		ArrayList<Member> array = milService.selectEmpListSearch(search);
 		return new Gson().toJson(array);
 	}
 }

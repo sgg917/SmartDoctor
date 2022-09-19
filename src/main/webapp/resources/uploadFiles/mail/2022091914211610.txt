@@ -1,3 +1,5 @@
+dao
+
 package com.fp.smartDoctor.messenger.model.dao;
 
 import java.util.ArrayList;
@@ -7,10 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
-import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.messenger.model.vo.Email;
 import com.fp.smartDoctor.messenger.model.vo.MailAttachment;
-import com.fp.smartDoctor.messenger.model.vo.Search;
 import com.fp.smartDoctor.messenger.model.vo.SearchCondition;
 
 @Repository
@@ -109,17 +109,7 @@ public class MessengerDao {
 	
 	//메일 작성
 	public int insertMail(SqlSessionTemplate sqlSession, Email insertE) {
-		/* 다중인서트
-		int result = 0;
-		for(Email l : insertE) {
-			result += sqlSession.insert("messengerMapper.insertMail", l);
-		}
-		
-		return result;
-		*/
-		
 		return sqlSession.insert("messengerMapper.insertMail", insertE);
-		
 	}
 	
 	public int insertMailAttachment(SqlSessionTemplate sqlSession, MailAttachment mt) {
@@ -176,12 +166,4 @@ public class MessengerDao {
 	
 	
 	
-	
-	
-	public ArrayList<Member> selectDeptEmpList(SqlSessionTemplate sqlSession, String keyword) {
-		return (ArrayList)sqlSession.selectList("messengerMapper.selectDeptEmpList", keyword);
-	}
-	public ArrayList<Member> selectEmpListSearch(SqlSessionTemplate sqlSession, Search search) {
-		return (ArrayList)sqlSession.selectList("messengerMapper.selectEmpListSearch", search);
-	}
 }
