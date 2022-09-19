@@ -71,6 +71,8 @@ li {
 
 #mem-tb img {
   border-radius:50%;
+  width:60px;
+  height:60px;
 }
 
 /* 초록 버튼 */
@@ -112,7 +114,7 @@ li {
                         <br>
                         <h4><b><i class="mdi mdi-hospital-building"></i>율제병원</b></h4>
                         <ul id="chartArea">
-                          
+                          조직도 들어갈 부분
                         </ul>
                     </div>
                 </div>
@@ -121,66 +123,15 @@ li {
                 <!-- 부서별 사원 조회 영역 (오른쪽) -->
                 <div class="col-8">
                     <div class="org-wrap" id="org-mem" style="width:90%; margin-left:10px;">
-                        <h4 style="padding-top:30px;"><b><i class="mdi mdi-check-circle-outline"></i> 일반외과</b></h4>
-                        <p style="float:right;">총 인원 : 10명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <h4 style="padding-top:30px;"><b><i class="mdi mdi-check-circle-outline"></i> </b></h4>
+                        <p style="float:right;">총 인원 :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                         <br><br>
                         <hr>
 
                         <table id="mem-tb" class="table">
-                            <tr>
-                                <td>
-                                    <img src="views/assets/images/faces/face1.jpg">
-                                </td>
-                                <th>교수</th>
-                                <td>이익준</td>
-                                <td>aaa@gmail.com</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="views/assets/images/faces/face2.jpg">
-                                </td>
-                                <th>레지던트</th>
-                                <td>이길동</td>
-                                <td>aaa@gmail.com</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="views/assets/images/faces/face3.jpg">
-                                </td>
-                                <th>레지던트</th>
-                                <td>강길동</td>
-                                <td>aaa@gmail.com</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="views/assets/images/faces/face4.jpg">
-                                </td>
-                                <th>레지던트</th>
-                                <td>송길동</td>
-                                <td>aaa@gmail.com</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="views/assets/images/faces/face5.jpg">
-                                </td>
-                                <th>레지던트</th>
-                                <td>한길동</td>
-                                <td>aaa@gmail.com</td>
-                            </tr>
+                            
                         </table>
                         <br><br>
-                        <!-- 페이징-->
-                        <div class="pagination" style="width:100%;">
-                            <ul class="pagination" style="margin:auto;">
-                            <li class="page-item"><a class="page-link" href="#">&lt;</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
-                            </ul>
-                        </div>
-                        <!-- 페이징 끝-->
-
                     </div>
                 </div>
             </div>
@@ -215,7 +166,7 @@ li {
 					
 					if(mlist[i].jobName == '병원장'){
 						
-						txt += '<li class="nav-item">';
+						txt += '<li class="nav-item" onclick="selectMem(0,0);">';
 						txt +=     '<a class="nav-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="ui-basic">';
 						txt +=         '<i class="mdi mdi-account"></i> ';
 						txt +=         '<span class="menu-title">' + mlist[i].jobName + " " + mlist[i].empName + '</span>';
@@ -226,15 +177,16 @@ li {
 				$("#chartArea").empty();
 				$('#chartArea').append(txt);
 				
-				var num = 0; // 상위부서 개수를 담을 변수 
 				// 상위부서 담기
+				var num = 0; // 상위부서 개수를 담을 변수 
 				for(let i=0; i<dlist.length; i++){
 					
 					// 상위부서인 경우 == level이 1, upperNo이 0
 					var upper = "";
 					if(dlist[i].level == 1 && dlist[i].upperNo == 0){
 						upper = '<li class="nav-item" id="nav' + dlist[i].deptNo + '">';
-						upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
+						//upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
+						upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + 0 + ',' + dlist[i].deptNo + ')">';
 						upper += 		'<i class="mdi mdi-chevron-double-right"></i> ';
 						upper += 		'<span class="menu-title">' + dlist[i].deptName + '</span>';
 						upper += 	'</a>';
@@ -250,7 +202,7 @@ li {
 				}
 				console.log(num); // num == 4(상위부서 개수)
 				
-				// 하위부서 or 사원 담기
+				// 하위부서 담기
 				for(let i=0; i<dlist.length; i++){
 					var lower = "";
 					var emp = "";
@@ -261,8 +213,10 @@ li {
 						if(dlist[i].level == 2 && dlist[i].upperNo == j){
 							
                             lower = '<li class="nav-item">';
-                            lower +=	'<a class="nav-link" data-bs-toggle="collapse"' +
-                            			'href="#dept' + dlist[i].upperNo + '-' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
+                            //lower +=	'<a class="nav-link" data-bs-toggle="collapse"' +
+                            //			'href="#dept' + dlist[i].upperNo + '-' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
+                            lower +=	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].upperNo + '-' + dlist[i].deptNo + 
+                            			'" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + dlist[i].upperNo + ',' + dlist[i].deptNo + ');">';
                             lower +=       '<i class="mdi mdi-chevron-double-right"></i> ';
                             lower +=        '<span class="menu-title">' + dlist[i].deptName + '</span>';
                             lower +=	'</a>';
@@ -306,6 +260,81 @@ li {
 			}
 		});
 	}	
+	
+	//------------- 부서 별 사원 정보 조회 --------------
+	function selectMem(upperNo,deptNo){
+		
+		console.log(upperNo + "," + deptNo);
+		$.ajax({
+			url:"select.me",
+			type:"POST",
+			data:{
+				upperNo:upperNo,
+				deptNo:deptNo
+			},
+			success:function(map){
+				
+				// 부서별 사원 수
+				var listCount = map.listCount;
+				// 부서별 사원
+				var list = map.list;
+				
+				// 부서명, 인원 수 넣어주기
+				if(list[0].deptName == null){
+				// 병원장일 경우
+					$('#org-mem>h4>b').html("<i class='mdi mdi-check-circle-outline'></i> " + list[0].jobName);
+				}else if(upperNo == 0 && deptNo > 2){
+				// 원무/경영지원부
+					$('#org-mem>h4>b').html("<i class='mdi mdi-check-circle-outline'></i> " + list[0].deptName);
+				}else if(upperNo == 0 && deptNo == 1){
+				// 진료부
+					$('#org-mem>h4>b').html("<i class='mdi mdi-check-circle-outline'></i> 진료부");
+				}else if(upperNo == 0 && deptNo == 2){
+				// 간호부
+					$('#org-mem>h4>b').html("<i class='mdi mdi-check-circle-outline'></i> 간호부");
+				}else if(upperNo != 0){
+				// 진료부 간호부 상세 과
+					$('#org-mem>h4>b').html("<i class='mdi mdi-check-circle-outline'></i> " + list[0].deptName);
+				}else{
+				// 병원장일 경우
+					$('#org-mem>h4>b').html("<i class='mdi mdi-check-circle-outline'></i> " + list[0].jobName);
+				}
+				$('#org-mem>p').html("총 인원 : " + listCount + "명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+				
+				// 부서별 사원 조회 결과 담기
+				var txt = ""
+				
+				if(list == null){
+					txt += '<td colspan="4" style="text-align:center;">조회 내역이 없습니다.</td>';
+				}else{
+					for(let i=0; i<list.length; i++){
+						txt +=	'<tr>';
+				        txt +=       '<td><img src="' + list[i].path + '"></td>';
+				        txt +=       '<th>' + list[i].jobName + '</th>';
+				        txt +=       '<td>' + list[i].empName + '</td>';
+				        txt +=       '<td>' + list[i].email + '</td>';
+				        txt +=  '</tr>';
+					}
+				}
+				$('#mem-tb').empty();
+				$('#mem-tb').append(txt);
+				
+				// 
+				
+			},error:function(){
+				console.log("부서별 사원 조회용 ajxa통신 실패");
+			}
+		})
+		
+		// 하위부서 없는 부서일 경우
+		if(upperNo == 0 && deptNo != 0){
+			location.href="#dept"+deptNo;
+			
+		}else if(upperNo != 0 && deptNo != null){
+		// 하위부서 있는 부서일 경우
+			location.href="#dept"+upperNo+"-"+deptNo;
+		}
+	}
 	</script>
 
       <!-- !!! 메인 끝 !!! -->
