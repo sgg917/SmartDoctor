@@ -190,13 +190,17 @@ public class ReceptionController {
 	// 진료중으로 상태변경
 	@ResponseBody
 	@RequestMapping("change.pt")
-	public String ajaxChangePatientStatus(@RequestParam(value="changeChartNo") int changeChartNo, Model model) {
+	public String ajaxChangePatientStatus(@RequestParam("changeArray[]") int[] changeArray, Model model) {
 		
-		System.out.println("차트번호" + changeChartNo);
+		//System.out.println("차트번호" + changeChartNo);
 		
-		int result = rService.ajaxChangePatientStatus(changeChartNo);
+		int result = 0;
+        for(int change : changeArray) {
+        	result = rService.ajaxChangePatientStatus(change);
+        }
+		
+		//int result = rService.ajaxChangePatientStatus(changeChartNo);
 		
 		return result > 0 ? "success" : "fail";
-
 	}
 }
