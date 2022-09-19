@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.service.MemberService;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
@@ -107,4 +108,26 @@ public class MemberController {
 		return new Gson().toJson(map);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="select.me", produces="application/json; charset=utf-8")
+	public String ajaxSelectMember(Dept d) {
+		
+		//System.out.println(d);
+		// 부서별 사원 수 조회
+		int listCount = mService.selectEmpCount(d);
+		
+		// 부서별 사원 조회
+		ArrayList<Member> list = mService.selectEmp(d);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("listCount", listCount);
+		map.put("list", list);
+		
+		return new Gson().toJson(map);
+	}
+	
+	@RequestMapping("adOrgChart.me")
+	public String goAdOrgChart() {
+		return "lsg/AdminOrganizationChartView";
+	}
 }

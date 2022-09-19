@@ -170,6 +170,62 @@
 		  order by job_no
 	</select>
 	
+	<!-- 부서별 사원 수 조회 -->
+	<select id="selectEmpCount" resultType="_int">
+		select count(*)
+		  from member m
+		  left join department d on (d.dept_no = m.dept_no)
+		 where m.status in ('Y', 'A')
+		<choose>
+			<when test="upperNo == 0 and deptNo == 0">
+				and d.dept_no is null
+			  group by d.dept_no
+			</when>
+			<when test="upperNo == 0 and deptNo != 0 and deptNo &lt; 3">
+				and upper_no = #{deptNo}
+			  group by upper_no
+			</when>
+			<otherwise>
+				and upper_no = #{upperNo}
+				and d.dept_no = #{deptNo}
+			  group by d.dept_no
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 부서별 사원 조회 (슬) -->
+	<select id="selectEmp" resultMap="memberResult">
+		select 
+		       emp_no
+		     , emp_name
+		     , email
+		     , profile_path
+		     , dept_name
+		     , job_name
+		     , d.dept_no
+		     , upper_no
+		     , j.job_no
+		  from member m
+		  left join department d on (d.dept_no = m.dept_no)
+		  left join job j on (j.job_no = m.job_no)
+		 where m.status in ('Y', 'A')
+		<choose>
+			<when test="upperNo == 0 and deptNo == 0">
+				and d.dept_no is null
+			  order by d.dept_no
+			</when>
+			<when test="upperNo == 0 and deptNo != 0 and deptNo &lt; 3">
+				and upper_no = #{deptNo}
+			  order by upper_no
+			</when>
+			<otherwise>
+				and upper_no = #{upperNo}
+				and d.dept_no = #{deptNo}
+			  order by d.dept_no
+			</otherwise>
+		</choose>
+	</select>
+	
 	<!-- 로그인한 사원 정보 조회 -->
 	<select id="loginMember" resultMap="memberResult">
 		select 

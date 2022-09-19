@@ -49,5 +49,9 @@ public class Clinic {
 	private String leaveDate;
 	private String pmemo;
 	private String patientStatus;
+	
+	//진료 상태 조회
+	private String gender;
+	private int age;
 
 }
