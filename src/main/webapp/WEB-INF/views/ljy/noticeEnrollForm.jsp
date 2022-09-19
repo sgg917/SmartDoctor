@@ -58,7 +58,8 @@
 
 	              <div class="template-demo">
 	                <button type="submit" class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 100px;">등록하기</button>
-	                <button type="reset" class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(237, 230, 214); color: rgb(29, 92, 99); border: none; width: 100px;">취소하기</button>
+	                <button type="reset" class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(192, 57, 43); color: white; border: none; width: 100px;">취소하기</button>
+	                <button type="reset" class="btn btn-gradient-primary btn-sm" style="float: left; background: rgb(237, 230, 214); color: rgb(29, 92, 99); border: none; width: 100px;" onclick="javascript:history.go(-1);">목록가기</button>
 	              </div>
 	              </form>
 	              

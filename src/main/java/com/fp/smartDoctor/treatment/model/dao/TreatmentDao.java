@@ -67,7 +67,7 @@ public class TreatmentDao {
 	}
 	
 	// 진료할 환자의 과거 내역 조회
-	public ArrayList<Clinic> selectPatientInto(SqlSessionTemplate sqlSession, int chartNo) {
+	public ArrayList<Clinic> selectPatientInto(SqlSessionTemplate sqlSession, String chartNo) {
 		return (ArrayList)sqlSession.selectList("treatmentMapper.selectPatientInfo", chartNo);
 	}
 	

@@ -36,7 +36,7 @@
 		                  <thead>
 		                    <tr>
 		                      <th style="font-weight: bold;"><label for="noticeTitle">제목</label></th>
-		                      <td><input type="text" id="noticeTitle" class="form-control" name="noticeTitle" style="border: 0; height: 1px; width: 600px;" required></td>
+		                      <td><input type="text" id="noticeTitle" class="form-control" name="noticeTitle" value="${ n.noticeTitle }" style="border: 0; height: 1px; width: 600px;" required></td>
 		                    </tr>
 		                  </thead>
 	
@@ -46,19 +46,18 @@
 		                      <td>
 		                      	<input type="file" id="upfile" class="form-control-file border" style="border: 0;" name="reupfile">
 		                      	
-		                      	<c:if test="">
-		                      	
-		                      	
+		                      	<c:if test="${ not empty n.noticeOrigin }">
+		                      		현재 업로드된 파일 : 
+		                      		<a href="${ n.noticeOrigin }" download="${ n.noticeOrigin }">${ n.noticeOrigin }</a>
+		                      		<input type="hidden" name="noticeOrigin" value="${ n.noticeOrigin }">
 		                      	</c:if>
-		                      
-		                      
 		                      </td>
 		                    </tr>
 		                    <tr>
 		                      <th colspan="2" style="text-align: center;"><label for="noticeContent">내용</label></th>
 		                    </tr>
 		                    <tr>
-		                      <td colspan="2"><textarea cols="100" rows="20" style="border: none; white-space:pre; width: 600px;" id="noticeContent" name="noticeContent" required></textarea></td>
+		                      <td colspan="2"><textarea cols="100" rows="20" style="border: none; white-space:pre; width: 600px;" id="noticeContent" name="noticeContent" required>${ n.noticeContent }</textarea></td>
 		                    </tr>
 		                  </tbody>
 	                	</table>

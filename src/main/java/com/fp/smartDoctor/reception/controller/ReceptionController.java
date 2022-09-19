@@ -1,6 +1,8 @@
 package com.fp.smartDoctor.reception.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,16 +29,9 @@ public class ReceptionController {
 	@Autowired
 	private ReceptionService rService;
 	
-	@ResponseBody
-	@RequestMapping(value= "list.pt", produces="apllication/json; charset=utf-8")
-	public String ajaxSelectReplyList(@RequestParam(value="cpage", defaultValue="1") int currentPage) {
-		int listCount = rService.selectListCount();
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
-		ArrayList<Patient> list = rService.selectList(pi);
-		return new Gson().toJson(list); // "[{}, {}, {} ..]"
-	}
+	//------------------페이지 이동 매핑---------------------
 	
-	
+	// 진료 페이지
 	@RequestMapping("reception.mj")
 	public String reception(Model model) {
 		
@@ -50,49 +45,65 @@ public class ReceptionController {
 		return "kmj/reception";
 	}
 	
-	
-	/*
-	@RequestMapping("reception.mj")
-	public String reception() {
-		ArrayList<Dept> deptList = rService.selectDeptList();
-		System.out.println(deptList);
-		return "kmj/reception";
+	// 환자 조회 페이지
+	@RequestMapping("list.mj")
+	public String list() {
+		return "kmj/patientList";
 	}
-	*/
 	
+	// 환자 조회 페이지
 	@RequestMapping("detail.mj")
 	public String detail() {
 		return "kmj/patientDetail";
 	}
 	
+	// 병원 캘린더 페이지
 	@RequestMapping("hospitalCalender.mj")
 	public String hospitalCalender() {
 		return "kmj/hospitalCalender";
 	}
 	
+	// 개인 캘린더 페이지
 	@RequestMapping("personalCalender.mj")
 	public String personalCalender() {
 		return "kmj/personalCalender";
 	}
 	
+	// 예약 대기 페이지
 	@RequestMapping("rsvWaiting.mj")
 	public String rsvWaiting() {
 		return "kmj/rsvWaiting";
 	}
 	
+	// 입원실 현황 페이지
 	@RequestMapping("room.mj")
 	public String room() {
 		return "kmj/room";
 	}
 	
+	// 수납 대기 페이지
 	@RequestMapping("pay.mj")
 	public String pay() {
 		return "kmj/payWaiting";
 	}
 	
+	// 수납 완료 페이지
 	@RequestMapping("payDone.mj")
 	public String payDone() {
 		return "kmj/payDone";
+	}
+	
+	//-----------------------------------------------------
+	
+	
+	// 환자 조회용 메소드
+	@ResponseBody
+	@RequestMapping(value= "list.pt", produces="apllication/json; charset=utf-8")
+	public String ajaxSelectPatientList(@RequestParam(value="cpage", defaultValue="1") int currentPage) {
+		int listCount = rService.selectListCount();
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
+		ArrayList<Patient> list = rService.selectList(pi);
+		return new Gson().toJson(list); // "[{}, {}, {} ..]"
 	}
 	
 	// 환자 등록
@@ -150,18 +161,52 @@ public class ReceptionController {
 	@RequestMapping("insert.tr")
 	public String ajaxInsertTreatment(Clinic c, HttpSession session, Model model) {
 		
-		// 넘어온 첨부파일이 없을 경우 b : 제목, 작성자, 내용
-		// 넘어온 첨부파일이 있을 경우 b : 제목, 작성자, 내용, 파일원본명, 파일저장경로
+		/*
 		System.out.println(c.getChartNo());
 		System.out.println(c.getDeptNo());
 		System.out.println(c.getEmpNo());
 		System.out.println(c.getDiagnosisContent());
 		System.out.println(c);
-		
+		*/
 		
 		int result = rService.insertTreatment(c);
 		
 		return result > 0 ? "success" : "fail";
 		
+	}
+	
+	// 진료 대기, 진료중 환자 조회
+	@ResponseBody
+	@RequestMapping(value = "clist.pt")
+	public Map<String, Object> returnMap() throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<Clinic> wlist = rService.ajaxSelectWaitingPatient();
+		
+		ArrayList<Clinic> plist = rService.ajaxSelectIngPatient();
+
+		
+		/* map.put(jsp에서 사용할 이름, 넘길 자바변수);  */
+		map.put("wlist", wlist);
+		map.put("plist", plist);
+		
+		return map;
+	}
+	
+	// 진료중으로 상태변경
+	@ResponseBody
+	@RequestMapping("change.pt")
+	public String ajaxChangePatientStatus(@RequestParam("changeArray[]") int[] changeArray, Model model) {
+		
+		//System.out.println("차트번호" + changeChartNo);
+		
+		int result = 0;
+        for(int change : changeArray) {
+        	result = rService.ajaxChangePatientStatus(change);
+        }
+		
+		//int result = rService.ajaxChangePatientStatus(changeChartNo);
+		
+		return result > 0 ? "success" : "fail";
 	}
 }

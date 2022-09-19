@@ -179,7 +179,6 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
             
-              <!-- 로그인 전 -->
               <c:choose>
               	<c:when test="${ empty loginUser }">
               		<div align="center">
@@ -269,7 +268,7 @@
               <div class="collapse" id="number3">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="reception.mj">접수</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="detail.mj">환자조회</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="list.mj">환자조회</a></li>
                   <li class="nav-item"> <a class="nav-link" href="rsvWaiting.mj">예약대기</a></li>
                   <li class="nav-item"> <a class="nav-link" href="room.mj">입원실현황</a></li>
                   <li class="nav-item"> <a class="nav-link" href="pay.mj">수납</a></li>
@@ -353,7 +352,7 @@
                 <div class="collapse" id="number7">
                   <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="orgChart.me">조직도 조회</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">조직도 수정</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="adOrgChart.me">조직도 수정</a></li>
                   </ul>
                 </div>
               </li>
@@ -363,6 +362,16 @@
                 <i class="mdi mdi-hospital menu-icon"></i>
               </a>
             </li>
+            
+            <c:if test="${ loginUser.status eq 'A' }">
+	            <li class="nav-item">
+	              <a class="nav-link" href="enroll.me">
+	                <span class="menu-title">직원가입</span>
+	                <i class="mdi mdi-account-multiple-plus menu-icon"></i>
+	              </a>
+	            </li>
+            </c:if>
+            
           </ul>
         </nav>
         

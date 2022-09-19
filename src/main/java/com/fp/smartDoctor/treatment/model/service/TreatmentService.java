@@ -48,7 +48,7 @@ public interface TreatmentService {
 	Patient selectNowPatient(Patient p);
 	
 	// 진료할 환자의 과거 내역 조회
-	ArrayList<Clinic> selectPatientInfo(int chartNo);
+	ArrayList<Clinic> selectPatientInfo(String chartNo);
 	
 	// 질병 전체 리스트 조회
 	ArrayList<Disease> selectDiseaseList();

@@ -26,4 +26,16 @@ public class MemberDao {
 	public ArrayList<Member> selectOrgChartEmp(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("memberMapper.selectOrgChartEmp");
 	}
+	
+	public int selectEmpCount(SqlSessionTemplate sqlSession, Dept d) {
+		return sqlSession.selectOne("memberMapper.selectEmpCount", d);
+	}
+	
+	public ArrayList<Member> selectEmp(SqlSessionTemplate sqlSession, Dept d){
+		return (ArrayList)sqlSession.selectList("memberMapper.selectEmp", d);
+	}
+
+	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.insert("memberMapper.insertMember", m);
+	}
 }

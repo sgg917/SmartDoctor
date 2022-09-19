@@ -28,5 +28,14 @@ public interface ReceptionService {
 	
 	// 6. 진료 등록
 	int insertTreatment(Clinic c);
+	
+	// 7. 진료 대기 환자 조회
+	ArrayList<Clinic> ajaxSelectWaitingPatient();
+	
+	// 8. 진료 중 환자 조회
+	ArrayList<Clinic> ajaxSelectIngPatient();
+	
+	// 9. 진료 상태 변경
+	int ajaxChangePatientStatus(int changeChartNo);
 
 }

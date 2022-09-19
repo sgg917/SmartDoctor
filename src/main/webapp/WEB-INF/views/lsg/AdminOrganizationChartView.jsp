@@ -101,7 +101,7 @@ li {
 	<!-- partial !!!여기서부터 메인 시작!!! -->
     <div class="main-panel">
       <div class="content-wrapper">
-        <h3><b>조직도 조회</b></h3>
+        <h3><b>조직도 수정</b></h3>
         <hr>
         <br>
         <div class="container card wrap11" id="att-area">
@@ -114,7 +114,6 @@ li {
                         <br>
                         <h4><b><i class="mdi mdi-hospital-building"></i>율제병원</b></h4>
                         <ul id="chartArea">
-                          조직도 들어갈 부분
                         </ul>
                     </div>
                 </div>
@@ -308,18 +307,37 @@ li {
 					txt += '<td colspan="4" style="text-align:center;">조회 내역이 없습니다.</td>';
 				}else{
 					for(let i=0; i<list.length; i++){
-						txt +=	'<tr>';
-				        txt +=       '<td><img src="' + list[i].path + '"></td>';
-				        txt +=       '<th>' + list[i].jobName + '</th>';
-				        txt +=       '<td>' + list[i].empName + '</td>';
-				        txt +=       '<td>' + list[i].email + '</td>';
-				        txt +=  '</tr>';
+						txt += '<tr>';
+                        txt += 	'<td>';
+                        txt +=    '<img src="' + list[i].path + '">';
+                        txt +=  '</td>';
+                        txt += 	'<th>';
+                        txt +=    '<select class="form-control" name="job">';
+                        if(upperNo == 0 && deptNo == 0){
+                        	txt += '<option name="job" value="1">병원장</option>';
+                        }else if(upperNo == 1 || deptNo == 1){
+	                        txt += '<option name="job" value="2">교수</option>';
+	                        txt += '<option name="job" value="3">레지던트</option>';
+	                        txt += '<option name="job" value="4">인턴</option>';
+                        }else if(upperNo == 2 || deptNo == 2){
+                        	txt += '<option name="job" value="5">간호사</option>';
+                        }else{
+                        	txt += '<option name="job" value="6">부장</option>';
+                        	txt += '<option name="job" value="7">팀장</option>';
+                        	txt += '<option name="job" value="8">사원</option>';
+                        }
+                        txt +=    '</select>';
+                        txt += 	'</th>';
+                        txt += 	'<td><input class="form-control" type="text" name="empName" value="' + list[i].empName + " required></td>';
+                        txt +=  '<td><input class="form-control" type="email" name="email" value="' + list[i].email + '" required></td>';
+                    	txt += '</tr>';
 					}
 				}
 				$('#mem-tb').empty();
 				$('#mem-tb').append(txt);
 				
-				// 
+				// 해당 사원의 직급이 기본적으로 선택되어 있게
+				$('#mem-tb option[name=job]')
 				
 			},error:function(){
 				console.log("부서별 사원 조회용 ajxa통신 실패");

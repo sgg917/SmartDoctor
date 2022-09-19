@@ -173,7 +173,7 @@
 								</tr>
 								<tr>
 									<th>제목</th>
-									<td><input type="text" name="apprTitle" placeholder="제목을 입력해주세요"></td>
+									<td><input type="text" name="apprTitle" value="${s.apprTitle}"></td>
 								</tr>
 								<tr>
 									<th>첨부파일</th>
@@ -181,7 +181,7 @@
 								</tr>
 							</table>
 							<div>
-								<textarea class="yui3-cssreset" id="summernote" name="apprContent"></textarea>
+								<textarea class="yui3-cssreset" id="summernote" name="apprContent">${s.apprContent}</textarea>
 							</div>
 						</div>
 					</form>
@@ -397,6 +397,22 @@
 		<!-- fancytree -->
 		<script src="//cdn.jsdelivr.net/npm/jquery.fancytree@2.27/dist/jquery.fancytree-all-deps.min.js"></script>
 		<script>
+			
+			$(document).ready(function(){ // 결재라인에 이미 선택되어있는 결재자 리스트
+				
+				let line = ${lineList};
+				for(let i in line){
+					console.log(line[i].deptName);
+				}
+				/* let line = "<tr class='ap-md-bd'>"
+							 + "<td style='display:none' class='empId'>" + emp.empNo + "</td>"
+						 	 + "<td class='empName'>" + emp.empName + "</td>"
+							 + "<td>" + emp.deptName + "</td>"
+							 + "<td>" + emp.jobName + "</td>"
+							 + "<td class='ap-mdi-del'><i class='mdi mdi-delete-forever al-del'></i></td>"
+					 	 + "</tr>"
+				 */
+			})
 			
 			function selectLineList(){ // 결재라인 조직도 출력용 함수
 				

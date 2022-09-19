@@ -311,7 +311,7 @@ public class AttendanceController {
 	@RequestMapping("update.att")
 	public String updateAttendance(Attendance a, HttpSession session, Model model) {
 		
-		System.out.println(a);
+		//System.out.println(a);
 		
 		// 근태 업데이트
 		int result = aService.updateAttendance(a);
@@ -324,5 +324,27 @@ public class AttendanceController {
 			model.addAttribute("errorMsg", "근태 수정에 실패하였습니다.");
 			return "common/errorPage";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="allSearch.att", produces="application/json; charset=utf-8")
+	public String ajaxSearchAllAttendance(int cpage, String type, String keyword) {
+		
+		// System.out.println("type:" + type + ", keyword:" + keyword);
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("type", type);
+		hm.put("keyword", keyword);
+		
+		int listCount = aService.ajaxSearchAttListCount(hm);
+		PageInfo pi = new PageInfo();
+		pi = new Pagination().getPageInfo(listCount, cpage, 5, 10);
+		
+		ArrayList<Attendance> list = aService.ajaxSearchAttendance(pi, hm);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("pi", pi);
+		map.put("list", list);
+		
+		return new Gson().toJson(map);
 	}
 }

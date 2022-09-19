@@ -33,20 +33,31 @@
                   	<div style="float: left;">
                     	<h2 style="float: left;">공지사항</h2>
                     	<br>
-                    	<span class="card-description" style="float: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;총 ${ listCount }건 <code style="color:white;">.table-hover</code></span>
+                    	
+                    	<c:choose>
+                    		<c:when test="${ empty keyword }">
+                    			<span class="card-description" style="float: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;총 ${ listCount }건 <code style="color:white;">.table-hover</code></span>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<span class="card-description" style="float: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;총 ${ searchCount }건 <code style="color:white;">.table-hover</code></span>
+                    		</c:otherwise>
+                    	</c:choose>
                     </div>
                     
 					<br><br><br><br>
-                    <div class="form-group" style="float: right;">
-                      <table>
-                        <tr>
-                          <td><input type="text" class="form-control input-sm" placeholder="검색어 입력" style="width: 300px; height: 30px;"></td>
-                          <td><button type="button" class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 80px;">검색</button>
-                            
-                        </tr>
-                      </table>
-                    </div>
-
+					
+					<!-- 검색영역 -->
+					<form action="search.no">
+	                    <div class="form-group" style="float: right;">
+	                      <table>
+	                        <tr>
+	                          <td><input type="text" name="keyword" value="${keyword}" class="form-control input-sm" placeholder="검색어 입력" style="width: 300px; height: 30px;"></td>
+	                          <td><button type="submit" class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 80px;">검색</button>
+	                          <td><a class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(237, 230, 214); color: rgb(29, 92, 99); border: none; width: 80px;" href="list.no">초기화</a> 
+	                        </tr>
+	                      </table>
+	                    </div>
+					</form>
 
                     <table id="noticeList" class="table table-hover">
 
@@ -89,9 +100,11 @@
                       
                     </table>
 
-                    <div class="template-demo">
-                      <a class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 80px;" href="enroll.no">글작성</a>
-                    </div>
+					<c:if test="${ loginUser.status eq 'A' }">
+	                    <div class="template-demo">
+	                      <a class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 80px;" href="enroll.no">글작성</a>
+	                    </div>
+                    </c:if>
 
                     <br><br><br>
             
@@ -109,7 +122,15 @@
                       	</c:choose>
                       	
                       	<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                      		<li class="page-item"><a class="page-link" id="aaa"  style="color: rgb(29, 92, 99);" href="list.no?cpage=${ p }">${ p }</a></li>
+                      		<c:choose>
+                      			<c:when test="${ empty keyword }">
+                      				<li class="page-item"><a class="page-link" id="aaa"  style="color: rgb(29, 92, 99);" href="list.no?cpage=${ p }">${ p }</a></li>
+                      			</c:when>
+                      			<c:otherwise>
+                      				<li class="page-item"><a class="page-link" id="aaa"  style="color: rgb(29, 92, 99);" href="search.no?cpage=${ p }&keyword=${keyword}">${ p }</a></li>
+                      			</c:otherwise>
+                      		</c:choose>
+                      		
                       	</c:forEach>
                       	
                       	<c:choose>

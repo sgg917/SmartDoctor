@@ -107,7 +107,7 @@
                                   </td>
     
                                   <td>
-                                    <textarea cols="30" rows="15" style="border-radius: 10px;">${ nowPatient.memo }</textarea>
+                                    <textarea cols="30" rows="15" style="border-radius: 10px;">${ nowPatient.diagnosis }</textarea>
                                   </td>
                                   
                                   <td style="width: 33%;">

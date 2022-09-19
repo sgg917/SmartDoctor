@@ -43,6 +43,7 @@
 		<result column="emp_name" property="empName" />
 		<result column="job_name" property="jobName" />
 		<result column="appr_now" property="apprNow" />
+		<result column="dept_name" property="deptName"/>
 	</resultMap>
 	
 	<resultMap id="overtimeResult" type="Overtime">
@@ -299,13 +300,16 @@
 		     , line_comment
 		     , line_disappr
 		     , line_refer
+		     , v.emp_no
 		     , emp_name
 		     , to_char(line_date, 'YYYY-MM-DD') as "line_date"
 		     , job_name
+		     , dept_name
 		  from appr_line l
 		  join approval v on (l.appr_no = v.appr_no)
 		  join member m on (l.emp_no = m.emp_no)
 		  join job j on (m.job_no = j.job_no)
+		  join department d on (m.dept_no = d.dept_no)
 		 where l.appr_no = #{apprNo}
 		   and line_refer = 'N'
 	</select>
@@ -317,6 +321,7 @@
 		     , line_comment
 		     , line_disappr
 		     , line_refer
+		     , v.emp_no
 		     , emp_name
 		     , line_date
 		  from appr_line l

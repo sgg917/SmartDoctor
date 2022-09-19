@@ -66,4 +66,10 @@ public interface AttendanceService {
 	
 	// 근태 수정용 메소드
 	int updateAttendance(Attendance a);
+	
+	// 검색한 근태 수 조회용 메소드
+	int ajaxSearchAttListCount(HashMap hm);
+	
+	// 검색한 근태 정보 조회용 메소드
+	ArrayList<Attendance> ajaxSearchAttendance(PageInfo pi, HashMap hm);
 }

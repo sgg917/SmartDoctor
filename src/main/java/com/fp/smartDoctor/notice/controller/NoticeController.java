@@ -53,7 +53,7 @@ public class NoticeController {
 	
 	// 공지사항 작성하기
 	@RequestMapping("insert.no")
-	public String insertNotice(Notice n, MultipartFile upfile, HttpSession session, Model model) {
+	public String insertNotice(Notice n, MultipartFile upfile, HttpSession session) {
 		
 		if(!upfile.getOriginalFilename().equals("")) {
 			// 업로드한 파일 있을 때
@@ -131,8 +131,54 @@ public class NoticeController {
 	
 	// 공지사항 수정하기
 	@RequestMapping("update.no")
-	public String updateNotice() {
-		return "ljy/noticeListView";
+	public String updateNotice(Notice n, MultipartFile reupfile, HttpSession session, Model model) {
+		
+		// 수정할 때 넘어온 첨부파일이 있을 경우
+		if(!reupfile.getOriginalFilename().equals("")) {
+			
+			if(n.getNoticeOrigin() != null) {
+				new File( session.getServletContext().getRealPath(n.getNoticeOrigin()) ).delete();
+			}
+			
+			// 새로운 첨부파일 서버에 업로드
+			String saveFilePath = FileUpload.saveFile(reupfile, session, "resources/uploadFiles/");
+			n.setNoticeOrigin(reupfile.getOriginalFilename());
+			n.setNoticePath(saveFilePath);
+		}
+		
+		int result = nService.updateNotice(n);
+		
+		if(result > 0) {
+			// 수정완료
+			session.setAttribute("alertMsg", "공지사항 수정 완료");
+			return "redirect:detail.no?no=" + n.getNoticeNo();
+		}else {
+			model.addAttribute("errorMsg", "공지사항 수정 실패");
+			return "ljy/noticeListView";
+		}
+
+	}
+	
+	// 공지사항 검색
+	@RequestMapping("search.no")
+	public ModelAndView searchNotice(@RequestParam(value="cpage", defaultValue="1") int currentPage, String keyword, ModelAndView mv) {
+		
+		int searchCount = nService.selectSearchCount(keyword);
+		
+		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 5);
+		
+		ArrayList<Notice> list = nService.selectSearchList(keyword, pi);
+		
+		System.out.println("searchCount : " + searchCount);
+		
+		mv.addObject("pi", pi)
+		  .addObject("list", list)
+		  .addObject("searchCount", searchCount)
+		  .addObject("keyword", keyword)
+		  .setViewName("ljy/noticeListView");
+		
+		return mv;
+		
 	}
 
 }

@@ -211,7 +211,7 @@ input {
 						</table>
 						<br>
 						<button class="click button" style="width: 110px;"
-							onclick="enrollTreatment();">접수</button>
+							onclick="ajaxEnrollTreatment();">접수</button>
 					</div>
 
 
@@ -236,13 +236,15 @@ input {
 								</select></td>
 							</tr>
 						</table>
+						
 
 						<div class="list">
+	
 							<table align="center" width="100%" id="waitingListArea">
 								<thead>
 									<tr>
-										<th style="padding: 0;"><label for="c">전체</label> <input
-											type="checkbox" id="c" style="width: 15px;"></th>
+										<th style="padding: 0;"><label for="selectAll">전체</label> <input
+											type="checkbox" id="selectAll" style="width: 15px;" onclick='selectAll(this)'></th>
 										<th>순번</th>
 										<th>이름</th>
 										<th>성별</th>
@@ -251,24 +253,18 @@ input {
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td><input type="checkbox"></td>
-										<td>2</td>
-										<td>박서준</td>
-										<td>남</td>
-										<td>25</td>
-										<td>내과</td>
-									</tr>
+
 
 								</tbody>
 							</table>
 						</div>
 
-						<br>
-						<button class="click button" style="width: 110px;">상태변경</button>
+						<button class="click button" style="width: 110px;" onclick="ajaxChangePatientStatus();">상태변경</button>
+
+						
 						<br> <br>
 
-						<table class="table" style="margin-top: 6px;">
+						<table class="table" style="margin-top: 4px;">
 							<tr height="30">
 								<td width="120" style="padding: 5px;">
 									<button class="button maintitle">진료중</button>
@@ -284,7 +280,7 @@ input {
 						</table>
 
 						<div class="list">
-							<table align="center" width="100%">
+							<table align="center" width="100%" id="ingListArea">
 								<thead>
 									<tr>
 										<th>순번</th>
@@ -295,48 +291,7 @@ input {
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>2</td>
-										<td>박서준</td>
-										<td>남</td>
-										<td>25</td>
-										<td>내과</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>박서준</td>
-										<td>남</td>
-										<td>25</td>
-										<td>내과</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>박서준</td>
-										<td>남</td>
-										<td>25</td>
-										<td>내과</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>박서준</td>
-										<td>남</td>
-										<td>25</td>
-										<td>내과</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>박서준</td>
-										<td>남</td>
-										<td>25</td>
-										<td>내과</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>박서준</td>
-										<td>남</td>
-										<td>25</td>
-										<td>내과</td>
-									</tr>
+
 
 								</tbody>
 							</table>
@@ -469,12 +424,13 @@ input {
 
 
 			<script>
-				/*
+				
 				$(function(){
 					ajaxSelectClinicList();
 				})
-				 */
-				function openModal() { // 환자 조회용 ajax 함수
+				
+				// 환자 조회용 ajax 함수
+				function openModal() {
 
 					$.ajax({
 						url : "list.pt",
@@ -509,16 +465,12 @@ input {
 
 				}
 
-				/*
-				$("#searchPatient").change(function() {
-					selectPatientList();
-				});
-				 */
 				function modalClose() {
 					$('#searchPatient').modal('hide');
 				}
 
-				function enrollTreatment() {
+				// 진료 접수
+				function ajaxEnrollTreatment() {
 					$.ajax({
 						url : "insert.tr",
 						data : {
@@ -539,43 +491,86 @@ input {
 					});
 				}
 
-				/*    	
+				// 진료 대기, 진료중 환자 조회    	
 				function ajaxSelectClinicList(){ 
 					
 					$.ajax({
 						url:"clist.pt",
-						success:function(list){
+						success:function(data){
 							
-							console.log(list);
+							//console.log(wlist);
+							let wlist = data.wlist;
+							let plist = data.plist;
 							
-							let value = "";
-							for(let i=0; i<list.length; i++){
-								
-								value +="<tr><td><input type='checkbox'></td>"
-								<td>2</td>
-								<td>박서준</td>
-								<td>남</td>
-								<td>25</td>
-								<td>내과</td>
-							</tr>
+							let waitingValue = "";
 							
-								value += "<tr>"
-								        +	"<th>" + list[i].replyWriter + "</th>"
-								        +	"<td>" + list[i].replyContent + "</td>"
-								        +	"<td>" + list[i].createDate + "</td>"
-								        +"</tr>";
+							for(let i=0; i<wlist.length; i++){
+								waitingValue += "<tr><td><input type='checkbox'name='change' value='" + wlist[i].chartNo + "'></td>"
+											+"<td>" + (i+1) + "</td>"
+									        +"<td>" + wlist[i].patientName + "</td>"
+									        +"<td>" + wlist[i].gender + "</td>"
+									        +"<td>" + wlist[i].age + "</td>"
+									        +"<td>" + wlist[i].deptName + "</td>"
+									        +"</tr>";
 							}
 							
-							$("#replyArea tbody").html(value);
-							$("#rcount").text(list.length);
+							let ingValue = "";
+							
+							for(let i=0; i<plist.length; i++){
+								ingValue += "<tr>"
+											+"<td>" + (i+1) + "</td>"
+									        +"<td>" + plist[i].patientName + "</td>"
+									        +"<td>" + plist[i].gender + "</td>"
+									        +"<td>" + plist[i].age + "</td>"
+									        +"<td>" + plist[i].deptName + "</td>"
+									        +"</tr>";
+								}
+							
+							
+							$("#waitingListArea tbody").html(waitingValue);
+							$("#ingListArea tbody").html(ingValue);
+							
 							
 						},error:function(){
-							console.log("댓글리스트 조회용 ajax통신 실패");
+							console.log("진료 대기 환자 조회용 ajax통신 실패");
 						}
 					})
 					
 				}
-				 */
+				
+				// 진료중으로 상태변경
+				function ajaxChangePatientStatus() {
+					
+					let changeArray = new Array();
+					
+					$('input:checkbox[name=change]:checked').each(function() {
+						changeArray.push(this.value);
+				    });
+
+					$.ajax({
+						url : "change.pt",
+						data : {
+							changeArray : changeArray
+						},
+						success : function(result) {
+							console.log(result);
+							location.href = "reception.mj";
+						},
+						error : function() {
+							console.log("ajax통신 실패");
+						}
+					});
+				}
+				
+				// 전체 체크
+				function selectAll(selectAll)  {
+					  const checkboxes 
+					       = document.getElementsByName('change');
+					  
+					  checkboxes.forEach((checkbox) => {
+					    checkbox.checked = selectAll.checked;
+					  })
+					}
 			</script>
 
 			<jsp:include page="../common/footer.jsp" />
