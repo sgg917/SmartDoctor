@@ -155,10 +155,11 @@ input, select {
                 <div class="col-4">
                     <div class="org-wrap" id="org-chart" style="width:80%; margin-right:10px;">
                         <br>
-                        <h4><b><i class="mdi mdi-hospital-building"></i>율제병원</b></h4>
+                        <h4><b><i class="mdi mdi-hospital-building"></i> 율제병원</b></h4>
                         <ul id="chartArea">
                          	로딩중...
                         </ul>
+                        <span style="margin-left:30px;"><i class="mdi mdi-plus" data-bs-toggle="modal" data-bs-target="#insertDeptModal"></i></span>
                     </div>
                 </div>
                 
@@ -210,7 +211,7 @@ input, select {
 						
 						txt += '<li class="nav-item" onclick="selectMem(0,0);">';
 						txt +=     '<a class="nav-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="ui-basic">';
-						txt +=         '<i class="mdi mdi-account"></i> ';
+						txt +=         '<i class="mdi mdi-account"></i> &nbsp;';
 						txt +=         '<span class="menu-title">' + mlist[i].jobName + " " + mlist[i].empName + '</span>';
 						txt +=     '</a>';
 						txt += '</li>';
@@ -228,8 +229,7 @@ input, select {
 					if(dlist[i].level == 1 && dlist[i].upperNo == 0){
 						upper = '<li class="nav-item" id="nav' + dlist[i].deptNo + '">';
 						//upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
-						//upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + 0 + ',' + dlist[i].deptNo + ')">';
-						upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + 0 + ',' + dlist[i].deptNo + ')">';
+						upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + 0 + ',' + dlist[i].deptNo + ')">';
 						upper += 		'<i class="mdi mdi-chevron-double-right"></i> ';
 						upper += 		'<span class="menu-title">' + dlist[i].deptName + '</span>';
 						upper += 		'<i class="mdi mdi-settings"></i>';
@@ -284,7 +284,6 @@ input, select {
                             lower += 	'<ul class="nav flex-column sub-menu" style="padding-left:20px;">';
                             lower += 	'</ul>';
                         	lower += '</div>';
-							
                             $('#dept' + j + '>ul').append(lower);
                         }
 					}
@@ -432,8 +431,9 @@ input, select {
 	}
 	</script>
 	
+	<!-------------------- 모달 영역 -------------------->
 	<!-- 사원 삭제 모달 -->
-	<div class="modal" id="deleteMemModal">
+	<div class="modal fade" id="deleteMemModal">
 	  <div class="modal-dialog modal-sm">
 	    <div class="modal-content">
 	    
@@ -457,8 +457,8 @@ input, select {
 	<!-- 사원 삭제 모달 끝 -->
 	
 	<!-- alert 대체용 모달 -->
-	<div class="modal" id="alertModal">
-		<div class="modal-dialog modal-sm">
+	<div class="modal fade" id="alertModal">
+		<div class="modal-dialog">
 			<div class="modal-content" style="background:white;">
 				
 				<!-- Modal Body -->
@@ -476,7 +476,7 @@ input, select {
 	<!-- alert 대체용 모달 끝 -->
 	
 	<!-- 부서명 수정/삭제 모달 -->
-     <div class="modal" id="deptModal">
+     <div class="modal fade" id="deptModal">
        <div class="modal-dialog">
          <div class="modal-content" style="background:white;">
      
@@ -508,10 +508,45 @@ input, select {
        </div>
      </div>
      <!-- 부서명 수정/삭제 모달 끝 -->
+     
+     <!-- 부서 추가 모달 -->
+		<div class="modal fade" id="insertDeptModal">
+		  <div class="modal-dialog">
+		    <div class="modal-content" style="background:white;">
+		
+		      <!-- Modal Header -->
+		      <div class="modal-header" style="text-align:center;">
+		        <h4 class="modal-title" style="width:100%;">부서 추가</h4>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		      </div>
+		
+		      <!-- Modal body -->
+		      <div class="modal-body">
+		      	<div class="row">
+			         <label for="department" class="col-sm-3 col-form-label" style="margin-top:20px; text-align:right;">부서명</label>
+	                 <div class="col-sm-9">
+	                     <input type="text" class="form-control" id="department" name="deptName" 
+	                     	placeholder="부서명을 입력해 주세요." style="margin-top:25px; width:250px; height:40px;">
+	                 </div>
+                 </div>
+		      </div>
+		
+		      <!-- Modal footer -->
+		      <div class="modal-footer" style="justify-content: center;">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button type="button" onclick="insertDept();" class="btn btn-primary">추가</button>
+		      </div>
+		
+		    </div>
+		  </div>
+		</div>
+	<!-- 부서 추가 모달 끝 -->
+	<!---------------------- 모달 영역 끝 -------------------->
 	
+	<!------------------ 스크립트 영역 ---------------->
 	
 	<script>
-	// ---------------- alert 대체용 모달 확인 클릭 이벤트 ----------------
+	// ---------------- alert 대체용 모달 '확인' 클릭 이벤트 ----------------
 	$('#alertModal .green-btn').click(function(){
 		location.reload();
 	})
@@ -576,7 +611,7 @@ input, select {
 		//console.log("deptName : " + deptName + ", deptNo : " + deptNo);
 		
 		$.ajax({
-			url:"updateDept.de",
+			url:"update.de",
 			type:"POST",
 			data:{
 				deptName:deptName,
@@ -604,7 +639,7 @@ input, select {
 		var deptNo = $('#deptModal input[type=hidden]').val();
 		
 		$.ajax({
-			url:"deleteDept.de",
+			url:"delete.de",
 			type:"POST",
 			data:{
 				deptNo:deptNo
@@ -619,6 +654,34 @@ input, select {
 			}
 		});
 	})
+	
+	//---------------------- 부서 추가 함수 --------------------
+	function insertDept(){
+		
+		//console.log($('#insertDeptModal input[name=deptName]').val());	
+	
+		// 부서 추가 모달 숨기기
+		$('#insertDeptModal').modal('hide');
+		
+		// 부서 추가 ajax
+		$.ajax({
+			url:"insert.de",
+			type:"post",
+			data:{
+				deptName:$('#insertDeptModal input[name=deptName]').val()
+			},
+			success:function(str){
+				
+				// alert 대체용 모달에 문자열 전해주기
+				$('#alertModal .modal-body').html(str);
+				$('#alertModal').modal('show');
+				
+			},error:function(){
+				console.log("부서 추가용 ajax통신 실패");
+			}
+		
+		})
+	}
 	</script>
 	
       <!-- !!! 메인 끝 !!! -->

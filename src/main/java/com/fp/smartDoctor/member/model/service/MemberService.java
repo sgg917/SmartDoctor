@@ -35,6 +35,9 @@ public interface MemberService {
 	
 	// 조직도 부서 삭제 - 슬
 	int deleteDept(int deptNo);
+	
+	// 조직도 부서 추가 - 슬
+	int insertDept(String deptName);
 
 	// 사원가입
 	int insertMember(Member m);

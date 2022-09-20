@@ -96,6 +96,7 @@ public class MemberController {
 		return "lsg/organizationChartView";
 	}
 	
+	// 조직도 구현
 	@ResponseBody
 	@RequestMapping(value="select.org", produces="application/json; charset=utf-8")
 	public String ajaxSelectOrganization() {
@@ -112,6 +113,7 @@ public class MemberController {
 		return new Gson().toJson(map);
 	}
 	
+	// 조직도 부서별 사원
 	@ResponseBody
 	@RequestMapping(value="select.me", produces="application/json; charset=utf-8")
 	public String ajaxSelectMember(Dept d) {
@@ -185,6 +187,7 @@ public class MemberController {
 		
 	}
 	
+	// 사원 퇴사
 	@RequestMapping("deleteEmp.me")
 	public String deleteEmp(String empNo, HttpSession session, Model model) {
 		
@@ -202,6 +205,7 @@ public class MemberController {
 		}
 	}
 	
+	// 사원 정보 수정
 	@ResponseBody
 	@RequestMapping(value="updateEmp.me", produces="text/html; charset=utf-8")
 	public String updateEmp(Member m) {
@@ -210,27 +214,39 @@ public class MemberController {
 		int result = mService.updateEmp(m);
 		
 		// 기존의 페이지에 문자열 전해주기
-		return result > 0 ? "사원 정보가<br>성공적으로 수정되었습니다." : "사원 정보 수정에 실패하였습니다.";
+		return result > 0 ? "성공적으로 수정되었습니다." : "사원 정보 수정에 실패하였습니다.";
 	}
 	
+	// 부서명 수정
 	@ResponseBody
-	@RequestMapping(value="updateDept.de", produces="text/html; charset=utf-8")
+	@RequestMapping(value="update.de", produces="text/html; charset=utf-8")
 	public String updateDept(Dept d) {
 		
 		// 부서명 수정 update
 		int result = mService.updateDept(d);
 		
-		return result > 0 ? "부서명이<br>성공적으로 수정되었습니다." : "부서명 수정에 실패하였습니다.";
+		return result > 0 ? "성공적으로 수정되었습니다." : "부서명 수정에 실패하였습니다.";
 	}
 	
+	// 부서 삭제
 	@ResponseBody
-	@RequestMapping(value="deleteDept.de", produces="text/html; charset=utf-8")
+	@RequestMapping(value="delete.de", produces="text/html; charset=utf-8")
 	public String deleteDept(int deptNo) {
 		
 		// 부서명 수정 update
 		int result = mService.deleteDept(deptNo);
 		
 		return result > 0 ? "삭제 완료되었습니다." : "부서 삭제에 실패하였습니다.";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="insert.de", produces="text/html; charset=utf-8")
+	public String insertDept(String deptName) {
+		
+		// 부서 추가 insert
+		int result = mService.insertDept(deptName);
+		
+		return result > 0 ? "성공적으로 추가되었습니다." : "부서 추가에 실패하였습니다.";
 	}
 
 }

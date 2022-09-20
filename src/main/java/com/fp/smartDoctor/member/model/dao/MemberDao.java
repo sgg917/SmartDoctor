@@ -58,4 +58,8 @@ public class MemberDao {
 	public int deleteDept(SqlSessionTemplate sqlSession, int deptNo) {
 		return sqlSession.delete("memberMapper.deleteDept", deptNo);
 	}
+	
+	public int insertDept(SqlSessionTemplate sqlSession, String deptName) {
+		return sqlSession.insert("memberMapper.insertDept", deptName);
+	}
 }

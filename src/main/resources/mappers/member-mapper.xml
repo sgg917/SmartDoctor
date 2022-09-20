@@ -64,80 +64,108 @@
 		 where emp_no = #{empNo}
 	</select>
 	
-	<!-- 전체 사원 수 조회 (슬) -->
+	<!-- 휴가 전체 사원 수 조회 (슬) -->
 	<select id="selectListCount" resultType="_int">
 		select count(*)
   		  from member
+  		 where status in ('Y', 'A')
 	</select>
 	
-	<!-- 전체 사원 리스트 조회 (슬) -->
+	<!-- 휴가 전체 사원 조회 (슬) -->
 	<select id="selectMemberList" resultMap="memberResult">
-		select e.*, d.dept_name
+		select e.emp_no
+		     , e.emp_name
+		     , vac_all
+		     , d.dept_no
+		     , case when d.dept_name = e.dept_name then d.dept_name
+		            when d.dept_name != e.dept_name then d.dept_name || ' ' || e.dept_name
+		        end "dept_name"
 		  from (
 		        select 
 		               emp_no
 		             , emp_name
 		             , vac_all
+		             , dept_name
 		             , case when d.upper_no = 0 then d.dept_no
 		                    else d.upper_no
 		                end as dept_no
 		          from member m
-		          join department d on (d.dept_no = m.dept_no)
+		          left join department d on (d.dept_no = m.dept_no)
+		          where status in ('Y', 'A')
 		        ) e
-		  join department d on(e.dept_no = d.dept_no)
+		  left join department d on(e.dept_no = d.dept_no)
+		 order by e.dept_no, emp_name
 	</select>
 	
-	<!-- 부서, 이름으로 검색한 사원 수 조회 (슬) -->
+	<!-- 휴가 부서, 이름으로 검색한 사원 수 조회 (슬) -->
 	<select id="ajaxSearchListCount" resultType="_int">
 		select count(*)
 		  from (
-		        select e.*, d.dept_name
-		          from (
-		                select 
-		                       emp_no
-		                     , emp_name
-		                     , vac_all
-		                     , case when d.upper_no = 0 then d.dept_no
-		                            else d.upper_no
-		                        end as dept_no
-		                  from member m
-		                  join department d on (d.dept_no = m.dept_no)
-		                ) e
-		          join department d on(e.dept_no = d.dept_no)
-		         <choose>
-		         	<when test="type == 'dept_name'">
-		         		where dept_name like '%' || #{keyword} || '%'
-		         	</when>
-		         	<otherwise>
-		         		where emp_name like '%' || #{keyword} || '%'
-		         	</otherwise>
-		         </choose>
+		        select e.emp_no
+				     , e.emp_name
+				     , vac_all
+				     , case when d.dept_name = e.dept_name then d.dept_name
+				            when d.dept_name != e.dept_name then d.dept_name || ' ' || e.dept_name
+				        end "dept_name"
+				  from (
+				        select 
+				               emp_no
+				             , emp_name
+				             , vac_all
+				             , dept_name
+				             , case when d.upper_no = 0 then d.dept_no
+				                    else d.upper_no
+				                end as dept_no
+				          from member m
+				          left join department d on (d.dept_no = m.dept_no)
+				         where status in ('Y', 'A')
+				        ) e
+				  left join department d on(e.dept_no = d.dept_no)
+					 <choose>
+			         	<when test="type == 'dept_name'">
+			         		where e.dept_name like '%' || #{keyword} || '%'
+			         		   or d.dept_name like '%' || #{keyword} || '%'
+			         	</when>
+			         	<otherwise>
+			         		where emp_name like '%' || #{keyword} || '%'
+			         	</otherwise>
+			         </choose>
+			         order by e.dept_no, emp_name
 		        )
 	</select>
 	
-	<!-- 부서, 이름으로 검색한 사원 리스트 조회 (슬)-->
+	<!-- 휴가 부서, 이름으로 검색한 사원 리스트 조회 (슬)-->
 	<select id="ajaxSearchList" resultMap="memberResult">
-		select e.*, d.dept_name
-		  from (
-		        select 
-		               emp_no
-		             , emp_name
-		             , vac_all
-		             , case when d.upper_no = 0 then d.dept_no
-		                    else d.upper_no
-		                end as dept_no
-		          from member m
-		          join department d on (d.dept_no = m.dept_no)
-		        ) e
-		  join department d on(e.dept_no = d.dept_no)
+	select e.emp_no
+	     , e.emp_name
+	     , vac_all
+	     , case when d.dept_name = e.dept_name then d.dept_name
+	            when d.dept_name != e.dept_name then d.dept_name || ' ' || e.dept_name
+	        end "dept_name"
+	  from (
+	        select 
+	               emp_no
+	             , emp_name
+	             , vac_all
+	             , dept_name
+	             , case when d.upper_no = 0 then d.dept_no
+	                    else d.upper_no
+	                end as dept_no
+	          from member m
+	          left join department d on (d.dept_no = m.dept_no)
+	         where status in ('Y', 'A')
+	        ) e
+	  left join department d on(e.dept_no = d.dept_no)
 		 <choose>
          	<when test="type == 'dept_name'">
-         		where dept_name like '%' || #{keyword} || '%'
+         		where e.dept_name like '%' || #{keyword} || '%'
+         		   or d.dept_name like '%' || #{keyword} || '%'
          	</when>
          	<otherwise>
          		where emp_name like '%' || #{keyword} || '%'
          	</otherwise>
          </choose>
+         order by e.dept_no, emp_name
 	</select>
 	
 	<!-- 조직도 부서 조회 (슬) -->
@@ -317,6 +345,23 @@
 		delete department
 		 where dept_no = #{deptNo}
 	</delete>
+	
+	<!-- 조직도 부서 추가 -->
+	<insert id="insertDept">
+		insert
+		  into department
+		  (
+		    dept_no
+		  , upper_no
+		  , dept_name
+		  )
+		  values
+		  (
+		    seq_dno.nextval
+		  , 0
+		  , #{deptName}
+		  )
+	</insert>
 	
 	<!-- 관리자로 status수정 -->
 	<update id="updateAdmin">
