@@ -399,14 +399,14 @@
                       	<span>약 명칭</span>
                       	<br>
                       	
-                      	<table>
+                      	<table id="gg">
                   			<c:forEach var="m" items="${ mList }" varStatus="s">
                   				
                   				<c:if test="${ s.index mod 4 eq 0 }">
                   					<tr>
                   				</c:if>
                   				
-                  				<td><input type="checkbox" value="${ m.medNo }">${ m.medName }</td>
+                  				<td><input id="sss" type="checkbox" name="aa" value="${ m.medNo }"><span>${ m.medName }</span></td>
                   				
                   				<c:if test="${ s.index mod 4 eq 3 }">
                   					</tr>
@@ -417,22 +417,23 @@
                       
                       	<br>
                         <span>총 투여일수</span>
-                        <select name="times" class="custom-select">
-                          <option selected>선택</option>
-                          <option value="1">3</option>
-                          <option value="2">4</option>
-                          <option value="3">5</option>
-                          <option value="3">6</option>
-                          <option value="3">7</option>
-                          <option value="3">8</option>
-                          <option value="3">9</option>
-                          <option value="3">10</option>
+                        <select name="days" class="custom-select">
+                          <option selected required>선택</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
                         </select>
                       </div>
                       
                       <!-- Modal footer -->
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="ajaxEnrollMed();">저장</button>
+                      	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-secondary btn-sm" id="saveMed" data-dismiss="modal">저장</button>
                       </div>
                       
                     </div>
@@ -444,15 +445,34 @@
               
               
               <script>
-              	function ajaxEnrollMed(){
-              		$.ajax({
-              			url: "insert.pmd",
-              			data: {
-              				
-              			},
-              		})
-              	}
-              
+            	$("#saveMed").click(function(){
+            		
+            		let list = []; // [{medNo:xxxx, medName:xxxx}, {medNo:xxxx, medName:xxxx}, ..]
+            		//console.log($("input:checkbox[name=aa]:checked").length); // 체크된 요소들의 갯수
+            		
+            		if($("input:checkbox[name=aa]:checked").length != 0){
+            			$("input:checkbox[name=aa]:checked").each(function(){
+            				let arr = {medNo : $(this).val(), medName : $(this).next().text(), times : $("select[name=days]").val()};
+            				list.push(arr);
+            			})
+            		}
+            		console.log(list);
+            		
+            		/*
+            		if($("input:checkbox[name=aa]:checked").length != 0){
+            			$("input:checkbox[name=aa]:checked").each(function(){
+            				let obj = {medNo : $(this).val(), medName : $(this).next().text(), times:$("#chooseMedicine select[name=times]").val()};
+            				list.push(obj);
+            			})
+            		}*/
+            		
+              		//let tt = $("input:checkbox[name=aa]:checked").closest('td').text();
+            	})
+            	
+            	
+            	
+            	
+            	
               </script>
               
               
