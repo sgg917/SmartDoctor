@@ -251,11 +251,11 @@
 						<table class="table table-bordered appr-table" id="appr-comment">
 							<tr>
 								<th colspan="5">&nbsp;결재의견 &nbsp;
-									<span>(${count})</span>
+									<span>(${fn:length(comment)})</span>
 								</th>
 							</tr>
 							<c:choose> 
-								<c:when test="${ count eq 0 }">
+								<c:when test="${ empty comment }">
 									<tr>
 										<td colspan="5" align="center">
 											결재의견이 없습니다.
@@ -263,11 +263,11 @@
 									</tr>
 								</c:when>
 								<c:otherwise>
-									<c:forEach var="i" items="${ line }">
+									<c:forEach var="c" items="${ comment }">
 										<tr>
 											<td colspan="5">
-												<b>${ i.empName }</b> &nbsp;&nbsp;|&nbsp;&nbsp;
-												${ i.lineComment }
+												<b>${ c.empName }</b> &nbsp;&nbsp;|&nbsp;&nbsp;
+												${ c.lineComment }
 											</td>
 										</tr>
 									</c:forEach>
