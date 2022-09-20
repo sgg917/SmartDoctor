@@ -70,6 +70,18 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.updateEmp(sqlSession, m);
 	}
 	
+	// 조직도 부서명 수정 - 슬
+	@Override
+	public int updateDept(Dept d) {
+		return mDao.updateDept(sqlSession, d);
+	}
+	
+	// 조직도 부서 삭제 - 슬
+	@Override
+	public int deleteDept(int deptNo) {
+		return mDao.deleteDept(sqlSession, deptNo);
+	}
+	
 	// 관리자 업데이트
 	@Override
 	public int updateAdmin(Member m) {

@@ -50,4 +50,12 @@ public class MemberDao {
 	public int updateAdmin(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.updateAdmin", m);
 	}
+	
+	public int updateDept(SqlSessionTemplate sqlSession, Dept d) {
+		return sqlSession.update("memberMapper.updateDept", d);
+	}
+	
+	public int deleteDept(SqlSessionTemplate sqlSession, int deptNo) {
+		return sqlSession.delete("memberMapper.deleteDept", deptNo);
+	}
 }

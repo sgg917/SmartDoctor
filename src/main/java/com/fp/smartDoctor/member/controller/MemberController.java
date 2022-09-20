@@ -212,5 +212,25 @@ public class MemberController {
 		// 기존의 페이지에 문자열 전해주기
 		return result > 0 ? "사원 정보가<br>성공적으로 수정되었습니다." : "사원 정보 수정에 실패하였습니다.";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="updateDept.de", produces="text/html; charset=utf-8")
+	public String updateDept(Dept d) {
+		
+		// 부서명 수정 update
+		int result = mService.updateDept(d);
+		
+		return result > 0 ? "부서명이<br>성공적으로 수정되었습니다." : "부서명 수정에 실패하였습니다.";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="deleteDept.de", produces="text/html; charset=utf-8")
+	public String deleteDept(int deptNo) {
+		
+		// 부서명 수정 update
+		int result = mService.deleteDept(deptNo);
+		
+		return result > 0 ? "삭제 완료되었습니다." : "부서 삭제에 실패하였습니다.";
+	}
 
 }

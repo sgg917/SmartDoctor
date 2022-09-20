@@ -305,6 +305,19 @@
 		 where emp_no = #{empNo}
 	</update>
 	
+	<!-- 조직도 부서명 수정 -->
+	<update id="updateDept">
+		update department
+		   set dept_name = #{deptName}
+		 where dept_no = #{deptNo}
+	</update>
+	
+	<!-- 조직도 부서 삭제 -->
+	<delete id="deleteDept">
+		delete department
+		 where dept_no = #{deptNo}
+	</delete>
+	
 	<!-- 관리자로 status수정 -->
 	<update id="updateAdmin">
 		update 

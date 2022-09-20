@@ -29,6 +29,12 @@ public interface MemberService {
 	
 	// 조직도 사원 수정 - 슬
 	int updateEmp(Member m);
+	
+	// 조직도 부서명 수정 - 슬
+	int updateDept(Dept d);
+	
+	// 조직도 부서 삭제 - 슬
+	int deleteDept(int deptNo);
 
 	// 사원가입
 	int insertMember(Member m);

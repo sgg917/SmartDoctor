@@ -53,6 +53,10 @@ li {
     color:black;
 }
 
+.mdi-settings {
+  float:right;
+}
+
 /* 사원 조회 테이블 스타일 */
 #org-mem hr {
   width: 90%;
@@ -88,6 +92,11 @@ li {
   font-size:20px;
 }
 
+/* 사원 조회 스타일 (수정페이지) */
+.form-control {
+    height:30px;
+}
+      
 /* 초록 버튼 */
 .green-btn {
   background:RGB(29, 92, 99) !important;
@@ -112,6 +121,16 @@ li {
   border-radius:7px;
   font-weight:400;
 }
+
+/* 모달 버튼 */
+.btn-primary {
+	background:#417D7A !important;
+}
+.btn-danger {
+  background:red !important;
+  color:white !important;
+}
+
 /* input 요소 배경색 변경 */
 input, select {
 	background:white !important; 
@@ -151,19 +170,14 @@ input, select {
                         <p style="float:right;"></p>
                         <br><br>
                         <hr>
-						
-						<form method="updateEmp.me" action="POST" id="updateEmpForm"> 
-	                        <table id="mem-tb" class="table">
-	                           
-	                        </table>
-	                        <button class="green-btn medium-btn" style="float:right; margin-right:50px; margin-top:20px;">수정</button>
-	                    </form>
+                        <table id="mem-tb" class="table">
+                           
+                        </table>
                         <br><br>
                     </div>
                 </div>
                 
             </div>
-
         </div>
       </div>
       
@@ -217,6 +231,8 @@ input, select {
 						upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + 0 + ',' + dlist[i].deptNo + ')">';
 						upper += 		'<i class="mdi mdi-chevron-double-right"></i> ';
 						upper += 		'<span class="menu-title">' + dlist[i].deptName + '</span>';
+						upper += 		'<i class="mdi mdi-settings"></i>';
+						upper +=		'<input type="hidden" value="' + dlist[i].deptNo + '">';
 						upper += 	'</a>';
 						upper += 	'<div class="collapse" id="dept' + dlist[i].deptNo + '">';
 						upper += 		'<ul class="nav flex-column sub-menu" style="padding-left:30px;">';
@@ -247,6 +263,8 @@ input, select {
                             			'" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + dlist[i].upperNo + ',' + dlist[i].deptNo + ');">';
                             lower +=       '<i class="mdi mdi-chevron-double-right"></i> ';
                             lower +=        '<span class="menu-title">' + dlist[i].deptName + '</span>';
+                            lower += 		'<i class="mdi mdi-settings"></i>';
+                            lower += 		'<input type="hidden" value="' + dlist[i].deptNo + '">';
                             lower +=	'</a>';
                             lower += '</li>';
                             lower += '<div class="collapse" id="dept' + dlist[i].upperNo + '-' + dlist[i].deptNo + '">';
@@ -364,8 +382,10 @@ input, select {
                         txt += 	'</th>';
                         txt += 	'<td class="empName"><input class="form-control" type="text" name="empName" value="' + list[i].empName + '" required></td>';
                         txt +=  '<td class="email"><input class="form-control" type="email" name="email" value="' + list[i].email + '" required></td>';
-                        txt +=  '<td><i class="deleteBtn mdi mdi-close" data-bs-toggle="modal" data-bs-target="#deleteMemModal" data-id="' + list[i].empNo + '"></i>';
-                    	txt +=  ' <i class="updateBtn mdi mdi-account-settings"></i></td>';
+                        txt +=  '<td>';
+                        txt += 		'<i class="deleteBtn mdi mdi-close" data-bs-toggle="modal" data-bs-target="#deleteMemModal" data-id="' + list[i].empNo + '"></i>';
+                    	txt +=  	' <i class="updateBtn mdi mdi-account-settings"></i>';
+                    	txt += 	'</td>';
                         txt += '</tr>';
                     	
 					}
@@ -442,7 +462,47 @@ input, select {
 	</div>
 	<!-- alert 대체용 모달 끝 -->
 	
+	<!-- 부서명 수정/삭제 모달 -->
+     <div class="modal" id="deptModal">
+       <div class="modal-dialog">
+         <div class="modal-content" style="background:white;">
+     
+             <!-- Modal Header -->
+             <div class="modal-header" style="text-align:center;">
+             <h4 class="modal-title" style="width:100%;">부서 수정</h4>
+             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+             </div>
+     
+             <!-- Modal body -->
+             <div class="modal-body">
+                 <div class="form-group row">
+                     <label for="department" class="col-sm-3 col-form-label" style="margin-top:20px; text-align:right;">부서명</label>
+                     <div class="col-sm-9">
+                         <input type="email" class="form-control" id="department" name="deptName" style="margin-top: 25px;">
+                         <input type="hidden" name="deptNo">
+                     </div>
+                 </div>
+             </div>
+     
+             <!-- Modal footer -->
+             <div class="modal-footer" style="justify-content: center;">
+             <button type="button" class="updateDeptBtn btn btn-primary">수정</button>
+             <button type="button" class="deleteDeptBtn btn btn-danger">삭제</button>
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+             </div>
+     
+         </div>
+       </div>
+     </div>
+     <!-- 부서명 수정/삭제 모달 끝 -->
+	
+	
 	<script>
+	// ---------------- alert 대체용 모달 확인 클릭 이벤트 ----------------
+	$('#alertModal .green-btn').click(function(){
+		location.reload();
+	})
+	
 	// ---------------- 사원 삭제 모달 불러오기 ---------------
 	//$(".deleteBtn").click(function(){
 	$(document).on("click", ".deleteBtn", function(){
@@ -480,6 +540,69 @@ input, select {
 				
 			},error:function(){
 				console.log("사원 정보 수정용 ajax통신 실패");
+			}
+		});
+	})
+	
+	// ----------------- 부서 수정/삭제 모달 띄우기 ------------------
+	$(document).on("click", ".mdi-settings", function(){
+		
+		$('#deptModal input[name=deptName]').attr("placeholder", $(this).siblings('span').text() ); // 부서명
+		$('#deptModal input[type=hidden]').val( $(this).siblings('input[type=hidden]').val() ); // 부서코드
+		$('#deptModal').modal('show');
+		
+	})
+	
+	// ----------------- 부서 수정 함수 ------------------
+	$(document).on("click", ".updateDeptBtn", function(){
+	
+		$('#deptModal').modal('hide');
+		var deptName = $('#deptModal input[name=deptName]').val();
+		var deptNo = $('#deptModal input[type=hidden]').val();
+		
+		//console.log("deptName : " + deptName + ", deptNo : " + deptNo);
+		
+		$.ajax({
+			url:"updateDept.de",
+			type:"POST",
+			data:{
+				deptName:deptName,
+				deptNo:deptNo
+				
+			},success:function(str){
+				
+				// alert 대체용 모달에 문자열 전해주기
+				$('#alertModal .modal-body').html(str);
+				$('#alertModal').modal('show');
+				
+			},error:function(){
+				console.log("부서명 수정용 ajax통신 실패");
+			}
+		});
+	})
+	
+	// ----------------- 부서 삭제 함수 ------------------
+	$(document).on("click", ".deleteDeptBtn", function(){
+		
+		// 부서 수정/삭제 모달 숨기기
+		$('#deptModal').modal('hide');
+		
+		// 부서코드 넣어주기
+		var deptNo = $('#deptModal input[type=hidden]').val();
+		
+		$.ajax({
+			url:"deleteDept.de",
+			type:"POST",
+			data:{
+				deptNo:deptNo
+			},success:function(str){
+				
+				// alert 대체용 모달에 문자열 전해주기
+				$('#alertModal .modal-body').html(str);
+				$('#alertModal').modal('show');
+				
+			},error:function(){
+				console.log("부서 삭제용 ajax통신 실패");
 			}
 		});
 	})
