@@ -81,7 +81,28 @@
 		<result column="id_no" property="idNo" />
 	</resultMap>
 	
-	<!-- 전체 환자 수 조회 -->
+	<!-- prescription result -->
+	<resultMap id="prescriptionResult" type="Prescription">
+		<result column="pre_no" property="preNo" />
+		<result column="clinic_no" property="clinicNo" />
+		<result column="inject_day" property="injectDay" />
+		<result column="usage" property="usage"/>
+		<result column="pre_date" property="preDate"/>
+		<result column="patient_name" property="patientName"/>
+		<result column="id_no" property="idNo"/>
+		<result column="emp_no" property="docNo"/>
+		<result column="emp_name" property="docName"/>
+		<result column="diseases_code" property="diseasesCode"/>
+		<result column="disease" property="diseaseName"/>
+	</resultMap>
+
+	<!-- medicine result -->
+	<resultMap id="medicineResult" type="Medicine">
+		<result column="med_no" property="medNo" />
+		<result column="med_name" property="medName" />
+		<result column="dosetime" property="dosetime" />
+	</resultMap>	
+
 	<select id="selectListCount" resultType="_int">
 		select
 			   count(*)
@@ -412,4 +433,42 @@
 		   and status = 'D'
 	</select>
 	
+	<!-- 처방전 -> 진료 정보 조회 -->
+	<select id="selectPrescription" resultMap="prescriptionResult">		
+ 		select
+	       pre_no
+	     , clinic_no
+         , inject_day
+         , decode(usage, '1', '식전', '2', '식후')||' 30분' as "usage"
+	     , TO_CHAR(to_date(enroll_date), 'YYYY"년"MM"월"DD"일"' ) pre_date
+	     , patient_name
+	     , id_no
+	     , emp_no
+	     , emp_name
+         , diseases_code
+         , disease
+	     from clinic
+	     join prescription using(clinic_no)
+	     join patient using(chart_no)
+	     join member using(emp_no)
+         join disease using(diseases_code)
+	     where clinic_no = #{clinicNo}
+	</select>
+	
+	<!-- 처방전 -> 약 정보 조회 -->
+	<select id="selectMedicineList" resultMap="medicineResult">			
+		select
+		       med_no
+		     , med_name
+		     , dosetime
+		  from pre_med
+		  join medicine using(med_no)
+		 where pre_no =
+		            (
+		             select pre_no
+		               from clinic
+		               join prescription using(clinic_no)
+		              where clinic_no = #{clinicNo}
+		              )
+    </select>
 </mapper>

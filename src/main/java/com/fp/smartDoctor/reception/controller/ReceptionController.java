@@ -19,7 +19,9 @@ import com.fp.smartDoctor.common.template.Pagination;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.reception.model.service.ReceptionService;
+import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
+import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.google.gson.Gson;
 
@@ -76,6 +78,7 @@ public class ReceptionController {
 		
 		//진료 내역 조회
 		ArrayList<Clinic> list = rService.pastClinicList(pi, chartNo);
+		
 		mv.addObject("p", p)
 	  	  .addObject("pi", pi)
 	  	  .addObject("chartNo", chartNo)
@@ -87,8 +90,19 @@ public class ReceptionController {
 	
 	// 개인 처방전 조회
 	@RequestMapping("prescription.pt")
-	public String prescription() {
-		return "kmj/prescription";
+	public ModelAndView prescription( int clinicNo, ModelAndView mv ) {
+		
+		// 처방전 -> 진료 정보 조회 
+		Prescription ps = rService.selectPrescription(clinicNo);
+		
+		// 처방전 -> 약 정보 조회
+		ArrayList<Medicine> mlist = rService.selectMedicineList(clinicNo);
+		
+		mv.addObject("ps", ps)
+	  	  .addObject("mlist", mlist)
+		  .setViewName("kmj/prescription");
+		
+		return mv;
 	}
 	
 	// 개인 수납 조회

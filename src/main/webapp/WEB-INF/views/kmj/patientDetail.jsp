@@ -201,7 +201,7 @@ input {
 												<td>${ c.disease }</td>
 												<td>${ c.docName }</td>
 												<td><button class="detail" 
-														 onclick="location.href='prescription.pt'">조회</button></td>
+														 onclick="location.href='prescription.pt?clinicNo=${c.clinicNo}'">조회</button></td>
 												<td><button class="detail" 
 														onclick="location.href='receipt.pt'">조회</button></td>
 											</tr>
