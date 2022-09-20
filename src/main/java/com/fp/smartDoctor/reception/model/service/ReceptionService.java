@@ -5,55 +5,65 @@ import java.util.ArrayList;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
+import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
+import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 
 public interface ReceptionService {
 	
-	// 1. 환자 리스트 조회
+	// 1. 전체 환자 수 조회
 	int selectListCount();
+	
+	// 2. 전체 환자 리스트 조회
 	ArrayList<Patient> selectList(PageInfo pi);
 	
-	// 2. 환자 등록
+	// 3. 환자 등록
 	int insertPatient(Patient p);
 	
-	// 3. 환자 선택
+	// 4. 환자 선택
 	Patient selectPatient(int chartNo);
 	
-	// 4. 진료과 조회
+	// 5. 진료과 조회
 	ArrayList<Dept> selectDeptList();
 	
-	// 5. 의사 조회
+	// 6. 의사 조회
 	ArrayList<Member> selectProfList();
 	
-	// 6. 진료 등록
+	// 7. 진료 등록
 	int insertTreatment(Clinic c);
 	
-	// 7. 진료 대기 환자 조회
+	// 8. 진료 대기 환자 리스트 조회
 	ArrayList<Clinic> ajaxSelectWaitingPatient();
 	
-	// 8. 진료 중 환자 조회
+	// 9. 진료 중 환자 조회
 	ArrayList<Clinic> ajaxSelectIngPatient();
 	
-	// 9. 진료 상태 변경
+	// 10. 진료 상태 변경
 	int ajaxChangePatientStatus(int changeChartNo);
 	
-	// 10. 수술실 예약 대기 환자 조회
+	// 11. 수술실 예약 대기 환자 리스트 조회
 	ArrayList<Clinic> ajaxSurgeryWaitingList();
 	
-	// 11. 입원실 예약 대기 환자 조회
+	// 12. 입원실 예약 대기 환자 리스트 조회
 	ArrayList<Clinic> ajaxPRoomWaitingList();
 
-	// 12. 예약 완료 후 surgery 상태 변경
+	// 13. 예약 완료 후 surgery 상태 변경
 	int ajaxUpdateClinicSurgery(int clinicNo);
 	
-	// 13. 예약 완료 후 enter 상태 변경
+	// 14. 예약 완료 후 enter 상태 변경
 	int ajaxUpdateClinicEnter(int clinicNo);
 	
-	// 14. 환자 과거 진료 내역 조회
+	// 15. 환자 과거 진료 내역 리스트 조회
 	ArrayList<Clinic> pastClinicList(PageInfo pi, int chartNo);
 	
-	// 15. 환자 과거 진료 내역 수 조회
+	// 16. 환자 과거 진료 내역 수 조회
 	int pastClinicListCount(int chartNo);
+	
+	// 17. 처방전 -> 진료 정보 조회
+	Prescription selectPrescription(int clinicNo);
+	
+	// 18. 처방전 -> 약 정보 리스트 조회
+	ArrayList<Medicine> selectMedicineList(int clinicNo);
 	
 }

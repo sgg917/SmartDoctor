@@ -13,7 +13,8 @@ import lombok.ToString;
 @ToString
 public class Medicine {
 	
-	private String medNo;
-	private String medName;
+	private String medNo; // 약 코드
+	private String medName; // 약 이름
+	private String dosetime; // 1일 투여 횟수
 
 }
