@@ -26,7 +26,8 @@
 	href="resources/images/favicon-16x16.png">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
-	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'
+	crossorigin='anonymous'></script>
 <style>
 .wrap11 {
 	width: 100%;
@@ -45,6 +46,7 @@
 	border-radius: 7px;
 	border: 0;
 }
+
 .detail {
 	width: 60px;
 	height: 30px;
@@ -65,11 +67,10 @@ b {
 .title {
 	border-radius: 7px;
 	height: 50px;
-
 }
 
 .table {
-	 width: 100%;
+	width: 100%;
 }
 
 input {
@@ -80,47 +81,60 @@ input {
 
 #searchbar {
 	height: 30px;
-
 }
-#searchbar>div{
+
+#searchbar>div {
 	height: 100%;
 	box-sizing: border-box;
 	float: left;
 }
-.innerArea{
+
+.innerArea {
+	height: 100%;
 	width: 1000px;
 	margin: auto;
 }
-#header1{
+
+#header1 {
 	width: 25%;
 }
-#header2{
+
+#header2 {
 	width: 55%;
 	padding: 0;
 }
-#header3{
+
+#header3 {
 	width: 20%;
 }
-img{
+
+img {
 	height: 100%;
 	cursor: pointer;
 }
-#tableArea{
+
+#tableArea {
 	height: 370px;
 	width: 100%;
 	/* border: 1px solid black; */
 	text-align: center;
 	overflow: auto;
 }
-#tableArea>table{
+
+#tableArea>table {
 	width: 100%;
 	box-sizing: border-box;
 }
-#pagingArea{width:fit-content;margin:auto;}
-#tableArea>.table>tbody>tr:hover{
-   	background:#E1F0FF;
-   	cursor:pointer;
-    }
+
+#pagingArea {
+	width: fit-content;
+	margin: auto;
+}
+
+#tableArea>.table>tbody>tr:hover {
+	background: #E1F0FF;
+	cursor: pointer;
+}
 </style>
 
 
@@ -132,7 +146,7 @@ img{
 		<div class="content-wrapper">
 			<!-- 이 안에서 작업해 주세요 -->
 			<div class="wrap11">
-				<br><br><br>
+				<br> <br> <br>
 
 				<div class="innerArea">
 					<table class="table bggray title">
@@ -140,19 +154,22 @@ img{
 							<td><b>환자조회</B></td>
 						</tr>
 					</table>
-					<br><br>
+					<br> <br>
 					<div id="searchbar">
 						<div id="header1"></div>
 						<div id="header2">
-							<input type="text" class="form-control input-sm" placeholder="이름 입력" style="width: 200px; height: 30px; display: inline;">&nbsp;<img src="resources/images/search.jpg">
+							<input type="text" class="form-control input-sm"
+								placeholder="이름 입력"
+								style="width: 200px; height: 30px; display: inline;">&nbsp;<img
+								src="resources/images/search.jpg">
 						</div>
 						<div id="header3">
 							<button type="button" class="button">신규환자등록</button>
 						</div>
 					</div>
-					<br><br>
+					<br> <br>
 					<div id="tableArea" align="center">
-						<table class="table">
+						<table class="table" id="patientList">
 							<thead>
 								<tr>
 									<th width="85px">차트번호</th>
@@ -166,77 +183,93 @@ img{
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>010-7777-8888</td>
-									<td>010-9999-4521</td>
-									<td>서울특별시 가디동 가디역 가디출구 1103호 </td>
-									<td><button class="detail">조회</button></td>
-								</tr>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>010-7777-8888</td>
-									<td>010-9999-4521</td>
-									<td>서울특별시 가디동 가디역 가디출구 1103호 </td>
-									<td><button class="detail">조회</button></td>
-								</tr>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>010-7777-8888</td>
-									<td></td>
-									<td>서울특별시 가디동 가디역 가디출구 1103호 </td>
-									<td><button class="detail">조회</button></td>
-								</tr>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>010-7777-8888</td>
-									<td>010-9999-4521</td>
-									<td>서울특별시 가디동 가디역 가디출구 1103호 </td>
-									<td><button class="detail">조회</button></td>
-								</tr>
-								<tr>
-									<td>10000</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>010-7777-8888</td>
-									<td></td>
-									<td>서울특별시 가디동  </td>
-									<td><button class="detail">조회</button></td>
-								</tr>
-								
+
+								<c:choose>
+									<c:when test="${ empty list }">
+										<tr>
+											<td colspan="8">환자가 없습니다.</td>
+										</tr>
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="p" items="${ list }">
+											<tr>
+												<td class="chartNo">${ p.chartNo }</td>
+												<td>${ p.patientName }</td>
+												<td>${ p.gender }</td>
+												<td>${ p.idNo }</td>
+												<td>${ p.phone }</td>
+												<td>${ p.protector }</td>
+												<td>${ p.address }</td>
+												<td><button class="detail" value="${ p.chartNo }">조회</button></td>
+											</tr>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+
 							</tbody>
 						</table>
 					</div>
-					<br>
-					<div id="pagingArea">
-						<ul class="pagination">
-							<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">4</a></li>
-							<li class="page-item"><a class="page-link" href="#">5</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a></li>
+
+					<!-- 페이징바 -->
+					<div id="pagingbar">
+						<ul class="pagination" style="justify-content: center;">
+
+							<c:choose>
+								<c:when test="${ pi.currentPage eq 1 }">
+									<li class="page-item disabled"><a class="page-link">&lsaquo;</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link"
+										style="color: rgb(29, 92, 99);"
+										href="list.mj?cpage=${ pi.currentPage - 1 }">&lsaquo;</a></li>
+								</c:otherwise>
+							</c:choose>
+
+							<c:forEach var="p" begin="${ pi.startPage }"
+								end="${ pi.endPage }">
+								<c:choose>
+									<c:when test="${ empty keyword }">
+										<li class="page-item"><a class="page-link"
+											style="color: rgb(29, 92, 99);" href="list.mj?cpage=${ p }">${ p }</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item"><a class="page-link"
+											style="color: rgb(29, 92, 99);"
+											href="search.pt?cpage=${ p }&keyword=${keyword}">${ p }</a></li>
+									</c:otherwise>
+								</c:choose>
+
+							</c:forEach>
+
+							<c:choose>
+								<c:when test="${ pi.currentPage eq pi.maxPage }">
+									<li class="page-item disabled"><a class="page-link">&rsaquo;</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link" id="aaa"
+										style="color: rgb(29, 92, 99);"
+										href="list.mj?cpage=${ pi.currentPage + 1 }">&rsaquo;</a></li>
+								</c:otherwise>
+							</c:choose>
 						</ul>
 					</div>
 
+					<br> <br>
 				</div>
 
 			</div>
 		</div>
+		<script>
+		
+			$(function() {
+				$("#patientList>tbody>tr>td>button").click(
+						function() {
+							location.href = "detail.pt?chartNo="
+									+ $(this).val();
+						})
+			})
+		
+		</script>
 		<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

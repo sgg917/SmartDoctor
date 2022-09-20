@@ -1,6 +1,7 @@
 package com.fp.smartDoctor.reception.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -75,4 +76,18 @@ public class ReceptionDao {
 	public int ajaxUpdateClinicEnter(SqlSessionTemplate sqlSession, int clinicNo) {
 		return sqlSession.update("receptionMapper.ajaxUpdateClinicEnter", clinicNo);
 	}
+	
+	public ArrayList<Clinic> pastClinicList(SqlSessionTemplate sqlSession, PageInfo pi, int chartNo) {
+		
+		int offset =  (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("receptionMapper.pastClinicList", chartNo, rowBounds);
+	}
+	
+	public int pastClinicListCount(SqlSessionTemplate sqlSession, int chartNo) {
+		return sqlSession.selectOne("receptionMapper.pastClinicListCount", chartNo);
+	}
+	
 }

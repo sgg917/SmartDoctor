@@ -66,7 +66,7 @@
 		<result column="dept_name" property="deptName" />
 		
 		<result column="patient_name" property="patientName" />
-		<result column="doctor_name" property="docName" />
+		<result column="emp_name" property="docName" />
 		<result column="lead_time" property="leadTime" />
 		<result column="room_name" property="roomName" />
 		<result column="surgery_date" property="surgeryDate" />
@@ -81,12 +81,14 @@
 		<result column="id_no" property="idNo" />
 	</resultMap>
 	
+	<!-- 전체 환자 수 조회 -->
 	<select id="selectListCount" resultType="_int">
 		select
 			   count(*)
 		  from patient
 	</select>
 
+	<!-- 전체 환자 조회 -->
 	<select id="selectList" resultMap="patientResult">
 		select 
 		       chart_no
@@ -99,6 +101,9 @@
 		     , last_visit
 		     , "new"
 		     , "gender"
+   		     , phone
+             , protector
+             , address
                from (
 		          select
                    chart_no
@@ -154,7 +159,8 @@
 		, default
 		)
 	</insert>
-
+	
+	<!-- 전체 환자 리스트 조회 -->
 	<select id="selectPatient" resultMap="patientResult">
 		select 
 		       chart_no
@@ -210,7 +216,7 @@
          where job_no = 2
 	</select>
 	
-		<!-- 환자 insert -->
+	<!-- 환자 insert -->
 	<insert id="insertTreatment">
 		insert
 		into clinic
@@ -247,6 +253,7 @@
 		)
 	</insert>
 	
+	<!-- 진료 대기/ 진료중 리스트 조회 -->
 	<select id="ajaxSelectWaitingPatient" resultMap="clinicResult">
 		select 
                chart_no 
@@ -307,6 +314,7 @@
 		   and status = 'W'
 	</update>
 	
+	<!-- 예약 대기 리스트 조회 -->
 	<select id="ajaxSurgeryWaitingList" resultMap="clinicResult">
 		select 
                chart_no 
@@ -365,6 +373,7 @@
 	          )
 	</select>
 	
+	<!-- 예약 완료로 진료 상태 변경 -->
 	<update id="ajaxUpdateClinicSurgery">
 		update
 			   clinic
@@ -378,4 +387,29 @@
 		   set enter = 'D'
 		 where clinic_no = #{clinicNo}
 	</update>
+	
+	<!-- 과거 진료 내역 조회 -->
+	<select id="pastClinicList" resultMap="clinicResult">	
+		select 
+			   clinic_no
+			 , chart_no
+			 , enroll_date
+			 , disease
+			 , emp_name
+	      from clinic c
+		  join member using(emp_no)
+		  join disease using(diseases_code)
+		 where chart_no = #{chartNo}
+		   and c.status = 'D'
+	</select>
+	
+	<!-- 과거 진료 내역 수 조회 -->
+	<select id="pastClinicListCount" resultType="_int">
+		select
+			   count(*)
+		  from clinic
+  		 where chart_no = #{chartNo}
+		   and status = 'D'
+	</select>
+	
 </mapper>

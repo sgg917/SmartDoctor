@@ -30,7 +30,7 @@
 <style>
 .wrap11 {
 	width: 100%;
-	height: 100%;
+	height: 100% !important;
 	background-color: white;
 	border-radius: 30px 10px;
 	box-shadow: 3px 3px 3px 3px lightgray;

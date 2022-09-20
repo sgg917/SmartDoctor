@@ -91,4 +91,15 @@ public class ReceptionServiceImpl implements ReceptionService{
 	public int ajaxUpdateClinicEnter(int clinicNo) {
 		return rDao.ajaxUpdateClinicEnter(sqlSession, clinicNo);
 	}
+
+	@Override
+	public ArrayList<Clinic> pastClinicList(PageInfo pi, int chartNo) {
+		
+		return rDao.pastClinicList(sqlSession, pi, chartNo);
+	}
+
+	@Override
+	public int pastClinicListCount(int chartNo) {
+		return rDao.pastClinicListCount(sqlSession, chartNo);
+	}
 }

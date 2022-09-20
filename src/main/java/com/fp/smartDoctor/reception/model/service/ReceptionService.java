@@ -47,8 +47,13 @@ public interface ReceptionService {
 	// 12. 예약 완료 후 surgery 상태 변경
 	int ajaxUpdateClinicSurgery(int clinicNo);
 	
-	// 12. 예약 완료 후 enter 상태 변경
+	// 13. 예약 완료 후 enter 상태 변경
 	int ajaxUpdateClinicEnter(int clinicNo);
 	
+	// 14. 환자 과거 진료 내역 조회
+	ArrayList<Clinic> pastClinicList(PageInfo pi, int chartNo);
+	
+	// 15. 환자 과거 진료 내역 수 조회
+	int pastClinicListCount(int chartNo);
 	
 }

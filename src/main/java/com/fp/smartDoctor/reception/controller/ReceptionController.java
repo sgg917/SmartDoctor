@@ -45,16 +45,56 @@ public class ReceptionController {
 		return "kmj/reception";
 	}
 	
-	// 환자 조회 페이지
+	// 환자 리스트 조회 페이지
 	@RequestMapping("list.mj")
-	public String list() {
-		return "kmj/patientList";
+	public ModelAndView selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage, ModelAndView mv) {
+		
+		// 전체 환자 수 조회
+		int listCount = rService.selectListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
+		ArrayList<Patient> list = rService.selectList(pi);
+		
+		mv.addObject("pi", pi)
+		  .addObject("list", list)
+		  .setViewName("kmj/patientList");
+		
+		return mv;
 	}
 	
-	// 환자 조회 페이지
-	@RequestMapping("detail.mj")
-	public String detail() {
-		return "kmj/patientDetail";
+	// 환자 상세 조회 페이지
+	@RequestMapping("detail.pt")
+	public ModelAndView detail(@RequestParam(value="cpage", defaultValue="1") int currentPage, int chartNo, ModelAndView mv) {
+		
+		// 전체 진료 수 조회
+		int listCount = rService.pastClinicListCount(chartNo);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
+		
+		// 환자 정보 조회
+		Patient p = rService.selectPatient(chartNo);
+		
+		//진료 내역 조회
+		ArrayList<Clinic> list = rService.pastClinicList(pi, chartNo);
+		mv.addObject("p", p)
+	  	  .addObject("pi", pi)
+	  	  .addObject("chartNo", chartNo)
+		  .addObject("list", list)
+		  .setViewName("kmj/patientDetail");
+		
+		return mv;
+	}
+	
+	// 개인 처방전 조회
+	@RequestMapping("prescription.pt")
+	public String prescription() {
+		return "kmj/prescription";
+	}
+	
+	// 개인 수납 조회
+	@RequestMapping("receipt.pt")
+	public String receipt() {
+		return "kmj/receipt";
 	}
 	
 	// 병원 캘린더 페이지
