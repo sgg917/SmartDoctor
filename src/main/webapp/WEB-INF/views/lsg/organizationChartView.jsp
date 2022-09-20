@@ -114,7 +114,7 @@ li {
                         <br>
                         <h4><b><i class="mdi mdi-hospital-building"></i>율제병원</b></h4>
                         <ul id="chartArea">
-                          조직도 들어갈 부분
+                          로딩중...
                         </ul>
                     </div>
                 </div>
@@ -123,8 +123,8 @@ li {
                 <!-- 부서별 사원 조회 영역 (오른쪽) -->
                 <div class="col-8">
                     <div class="org-wrap" id="org-mem" style="width:90%; margin-left:10px;">
-                        <h4 style="padding-top:30px;"><b><i class="mdi mdi-check-circle-outline"></i> </b></h4>
-                        <p style="float:right;">총 인원 :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <h4 style="padding-top:30px;"><b></b></h4>
+                        <p style="float:right;"></p>
                         <br><br>
                         <hr>
 
@@ -200,7 +200,7 @@ li {
 						num++;
                     }
 				}
-				console.log(num); // num == 4(상위부서 개수)
+				//console.log(num); // num == 4(상위부서 개수)
 				
 				// 하위부서 담기
 				for(let i=0; i<dlist.length; i++){
@@ -213,10 +213,23 @@ li {
 						if(dlist[i].level == 2 && dlist[i].upperNo == j){
 							
                             lower = '<li class="nav-item">';
-                            //lower +=	'<a class="nav-link" data-bs-toggle="collapse"' +
-                            //			'href="#dept' + dlist[i].upperNo + '-' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
-                            lower +=	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].upperNo + '-' + dlist[i].deptNo + 
-                            			'" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + dlist[i].upperNo + ',' + dlist[i].deptNo + ');">';
+                            
+                         // 해당 부서에 사원이 있는지 검사 
+                           	let result = 0;
+                            for(let j=0; j<mlist.length; j++){
+                            	
+                            	if(mlist[j].deptNo == dlist[i].deptNo){
+                            		result++;
+                            	}
+                            }
+                           	// 사원이 있다면 -> 사원 조회 함수 실행
+                           	if(result > 0){
+	                            lower +=	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].upperNo + '-' + dlist[i].deptNo + 
+	                            			'" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + dlist[i].upperNo + ',' + dlist[i].deptNo + ');">';
+                           	}else{ // 사원이 없다면 -> 사원 조회 함수 실행 x
+	                            lower += '<a class="nav-link" data-bs-toggle="collapse"' + 'href="#dept' + dlist[i].upperNo + '-' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
+                           	}
+                           	
                             lower +=       '<i class="mdi mdi-chevron-double-right"></i> ';
                             lower +=        '<span class="menu-title">' + dlist[i].deptName + '</span>';
                             lower +=	'</a>';
@@ -264,7 +277,7 @@ li {
 	//------------- 부서 별 사원 정보 조회 --------------
 	function selectMem(upperNo,deptNo){
 		
-		console.log(upperNo + "," + deptNo);
+		// console.log(upperNo + "," + deptNo);
 		$.ajax({
 			url:"select.me",
 			type:"POST",
