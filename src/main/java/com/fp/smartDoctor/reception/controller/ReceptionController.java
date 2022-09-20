@@ -209,10 +209,8 @@ public class ReceptionController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		ArrayList<Clinic> slist = rService.ajaxSurgeryWaitingList();
-		
 		ArrayList<Clinic> plist = rService.ajaxPRoomWaitingList();
 
-		
 		/* map.put(jsp에서 사용할 이름, 넘길 자바변수);  */
 		map.put("slist", slist);
 		map.put("plist", plist);
@@ -227,7 +225,7 @@ public class ReceptionController {
 		
 		int result = rService.ajaxUpdateClinicSurgery(clinicNo);
 		
-		return result > 0 ? clinicNo : -1;
+		return result > 0 ? clinicNo : null;
 		
 	}
 	
@@ -238,7 +236,7 @@ public class ReceptionController {
 		
 		int result = rService.ajaxUpdateClinicEnter(clinicNo);
 		
-		return result > 0 ? clinicNo : -1;
+		return result > 0 ? clinicNo : null;
 		
 	}
 }

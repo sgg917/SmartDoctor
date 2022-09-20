@@ -369,13 +369,13 @@
 		update
 			   clinic
 		   set surgery = 'D'
-		 where chart_no = #{chartNo}
+		 where clinic_no = #{clinicNo}
 	</update>
 	
 	<update id="ajaxUpdateClinicEnter">
 		update
 			   clinic
 		   set enter = 'D'
-		 where chart_no = #{chartNo}
+		 where clinic_no = #{clinicNo}
 	</update>
 </mapper>

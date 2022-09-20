@@ -203,9 +203,6 @@ input {
 						let slist = data.slist;
 						let plist = data.plist;
 						
-						console.log(slist);
-						console.log(plist);
-						
 						let surgeryValue = "";
 						
 						for(let i=0; i<slist.length; i++){
@@ -229,11 +226,10 @@ input {
 								        +"<td>" + plist[i].gender + "</td>"
 								        +"<td>" + plist[i].idNo + "</td>"
 								        +"<td>" + plist[i].deptName + "</td>"
-								        +"<td><button class='button' name='rsvPRoom' value='"  + slist[i].clinicNo + "'>예약하기</button></td>"
+								        +"<td><button class='button' name='rsvPRoom' value='"  + plist[i].clinicNo + "'>예약하기</button></td>"
 								        +"</tr>";
 								        
 							}
-						
 						
 						$("#SurgeryWaitingArea tbody").html(surgeryValue);
 						$("#PRoomWaitingArea tbody").html(pRoomValue);
