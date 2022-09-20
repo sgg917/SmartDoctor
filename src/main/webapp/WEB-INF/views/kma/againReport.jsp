@@ -143,7 +143,7 @@
 					<form id="insertAppr" action="apprInsert.si" method="post" enctype="multipart/form-data" >
 						<input type="hidden" value="" name="apprTotal">
 						<input type="hidden" value="${ loginUser.empNo }" name="empNo">
-						<input type="hidden" value="" name="formNo">
+						<input type="hidden" value="${ s.formNo }" name="formNo">
 						<div class="appr-table-wrapper">
 							<button type="submit" class="btn btn-success appr-write-btn">
 								<i class="mdi mdi-arrow-up-bold" style="color: white;"></i>&nbsp;
@@ -307,7 +307,7 @@
 						$('#summernote').summernote('pasteHTML', f.formContent);
 						$('#formModal').modal('hide');
 						
-						$("input[name=formNo]").attr('value', f.formNo); // 결재요청시 넘길 formNo
+						$("#insertAppr").append("<input type='hidden' value='" + f.formNo + "' name='formNo'>"); // 결재요청시 넘길 formNo 
 					},
 					error:function(){
 						console.log("결재양식선택 불러오기용 ajax통신 실패");
@@ -400,19 +400,45 @@
 			
 			$(document).ready(function(){ // 결재라인에 이미 선택되어있는 결재자 리스트
 				
-				//let line = ${lineList}.replaceAll("", "null");
-				//let line = ${lineList};
-				for(let i in line){
-					console.log(line[i].deptName);
+				let lineArr = []; // 결재자
+				<c:forEach var="i" items="${ line }">
+					lineArr.push( "${i.empNo}" );
+				</c:forEach>
+				
+				for(let i in lineArr){
+					
+					$.ajax({
+						url: "apprLineEmp.si",
+						async:false,
+						data: {empNo: lineArr[i]},
+						success:function(emp){
+
+							data = "<tr class='ap-md-bd'>"
+									 + "<td style='display:none' class='empId'>" + emp.empNo + "</td>"
+								 	 + "<td class='empName'>" + emp.empName + "</td>"
+									 + "<td>" + emp.deptName + "</td>"
+									 + "<td>" + emp.jobName + "</td>"
+									 + "<td class='ap-mdi-del'><i class='mdi mdi-delete-forever al-del'></i></td>"
+							 	 + "</tr>"
+							 	 
+						 	$("#apprLine").append(data);
+							 	 
+						},
+						error:function(){
+							console.log("결재라인 사원 조회용 ajax통신 실패");
+						}
+					})
 				}
-				/* let line = "<tr class='ap-md-bd'>"
-							 + "<td style='display:none' class='empId'>" + emp.empNo + "</td>"
-						 	 + "<td class='empName'>" + emp.empName + "</td>"
-							 + "<td>" + emp.deptName + "</td>"
-							 + "<td>" + emp.jobName + "</td>"
-							 + "<td class='ap-mdi-del'><i class='mdi mdi-delete-forever al-del'></i></td>"
-					 	 + "</tr>"
-				 */
+				
+				// ---------- form에 넘길 요소 ------------ //
+					
+				let apprTotal = $("#apprLine").children(".ap-md-bd").length;
+				$("input[name=apprTotal]").attr('value', apprTotal); // 총결재자수
+				
+				$("#apprLine").children(".ap-md-bd").each(function(index, item){ // 결재자들 
+					$("#insertAppr").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='lineList[" + index + "].empNo'>")
+				})
+					
 			})
 			
 			function selectLineList(){ // 결재라인 조직도 출력용 함수

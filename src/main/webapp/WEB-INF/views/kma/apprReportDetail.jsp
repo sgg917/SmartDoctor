@@ -27,6 +27,7 @@
 					<br>
 					<div class="appr-table-wrapper" style="margin-left:30px;">
 						<form id="againReport" action="againReport.si" method="post">
+							<input type="hidden" value="${ s.formNo }" name="formNo">
 							<c:choose>
 								<c:when test="${ s.apprStatus eq '대기' }">
 									<button type="button" class="btn btn-success appr-write-btn" onclick="reportCancel();">

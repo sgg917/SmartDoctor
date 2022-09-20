@@ -144,7 +144,6 @@
 						<input type="hidden" value="" name="apprTotal">
 						<input type="hidden" value="${ loginUser.empNo }" name="empNo">
 						<input type="hidden" value="${ s.apprNo }" name="apprNo">
-						<!-- <input type="hidden" name="formNo"> -->
 						<div class="appr-table-wrapper">
 							<button type="submit" class="btn btn-success appr-write-btn">
 								<i class="mdi mdi-arrow-up-bold" style="color: white;"></i>&nbsp;

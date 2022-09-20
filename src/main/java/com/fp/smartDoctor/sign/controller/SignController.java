@@ -203,12 +203,12 @@ public class SignController {
 			num++;
 		}
 		
+		int result = sService.insertAppr(s);
+		int lineResult = sService.insertLine(lineList);
+		
 		if(refList != null) { // 참조자가 있을 시에만 insert 요청
 			sService.insertRef(refList);
 		}
-		
-		int result = sService.insertAppr(s);
-		int lineResult = sService.insertLine(lineList);
 		
 		if(lineResult > 0  && result > 0) { // 성공
 			
@@ -253,9 +253,18 @@ public class SignController {
 		
 		ArrayList<Line> ref = sService.selectApprRef(apprNo); // 참조자 조회
 		ArrayList<Line> line = sService.selectApprLine(apprNo); // 결재자 조회
+		int count = sService.selectCommentCount(apprNo); // 결재의견 개수 조회
+		Overtime o = sService.selectOvertime(apprNo); // 연장근무 양식일 경우 내용 담기
+		Vacation v = sService.selectVacation(apprNo); // 휴가 양식일 경우 내용 담기
 		Sign s = sService.selectApprReferDetail(apprNo);
 		
-		mv.addObject("s", s).setViewName("kma/apprReferDetail");
+		mv.addObject("s", s)
+		  .addObject("ref", ref)
+		  .addObject("line", line)
+		  .addObject("count", count)
+		  .addObject("o", o)
+		  .addObject("v", v)
+		  .setViewName("kma/apprReferDetail");
 		
 		return mv;
 	}
@@ -486,9 +495,9 @@ public class SignController {
 	public ModelAndView againReport(Sign s, Line l, ModelAndView mv) {
 		
 		ArrayList<Line> lineList = l.getLineList();
-		System.out.println(lineList);
+
 		mv.addObject("s", s)
-		  .addObject("lineList", lineList)
+		  .addObject("line", lineList)
 		  .setViewName("kma/againReport");
 		
 		return mv;

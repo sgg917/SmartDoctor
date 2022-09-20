@@ -57,8 +57,10 @@
 												<td>${ a.enrollDate }</td>
 												<td>${ a.formTitle }</td>
 												<td>${ a.apprTitle } &nbsp;
-													<!-- <i class="mdi mdi-paperclip" style="color: gray;"></i>
-													<span style="color: gray;">1</span> -->
+													<c:if test="${ not empty a.originName }">
+														<i class="mdi mdi-paperclip" style="color: gray;"></i>
+														<span style="color: gray;">1</span>
+													</c:if>
 												</td>
 												<td>
 													<label class="badge" style="background:indianred; border:none;">임시저장</label>

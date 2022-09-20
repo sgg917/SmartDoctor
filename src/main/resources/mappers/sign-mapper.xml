@@ -166,6 +166,7 @@
 		       v.appr_no
 		     , appr_title
 		     , to_char(v.enroll_date, 'YYYY-MM-DD') as "enroll_date"
+		     , origin_name
 		     , form_title
 		     , emp_name
 		  from approval v
@@ -261,6 +262,7 @@
 			 , appr_title
 			 , to_char(v.enroll_date, 'YYYY-MM-DD') as "enroll_date"
 			 , appr_status
+			 , origin_name
 			 , form_title
 			 , emp_name
 		  from approval v
@@ -286,11 +288,13 @@
 		     , emp_name
 		     , dept_name
 		     , job_name
+		     , v.form_no
 		  from approval v
 		  join appr_line l on (v.appr_no = l.appr_no)
 		  join member m on (v.emp_no = m.emp_no)
 		  join department d on (m.dept_no = d.dept_no)
 		  join job j on (m.job_no = j.job_no)
+		  join appr_form f on (v.form_no = f.form_no)
 		 where v.appr_no = #{apprNo}
 		   and line_refer = 'Y'
 	</select>
@@ -348,6 +352,7 @@
 		     , appr_title
 		     , to_char(v.enroll_date, 'YYYY-MM-DD') as "enroll_date"
 		     , appr_status
+		     , origin_name
 		     , form_title
 		     , emp_name
 		  from approval v
@@ -407,6 +412,7 @@
 		     , appr_title
 		     , to_char(v.enroll_date, 'YYYY-MM-DD') as "enroll_date"
 		     , appr_status
+		     , origin_name
 		     , form_title
 		     , emp_name
 		  from approval v
@@ -557,6 +563,7 @@
 		       v.appr_no
 		     , appr_title
 		     , to_char(v.enroll_date, 'YYYY-MM-DD') as "enroll_date"
+		     , origin_name
 		     , form_title
 		     , emp_name
 		  from approval v
@@ -596,8 +603,10 @@
 		     , appr_content = #{apprContent}
 		     , enroll_date = sysdate
 		     , appr_storage = 'N'
+		     <if test='originName != null and !originName.equals("") and changeName != null and !changeName.equals("")'>
 		     , origin_name = #{originName}
 		     , change_name = #{changeName}
+		     </if>
 		     , appr_total = #{apprTotal}
 		     <if test='formNo != null and formNo != 0'>
 		     , form_no = #{formNo}
