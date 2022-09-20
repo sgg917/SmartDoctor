@@ -3,10 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
-
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+		<!-- 채윤 : 웹소켓 관련 xsi 추가 -->
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model >>>>>얘랑-->
@@ -43,19 +45,7 @@
 	<!-- 얘가 어노테이션 등록을 가능하게 해준다 com.br.spring 을 스캔, 어노테이션이 붙은 것들을 자동으로 빈 등록-->
 	<context:component-scan base-package="com.fp.smartDoctor" />
 	
-	<!-- 
-		*sevlet-context.xml파일
-		 url로 요청시 DispatcherServlet 객체가 생성되어 모든 요청을 받아줌
-		 이때 servlet-context.xml 파일이 읽혀짐
-		 
-		 각각 요청마다 처리할 내용이 다르기 때문에 그 요청을 처리해주는 Controller 만들긴 해야됨
-		 어떤 url로 요청시 어떤 controller 실행시킬건지
-		 "handlerMapping"이라는 걸 등록
-	 -->
-	 
-	 <!-- 1)controller 클래스들을 bean으로 등록해야됨 -->
-	 <!-- 2)HandlerMapping등록 -->
-	<!-- xml 방식 단점: 다수의 개발자가 이용시 충돌 빈번, 장점: 관리의 편의성 상승  -->
+
 	
 	
 	<!-- 멀티파일 등록 빈 -->
@@ -80,4 +70,18 @@
 			<beans:bean class="com.fp.smartDoctor.common.interceptor.LoginInterceptor" id="loginInterceptor"/>
 		</interceptor>
 	</interceptors>
+	
+	<!-- 채윤 : 웹소켓 빈 객체 등록 -->
+	 <websocket:handlers>
+		<websocket:mapping handler="echoHandler" path="/echo" />
+			<websocket:handshake-interceptors>
+			<beans:bean
+				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+			</websocket:handshake-interceptors>
+			<!-- HTTPSESSION값을 가져오기 위하여 -->
+		<websocket:sockjs />
+	</websocket:handlers>
+    
+	<beans:bean id="echoHandler" class="com.fp.smartDoctor.chatting.socket.EchoHandler"></beans:bean>		
+	
 </beans:beans>
