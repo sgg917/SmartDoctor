@@ -137,7 +137,7 @@ th {
 			
 				<div class="wrap111">
 				
-					<form id="enrollForm" method="post" action="insert.op">
+					<form id="enrollForm" method="post" action="insert.pr">
 						<!-- 숨겨서 넘길 값--> 
 						<input type="hidden" id="clinicNo1" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
 						<input type="hidden" id="surgeryNo1" class="form-control" value="${ c.surgeryNo2 }" name="surgeryNo"> 
@@ -176,10 +176,10 @@ th {
 										<td>
 										<select name="proomName" id="proomName" style="width: 300px;">
 												<option value="x">선택안함</option>
-												<option value="PR4A">PR4A</option>
-												<option value="PR4B">PR4B</option>
-												<option value="PR2C">PR2C</option>
-												<option value="PR2D">PR2C</option>
+												<option value="104">PR4A</option>
+												<option value="204">PR4B</option>
+												<option value="102">PR2C</option>
+												<option value="202">PR2D</option>
 										</select> 
 				                   
 										</td>
@@ -187,14 +187,14 @@ th {
 									<tr>
 										<th>입원날짜</th>
 										<td>
-										<input type="date" class="datepicker" name="enterDate" style="width: 225px; height: 25.2px;">
+										<input type="date" class="datepicker" name="enterDate" style="width: 300px; height: 25.2px;">
 								   <br>
 								   </td>
 									</tr>
 									<tr>
 										<th>퇴원날짜</th>
 										<td>
-										<input type="date" class="datepicker" name="leaveDate" style="width: 225px; height: 25.2px;">
+										<input type="date" class="datepicker" name="leaveDate" style="width: 300px; height: 25.2px;">
 								   <br>
 								   </td>
 									</tr>
