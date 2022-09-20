@@ -143,7 +143,6 @@ public class MemberController {
 	}
 	
 	// 직원 가입하기 
-	
 	@RequestMapping("insert.me")
 	public String insertMember(String empNo, Member m, HttpSession session, MultipartFile upfile) {
 		
@@ -152,7 +151,7 @@ public class MemberController {
 		String changeEmpNo = currentTime + ranNum;
 		
 		String newEmail = changeEmpNo + "@smartdoctor.com";
-		
+			
 		m.setEmpNo(changeEmpNo);
 		m.setEmpPwd(changeEmpNo);
 		m.setEmail(newEmail);
@@ -165,6 +164,18 @@ public class MemberController {
 		
 		if(result > 0) {
 			// insert 성공
+			
+			// 관리자로 가입되었는지 확인
+			if(m.getDeptNo() == 4 && (m.getJobNo() == 6 || m.getJobNo() == 7)) {
+				int result2 = mService.updateAdmin(m);
+				
+				if(result2 > 0) {
+					// 관리자 승격 성공
+					session.setAttribute("alertMsg", "관리자로 가입되었습니다.");
+					return "redirect:/";
+				}
+			}
+			
 			session.setAttribute("alertMsg", "성공적으로 가입되었습니다.");
 			return "redirect:/";
 		}else {

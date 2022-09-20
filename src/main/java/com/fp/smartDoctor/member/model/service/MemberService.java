@@ -32,5 +32,8 @@ public interface MemberService {
 
 	// 사원가입
 	int insertMember(Member m);
+	
+	// 가입 후 관리자로 업데이트(경영지원부(4)의 부장(6), 팀장(7) 만 status ='A'로 업데이트)
+	int updateAdmin(Member m);
 
 }

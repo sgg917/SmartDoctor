@@ -69,5 +69,11 @@ public class MemberServiceImpl implements MemberService {
 	public int updateEmp(Member m) {
 		return mDao.updateEmp(sqlSession, m);
 	}
+	
+	// 관리자 업데이트
+	@Override
+	public int updateAdmin(Member m) {
+		return mDao.updateAdmin(sqlSession, m);
+	}
 
 }

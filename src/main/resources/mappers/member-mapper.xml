@@ -302,6 +302,13 @@
 		   set emp_name = #{empName}
 		     , job_no = #{jobNo}
 		     , email = #{email}
+	</update>
+	
+	<!-- 관리자로 status수정 -->
+	<update id="updateAdmin">
+		update 
+		       member
+		   set status = 'A'
 		 where emp_no = #{empNo}
 	</update>
 
