@@ -59,6 +59,10 @@ li {
   margin-left: 35px;
 }
 
+#org-mem i {
+	cursor:pointer;
+}
+
 #mem-tb {
   width:90%;
   margin-left:35px;
@@ -66,7 +70,7 @@ li {
 }
 
 #mem-tb tr {
-  height:50px;
+  height:60px;
 }
 
 #mem-tb img {
@@ -75,10 +79,19 @@ li {
   height:60px;
 }
 
+.jobNo, .empName {
+  width:20%;
+}
+
+/* 테이블 내의 아이콘 */
+#mem-tb i {
+  font-size:20px;
+}
+
 /* 초록 버튼 */
 .green-btn {
-  background:RGB(29, 92, 99);
-  color:white;
+  background:RGB(29, 92, 99) !important;
+  color:white !important;
 }
 .green-btn:hover {
   background:#1D5C83;
@@ -91,6 +104,17 @@ li {
   border-style:none;
   border-radius:7px;
   font-weight:400;
+}
+.medium-btn {
+  width:100px;
+  height:40px;
+  border-style:none;
+  border-radius:7px;
+  font-weight:400;
+}
+/* input 요소 배경색 변경 */
+input, select {
+	background:white !important; 
 }
 </style>
 </head>
@@ -114,6 +138,7 @@ li {
                         <br>
                         <h4><b><i class="mdi mdi-hospital-building"></i>율제병원</b></h4>
                         <ul id="chartArea">
+                         	로딩중...
                         </ul>
                     </div>
                 </div>
@@ -122,17 +147,26 @@ li {
                 <!-- 부서별 사원 조회 영역 (오른쪽) -->
                 <div class="col-8">
                     <div class="org-wrap" id="org-mem" style="width:90%; margin-left:10px;">
-                        <h4 style="padding-top:30px;"><b><i class="mdi mdi-check-circle-outline"></i> </b></h4>
-                        <p style="float:right;">총 인원 :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <h4 style="padding-top:30px;"><b></b></h4>
+                        <p style="float:right;"></p>
                         <br><br>
                         <hr>
-
-                        <table id="mem-tb" class="table">
-                            
-                        </table>
+						
+						<form method="updateEmp.me" action="POST" id="updateEmpForm"> 
+	                        <table id="mem-tb" class="table">
+	                           
+	                        </table>
+	                        <button class="green-btn medium-btn" style="float:right; margin-right:50px; margin-top:20px;">수정</button>
+	                    </form>
                         <br><br>
                     </div>
                 </div>
+                
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+				    Open modal
+				  </button>
+                
+                
             </div>
 
         </div>
@@ -199,7 +233,7 @@ li {
 						num++;
                     }
 				}
-				console.log(num); // num == 4(상위부서 개수)
+				//console.log(num); // num == 4(상위부서 개수)
 				
 				// 하위부서 담기
 				for(let i=0; i<dlist.length; i++){
@@ -263,7 +297,8 @@ li {
 	//------------- 부서 별 사원 정보 조회 --------------
 	function selectMem(upperNo,deptNo){
 		
-		console.log(upperNo + "," + deptNo);
+		//console.log(upperNo + "," + deptNo);
+		
 		$.ajax({
 			url:"select.me",
 			type:"POST",
@@ -306,38 +341,52 @@ li {
 				if(list == null){
 					txt += '<td colspan="4" style="text-align:center;">조회 내역이 없습니다.</td>';
 				}else{
+					
 					for(let i=0; i<list.length; i++){
 						txt += '<tr>';
+						
+						txt += '<input type="hidden" name="empNo" value="' + list[i].empNo + '">';
                         txt += 	'<td>';
                         txt +=    '<img src="' + list[i].path + '">';
                         txt +=  '</td>';
-                        txt += 	'<th>';
-                        txt +=    '<select class="form-control" name="job">';
+                        txt += 	'<th class="jobNo">';
+                        txt +=	  '<input type="hidden" value="' + list[i].jobNo + '">';
+                        txt +=    '<select class="form-control" name="jobNo" id="select">';
                         if(upperNo == 0 && deptNo == 0){
-                        	txt += '<option name="job" value="1">병원장</option>';
+                        	txt += '<option name="jobNo" value="1">병원장</option>';
                         }else if(upperNo == 1 || deptNo == 1){
-	                        txt += '<option name="job" value="2">교수</option>';
-	                        txt += '<option name="job" value="3">레지던트</option>';
-	                        txt += '<option name="job" value="4">인턴</option>';
+	                        txt += '<option name="jobNo" value="2">교수</option>';
+	                        txt += '<option name="jobNo" value="3">레지던트</option>';
+	                        txt += '<option name="jobNo" value="4">인턴</option>';
                         }else if(upperNo == 2 || deptNo == 2){
-                        	txt += '<option name="job" value="5">간호사</option>';
+                        	txt += '<option name="jobNo" value="5">간호사</option>';
                         }else{
-                        	txt += '<option name="job" value="6">부장</option>';
-                        	txt += '<option name="job" value="7">팀장</option>';
-                        	txt += '<option name="job" value="8">사원</option>';
+                        	txt += '<option name="jobNo" value="6">부장</option>';
+                        	txt += '<option name="jobNo" value="7">팀장</option>';
+                        	txt += '<option name="jobNo" value="8">사원</option>';
                         }
                         txt +=    '</select>';
                         txt += 	'</th>';
-                        txt += 	'<td><input class="form-control" type="text" name="empName" value="' + list[i].empName + " required></td>';
-                        txt +=  '<td><input class="form-control" type="email" name="email" value="' + list[i].email + '" required></td>';
-                    	txt += '</tr>';
+                        txt += 	'<td class="empName"><input class="form-control" type="text" name="empName" value="' + list[i].empName + '" required></td>';
+                        txt +=  '<td class="email"><input class="form-control" type="email" name="email" value="' + list[i].email + '" required></td>';
+                        txt +=  '<td><i class="deleteBtn mdi mdi-close" data-bs-toggle="modal" data-bs-target="#deleteMemModal" data-id="' + list[i].empNo + '"></i>';
+                    	txt +=  ' <i class="mdi mdi-account-settings" ></i></td>';
+                        txt += '</tr>';
+                    	
 					}
 				}
+				
 				$('#mem-tb').empty();
 				$('#mem-tb').append(txt);
 				
 				// 해당 사원의 직급이 기본적으로 선택되어 있게
-				$('#mem-tb option[name=job]')
+				$('select[name=jobNo]').each(function(i, value1){ // 전체 select 순차적으로 접근
+					$(this).children(i).each(function(j, value2){
+						if( $(this).parent().siblings('input[type=hidden]').val() == $(this).val() ){
+							$(this).attr("selected", true);
+						}
+					})
+				})
 				
 			},error:function(){
 				console.log("부서별 사원 조회용 ajxa통신 실패");
@@ -354,7 +403,90 @@ li {
 		}
 	}
 	</script>
-
+	
+	<!-- 사원 삭제 모달 -->
+	<div class="modal" id="deleteMemModal">
+	  <div class="modal-dialog modal-sm">
+	    <div class="modal-content">
+	    
+	      <!-- Modal body -->
+	      <div class="modal-body" style="text-align:center; margin:20px 10px;">
+	        해당 사원을 삭제하시겠습니까?
+	      </div>
+	
+	      <!-- Modal footer -->
+	      <div class="modal-footer" style="margin:auto;">
+	      	<form id="deleteEmpForm" action="deleteEmp.me" method="POST">
+	      		<input type="hidden" name="empNo">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button class="btn btn-danger" style="background:red; color:white;">삭제</button>
+	        </form>
+	      </div>
+	
+	    </div>
+	  </div>
+	</div>
+	<!-- 사원 삭제 모달 끝 -->
+	
+	<!-- alert 대체용 모달 -->
+	<div class="modal" id="myModal">
+	  <div class="modal-dialog modal-sm">
+	    <div class="modal-content">
+	
+	      <!-- Modal body -->
+	      <div class="modal-body" style="text-align:center; margin:20px 10px;">
+	        
+	      </div>
+	
+	      <!-- Modal footer -->
+	      <div class="modal-footer" style="margin:auto;">
+	        <button type="button" class="btn green-btn" data-bs-dismiss="modal">확인</button>
+	      </div>
+	
+	    </div>
+	  </div>
+	</div>
+	<!-- alert 대체용 모달 끝 -->
+	
+	<script>
+	// ---------------- 사원 삭제 모달 불러오기 ---------------
+	//$(".deleteBtn").click(function(){
+	$(document).on("click", ".deleteBtn", function(){
+		
+		var data = $(this).data("id");
+		console.log(data);
+		$('.modal-footer #deleteEmpForm>input[name=empNo]').val(data);
+	})
+	
+	// ---------------- 사원 수정 모달 불러오기 ---------------
+	//$(".updateBtn").click(function(){
+	$(document).on("click", ".updateBtn", function(){
+	
+		console.log( $(this).parent().siblings('input[type=hidden]').val() ); 
+		console.log( $(this).parent().siblings('.jobNo').val() ); 
+		console.log( $(this).parent().siblings('.empName').val() ); 
+		console.log( $(this).parent().siblings('email').val() ); 
+		
+		$.ajax({
+			url:"updateEmp.me",
+			type:"POST",
+			data:{
+				empNo:$(this).parent().siblings('input[type=hidden]').val(),
+				jobNo:$(this).parent().siblings('.jobNo').val(),
+				empName:$(this).parent().siblings('.empName').val(),
+				email:$(this).parent().siblings('email').val()
+			},
+			success:function(){
+				
+				
+				
+			},error:function(){
+				
+			}
+		});
+	})
+	</script>
+	
       <!-- !!! 메인 끝 !!! -->
       <!-- content-wrapper ends -->
       <!-- partial:partials/_footer.html -->

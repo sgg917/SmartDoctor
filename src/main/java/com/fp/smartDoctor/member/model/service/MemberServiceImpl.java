@@ -58,4 +58,16 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.insertMember(sqlSession, m);
 	}
 
+	// 조직도 사원 삭제 - 슬
+	@Override
+	public int deleteEmp(String empNo) {
+		return mDao.deleteEmp(sqlSession, empNo);
+	}
+
+	// 조직도 사원 수정 - 슬
+	@Override
+	public int updateEmp(Member m) {
+		return mDao.updateEmp(sqlSession, m);
+	}
+
 }

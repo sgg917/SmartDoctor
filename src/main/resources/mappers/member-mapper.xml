@@ -289,5 +289,20 @@
 		  )
 	</insert>
 	
+	<!-- 조직도 사원 삭제(탈퇴처리) -->
+	<update id="deleteEmp">
+		update member
+	   	   set status = 'N'
+	     where emp_no = #{empNo}
+	</update>
+	
+	<!-- 조직도 사원 정보 수정 -->
+	<update id="updateEmp">
+		update member
+		   set emp_name = #{empName}
+		     , job_no = #{jobNo}
+		     , email = #{email}
+		 where emp_no = #{empNo}
+	</update>
 
 </mapper>

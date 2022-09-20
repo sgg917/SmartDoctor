@@ -10,8 +10,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -130,6 +130,7 @@ public class MemberController {
 		return new Gson().toJson(map);
 	}
 	
+	// 조직도 수정 페이지 호출
 	@RequestMapping("adOrgChart.me")
 	public String goAdOrgChart() {
 		return "lsg/AdminOrganizationChartView";
@@ -171,6 +172,31 @@ public class MemberController {
 			return "ljy/memberEnrollForm";
 		}
 		
+	}
+	
+	@RequestMapping("deleteEmp.me")
+	public String deleteEmp(String empNo, HttpSession session, Model model) {
+		
+		System.out.println("empNo : " + empNo);
+		
+		// 사원 삭제 update
+		int result = mService.deleteEmp(empNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 삭제되었습니다.");
+			return "redirect:adOrgChart.me";
+		}else {
+			model.addAttribute("errorMsg", "사원 삭제에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("updateEmp.me")
+	public String updateEmp(Member m) {
+		
+		System.out.println(m);
+		
+		return "";
 	}
 
 }
