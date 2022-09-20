@@ -494,4 +494,100 @@ public class SignController {
 		return mv;
 	}
 	
+	// 사용자_임시저장함 리스트 조회
+	@RequestMapping("apprStorageList.si")
+	public ModelAndView selectApprStorageList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, ModelAndView mv) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String empNo = loginUser.getEmpNo();
+		
+		int listCount = sService.selectStorageListCount(empNo);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Sign> list = sService.selectApprStorageList(pi, empNo);
+		
+		mv.addObject("pi", pi)
+		  .addObject("list", list)
+		  .setViewName("kma/apprStorageList");
+		
+		return mv;
+	}
+	
+	// 사용자_상신취소
+	@RequestMapping("reportCancel.si")
+	public String updateReportCancel(int apprNo, HttpSession session) {
+		
+		int result = sService.updateReportCancel(apprNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "상신 취소되었습니다. 현재 문서는 임시저장함에 보관됩니다.");
+			return "redirect:apprReportList.si";
+		}else {
+			session.setAttribute("alertMsg", "상신 취소 실패하였습니다.");
+			return "redirect:apprReportList.si";
+		}
+	}
+	
+	// 사용자_임시저장함 상세조회(기안하기)
+	@RequestMapping("storageReport.si")
+	public ModelAndView selectApprStorageDetail(int apprNo, ModelAndView mv) {
+		
+		ArrayList<Line> ref = sService.selectApprRef(apprNo); // 참조자 조회
+		ArrayList<Line> line = sService.selectApprLine(apprNo); // 결재자 조회
+		Sign s = sService.selectStorageReport(apprNo);
+
+		mv.addObject("s", s)
+		  .addObject("ref", ref)
+		  .addObject("line", line)
+		  .setViewName("kma/storageReport");
+		
+		return mv;
+	}
+	
+	// 사용자_임시저장함 결재요청
+	@RequestMapping("insertStorageAppr.si")
+	public String updateStorageReport(Sign s, Line i, MultipartFile upfile, HttpSession session) {
+		
+		if(!upfile.getOriginalFilename().equals("")) {
+			
+			String saveFilePath = FileUpload.saveFile(upfile, session, "resources/appr_files/");
+			
+			s.setOriginName(upfile.getOriginalFilename());
+			s.setChangeName(saveFilePath);
+		}
+
+		ArrayList<Line> lineList = i.getLineList();
+		ArrayList<Line> refList = i.getRefList();
+		
+		int num = 1;
+		for(Line l : lineList) { // 결재자 lineLevel, apprNo 세팅
+			l.setLineLevel(num);
+			l.setApprNo(s.getApprNo());
+			num++;
+		}
+		
+		if(refList != null) { // 참조자가 있을 시에만 insert 요청
+			
+			for(Line l : refList) { // apprNo 세팅
+				l.setApprNo(s.getApprNo());
+			}
+
+			sService.insertStorageRef(refList);
+		}
+		
+		int apprResult = sService.updateStorageReport(s);
+		int delResult = sService.deleteApprLine(s);
+		int lineResult = sService.insertStorageLine(lineList);
+		
+		if(apprResult > 0 && delResult > 0 && lineResult > 0) {
+			session.setAttribute("alertMsg", "성공적으로 결재요청 되었습니다.");
+			return "redirect:apprStorageList.si";
+		}else {
+			session.setAttribute("alertMsg", "결재요청 실패하였습니다.");
+			return "redirect:apprStorageList.si";
+		}
+	}
+	
+	
+	
 }

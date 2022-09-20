@@ -177,5 +177,39 @@ public class SignServiceImpl implements SignService {
 	public Vacation selectVacation(int apprNo) {
 		return sDao.selectVacation(sqlSession, apprNo);
 	}
+	@Override
+	public int selectStorageListCount(String empNo) {
+		return sDao.selectStorageListCount(sqlSession, empNo);
+	}
+	@Override
+	public ArrayList<Sign> selectApprStorageList(PageInfo pi, String empNo) {
+		return sDao.selectApprStorageList(sqlSession, pi, empNo);
+	}
+	@Override
+	public int updateReportCancel(int apprNo) {
+		return sDao.updateReportCancel(sqlSession, apprNo);
+	}
+	@Override
+	public Sign selectStorageReport(int apprNo) {
+		return sDao.selectStorageReport(sqlSession, apprNo);
+	}
+	@Override
+	public int updateStorageReport(Sign s) {
+		return sDao.updateStorageReport(sqlSession, s);
+	}
+	@Override
+	public int deleteApprLine(Sign s) {
+		return sDao.deleteApprLine(sqlSession, s);
+	}
+	@Override
+	public int insertStorageLine(ArrayList<Line> lineList) {
+		return sDao.insertStorageLine(sqlSession, lineList);
+	}
+	@Override
+	public int insertStorageRef(ArrayList<Line> refList) {
+		return sDao.insertStorageRef(sqlSession, refList);
+	}
+	
+	
 
 }

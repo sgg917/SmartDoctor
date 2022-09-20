@@ -216,4 +216,56 @@ public class SignDao {
 		return sqlSession.insert("attendanceMapper.insertVacation", v);
 	}
 	
+	// 임시저장함 리스트 조회
+	public int selectStorageListCount(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.selectOne("signMapper.selectStorageListCount", empNo);
+	}
+	
+	public ArrayList<Sign> selectApprStorageList(SqlSessionTemplate sqlSession, PageInfo pi, String empNo){
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("signMapper.selectApprStorageList", empNo, rowBounds);
+	}
+	
+	// 상신취소
+	public int updateReportCancel(SqlSessionTemplate sqlSession, int apprNo) {
+		return sqlSession.update("signMapper.updateReportCancel", apprNo);
+	}
+	
+	// 임시저장함 상세페이지(기안하기)
+	public Sign selectStorageReport(SqlSessionTemplate sqlSession, int apprNo) {
+		return sqlSession.selectOne("signMapper.selectStorageReport", apprNo);
+	}
+	
+	// 임시저장함 결재요청
+	public int updateStorageReport(SqlSessionTemplate sqlSession, Sign s) {
+		return sqlSession.update("signMapper.updateStorageReport", s);
+	}
+	
+	public int deleteApprLine(SqlSessionTemplate sqlSession, Sign s) {
+		return sqlSession.delete("signMapper.deleteApprLine", s);
+	}
+	
+	public int insertStorageLine(SqlSessionTemplate sqlSession, ArrayList<Line> lineList) {
+		
+		int result = 0;
+		for(Line l : lineList) {
+			result += sqlSession.insert("signMapper.insertStorageLine", l);
+		}
+		
+		return result;
+	}
+	
+	public int insertStorageRef(SqlSessionTemplate sqlSession, ArrayList<Line> refList) {
+		
+		int result = 0;
+		for(Line l : refList) {
+			result += sqlSession.insert("signMapper.insertStorageRef", l);
+		}
+		
+		return result;
+	}
 }

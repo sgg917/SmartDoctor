@@ -29,7 +29,7 @@
 						<form id="againReport" action="againReport.si" method="post">
 							<c:choose>
 								<c:when test="${ s.apprStatus eq '대기' }">
-									<button type="button" class="btn btn-success appr-write-btn">
+									<button type="button" class="btn btn-success appr-write-btn" onclick="reportCancel();">
 										<i class="mdi mdi-close" style="color: white;"></i>&nbsp; 
 										<span>상신취소</span>
 									</button>
@@ -47,6 +47,13 @@
 								<i class="mdi mdi-subdirectory-arrow-left menu-icon"></i>&nbsp; 
 								<span>이전목록</span>
 							</button>
+							
+							<script>
+								function reportCancel(){
+									location.href = 'reportCancel.si?apprNo=' + $("#apprNo").text();
+								}
+							</script>
+							
 							<table class="table table-bordered appr-table">
 								<tr>
 									<th width="225">기안부서</th>
@@ -56,7 +63,7 @@
 								</tr>
 								<tr>
 									<th width="225">문서번호</th>
-									<td width="300">${ s.apprNo }</td>
+									<td width="300" id="apprNo">${ s.apprNo }</td>
 									<th width="225">문서보존기간</th>
 									<td width="300">5년</td>
 								</tr>

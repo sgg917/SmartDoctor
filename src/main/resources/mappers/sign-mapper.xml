@@ -158,6 +158,7 @@
 		    or appr_status = '진행')
 		   and appr_now = line_level
 		   and l.emp_no = #{empNo}
+		   and appr_storage = 'N'
 	</select>
 	
 	<select id="selectApprStandbyList" resultMap="signResult">
@@ -175,6 +176,7 @@
 		    or appr_status = '진행')
 		   and appr_now = line_level
 		   and l.emp_no = #{empNo}
+		   and appr_storage = 'N'
 		 order
 		    by appr_no desc
 	</select>
@@ -300,7 +302,7 @@
 		     , line_comment
 		     , line_disappr
 		     , line_refer
-		     , v.emp_no
+		     , l.emp_no
 		     , emp_name
 		     , to_char(line_date, 'YYYY-MM-DD') as "line_date"
 		     , job_name
@@ -321,7 +323,7 @@
 		     , line_comment
 		     , line_disappr
 		     , line_refer
-		     , v.emp_no
+		     , l.emp_no
 		     , emp_name
 		     , line_date
 		  from appr_line l
@@ -541,5 +543,108 @@
 		 where appr_no = #{apprNo}
 	</select>
 	
+	<!-- 사용자_임시저장함 리스트 조회 -->
+	<select id="selectStorageListCount" resultType="_int">
+		select
+		       count(*)
+		  from approval 
+		 where appr_storage = 'Y'
+		   and emp_no = #{empNo}
+	</select>
+	
+	<select id="selectApprStorageList" resultMap="signResult">
+		select
+		       v.appr_no
+		     , appr_title
+		     , to_char(v.enroll_date, 'YYYY-MM-DD') as "enroll_date"
+		     , form_title
+		     , emp_name
+		  from approval v
+		  join appr_form f on (v.form_no = f.form_no)
+		  join member m on (v.emp_no = m.emp_no)
+		 where appr_storage = 'Y'
+		   and v.emp_no = #{empNo}
+		 order
+		    by appr_no desc
+	</select>
+	
+	<!-- 사용자_상신취소 -->
+	<update id="updateReportCancel">
+		update
+		       approval
+		   set appr_storage = 'Y'
+		 where appr_no = #{appr_no}
+	</update>
+	
+	<!-- 사용자_임시저장함 상세조회(기안하기) -->
+	<select id="selectStorageReport" resultMap="signResult">
+		select
+			   appr_no
+		     , appr_title
+		     , appr_content
+		     , origin_name
+		     , change_name
+		  from approval
+		 where appr_no = #{apprNo}
+	</select>
+	
+	<!-- 사용자_임시저장함 결재요청 -->
+	<update id="updateStorageReport">
+		update
+		       approval
+		   set appr_title = #{apprTitle}
+		     , appr_content = #{apprContent}
+		     , enroll_date = sysdate
+		     , appr_storage = 'N'
+		     , origin_name = #{originName}
+		     , change_name = #{changeName}
+		     , appr_total = #{apprTotal}
+		     <if test='formNo != null and formNo != 0'>
+		     , form_no = #{formNo}
+		     </if>
+		 where appr_no = #{apprNo}
+	</update>
+	
+	<delete id="deleteApprLine">
+		delete
+		  from appr_line
+		 where appr_no = #{apprNo}
+	</delete>
+	
+	<insert id="insertStorageLine">
+		insert
+		  into appr_line
+			  (
+			    line_no
+			  , line_level
+			  , emp_no
+			  , appr_no
+			  )
+			values
+			  (
+			    seq_alno.nextval
+			  , #{lineLevel}
+			  , #{empNo}
+			  , #{apprNo}
+			  )
+	</insert>
+	
+	<insert id="insertStorageRef">
+		insert
+		  into appr_line
+			  (
+			    line_no
+			  , line_refer
+			  , emp_no
+			  , appr_no
+			  )
+			values
+			  (
+			    seq_alno.nextval
+			  , 'Y'
+			  , #{empNo}
+			  , #{apprNo}
+			  )
+	</insert>
 	
 </mapper>
