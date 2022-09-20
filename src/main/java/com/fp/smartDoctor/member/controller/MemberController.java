@@ -202,12 +202,15 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping("updateEmp.me")
+	@ResponseBody
+	@RequestMapping(value="updateEmp.me", produces="text/html; charset=utf-8")
 	public String updateEmp(Member m) {
 		
-		System.out.println(m);
+		// 사원 정보 수정 update
+		int result = mService.updateEmp(m);
 		
-		return "";
+		// 기존의 페이지에 문자열 전해주기
+		return result > 0 ? "사원 정보가<br>성공적으로 수정되었습니다." : "사원 정보 수정에 실패하였습니다.";
 	}
 
 }

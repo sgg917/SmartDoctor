@@ -162,11 +162,6 @@ input, select {
                     </div>
                 </div>
                 
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-				    Open modal
-				  </button>
-                
-                
             </div>
 
         </div>
@@ -370,7 +365,7 @@ input, select {
                         txt += 	'<td class="empName"><input class="form-control" type="text" name="empName" value="' + list[i].empName + '" required></td>';
                         txt +=  '<td class="email"><input class="form-control" type="email" name="email" value="' + list[i].email + '" required></td>';
                         txt +=  '<td><i class="deleteBtn mdi mdi-close" data-bs-toggle="modal" data-bs-target="#deleteMemModal" data-id="' + list[i].empNo + '"></i>';
-                    	txt +=  ' <i class="mdi mdi-account-settings" ></i></td>';
+                    	txt +=  ' <i class="updateBtn mdi mdi-account-settings"></i></td>';
                         txt += '</tr>';
                     	
 					}
@@ -429,22 +424,21 @@ input, select {
 	<!-- 사원 삭제 모달 끝 -->
 	
 	<!-- alert 대체용 모달 -->
-	<div class="modal" id="myModal">
-	  <div class="modal-dialog modal-sm">
-	    <div class="modal-content">
-	
-	      <!-- Modal body -->
-	      <div class="modal-body" style="text-align:center; margin:20px 10px;">
-	        
-	      </div>
-	
-	      <!-- Modal footer -->
-	      <div class="modal-footer" style="margin:auto;">
-	        <button type="button" class="btn green-btn" data-bs-dismiss="modal">확인</button>
-	      </div>
-	
-	    </div>
-	  </div>
+	<div class="modal" id="alertModal">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content" style="background:white;">
+				
+				<!-- Modal Body -->
+				<div class="modal-body" style="text-align:center; margin:20px 10px;">
+				</div>
+				
+				<!-- Modal Footer -->
+				<div class="modal-footer" style="margin:auto;">
+					<button type="button" class="btn green-btn" data-bs-dismiss="modal">확인</button>
+				</div>
+				
+			</div>
+		</div>
 	</div>
 	<!-- alert 대체용 모달 끝 -->
 	
@@ -458,30 +452,34 @@ input, select {
 		$('.modal-footer #deleteEmpForm>input[name=empNo]').val(data);
 	})
 	
-	// ---------------- 사원 수정 모달 불러오기 ---------------
+	// ---------------- 사원 수정 함수 ---------------
 	//$(".updateBtn").click(function(){
 	$(document).on("click", ".updateBtn", function(){
 	
-		console.log( $(this).parent().siblings('input[type=hidden]').val() ); 
-		console.log( $(this).parent().siblings('.jobNo').val() ); 
-		console.log( $(this).parent().siblings('.empName').val() ); 
-		console.log( $(this).parent().siblings('email').val() ); 
+		console.log( $(this).parent().siblings('input[type=hidden]').val() );
+		console.log( $(this).parent().siblings('.jobNo').children('select[name=jobNo]').val() ); 
+		console.log( $(this).parent().siblings('.empName').children('input[name=empName]').val() ); 
+		console.log( $(this).parent().siblings('.email').children('input[name=email]').val() ); 
 		
 		$.ajax({
 			url:"updateEmp.me",
 			type:"POST",
 			data:{
-				empNo:$(this).parent().siblings('input[type=hidden]').val(),
-				jobNo:$(this).parent().siblings('.jobNo').val(),
-				empName:$(this).parent().siblings('.empName').val(),
-				email:$(this).parent().siblings('email').val()
+				empNo:parseInt($(this).parent().siblings('input[type=hidden]').val()),
+				jobNo:parseInt($(this).parent().siblings('.jobNo').children('select[name=jobNo]').val()),
+				empName:$(this).parent().siblings('.empName').children('input[name=empName]').val(),
+				email:$(this).parent().siblings('.email').children('input[name=email]').val()
 			},
-			success:function(){
+			success:function(str){
 				
+				console.log(str);
 				
+				// alert 대체용 모달에 문자열 전해주기
+				$('#alertModal .modal-body').html(str);
+				$('#alertModal').modal('show');
 				
 			},error:function(){
-				
+				console.log("사원 정보 수정용 ajax통신 실패");
 			}
 		});
 	})

@@ -289,7 +289,7 @@
 		  )
 	</insert>
 	
-	<!-- 조직도 사원 삭제(탈퇴처리) -->
+	<!-- 조직도 사원 삭제(퇴사처리) -->
 	<update id="deleteEmp">
 		update member
 	   	   set status = 'N'
@@ -302,6 +302,7 @@
 		   set emp_name = #{empName}
 		     , job_no = #{jobNo}
 		     , email = #{email}
+		 where emp_no = #{empNo}
 	</update>
 	
 	<!-- 관리자로 status수정 -->
