@@ -114,10 +114,6 @@ public class SignServiceImpl implements SignService {
 		return sDao.selectApprReportDetail(sqlSession, apprNo);
 	}
 	@Override
-	public int selectCommentCount(int apprNo) {
-		return sDao.selectCommentCount(sqlSession, apprNo);
-	}
-	@Override
 	public int insertLine(ArrayList<Line> lineList) {
 		return sDao.insertLine(sqlSession, lineList);
 	}
@@ -208,6 +204,10 @@ public class SignServiceImpl implements SignService {
 	@Override
 	public int insertStorageRef(ArrayList<Line> refList) {
 		return sDao.insertStorageRef(sqlSession, refList);
+	}
+	@Override
+	public ArrayList<Line> selectLineComment(int apprNo) {
+		return sDao.selectLineComment(sqlSession, apprNo);
 	}
 	
 	

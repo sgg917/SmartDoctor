@@ -82,10 +82,17 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.deleteDept(sqlSession, deptNo);
 	}
 	
+	// 조직도 부서 추가 - 슬
+	@Override
+	public int insertDept(String deptName) {
+		return mDao.insertDept(sqlSession, deptName);
+	}
+	
 	// 관리자 업데이트
 	@Override
 	public int updateAdmin(Member m) {
 		return mDao.updateAdmin(sqlSession, m);
 	}
+
 
 }

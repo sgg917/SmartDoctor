@@ -71,7 +71,7 @@ public interface SignService {
 	ArrayList<Sign> selectApprReportList(PageInfo pi, String empNo);
 	
 	// 사용자_기안문서함 상세조회
-	int selectCommentCount(int apprNo);
+	ArrayList<Line> selectLineComment(int apprNo);
 	Sign selectApprReportDetail(int apprNo);
 	Overtime selectOvertime(int apprNo);
 	Vacation selectVacation(int apprNo);

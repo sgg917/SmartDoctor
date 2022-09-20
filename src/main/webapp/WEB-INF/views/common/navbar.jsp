@@ -31,6 +31,33 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous"> 
+
+
+
+
+
+
+
+
+
+
+
+
 </head>
 <body>
 
@@ -68,11 +95,13 @@
                 <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
               </a>
             </li>
-            <li class="nav-item d-none d-lg-block full-screen-link">
+            <!-- 채팅아이콘 -->
+            <li class="nav-item d-none d-lg-block full-screen-link" style="cursor:pointer;" >
               <a class="nav-link">
                 <i class="mdi mdi-comment-processing-outline" id="fullscreen-button"></i>
               </a>
             </li>
+            <!-- 메일 아이콘 -->
             <li class="nav-item dropdown">
               <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="mdi mdi-email-outline"></i>
@@ -172,6 +201,15 @@
             <span class="mdi mdi-menu"></span>
           </button>
         </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
       </nav>
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">

@@ -144,9 +144,8 @@ public class SignDao {
 	}
 	
 	// 기안문서함 상세 조회
-	
-	public int selectCommentCount(SqlSessionTemplate sqlSession, int apprNo) {
-		return sqlSession.selectOne("signMapper.selectCommentCount", apprNo);
+	public ArrayList<Line> selectLineComment(SqlSessionTemplate sqlSession, int apprNo) {
+		return (ArrayList)sqlSession.selectList("signMapper.selectLineComment", apprNo);
 	}
 	
 	public Sign selectApprReportDetail(SqlSessionTemplate sqlSession, int apprNo) {
