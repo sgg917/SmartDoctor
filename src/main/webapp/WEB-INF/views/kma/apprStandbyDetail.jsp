@@ -158,25 +158,83 @@
 			                        </c:choose>
 								</td>
 							</tr>
-							<tr>
-								<td colspan="8" align="center">
+							</table>
+							
+							<c:choose>
+								<c:when test="${ s.formNo eq 1 }">
+									<!-- 결재양식이 휴가신청서일 경우 -->
 									<br><br>
-									${ s.apprContent }
+									<h3 align="center" style="font-weight: 550;">휴가 신청서</h3>
+									<br>
+									<br>
+									<table class="table table-bordered appr-table" >
+			                            <tr>
+			                              <th width="350">종류</th>
+			                              <td>연차</td>
+			                            </tr>
+			                            <tr>
+			                              <th>일수</th>
+			                              <td>${ v.vacDays }일</td>
+			                            </tr>
+			                            <tr>
+			                              <th>사유</th>
+			                              <td>${ v.vacCause }</td>
+			                            </tr>
+			                        </table>
+								</c:when>
+								<c:when test="${ s.formNo eq 2 }">
+									<!-- 결재양식이 연장근무일 경우 -->
 									<br><br>
-								</td>
-							</tr>
-						</table>
+									<h3 align="center" style="font-weight: 550;">연장근무 신청서</h3>
+									<br>
+									<br>
+									<table class="table table-bordered appr-table">
+										<tr>
+											<th width="350">근무날짜</th>
+											<td>${ o.overDate }</td>
+										</tr>
+										<tr>
+											<th>근무시작시간</th>
+											<td colspan="5">${ o.startTime }</td>
+										</tr>
+										<tr>
+											<th>근무종료시간</th>
+											<td colspan="5">${ o.endTime }</td>
+										</tr>
+										<tr>
+											<th>총근무시간</th>
+											<td colspan="5">${ o.totalTime }시간</td>
+										</tr>
+										<tr>
+											<th>근무사유</th>
+											<td colspan="5">${ o.overCause }</td>
+										</tr>
+									</table>
+								</c:when>
+								<c:otherwise>
+									<!-- 결재양식이 에디터폼일 경우 -->
+									<table class="table table-bordered appr-table" >
+										<tr>
+											<td colspan="8" align="center" id="apprContent">
+												<br><br>
+												${ s.apprContent }
+												<br><br>
+											</td>
+										</tr>
+									</table>
+								</c:otherwise>
+							</c:choose>
 						<br>
 						<hr>
 						<br>
 						<table class="table table-bordered appr-table" id="appr-comment">
 							<tr>
 								<th colspan="5">&nbsp;결재의견 &nbsp;
-									<span>(${count})</span>
+									<span>(${fn:length(comment)})</span>
 								</th>
 							</tr>
 							<c:choose> 
-								<c:when test="${ count eq 0 }">
+								<c:when test="${ empty comment }">
 									<tr>
 										<td colspan="5" align="center">
 											결재의견이 없습니다.
@@ -184,17 +242,13 @@
 									</tr>
 								</c:when>
 								<c:otherwise>
-									<c:forEach var="i" items="${ line }">
-										<c:choose>
-										<c:when test="${ not empty i.lineComment || i.lineComment ne '' }"> 
-											<tr>
-												<td colspan="5">
-													<b>${ i.empName }</b> &nbsp;&nbsp;|&nbsp;&nbsp;
-													${ i.lineComment }
-												</td>
-											</tr>
-										</c:when>
-										</c:choose>
+									<c:forEach var="c" items="${ comment }">
+										<tr>
+											<td colspan="5">
+												<b>${ c.empName }</b> &nbsp;&nbsp;|&nbsp;&nbsp;
+												${ c.lineComment }
+											</td>
+										</tr>
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>

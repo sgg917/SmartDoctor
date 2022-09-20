@@ -6,6 +6,40 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<!--@@ fullcalendar CDN 가져가세용~-->
+<link href='resources/fullcalendar/lib/main.css' rel='stylesheet' />
+<link rel="stylesheet" href="fullcalendar.css">
+<script src='resources/fullcalendar/lib/main.js'></script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="fullcalendar/lib/locales-all.js"></script>
+<script defer src ="fullcalendar.js"></script>
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      //initialDate: '2020-01-01',
+      editable: false,
+      selectable: true,
+      businessHours: true,
+      dayMaxEvents: true, // allow "more" link when too many events
+      firstDay: 1,
+      locale: "ko",
+      dayCellContent: ({dayNumberText}) => { //일 부분 텍스트 변경
+      return dayNumberText.replace('일', '')
+    }
+      
+    });
+
+    calendar.render();
+  });
+
+</script>
+
+
 <style>
 	.wrap11{
 	width: 100%;
@@ -14,6 +48,78 @@
 	border-radius: 10px 20px 30px 40px;
 	box-shadow: 3px 3px 3px 3px lightgray;
 	}
+/* 캘린더css */
+	 body {
+    margin: 40px 10px;
+    padding: 0;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+  }
+
+  #calendar {
+    max-width: 1100px;
+    margin: 0 auto;
+  
+  }
+	/* 요일글자크기 */
+	.fc-day a{
+		font-size: 12px;
+	}
+	/* 요일 */
+	.fc-col-header>thead>tr>th{
+		padding: 0;
+	}
+	.fc-scrollgrid>thead>tr>th{
+	padding: 3px;
+	}
+	/* 날짜 */
+	.fc-scrollgrid-liquid>tbody>tr>td{
+		padding: 3px;
+	}
+	.fc-scrollgrid-sync-table>tbody>tr>*{
+		text-align:center;padding:0;
+	}
+	  /* 일요일 날짜 빨간색 */
+	.fc-day-sun a {
+	  color: red !important;
+	  text-decoration: none !important;
+	}
+	
+	/* 토요일 날짜 파란색 */
+	.fc-day-sat a {
+	  color: blue !important;
+	  text-decoration: none !important;
+	}
+	/* 날짜글자크기 */
+	.fc-daygrid-day-number{
+		font-size: 11px;
+		text-align: center;
+	}
+	.fc-daygrid{
+		width: 270px;
+		height: 220px;
+	}
+	
+	/* 테두리 없애기 */
+	.fc td, .fc th {
+	  border-style: ;
+	}
+	
+	/* 우측 버튼 */
+	.fc-toolbar-chunk>button{
+	  background: rgb(29, 92, 99) !important;
+	  font-size: 10px !important;
+	}
+	.fc-button-group>button{
+		background: rgb(29, 92, 99) !important;
+	  font-size: 10px !important;
+	}
+	
+	/* 왼쪽 상단 날짜 */
+	.fc-toolbar-title{
+	  font-size: 15px !important;
+	}
+	
 </style>
 </head>
 <body>
@@ -111,64 +217,9 @@
                                   </td>
                                   
                                   <td style="width: 33%;">
-                                    <table class="table-bordered">
-                                      <tr>
-                                        <th>일</th>
-                                        <th>월</th>
-                                        <th>화</th>
-                                        <th>수</th>
-                                        <th>목</th>
-                                        <th>금</th>
-                                        <th>토</th>
-                                      </tr>
-    
-                                      <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>3</td>
-                                      </tr>
-                                      <tr>
-                                        <td>4</td>
-                                        <td>5</td>
-                                        <td>6</td>
-                                        <td>7</td>
-                                        <td>8</td>
-                                        <td>9</td>
-                                        <td>10</td>
-                                      </tr>
-                                      <tr>
-                                        <td>11</td>
-                                        <td>12</td>
-                                        <td>13</td>
-                                        <td>14</td>
-                                        <td>15</td>
-                                        <td>16</td>
-                                        <td>17</td>
-                                      </tr>
-                                      <tr>
-                                        <td>18</td>
-                                        <td>19</td>
-                                        <td>20</td>
-                                        <td>21</td>
-                                        <td>22</td>
-                                        <td>23</td>
-                                        <td>24</td>
-                                      </tr>
-                                      <tr>
-                                        <td>25</td>
-                                        <td>26</td>
-                                        <td>27</td>
-                                        <td>28</td>
-                                        <td>29</td>
-                                        <td>30</td>
-                                        <td></td>
-                                      </tr>
-                                    </table>
-                                    
+                                  	
+                                  	<div style="float:center; height: 100%; width: 100%;" id='calendar'></div>
+                                  
                                   </td>
                                 </tr>
                               </tbody>
@@ -325,7 +376,7 @@
                 </div>
               </div>
 
-              <!-- 모달모달모달 -->
+              <!-- 약처방 모달모달모달 -->
               <div class="container">
                 
                 <!-- The Modal -->
@@ -348,14 +399,14 @@
                       	<span>약 명칭</span>
                       	<br>
                       	
-                      	<table>
+                      	<table id="gg">
                   			<c:forEach var="m" items="${ mList }" varStatus="s">
                   				
                   				<c:if test="${ s.index mod 4 eq 0 }">
                   					<tr>
                   				</c:if>
                   				
-                  				<td><input type="checkbox" value="${ m.medNo }">${ m.medName }</td>
+                  				<td><input id="sss" type="checkbox" name="aa" value="${ m.medNo }"><span>${ m.medName }</span></td>
                   				
                   				<c:if test="${ s.index mod 4 eq 3 }">
                   					</tr>
@@ -366,22 +417,23 @@
                       
                       	<br>
                         <span>총 투여일수</span>
-                        <select name="times" class="custom-select">
-                          <option selected>선택</option>
-                          <option value="1">3</option>
-                          <option value="2">4</option>
-                          <option value="3">5</option>
-                          <option value="3">6</option>
-                          <option value="3">7</option>
-                          <option value="3">8</option>
-                          <option value="3">9</option>
-                          <option value="3">10</option>
+                        <select name="days" class="custom-select">
+                          <option selected required>선택</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
                         </select>
                       </div>
                       
                       <!-- Modal footer -->
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">저장</button>
+                      	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-secondary btn-sm" id="saveMed" data-dismiss="modal">저장</button>
                       </div>
                       
                     </div>
@@ -389,6 +441,43 @@
                 </div>
                 
               </div>
+              <!-- 모달 끝 -->
+              
+              
+              <script>
+            	$("#saveMed").click(function(){
+            		
+            		let list = []; // [{medNo:xxxx, medName:xxxx}, {medNo:xxxx, medName:xxxx}, ..]
+            		//console.log($("input:checkbox[name=aa]:checked").length); // 체크된 요소들의 갯수
+            		
+            		if($("input:checkbox[name=aa]:checked").length != 0){
+            			$("input:checkbox[name=aa]:checked").each(function(){
+            				let arr = {medNo : $(this).val(), medName : $(this).next().text(), times : $("select[name=days]").val()};
+            				list.push(arr);
+            			})
+            		}
+            		console.log(list);
+            		
+            		/*
+            		if($("input:checkbox[name=aa]:checked").length != 0){
+            			$("input:checkbox[name=aa]:checked").each(function(){
+            				let obj = {medNo : $(this).val(), medName : $(this).next().text(), times:$("#chooseMedicine select[name=times]").val()};
+            				list.push(obj);
+            			})
+            		}*/
+            		
+              		//let tt = $("input:checkbox[name=aa]:checked").closest('td').text();
+            	})
+            	
+            	
+            	
+            	
+            	
+              </script>
+              
+              
+              
+              
 			</div>
 			<jsp:include page="../common/footer.jsp" />
 		</div>

@@ -57,15 +57,17 @@
 												<td>${ a.enrollDate }</td>
 												<td>${ a.formTitle }</td>
 												<td>${ a.apprTitle } &nbsp;
-													<!-- <i class="mdi mdi-paperclip" style="color: gray;"></i>
-													<span style="color: gray;">1</span> -->
+													<c:if test="${ not empty a.originName }">
+														<i class="mdi mdi-paperclip" style="color: gray;"></i>
+														<span style="color: gray;">1</span>
+													</c:if>
 												</td>
 												<td>${ a.empName }</td>
 												<td class="apprNo">${ a.apprNo }</td>
 												<td>
 													<c:choose>
 														<c:when test="${ a.apprStatus eq '대기' || a.apprStatus eq '진행' }">
-															<label class="badge" style="background:green;">진행중</label>
+															<label class="badge" style="background:RGB(65, 125, 122);">진행중</label>
 														</c:when>
 														<c:when test="${ a.apprStatus eq '반려' }">
 															<label class="badge badge-danger">반려</label>

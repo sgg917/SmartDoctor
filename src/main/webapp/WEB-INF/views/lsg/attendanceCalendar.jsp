@@ -65,7 +65,7 @@
 	<div class="main-panel">
 		<div class="content-wrapper">
 			<h3><b>월간 근태 체크</b></h3>
-			<hr><br>
+			<br><hr><br>
 			<div class="container card wrap11" id="att-area">
 				<div id="calendar-wrapper">
 					<div id='calendar' width="90%"></div>

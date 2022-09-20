@@ -95,11 +95,11 @@
 								</tr>
 								<tr>
 									<th>결재자</th>
-									<td></td>
+									<td id="line-name"></td>
 								</tr>
 								<tr>
 									<th>참조자</th>
-									<td></td>
+									<td id="ref-name"></td>
 								</tr>
 								<tr>
 									<th>제목</th>
@@ -387,13 +387,20 @@
 				let apprTotal = $("#apprLine").children(".ap-md-bd").length;
 				$("input[name=apprTotal]").attr('value', apprTotal); // 총결재자수
 				
+				let lineArr = [];
 				$("#apprLine").children(".ap-md-bd").each(function(index, item){ // 결재자들 
-					$("#insertOvertime").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='lineList[" + index + "].empNo'>")
+					$("#insertVacation").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='lineList[" + index + "].empNo'>")
+					lineArr.push( $(item).children('.empName').text() );
 				})
 				
+				let refArr = [];
 				$("#apprRef").children(".ap-md-bd").each(function(index, item){ // 참조자들
-					$("#insertOvertime").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='RefList[" + index + "].empNo'>")
+					$("#insertVacation").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='RefList[" + index + "].empNo'>");
+					refArr.push( $(item).children('.empName').text() );
 				})
+				
+				$("#line-name").text(lineArr.join(" - ")); // 결재자 이름 출력
+				$("#ref-name").text(refArr.join(", ")); // 참조자 이름 출력
 				
 				$('#lineModal').modal('hide');
 			}

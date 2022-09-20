@@ -30,7 +30,7 @@
 <style>
 .wrap11 {
 	width: 100%;
-	height: 100%;
+	height: 100% !important;
 	background-color: white;
 	border-radius: 30px 10px;
 	box-shadow: 3px 3px 3px 3px lightgray;
@@ -212,7 +212,7 @@ b {
 									</tfoot>
 								</table>
 								<div id="noticeArea" align="left">
-									<span>※ 요금안내 ※ 입원료(1일) - 2인실 100,000원 / 4인실 50,000원, 식대 : 1일 - 15000원</span>
+									<span>※ 요금안내 ※ 입원료(1일) - 2인실 120,000원 / 4인실 80,000원, 식대 : 1일 - 15000원</span>
 								</div>
 							<br>
 						</div>

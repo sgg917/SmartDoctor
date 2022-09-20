@@ -38,4 +38,28 @@ public class MemberDao {
 	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.insert("memberMapper.insertMember", m);
 	}
+	
+	public int deleteEmp(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.update("memberMapper.deleteEmp", empNo);
+	}
+	
+	public int updateEmp(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateEmp", m);
+	}
+		
+	public int updateAdmin(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateAdmin", m);
+	}
+	
+	public int updateDept(SqlSessionTemplate sqlSession, Dept d) {
+		return sqlSession.update("memberMapper.updateDept", d);
+	}
+	
+	public int deleteDept(SqlSessionTemplate sqlSession, int deptNo) {
+		return sqlSession.delete("memberMapper.deleteDept", deptNo);
+	}
+	
+	public int insertDept(SqlSessionTemplate sqlSession, String deptName) {
+		return sqlSession.insert("memberMapper.insertDept", deptName);
+	}
 }

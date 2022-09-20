@@ -27,9 +27,10 @@
 					<br>
 					<div class="appr-table-wrapper" style="margin-left:30px;">
 						<form id="againReport" action="againReport.si" method="post">
+							<input type="hidden" value="${ s.formNo }" name="formNo">
 							<c:choose>
 								<c:when test="${ s.apprStatus eq '대기' }">
-									<button type="button" class="btn btn-success appr-write-btn">
+									<button type="button" class="btn btn-success appr-write-btn" onclick="reportCancel();">
 										<i class="mdi mdi-close" style="color: white;"></i>&nbsp; 
 										<span>상신취소</span>
 									</button>
@@ -47,6 +48,13 @@
 								<i class="mdi mdi-subdirectory-arrow-left menu-icon"></i>&nbsp; 
 								<span>이전목록</span>
 							</button>
+							
+							<script>
+								function reportCancel(){
+									location.href = 'reportCancel.si?apprNo=' + $("#apprNo").text();
+								}
+							</script>
+							
 							<table class="table table-bordered appr-table">
 								<tr>
 									<th width="225">기안부서</th>
@@ -56,7 +64,7 @@
 								</tr>
 								<tr>
 									<th width="225">문서번호</th>
-									<td width="300">${ s.apprNo }</td>
+									<td width="300" id="apprNo">${ s.apprNo }</td>
 									<th width="225">문서보존기간</th>
 									<td width="300">5년</td>
 								</tr>
@@ -139,7 +147,7 @@
 												
 												$('#line-dept').children().each(function(index, item){ // 부서 출력
 													
-													if(deptArr[index] != "" && typeof deptArr[index] != 'undefined'){
+													if(deptArr[index] != "" && typeof deptArr[index] != 'undefined' && deptArr[index] != null){
 														$(item).text(deptArr[index]);
 													}
 												})
@@ -175,7 +183,11 @@
 												})
 												
 												$("#line-dept").children().each(function(index, item){ // 결재자들 부서명 form에 넘기기 
-													$("#againReport").append("<input type='hidden' value='" + $(item).text() + "' name='lineList[" + index + "].deptName'>");
+													
+													if( $(item).text() != null && $(item).text() != "" && $(item).text() != "undefined"){
+														$("#againReport").append("<input type='hidden' value='" + $(item).text() + "' name='lineList[" + index + "].deptName'>");
+													}
+													
 													
 													
 												})
@@ -213,26 +225,85 @@
 				                        </c:choose>
 									</td>
 								</tr>
-								<tr>
-									<td colspan="8" align="center" id="apprContent">
-										<br><br>
-										${ s.apprContent }
-										<br><br>
-									</td>
-								</tr>
 							</table>
+							
+							<c:choose>
+								<c:when test="${ s.formNo eq 1 }">
+									<!-- 결재양식이 휴가신청서일 경우 -->
+									<br><br>
+									<h3 align="center" style="font-weight: 550;">휴가 신청서</h3>
+									<br>
+									<br>
+									<table class="table table-bordered appr-table" >
+			                            <tr>
+			                              <th width="350">종류</th>
+			                              <td>연차</td>
+			                            </tr>
+			                            <tr>
+			                              <th>일수</th>
+			                              <td>${ v.vacDays }일</td>
+			                            </tr>
+			                            <tr>
+			                              <th>사유</th>
+			                              <td>${ v.vacCause }</td>
+			                            </tr>
+			                        </table>
+								</c:when>
+								<c:when test="${ s.formNo eq 2 }">
+									<!-- 결재양식이 연장근무일 경우 -->
+									<br><br>
+									<h3 align="center" style="font-weight: 550;">연장근무 신청서</h3>
+									<br>
+									<br>
+									<table class="table table-bordered appr-table">
+										<tr>
+											<th width="350">근무날짜</th>
+											<td>${ o.overDate }</td>
+										</tr>
+										<tr>
+											<th>근무시작시간</th>
+											<td colspan="5">${ o.startTime }</td>
+										</tr>
+										<tr>
+											<th>근무종료시간</th>
+											<td colspan="5">${ o.endTime }</td>
+										</tr>
+										<tr>
+											<th>총근무시간</th>
+											<td colspan="5">${ o.totalTime }시간</td>
+										</tr>
+										<tr>
+											<th>근무사유</th>
+											<td colspan="5">${ o.overCause }</td>
+										</tr>
+									</table>
+								</c:when>
+								<c:otherwise>
+									<!-- 결재양식이 에디터폼일 경우 -->
+									<table class="table table-bordered appr-table" >
+										<tr>
+											<td colspan="8" align="center" id="apprContent">
+												<br><br>
+												${ s.apprContent }
+												<br><br>
+											</td>
+										</tr>
+									</table>
+								</c:otherwise>
+							</c:choose>
+								
 						</form>
-						<br>
+						<br><br>
 						<hr>
-						<br>
+						<br><br>
 						<table class="table table-bordered appr-table" id="appr-comment">
 							<tr>
 								<th colspan="5">&nbsp;결재의견 &nbsp;
-									<span>(${count})</span>
+									<span>(${fn:length(comment)})</span>
 								</th>
 							</tr>
 							<c:choose> 
-								<c:when test="${ count eq 0 }">
+								<c:when test="${ empty comment }">
 									<tr>
 										<td colspan="5" align="center">
 											결재의견이 없습니다.
@@ -240,11 +311,11 @@
 									</tr>
 								</c:when>
 								<c:otherwise>
-									<c:forEach var="i" items="${ line }">
+									<c:forEach var="c" items="${ comment }">
 										<tr>
 											<td colspan="5">
-												<b>${ i.empName }</b> &nbsp;&nbsp;|&nbsp;&nbsp;
-												${ i.lineComment }
+												<b>${ c.empName }</b> &nbsp;&nbsp;|&nbsp;&nbsp;
+												${ c.lineComment }
 											</td>
 										</tr>
 									</c:forEach>

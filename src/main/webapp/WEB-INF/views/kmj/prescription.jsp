@@ -258,7 +258,7 @@ margin-left: 10px;
                   <button onclick="printPage();" class="button">출력</button>
                 </div>
                 <div style="width: 22%; height: 30px; float: left;" align="right">
-                  <button class="button2 bggray">뒤로가기</button>
+                  <button class="button2 bggray" onclick="history.back()">뒤로가기</button>
                 </div>
                 <br><br>
               </div>
@@ -276,6 +276,8 @@ margin-left: 10px;
 				document.body.innerHTML = initBody;
 				}; 
 				window.print();
+				location.reload();
+
 				return false;
 			}
 		</script>

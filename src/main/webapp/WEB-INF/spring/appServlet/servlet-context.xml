@@ -67,6 +67,7 @@
 			<mapping path="/apprReferList.si"/>
 			<mapping path="/apprReportList.si"/>
 			<mapping path="/apprGetList.si"/>
+			<mapping path="/apprStorageList.si"/>
 			<beans:bean class="com.fp.smartDoctor.common.interceptor.LoginInterceptor" id="loginInterceptor"/>
 		</interceptor>
 	</interceptors>

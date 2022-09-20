@@ -140,10 +140,10 @@
 					</p>
 					<hr>
 					<br>
-					<form id="insertAppr" action="apprInsert.si" method="post" enctype="multipart/form-data" >
+					<form id="insertAppr" action="insertStorageAppr.si" method="post" enctype="multipart/form-data" >
 						<input type="hidden" value="" name="apprTotal">
 						<input type="hidden" value="${ loginUser.empNo }" name="empNo">
-						<input type="hidden" value="${ s.formNo }" name="formNo">
+						<input type="hidden" value="${ s.apprNo }" name="apprNo">
 						<div class="appr-table-wrapper">
 							<button type="submit" class="btn btn-success appr-write-btn">
 								<i class="mdi mdi-arrow-up-bold" style="color: white;"></i>&nbsp;
@@ -173,15 +173,27 @@
 								</tr>
 								<tr>
 									<th>제목</th>
-									<td><input type="text" name="apprTitle" value="${s.apprTitle}"></td>
+									<td><input type="text" name="apprTitle" placeholder="제목을 입력해주세요" value="${ s.apprTitle }"></td>
 								</tr>
 								<tr>
 									<th>첨부파일</th>
-									<td><input type="file" name="upfile"></td>
+									<td>
+										<input type="file" name="upfile">
+										<br><br>
+										<i class="mdi mdi-paperclip"></i>&nbsp;
+										<c:choose>
+				                    		<c:when test="${ empty s.originName }">
+				                    			첨부파일이 없습니다.
+				                    		</c:when>
+				                    		<c:otherwise>
+				                        		<a href="${ s.changeName }" download="${ s.originName }">${ s.originName }</a>
+				                        	</c:otherwise>
+				                        </c:choose>
+									</td>
 								</tr>
 							</table>
 							<div>
-								<textarea class="yui3-cssreset" id="summernote" name="apprContent">${s.apprContent}</textarea>
+								<textarea class="yui3-cssreset" id="summernote" name="apprContent">${ s.apprContent }</textarea>
 							</div>
 						</div>
 					</form>
@@ -308,6 +320,7 @@
 						$('#formModal').modal('hide');
 						
 						$("#insertAppr").append("<input type='hidden' value='" + f.formNo + "' name='formNo'>"); // 결재요청시 넘길 formNo 
+					
 					},
 					error:function(){
 						console.log("결재양식선택 불러오기용 ajax통신 실패");
@@ -398,7 +411,7 @@
 		<script src="//cdn.jsdelivr.net/npm/jquery.fancytree@2.27/dist/jquery.fancytree-all-deps.min.js"></script>
 		<script>
 			
-			$(document).ready(function(){ // 결재라인에 이미 선택되어있는 결재자 리스트
+			$(document).ready(function(){ // 이미 선택되어있는 결재자, 참조자 리스트 
 				
 				let lineArr = []; // 결재자
 				<c:forEach var="i" items="${ line }">
@@ -430,6 +443,36 @@
 					})
 				}
 				
+				let refArr = []; // 참조자
+				<c:forEach var="i" items="${ ref }">
+					refArr.push( "${i.empNo}" );
+				</c:forEach>
+				
+				for(let i in refArr){
+					
+					$.ajax({
+						url: "apprLineEmp.si",
+						async:false,
+						data: {empNo: refArr[i]},
+						success:function(emp){
+
+							data = "<tr class='ap-md-bd'>"
+									 + "<td style='display:none' class='empId'>" + emp.empNo + "</td>"
+								 	 + "<td class='empName'>" + emp.empName + "</td>"
+									 + "<td>" + emp.deptName + "</td>"
+									 + "<td>" + emp.jobName + "</td>"
+									 + "<td class='ap-mdi-del'><i class='mdi mdi-delete-forever al-del'></i></td>"
+							 	 + "</tr>"
+							 	 
+						 	$("#apprRef").append(data);
+							 	 
+						},
+						error:function(){
+							console.log("결재라인 사원 조회용 ajax통신 실패");
+						}
+					})
+				}
+				
 				// ---------- form에 넘길 요소 ------------ //
 					
 				let apprTotal = $("#apprLine").children(".ap-md-bd").length;
@@ -438,9 +481,13 @@
 				$("#apprLine").children(".ap-md-bd").each(function(index, item){ // 결재자들 
 					$("#insertAppr").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='lineList[" + index + "].empNo'>")
 				})
-					
-			})
-			
+				
+				$("#apprRef").children(".ap-md-bd").each(function(index, item){ // 참조자들
+					$("#insertAppr").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='RefList[" + index + "].empNo'>")
+				})
+				
+			})	
+		
 			function selectLineList(){ // 결재라인 조직도 출력용 함수
 				
 				$.ajax({

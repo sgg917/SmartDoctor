@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>임시저장함</title>
 </head>
 <body>
 	<jsp:include page="../common/navbar.jsp" />
@@ -15,7 +15,7 @@
 			<div class="card">
 				<div class="card-body">
 					<p style="font-size: 22px;">
-						전자결재 &nbsp;|&nbsp; <b>기안문서함</b>
+						전자결재 &nbsp;|&nbsp; <b>임시저장함</b>
 					</p>
 					<hr>
 					<br>
@@ -32,15 +32,15 @@
 								<img src="resources/images/kma/search.png">
 							</button>
 						</div>
-						<table class="table appr-report-tb" id="appr-all-table">
+						<table class="table appr-storage-tb" id="appr-all-table">
 							<!-- 첨부는 제목 옆에 클립 -->
 							<thead>
 								<tr>
-									<th>기안일</th>
+									<th>문서번호</th>
+									<th>작성일</th>
 									<th>결재양식</th>
 									<th>제목</th>
-									<th>문서번호</th>
-									<th>결재상태</th>
+									<th>상태</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -53,6 +53,7 @@
 									<c:otherwise>
 										<c:forEach var="a" items="${ list }">
 											<tr>
+												<td class="apprNo">${ a.apprNo }</td>
 												<td>${ a.enrollDate }</td>
 												<td>${ a.formTitle }</td>
 												<td>${ a.apprTitle } &nbsp;
@@ -61,19 +62,8 @@
 														<span style="color: gray;">1</span>
 													</c:if>
 												</td>
-												<td class="apprNo">${ a.apprNo }</td>
 												<td>
-													<c:choose>
-														<c:when test="${ a.apprStatus eq '대기' || a.apprStatus eq '진행' }">
-															<label class="badge" style="background:RGB(65, 125, 122); border:none;">진행중</label>
-														</c:when>
-														<c:when test="${ a.apprStatus eq '반려' }">
-															<label class="badge" style="background:crimson; border:none;">반려</label>
-														</c:when>
-														<c:otherwise>
-															<label class="badge" style="background:gray; border:none;">완료</label>
-														</c:otherwise>
-													</c:choose>
+													<label class="badge" style="background:indianred; border:none;">임시저장</label>
 												</td>
 											</tr>
 										</c:forEach>
@@ -84,8 +74,8 @@
 						
 						<script>
 							$(function(){
-			            		$(".appr-report-tb>tbody>tr").click(function(){
-			            			location.href = 'apprReportDetail.si?apprNo=' + $(this).find(".apprNo").text();
+			            		$(".appr-storage-tb>tbody>tr").click(function(){
+			            			location.href = 'storageReport.si?apprNo=' + $(this).find(".apprNo").text();
 			            		})
 			            	})
 						</script>
@@ -98,12 +88,12 @@
 										<li class="page-item disabled"><a class="page-link">Previous</a></li>
 									</c:when>
 									<c:otherwise>
-										<li class="page-item"><a class="page-link" href="apprReportList.si?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+										<li class="page-item"><a class="page-link" href="apprStorageList.si?cpage=${ pi.currentPage - 1 }">Previous</a></li>
 									</c:otherwise>
 								</c:choose>
 								
 								<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-										<li class="page-item"><a class="page-link" href="apprReportList.si?cpage=${ p }">${ p }</a></li>
+										<li class="page-item"><a class="page-link" href="apprStorageList.si?cpage=${ p }">${ p }</a></li>
 								</c:forEach>
 								
 								<c:choose>
@@ -111,7 +101,7 @@
 										<li class="page-item disabled"><a class="page-link">Next</a></li>
 									</c:when>
 									<c:otherwise>
-										<li class="page-item"><a class="page-link" href="apprReportList.si?cpage=${ pi.currentPage + 1 }">Next</a></li>
+										<li class="page-item"><a class="page-link" href="apprStorageList.si?cpage=${ pi.currentPage + 1 }">Next</a></li>
 									</c:otherwise>
 								</c:choose>
 								

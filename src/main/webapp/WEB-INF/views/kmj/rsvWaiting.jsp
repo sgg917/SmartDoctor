@@ -203,9 +203,6 @@ input {
 						let slist = data.slist;
 						let plist = data.plist;
 						
-						console.log(slist);
-						console.log(plist);
-						
 						let surgeryValue = "";
 						
 						for(let i=0; i<slist.length; i++){
@@ -229,14 +226,13 @@ input {
 								        +"<td>" + plist[i].gender + "</td>"
 								        +"<td>" + plist[i].idNo + "</td>"
 								        +"<td>" + plist[i].deptName + "</td>"
-								        +"<td><button class='button' name='rsvPRoom' value='"  + slist[i].clinicNo + "'>예약하기</button></td>"
+								        +"<td><button class='button' name='rsvPRoom' value='"  + plist[i].clinicNo + "'>예약하기</button></td>"
 								        +"</tr>";
 								        
 							}
 						
-						
-						$("#PRoomWaitingArea tbody").html(surgeryValue);
-						$("#SurgeryWaitingArea tbody").html(pRoomValue);
+						$("#SurgeryWaitingArea tbody").html(surgeryValue);
+						$("#PRoomWaitingArea tbody").html(pRoomValue);
 						
 						
 					},error:function(){
@@ -249,17 +245,54 @@ input {
 		// => 동적으로 만들어진 요소에 이벤트 부여 방법!!!!!
 
 		$(document).on("click","button[name=rsvSurgery]",function(){
-
-		location.href = "enrollForm.op?clinicNo=" + $(this).attr('value');
-
+		
+			ajaxUpdateAndgotoSurgery($(this).attr('value'));
+			
 		})
 		
 		$(document).on("click","button[name=rsvPRoom]",function(){
 
-		location.href = "enrollForm.pr?clinicNo=" + $(this).attr('value');
+			ajaxUpdateAndgotoPRoom($(this).attr('value'));
 
 		})
 		
+		function ajaxUpdateAndgotoSurgery(value){
+			
+			$.ajax({
+				url : "updateSurgery.cl",
+				data : {
+					clinicNo : value
+				},
+				success : function(clinicNo) {
+					console.log(clinicNo);
+					location.href = "enrollForm.op?clinicNo=" + clinicNo;
+
+				},
+				error : function() {
+					console.log("ajax통신 실패");
+				}
+			});
+			
+		}
+		
+		function ajaxUpdateAndgotoPRoom(clinicNo){
+			
+			$.ajax({
+				url : "updateEnter.cl",
+				data : {
+					clinicNo : clinicNo
+				},
+				success : function(clinicNo) {
+					console.log(clinicNo);
+					location.href = "enrollForm.pr?clinicNo=" + clinicNo;
+
+				},
+				error : function() {
+					console.log("ajax통신 실패");
+				}
+			});
+			
+		}
 		</script>
 		<jsp:include page="../common/footer.jsp" />
 </body>
