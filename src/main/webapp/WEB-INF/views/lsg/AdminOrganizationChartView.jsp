@@ -228,7 +228,8 @@ input, select {
 					if(dlist[i].level == 1 && dlist[i].upperNo == 0){
 						upper = '<li class="nav-item" id="nav' + dlist[i].deptNo + '">';
 						//upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
-						upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + 0 + ',' + dlist[i].deptNo + ')">';
+						//upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + 0 + ',' + dlist[i].deptNo + ')">';
+						upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + 0 + ',' + dlist[i].deptNo + ')">';
 						upper += 		'<i class="mdi mdi-chevron-double-right"></i> ';
 						upper += 		'<span class="menu-title">' + dlist[i].deptName + '</span>';
 						upper += 		'<i class="mdi mdi-settings"></i>';
@@ -257,10 +258,22 @@ input, select {
 						if(dlist[i].level == 2 && dlist[i].upperNo == j){
 							
                             lower = '<li class="nav-item">';
-                            //lower +=	'<a class="nav-link" data-bs-toggle="collapse"' +
-                            //			'href="#dept' + dlist[i].upperNo + '-' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
-                            lower +=	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].upperNo + '-' + dlist[i].deptNo + 
-                            			'" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + dlist[i].upperNo + ',' + dlist[i].deptNo + ');">';
+                            
+                           	// 해당 부서에 사원이 있는지 검사 
+                           	let result = 0;
+                            for(let j=0; j<mlist.length; j++){
+                            	
+                            	if(mlist[j].deptNo == dlist[i].deptNo){
+                            		result++;
+                            	}
+                            }
+                           	// 사원이 있다면 -> 사원 조회 함수 실행
+                           	if(result > 0){
+	                            lower +=	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].upperNo + '-' + dlist[i].deptNo + 
+	                            			'" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + dlist[i].upperNo + ',' + dlist[i].deptNo + ');">';
+                           	}else{ // 사원이 없다면 -> 사원 조회 함수 실행 x
+	                            lower += '<a class="nav-link" data-bs-toggle="collapse"' + 'href="#dept' + dlist[i].upperNo + '-' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
+                           	}
                             lower +=       '<i class="mdi mdi-chevron-double-right"></i> ';
                             lower +=        '<span class="menu-title">' + dlist[i].deptName + '</span>';
                             lower += 		'<i class="mdi mdi-settings"></i>';
