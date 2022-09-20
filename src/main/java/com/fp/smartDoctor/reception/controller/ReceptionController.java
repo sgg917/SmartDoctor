@@ -20,6 +20,7 @@ import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.reception.model.service.ReceptionService;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
+import com.fp.smartDoctor.reception.model.vo.Receipt;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
@@ -107,8 +108,15 @@ public class ReceptionController {
 	
 	// 개인 수납 조회
 	@RequestMapping("receipt.pt")
-	public String receipt() {
-		return "kmj/receipt";
+	public ModelAndView receipt( int clinicNo, ModelAndView mv ) {
+		
+		// 처방전 -> 진료 정보 조회 
+		Receipt r = rService.selectReceipt(clinicNo);
+		
+		mv.addObject("r", r)
+		  .setViewName("kmj/receipt");
+		
+		return mv;
 	}
 	
 	// 병원 캘린더 페이지

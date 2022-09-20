@@ -253,10 +253,9 @@
 					<div
 						style="width: 60%; height: 30px; float: left; padding-right: 75px;"
 						align="right">
-						<button class="button">수납</button>
-						<button onclick="printPage();" class="button">출력</button>
 					</div>
-					<div style="width: 22%; height: 30px; float: left;" align="right">
+					<div style="width: 25%; height: 30px; float: left;" align="right">
+						<button onclick="printPage();" class="button">출력</button>
 						<button class="button2 bggray" onclick="history.back()">뒤로가기</button>
 					</div>
 					<br>

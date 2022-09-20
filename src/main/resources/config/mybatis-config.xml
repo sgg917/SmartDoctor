@@ -35,6 +35,7 @@
 		
 		<typeAlias type="com.fp.smartDoctor.notice.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.fp.smartDoctor.reception.model.vo.Prescription" alias="Prescription"/>
+		<typeAlias type="com.fp.smartDoctor.reception.model.vo.Receipt" alias="Receipt"/>
 		
 	
 		

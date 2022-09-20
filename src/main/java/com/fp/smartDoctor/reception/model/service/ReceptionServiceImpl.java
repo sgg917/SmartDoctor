@@ -11,6 +11,7 @@ import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.reception.model.dao.ReceptionDao;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
+import com.fp.smartDoctor.reception.model.vo.Receipt;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
@@ -130,5 +131,11 @@ public class ReceptionServiceImpl implements ReceptionService{
 	@Override
 	public ArrayList<Medicine> selectMedicineList(int clinicNo) {
 		return rDao.selectMedicineList(sqlSession, clinicNo);
+	}
+	
+	// 19. 수납 영수증 조회
+	@Override
+	public Receipt selectReceipt(int clinicNo) {
+		return rDao.selectReceipt(sqlSession, clinicNo);
 	}
 }
