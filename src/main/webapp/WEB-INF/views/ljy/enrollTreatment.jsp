@@ -314,52 +314,31 @@
 
                         <tr>
                           <td colspan="2">
-                            <table class="table table-bordered" style="text-align: center;">
-                              <tr>
-                                <th style="background: lightgray;">약 코드</th>
-                                <th style="background: lightgray;">약 명칭</th>
-                                <th style="background: lightgray;">1일 투여횟수</th>
-                                <th style="background: lightgray;">총 투여일수</th>
-                              </tr>
-                              <tr>
-                                <td>A-02</td>
-                                <td>알버트정</td>
-                                <td>
-                                  <select name="times" class="custom-select">
-                                    <option selected>선택</option>
-                                    <option value="1">1회</option>
-                                    <option value="2">2회</option>
-                                    <option value="3">3회</option>
-                                  </select>
-                                </td>
-                                <td>3일</td>
-                              </tr>
-                              <tr>
-                                <td>B-04</td>
-                                <td>제니정</td>
-                                <td>
-                                  <select name="times" class="custom-select">
-                                    <option selected>선택</option>
-                                    <option value="1">1회</option>
-                                    <option value="2">2회</option>
-                                    <option value="3">3회</option>
-                                  </select>
-                                </td>
-                                <td>3일</td>
-                              </tr>
-                              <tr>
-                                <td>c-05</td>
-                                <td>피터정</td>
-                                <td>
-                                  <select name="times" class="custom-select">
-                                    <option selected>선택</option>
-                                    <option value="1">1회</option>
-                                    <option value="2">2회</option>
-                                    <option value="3">3회</option>
-                                  </select>
-                                </td>
-                                <td>3일</td>
-                              </tr>
+                            <table class="table table-bordered" id="preMed" style="text-align: center;">
+                              <thead>
+	                              <tr>
+	                                <th style="background: lightgray;">약 코드</th>
+	                                <th style="background: lightgray;">약 명칭</th>
+	                                <th style="background: lightgray;">1일 투여횟수</th>
+	                                <th style="background: lightgray;">총 투여일수</th>
+	                              </tr>
+                              </thead>
+                              <tbody id="table1">
+	                              <!-- <tr>
+	                                <td>A-02 약코드</td>
+	                                <td>알버트정 약명칭</td>
+	                                <td>
+	                                  <select name="times" class="custom-select">
+	                                    <option selected>선택</option>
+	                                    <option value="1">1회</option>
+	                                    <option value="2">2회</option>
+	                                    <option value="3">3회</option>
+	                                  </select>
+	                                </td>
+	                                <td>3일 총투여일수</td>
+	                              </tr> -->
+                              </tbody>
+                             
                             </table>
                           </td>
                         </tr>
@@ -393,13 +372,12 @@
                       
                       <!-- Modal body -->
                       <div class="modal-body">
-                      
-                      	<form action=""></form>
                       	
                       	<span>약 명칭</span>
                       	<br>
                       	
                       	<table id="gg">
+
                   			<c:forEach var="m" items="${ mList }" varStatus="s">
                   				
                   				<c:if test="${ s.index mod 4 eq 0 }">
@@ -407,7 +385,7 @@
                   				</c:if>
                   				
                   				<td><input id="sss" type="checkbox" name="aa" value="${ m.medNo }"><span>${ m.medName }</span></td>
-                  				
+         				
                   				<c:if test="${ s.index mod 4 eq 3 }">
                   					</tr>
                   				</c:if>
@@ -458,6 +436,25 @@
             		}
             		console.log(list);
             		
+            		$.each(list, function(index, obj){
+            			var row = '<tr>'
+   				     		+ '<td>' + obj.medNo + '</td>'
+   				     		+ '<td>' + obj.medName + '</td>'
+   				     		+ '<td>' +  
+   				     					'<select name="times" class="custom-select">'
+   				     				 +    '<option selected>선택</option>'
+   				     				 +	  '<option value="1">1회</option>'
+   				     				 +    '<option value="2">2회</option>'
+   				     				 +    '<option value="3">3회</option>'
+				                     +  '</select>'  + '</td>'
+   				     		+ '<td>' + obj.times + '</td>'
+   				     	 + '</tr>';
+            			$("#table1").append(row);
+            		})
+            			
+            		
+            		
+            		
             		/*
             		if($("input:checkbox[name=aa]:checked").length != 0){
             			$("input:checkbox[name=aa]:checked").each(function(){
@@ -465,14 +462,11 @@
             				list.push(obj);
             			})
             		}*/
-            		
               		//let tt = $("input:checkbox[name=aa]:checked").closest('td').text();
+            		
+            		
+            		
             	})
-            	
-            	
-            	
-            	
-            	
               </script>
               
               
