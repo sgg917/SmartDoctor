@@ -395,6 +395,17 @@
 		   and appr_no = #{apprNo}
 	</select>
 	
+	<!-- 사용자_결재의견 담기 -->
+	<select id="selectLineComment" resultMap="lineResult">
+		select
+		       emp_name
+             , line_comment
+		  from appr_line l
+          join member m on (l.emp_no = m.emp_no)
+		 where line_status = 'Y'
+		   and appr_no = #{apprNo}
+	</select>
+	
 	<!-- 사용자_결재문서함 리스트 조회 -->
 	<select id="selectGetListCount" resultType="_int">
 		select
