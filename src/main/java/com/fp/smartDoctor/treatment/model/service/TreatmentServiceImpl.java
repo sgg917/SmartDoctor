@@ -144,4 +144,5 @@ public class TreatmentServiceImpl implements TreatmentService{
 		return tDao.updatePRpay(sqlSession, clinicNo);
 	}
 
+	
 }

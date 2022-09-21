@@ -97,6 +97,7 @@ public class TreatmentController {
 	}
 
 	
+	
 	// 진료화면 조회
 	@RequestMapping("enroll.tmt")
 	public ModelAndView enrollTreatment(Patient p, Clinic c, Disease d, HttpSession session, ModelAndView mv) {

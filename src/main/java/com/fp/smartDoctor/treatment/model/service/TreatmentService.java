@@ -74,4 +74,5 @@ public interface TreatmentService {
 	
 	//입원 하기 누른 후, 수납에서 입원료 변경
 	int updatePRpay(int clinicNo);
+	
 }
