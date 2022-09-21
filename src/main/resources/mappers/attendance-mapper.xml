@@ -203,9 +203,8 @@
 		            ) C ON (ATT_DATE = WORKING_DAY AND A.EMP_NO = C.EMP_NO)
 		 WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
 		   AND WEEK IN ('월', '화', '수', '목', '금')
-		   AND NVL(TO_DATE(ATT_DATE), TO_DATE(WORKING_DAY)) BETWEEN TO_DATE('2022-09-01') AND TO_DATE('2022-09-15')
 		   AND NVL(A.STATUS, '결근') IN ('정상', '지각', '결근', '휴가')
-		 ORDER BY WORKING_DAY DESC 
+		 ORDER BY WORKING_DAY DESC, EMP_NAME
 	</select>
 	
 	<!-- 출근 insert -->
