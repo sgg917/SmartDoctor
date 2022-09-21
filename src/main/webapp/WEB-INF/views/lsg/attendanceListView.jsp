@@ -5,6 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 로고 -->
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 <meta charset="UTF-8">
 <title>출퇴근 관리</title>
 <style>
@@ -240,8 +242,8 @@ th {
 
 			<!-- 퇴근 Modal -->
 			<div class="modal fade" id="endAttModal">
-				<div class="modal-dialog">
-					<div class="modal-content">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content" style="background:white;">
 							<!-- Modal body -->
 							<div class="modal-body" style="text-align:center;">
 								<br>
@@ -255,7 +257,7 @@ th {
 							<div class="modal-footer" style="justify-content:center;">
 								<form action="end.att" method="POST">
 									<input type="hidden" name="no" value="${ loginUser.empNo }">
-									<button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 									<button class="btn green-btn">확인</button>
 								</form>
 							</div>
@@ -343,7 +345,7 @@ th {
 						
 							$('#startAttBtn').attr('disabled', true);
 							$('#sTime').html("출근 &nbsp;&nbsp;&nbsp;&nbsp;" + sTime);
-							$('input[name=startTime]').value(sTime);
+							$('input[name=startTime]').val(sTime);
 						}
 						
 					},

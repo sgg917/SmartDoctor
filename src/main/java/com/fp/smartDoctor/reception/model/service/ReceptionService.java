@@ -6,6 +6,7 @@ import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
+import com.fp.smartDoctor.reception.model.vo.Receipt;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
@@ -66,4 +67,6 @@ public interface ReceptionService {
 	// 18. 처방전 -> 약 정보 리스트 조회
 	ArrayList<Medicine> selectMedicineList(int clinicNo);
 	
+	// 19. 수납 영수증 조회
+	Receipt selectReceipt(int clinicNo);
 }

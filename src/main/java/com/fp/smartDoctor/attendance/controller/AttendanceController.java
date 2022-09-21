@@ -56,7 +56,7 @@ public class AttendanceController {
 		int y = 0; int l = 0; int e = 0; int n = 0;
 		
 		for(Attendance i : alist) {
-			System.out.println(i.getStatus());
+			//System.out.println(i.getStatus());
 			switch(i.getStatus()) {
 			case "정상" : y++; break;
 			case "지각" : l++; break;
@@ -157,18 +157,16 @@ public class AttendanceController {
 		
 		//System.out.println(a);
 		
-		// 퇴근 update 결과 담기
+		// 퇴근시간, 근태 상태 update 결과 담기
 		int result = aService.endAttendance(no);
 		
 		if(result > 0) {
-			
 			return "redirect:list.att?no=" + no;
-			
 		}else {
-			
 			request.setAttribute("errorMsg", "퇴근 등록에 실패하였습니다.");
 			return "common/errorPage";
 		}
+			
 	}
 	
 	// 휴가 리스트 조회

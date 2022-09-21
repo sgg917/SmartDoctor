@@ -126,6 +126,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 	public ArrayList<Attendance> ajaxSearchAttendance(PageInfo pi, HashMap hm) {
 		return aDao.ajaxSearchAttendance(sqlSession, pi, hm);
 	}
+
 	
 	
 

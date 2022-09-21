@@ -37,7 +37,7 @@
 		  from member m 
 		  left join department d on (m.dept_no = d.dept_no)
 		  join job j on (m.job_no = j.job_no)
-		 where status = 'Y'
+		 where status in ('Y', 'A')
 		 order
 		    by m.job_no
 	</select>
@@ -330,6 +330,16 @@
 		   set emp_name = #{empName}
 		     , job_no = #{jobNo}
 		     , email = #{email}
+	<if test="deptNo == 4">
+		<choose>
+			<when test="jobNo == 6 or jobNo == 7">
+				, status = 'A'
+			</when>
+			<otherwise>
+				, status = 'Y'
+			</otherwise>
+		</choose>
+	</if>
 		 where emp_no = #{empNo}
 	</update>
 	

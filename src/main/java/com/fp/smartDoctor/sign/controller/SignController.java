@@ -2,6 +2,7 @@ package com.fp.smartDoctor.sign.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -597,6 +598,127 @@ public class SignController {
 		}
 	}
 	
+	// 사용자_일괄결재
+	@RequestMapping("allApprove.si")
+	public String updateAllApprove(List<String> noArr, HttpSession session) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String empNo = loginUser.getEmpNo();
+		String empNo2 = loginUser.getEmpNo();
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("empNo", empNo);
+		map.put("empNo2", empNo2);
+		
+		//int apprResult = sService.updateAllApproval(empNo); 
+		//int lineResult = sService.updateAllLine(empNo);
+		
+		
+		int apprResult = sService.updateAllApproval2(map); 
+		int lineResult = sService.updateAllLine2(map);
+
+		if(apprResult > 0 && lineResult > 0) {
+			
+			session.setAttribute("alertMsg", "결재 승인되었습니다.");
+			return "redirect:apprStandbyList.si";
+		}else {
+			
+			session.setAttribute("alertMsg", "결재처리에 실패하였습니다.");
+			return "redirect:apprStandbyList.si";
+		}
+	}
 	
+	// 사용자_임시저장
+	@RequestMapping("apprStorageInsert.si")
+	public String insertStorageAppr(Sign s, Line i, MultipartFile upfile, HttpSession session, Model model) {
+		
+		if(!upfile.getOriginalFilename().equals("")) {
+			
+			String saveFilePath = FileUpload.saveFile(upfile, session, "resources/appr_files/");
+			
+			s.setOriginName(upfile.getOriginalFilename());
+			s.setChangeName(saveFilePath);
+		}
+		
+		ArrayList<Line> lineList = i.getLineList();
+		ArrayList<Line> refList = i.getRefList();
+
+		int result = sService.insertStorageAppr(s);
+		
+		if(lineList != null) { // 결재자가 있을 시 insert
+			
+			int num = 1;
+			for(Line l : lineList) { // lineLevel 세팅
+				l.setLineLevel(num);
+				num++;
+			}
+			sService.insertLine(lineList);
+		}
+		
+		if(refList != null) { // 참조자가 있을 시 insert
+			sService.insertRef(refList);
+		}
+		
+		if(result > 0) { // 성공
+			
+			session.setAttribute("alertMsg", "임시저장함에 보관되었습니다.");
+			return "redirect:apprEnrollForm.si";
+		}else {
+			
+			session.setAttribute("alertMsg", "임시저장에 실패하였습니다.");
+			return "redirect:apprEnrollForm.si";
+		}
+		
+	}
+	
+	// 사용자_임시저장함에서 다시 임시저장, 기안하기
+	@RequestMapping("againStorageReport.si")
+	public String againStorageReport(Sign s, Line i, MultipartFile upfile, HttpSession session) {
+		
+		int apprNo = s.getApprNo();
+		
+		if(!upfile.getOriginalFilename().equals("")) {
+			
+			String saveFilePath = FileUpload.saveFile(upfile, session, "resources/appr_files/");
+			
+			s.setOriginName(upfile.getOriginalFilename());
+			s.setChangeName(saveFilePath);
+		}
+
+		ArrayList<Line> lineList = i.getLineList();
+		ArrayList<Line> refList = i.getRefList();
+		
+		int apprResult = sService.updateStorage(s);
+		int delResult = sService.deleteApprLine(s);
+		
+		if(lineList != null) {
+			
+			int num = 1;
+			for(Line l : lineList) { // 결재자 lineLevel, apprNo 세팅
+				l.setLineLevel(num);
+				l.setApprNo(s.getApprNo());
+				num++;
+			}
+			sService.insertStorageLine(lineList);
+		}
+		
+		if(refList != null) { // 참조자가 있을 시에만 insert 요청
+			
+			for(Line l : refList) { // apprNo 세팅
+				l.setApprNo(s.getApprNo());
+			}
+
+			sService.insertStorageRef(refList);
+		}
+		
+		if(apprResult > 0) {
+			session.setAttribute("alertMsg", "임시저장 되었습니다.");
+			return "redirect:storageReport.si?apprNo=" + apprNo;
+		}else {
+			session.setAttribute("alertMsg", "임시저장 실패하였습니다.");
+			return "redirect:apprStorageList.si";
+		}
+		
+	}
 	
 }

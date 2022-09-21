@@ -203,7 +203,7 @@ input {
 												<td><button class="detail" 
 														 onclick="location.href='prescription.pt?clinicNo=${c.clinicNo}'">조회</button></td>
 												<td><button class="detail" 
-														onclick="location.href='receipt.pt'">조회</button></td>
+														onclick="location.href='receipt.pt?clinicNo=${c.clinicNo}'">조회</button></td>
 											</tr>
 										</c:forEach>
 									</c:otherwise>

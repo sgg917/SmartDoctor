@@ -92,10 +92,6 @@
 		 WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
 		   AND NVL(EMP_NO, #{empNo}) = #{empNo}
 		   AND WEEK IN ('월', '화', '수', '목', '금')
-		   <!-- 
-		   AND NVL(TO_DATE(ATT_DATE), WORKING_DAY) BETWEEN TO_DATE('2022-09-01') AND TO_DATE(SYSDATE)
-		   AND NVL(STATUS, 'N') IN ('Y', 'L', 'E', 'N')
-		    -->
 		<choose>
 			<when test='startDate != null and endDate != null and !startDate.equals("") and !endDate.equals("")'>
 			   AND NVL(TO_DATE(ATT_DATE), WORKING_DAY) BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate})
@@ -207,9 +203,8 @@
 		            ) C ON (ATT_DATE = WORKING_DAY AND A.EMP_NO = C.EMP_NO)
 		 WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
 		   AND WEEK IN ('월', '화', '수', '목', '금')
-		   AND NVL(TO_DATE(ATT_DATE), TO_DATE(WORKING_DAY)) BETWEEN TO_DATE('2022-09-01') AND TO_DATE('2022-09-15')
 		   AND NVL(A.STATUS, '결근') IN ('정상', '지각', '결근', '휴가')
-		 ORDER BY WORKING_DAY DESC 
+		 ORDER BY WORKING_DAY DESC, EMP_NAME
 	</select>
 	
 	<!-- 출근 insert -->
@@ -252,13 +247,15 @@
 	<update id="endAttendance">
 		update attendance
 		   set end_time = to_char(sysdate, 'HH24:MI')
-		   	 , total_time = 
-			 case when to_date(end_time, 'HH:MI') &gt; to_date('04:00', 'HH:MI') then '( to_date(end_time, "HH24:MI") - to_date(start_time, "HH24:MI") ) * 24 * 60 - 60'
-		          when to_date(end_time, 'HH:MI') &lt;= to_date('04:00', 'HH:MI') then '( to_date(end_time, "HH24:MI") - to_date(start_time, "HH24:MI") ) * 24 * 60'
-		     end
-     		 , status = 
-		     case when end_time &gt;= '18:00' then '정상'
-		     	  when start_time &gt;= '09:00' then '지각'
+		     , total_time = 
+		     case when (to_date(end_time, 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24 &lt; 1
+		            then round( (to_date(end_time, 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24, 0) 
+		            when (to_date(end_time, 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24 &gt;= 1
+		            then round( (to_date(end_time, 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24, 0) - 1
+		       end
+		     , status = 
+		     case when to_date(start_time, 'HH24:MI') &gt; to_date('09:00', 'HH24:MI') then '지각'
+		          when to_date(end_time, 'HH24:MI') &gt;= to_date('18:00', 'HH24:MI') then '정상'
 		     end
 		 where emp_no = #{empNo}
 		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
@@ -467,7 +464,6 @@
 			 )
 	</insert>
 	
-	<!-- 전자결재_휴가 신청 -->
 	<insert id="insertVacation">
 		insert
 		  into vacation
@@ -488,6 +484,24 @@
 			 , #{vacDays}
 			 , #{vacCause}
 			 )
+	</insert>
+	
+	<insert id="insertAttVacation">
+		insert
+		  into attendance
+		     (
+		       att_no
+		     , emp_no
+		     , att_date
+		     , status
+		     )
+		values
+		     (
+		       seq_attno.nextval
+		     , #{empNo}
+		     , #{attDate}
+		     , 'V'
+		     )
 	</insert>
 	
 	<!-- 휴가신청서 조회 -->

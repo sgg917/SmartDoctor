@@ -6,6 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.appr-doc-btn{
+		float: left; 
+		height: 35px;
+	}
+	.appr-doc-btn:hover{
+		background:darkgreen; 
+	    color:white;
+	    border:none; 
+	}
+	.appr-doc-btn>i{
+		color: white;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="../common/navbar.jsp" />
@@ -21,8 +35,8 @@
 					<br><br>
 					<div class="appr-table-wrapper" style="margin-left:40px;">
 						<button type="button" class="btn btn-outline-success appr-doc-btn"
-							style="float: left; height: 35px;">
-							<i class="mdi mdi-playlist-check" style="color: white;"></i>&nbsp;
+							onclick="allApprove();">
+							<i class="mdi mdi-playlist-check"></i>&nbsp;
 							<span>일괄결재</span>
 						</button>
 						<div class="input-group appr-search-div" style="float: right;">
@@ -36,10 +50,26 @@
 								<img src="resources/images/kma/search.png">
 							</button>
 						</div>
+						
+						<script>
+							function allApprove(){
+								
+								let noArr = [];
+								$('input:checkbox :checked').each(function(){
+									noArr.push( $(this).next().text() );
+								})
+								
+								let result = confirm("일괄결재 하시겠습니까? 일괄결재 시 결재의견은 '승인합니다'로 통일됩니다.");
+								if(result == true){
+									location.href='allApprove.si?noArr=' + noArr;
+								}
+							}
+						</script>
 
 						<table class="table appr-standby-tb" id="appr-all-table">
 							<thead>
-								<tr>
+								<tr>	
+									<th>선택</th>
 									<th>문서번호</th>
 									<th>결재양식</th>
 									<th>제목</th>
@@ -57,6 +87,7 @@
 									<c:otherwise>
 										<c:forEach var="a" items="${ list }">
 											<tr>
+												<td><input type="checkbox"></td>
 												<td class="apprNo">${ a.apprNo }</td>
 												<td>${ a.formTitle }</td>
 												<td>${ a.apprTitle } &nbsp;

@@ -361,7 +361,7 @@
 		 where appr_storage = 'N'
 		   and v.emp_no = #{empNo}
 		 order
-		    by appr_no desc
+		    by v.enroll_date desc
 	</select>
 	
 	<!-- 사용자_기안문서함 상세조회 -->
@@ -434,7 +434,7 @@
 		   and l.emp_no = #{empNo}
 		   and line_refer= 'N'
 		 order
-		    by appr_no desc
+		    by v.enroll_date desc
 	</select>
 	
 	<!-- 결재완료일 조회 
@@ -666,5 +666,97 @@
 			  , #{apprNo}
 			  )
 	</insert>
+	
+	<!-- 사용자_일괄결재 -->
+	<update id="updateAllApproval">
+		update 
+		       approval
+		   set appr_status =
+		       case when appr_status in('대기', '진행') and appr_now = appr_total then '완료'
+		            else '진행'
+		       end 
+		     , appr_now =
+		       case when appr_status in('대기', '진행') and appr_now = appr_total then appr_now
+		            else appr_now + 1
+		        end
+		 where appr_no in (select
+                                   v.appr_no
+                              from approval v
+                              join appr_line l on (v.appr_no = l.appr_no)
+                             where (appr_status = '대기' 
+                                or appr_status = '진행')
+                               and appr_now = line_level
+                               and l.emp_no = #{empNo}
+                               and appr_storage = 'N')
+	</update>
+	
+	<update id="updateAllLine">
+		update 
+		       appr_line
+		   set line_status = 'Y'
+		     , line_comment = '승인합니다.'
+		     , line_date = sysdate
+		 where emp_no = #{empNo}
+           and appr_no in (select
+                                  l.appr_no
+                             from appr_line l 
+                             join approval v on (l.appr_no = v.appr_no)
+                            where (appr_status = '대기' 
+                               or appr_status = '진행')
+                              and appr_now = line_level
+                              and l.emp_no = #{empNo2}
+                              and appr_storage = 'N')
+	</update>
+	
+	<!-- 사용자_임시저장 -->
+	<insert id="insertStorageAppr">
+		insert
+		  into approval
+		  	 (
+		  	   appr_no
+			 , appr_title
+			 , appr_content
+             , appr_storage
+			 , origin_name
+			 , change_name
+			 <if test='apprTotal != null and !"".equals(apprTotal)'>			 
+			 , appr_total
+			 </if>
+			 , emp_no
+			 , form_no
+		  	 ) 
+		values
+			 (
+			   seq_apno.nextval
+			 , #{apprTitle}
+			 , #{apprContent}
+             , 'Y'
+			 , #{originName}
+			 , #{changeName}
+			 <if test='apprTotal != null and !"".equals(apprTotal)'>
+			 , #{apprTotal}
+			 </if>
+			 , #{empNo}
+			 , #{formNo}
+			 )
+	</insert>
+	
+	<!-- 사용자_임시저장함 결재문작성페이지에서 임시저장 -->
+	<update id="updateStorage">
+		update
+		       approval
+		   set appr_title = #{apprTitle}
+		     , appr_content = #{apprContent}
+		     , enroll_date = sysdate
+		     <if test='originName != null and !originName.equals("") and changeName != null and !changeName.equals("")'>
+		     , origin_name = #{originName}
+		     , change_name = #{changeName}
+		     </if>
+		     , appr_total = #{apprTotal}
+		     <if test='formNo != null and formNo != 0'>
+		     , form_no = #{formNo}
+		     </if>
+		 where appr_no = #{apprNo}
+	</update>
 	
 </mapper>

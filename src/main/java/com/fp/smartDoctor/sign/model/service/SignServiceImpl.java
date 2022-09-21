@@ -209,6 +209,31 @@ public class SignServiceImpl implements SignService {
 	public ArrayList<Line> selectLineComment(int apprNo) {
 		return sDao.selectLineComment(sqlSession, apprNo);
 	}
+	@Override
+	public int updateAllApproval(String empNo) {
+		return sDao.updateAllApproval(sqlSession, empNo);
+	}
+	@Override
+	public int updateAllLine(String empNo) {
+		return sDao.updateAllLine(sqlSession, empNo);
+	}
+	
+	@Override
+	public int updateAllApproval2(HashMap<String, String> map) {
+		return sDao.updateAllApproval2(sqlSession, map);
+	}
+	@Override
+	public int updateAllLine2(HashMap<String, String> map) {
+		return sDao.updateAllLine2(sqlSession, map);
+	}
+	@Override
+	public int insertStorageAppr(Sign s) {
+		return sDao.insertStorageAppr(sqlSession, s);
+	}
+	@Override
+	public int updateStorage(Sign s) {
+		return sDao.updateStorage(sqlSession, s);
+	}
 	
 	
 

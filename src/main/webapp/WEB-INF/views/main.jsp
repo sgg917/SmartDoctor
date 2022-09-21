@@ -20,6 +20,14 @@
 	background-color: #F2F2F2;
 	border: 1px solid blue;
 }
+
+.stretch-card > .card {
+ 	height:150px;
+}
+
+.bg-gradient-success {
+	background: linear-gradient(to right, #84d9d2, #07cdae) !important;
+}
 </style>
 
 
@@ -53,15 +61,47 @@
 		<div class="main-panel">
 			<div class="content-wrapper">
 				<!-- 이 안에서 작업해 주세요 -->
-				메인 내용 담기
+				
+				<!-- 내원 환자 수 카드 -->
+				<div class="row" id="patientCountArea">
+	              <div class="col-md-4 stretch-card grid-margin">
+	                <div class="card bg-gradient-danger card-img-holder text-white">
+	                  <div class="card-body">
+	                    <!-- <img src="../assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" /> -->
+	                    <h4 class="font-weight-normal mb-3">오늘 내원 환자 수 <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+	                    </h4>
+	                    <h2 class="mb-5" id="day">15</h2>
+	                  </div>
+	                </div>
+	              </div>
+	              <div class="col-md-4 stretch-card grid-margin">
+	                <div class="card bg-gradient-info card-img-holder text-white">
+	                  <div class="card-body">
+	                     <!-- <img src="../assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" /> -->
+	                    <h4 class="font-weight-normal mb-3">이번 주 내원 환자 수 <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+	                    </h4>
+	                    <h2 class="mb-5" id="week">1,253</h2>
+	                  </div>
+	                </div>
+	              </div>
+	              <div class="col-md-4 stretch-card grid-margin">
+	                <div class="card bg-gradient-success card-img-holder text-white">
+	                  <div class="card-body">
+	                     <!-- <img src="../assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" /> -->
+	                    <h4 class="font-weight-normal mb-3">이번 달 내원 환자 수 <i class="mdi mdi-diamond mdi-24px float-right"></i>
+	                    </h4>
+	                    <h2 class="mb-5" id="month">40,949</h2>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+				<!-- 내원 환자 수 카드 끝 -->
 			</div>
 			<jsp:include page="common/footer.jsp" />
 		</div>
 
 
 	</div>
-
-	
 
 </body>
 </html>
