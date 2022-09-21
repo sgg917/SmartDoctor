@@ -323,13 +323,14 @@ public class TreatmentController {
 		return mv;
 	}
 	
-	
+	/* 언니 오류나서 잠깐 주석했어용~
 	@RequestMapping("insert.tmt")
 	public String insertTreatment(Clinic c) {
 		
 		int clinicResult = tService.updateClinic(c);
 		
 	}
+	*/
 	
 	/*
 	 * //입원실 예약 후 수납 입원료 변경
