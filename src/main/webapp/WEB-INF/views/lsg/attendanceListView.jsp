@@ -240,8 +240,8 @@ th {
 
 			<!-- 퇴근 Modal -->
 			<div class="modal fade" id="endAttModal">
-				<div class="modal-dialog">
-					<div class="modal-content">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content" style="background:white;">
 							<!-- Modal body -->
 							<div class="modal-body" style="text-align:center;">
 								<br>
@@ -255,7 +255,7 @@ th {
 							<div class="modal-footer" style="justify-content:center;">
 								<form action="end.att" method="POST">
 									<input type="hidden" name="no" value="${ loginUser.empNo }">
-									<button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 									<button class="btn green-btn">확인</button>
 								</form>
 							</div>
