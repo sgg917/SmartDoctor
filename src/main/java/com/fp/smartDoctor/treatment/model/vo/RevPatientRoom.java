@@ -12,7 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class RevPatientRoom {
-	private int bookingNo;
+	private int pbookingNo;
 	private int proomNo;
 	private int clinicNo;
 	private String roomName;
@@ -20,5 +20,6 @@ public class RevPatientRoom {
 	private String leaveDate;
 	private String memo;
 	private String patientStatus;
+	private int stayDate; //입원기간
 	
 }

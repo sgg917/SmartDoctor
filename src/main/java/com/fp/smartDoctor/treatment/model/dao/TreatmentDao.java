@@ -12,6 +12,7 @@ import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
+import com.fp.smartDoctor.treatment.model.vo.RevPatientRoom;
 import com.fp.smartDoctor.treatment.model.vo.Surgery;
 
 @Repository
@@ -105,8 +106,8 @@ public class TreatmentDao {
 	
 	
 	//입원실 예약 풀캘린더 정보 조회
-	public List<RevOProom> getpCalendar(SqlSessionTemplate sqlSession)  {
-		List<RevOProom> calendar = sqlSession.selectList("treatmentMapper.pcalendarList");
+	public List<RevPatientRoom> getpCalendar(SqlSessionTemplate sqlSession)  {
+		List<RevPatientRoom> calendar = sqlSession.selectList("treatmentMapper.pcalendarList");
 		return calendar;
 	}
 	
@@ -116,5 +117,9 @@ public class TreatmentDao {
 		return sqlSession.insert("treatmentMapper.insertp", paraMap);
 	}
 
+	//입원실 예약 후 수납 입원료 업데이트
+	public int updatePRpay(SqlSessionTemplate sqlSession, int clinicNo) {
+		return sqlSession.update("treatmentMapper.updatePRpay",clinicNo);
+	}
 		
 }

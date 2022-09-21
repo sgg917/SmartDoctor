@@ -14,6 +14,7 @@ import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
+import com.fp.smartDoctor.treatment.model.vo.RevPatientRoom;
 import com.fp.smartDoctor.treatment.model.vo.Surgery;
 
 
@@ -127,7 +128,7 @@ public class TreatmentServiceImpl implements TreatmentService{
 	
 	//압원실 캘린더 조회
 	@Override
-	public List<RevOProom> getpCalendar() {
+	public List<RevPatientRoom> getpCalendar() {
 		return tDao.getpCalendar(sqlSession);
 	}
 
@@ -137,6 +138,10 @@ public class TreatmentServiceImpl implements TreatmentService{
 		return tDao.insertPR(sqlSession, paraMap);
 	}
 
-
+	//입원실 예약 이후 수납에서 입원료 업데이트
+	@Override
+	public int updatePRpay(int clinicNo) {
+		return tDao.updatePRpay(sqlSession, clinicNo);
+	}
 
 }

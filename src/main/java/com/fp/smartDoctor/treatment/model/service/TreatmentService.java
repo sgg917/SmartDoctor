@@ -9,6 +9,7 @@ import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
+import com.fp.smartDoctor.treatment.model.vo.RevPatientRoom;
 import com.fp.smartDoctor.treatment.model.vo.Surgery;
 
 public interface TreatmentService {
@@ -69,5 +70,8 @@ public interface TreatmentService {
 	int insertPR(HashMap<String, String> paraMap);
 	
 	//입원예약 풀캘린더
-	List<RevOProom> getpCalendar();
+	List<RevPatientRoom> getpCalendar();
+	
+	//입원 하기 누른 후, 수납에서 입원료 변경
+	int updatePRpay(int clinicNo);
 }
