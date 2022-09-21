@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.treatment.model.service.TreatmentService;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Disease;
@@ -102,8 +102,12 @@ public class TreatmentController {
 	@RequestMapping("enroll.tmt")
 	public ModelAndView enrollTreatment(Patient p, Clinic c, Disease d, HttpSession session, ModelAndView mv) {
 		
+		// 로그인한 의사의 사번
+		String empNo = ((Member)session.getAttribute("loginUser")).getEmpNo();
+		//System.out.println("empNo" + empNo);
+		
 		// 진료할 환자의 정보 조회
-		Patient nowPatient = tService.selectNowPatient(p);
+		Patient nowPatient = tService.selectNowPatient(p, empNo);
 		System.out.println("진료중인 환자 : " + nowPatient);
 		
 		if(nowPatient == null) {
@@ -323,14 +327,26 @@ public class TreatmentController {
 		return mv;
 	}
 	
-	/* 언니 오류나서 잠깐 주석했어용~
 	@RequestMapping("insert.tmt")
-	public String insertTreatment(Clinic c) {
+	public String insertTreatment(Clinic c, HttpSession session, String checkSurgery, String clinicNo) {
 		
-		int clinicResult = tService.updateClinic(c);
+		// 진료테이블 업데이트
+		int clinicResult = tService.updateClinic(c); 
+		System.out.println(clinicNo);
+		System.out.println(c);
+		
+		if(clinicResult > 0) {
+			session.setAttribute("alertMsg", "진료 완료되었습니다!");
+			System.out.println("성공");
+			return "redirect:/";
+		}else {
+			System.out.println("실패");
+			session.setAttribute("errorMsg", "진료 실패");
+			return "ljy/enrollTreatment";
+		}
 		
 	}
-	*/
+	
 	
 	/*
 	 * //입원실 예약 후 수납 입원료 변경

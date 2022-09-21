@@ -63,8 +63,13 @@ public class TreatmentDao {
 	}
 	
 	// 진료중인 환자 조회
-	public Patient selectNowPatient(SqlSessionTemplate sqlSession, Patient p) {
-		return sqlSession.selectOne("treatmentMapper.selectNowPatient", p);
+	public Patient selectNowPatient(SqlSessionTemplate sqlSession, Patient p, String empNo) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("Patient", p);
+		map.put("empNo", empNo);
+		
+		return sqlSession.selectOne("treatmentMapper.selectNowPatient", map);
 	}
 	
 	// 진료할 환자의 과거 내역 조회

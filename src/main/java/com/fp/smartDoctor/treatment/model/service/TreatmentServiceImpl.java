@@ -79,8 +79,8 @@ public class TreatmentServiceImpl implements TreatmentService{
 
 	// 진료중인 환자 조회
 	@Override
-	public Patient selectNowPatient(Patient p) {
-		Patient nowPatient = tDao.selectNowPatient(sqlSession, p);
+	public Patient selectNowPatient(Patient p, String empNo) {
+		Patient nowPatient = tDao.selectNowPatient(sqlSession, p, empNo);
 		return nowPatient;
 	}
 

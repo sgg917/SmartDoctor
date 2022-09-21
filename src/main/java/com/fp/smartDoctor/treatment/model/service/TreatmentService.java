@@ -46,7 +46,7 @@ public interface TreatmentService {
 	List<RevOProom> getCalendar();
 	
 	// 진료중인 환자 조회
-	Patient selectNowPatient(Patient p);
+	Patient selectNowPatient(Patient p, String empNo);
 	
 	// 진료할 환자의 과거 내역 조회
 	ArrayList<Clinic> selectPatientInfo(String chartNo);

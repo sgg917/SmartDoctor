@@ -142,7 +142,8 @@
                   <div class="card-body">
 
                     <!-- style="border: 2px solid blue;" -->
-                    <form action="">
+                    <form action="insert.tmt">
+                    <input type="hidden" name="clinicNo" value="${ nowPatient.clinicNo }">
                     <br><br>
                       <table id="outout"style="text-align: center; margin:auto;">
 
@@ -167,7 +168,7 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td>${ nowPatient.chartNo }</td>
+                                  <td><span name="chartNo">${ nowPatient.chartNo }</span></td>
                                   <td>${ nowPatient.patientName }</td>
                                   <td>${ nowPatient.gender }</td>
                                   <td>${ nowPatient.age }</td>
@@ -265,8 +266,8 @@
                             
                             <span style="font-weight: bold;">수술</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                            <input type="radio" class="form-check-input" name="surgery" value="yes" checked>수술O&nbsp;
-                            <input type="radio" class="form-check-input" name="surgery" value="no" >수술X&nbsp;&nbsp;
+                            <input type="radio" class="form-check-input" name="checkSurgery" value="yes" checked>수술O&nbsp;
+                            <input type="radio" class="form-check-input" name="checkSurgery" value="no" >수술X&nbsp;&nbsp;
 
 							<select name="chooseSurgery" id="chooseSurgery">
 								<option aria-placeholder="" id="choose" selected>수술선택</option>
@@ -335,13 +336,16 @@
                           </td>
                         </tr>
                       </table>
+                      
+                       <div class="template-demo">
+	                      <button type="submit" class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 100px;">저장</button>
+	                      <button type="reset" class="btn btn-gradient-primary btn-sm" style="float: right; background: gray; color: white; border: none; width: 100px;">초기화</button>
+	                      <br><br>
+	                    </div>
+                      
                     </form>
 
-                    <div class="template-demo">
-                      <a class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 100px;" href="insert.tmt">저장</a>
-                      <button type="reset" class="btn btn-gradient-primary btn-sm" style="float: right; background: gray; color: white; border: none; width: 100px;">초기화</button>
-                      <br><br>
-                    </div>
+                   
                     <br><br>
                   </div>
                 </div>

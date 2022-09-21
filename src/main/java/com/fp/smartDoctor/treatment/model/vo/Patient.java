@@ -27,5 +27,6 @@ public class Patient {
 	private int age;
 	private String gender;
 	private String diagnosis;
+	private String clinicNo;
 
 }

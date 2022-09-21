@@ -28,6 +28,7 @@ public class Clinic {
 	private int fee;
 	private String disease;
 	private String deptName;
+	private String checkSurgery;
 	
 	//수술실 예약 조회
 	private String patientName;
