@@ -343,7 +343,7 @@ th {
 						
 							$('#startAttBtn').attr('disabled', true);
 							$('#sTime').html("출근 &nbsp;&nbsp;&nbsp;&nbsp;" + sTime);
-							$('input[name=startTime]').value(sTime);
+							$('input[name=startTime]').val(sTime);
 						}
 						
 					},
