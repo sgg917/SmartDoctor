@@ -467,7 +467,6 @@
 			 )
 	</insert>
 	
-	<!-- 전자결재_휴가 신청 -->
 	<insert id="insertVacation">
 		insert
 		  into vacation
@@ -488,6 +487,24 @@
 			 , #{vacDays}
 			 , #{vacCause}
 			 )
+	</insert>
+	
+	<insert id="insertAttVacation">
+		insert
+		  into attendance
+		     (
+		       att_no
+		     , emp_no
+		     , att_date
+		     , status
+		     )
+		values
+		     (
+		       seq_attno.nextval
+		     , #{empNo}
+		     , #{attDate}
+		     , 'V'
+		     )
 	</insert>
 	
 	<!-- 휴가신청서 조회 -->

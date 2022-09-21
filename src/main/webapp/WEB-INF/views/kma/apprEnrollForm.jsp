@@ -141,7 +141,6 @@
 					<hr>
 					<br>
 					<form id="insertAppr" action="" method="post" enctype="multipart/form-data" >
-						<input type="hidden" value="" name="apprTotal">
 						<input type="hidden" value="${ loginUser.empNo }" name="empNo">
 						<input type="hidden" value="" name="formNo">
 						<div class="appr-table-wrapper">
@@ -168,7 +167,17 @@
 							
 							<script>
 								function postFormSubmit(url){
-									$("#insertAppr").attr("action", url).submit();
+									
+									let result;
+									if(url == 'apprInsert.si'){
+										result = confirm("결재요청 하시겠습니까?");
+									}else{
+										result = confirm("임시저장 하시겠습니까?");
+									}
+									
+									if(result == true){
+										$("#insertAppr").attr("action", url).submit();
+									}
 								}
 							</script>
 							
@@ -179,7 +188,7 @@
 								</tr>
 								<tr>
 									<th>제목</th>
-									<td><input type="text" name="apprTitle" placeholder="제목을 입력해주세요"></td>
+									<td><input type="text" name="apprTitle" placeholder="제목을 입력해주세요" required></td>
 								</tr>
 								<tr>
 									<th>첨부파일</th>
@@ -573,7 +582,8 @@
 			function selectedApprLine(){ // 결재라인 지정 '선택하기' 버튼 클릭시 form에 넘길 요소
 				
 				let apprTotal = $("#apprLine").children(".ap-md-bd").length;
-				$("input[name=apprTotal]").attr('value', apprTotal); // 총결재자수
+				//$("input[name=apprTotal]").attr('value', apprTotal); // 총결재자수
+				$("#insertAppr").append("<input type='hidden' value='" + apprTotal + "' name='apprTotal'>"); // 총결재자수
 				
 				$("#apprLine").children(".ap-md-bd").each(function(index, item){ // 결재자들 
 					$("#insertAppr").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='lineList[" + index + "].empNo'>")

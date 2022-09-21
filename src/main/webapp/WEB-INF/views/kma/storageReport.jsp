@@ -140,12 +140,11 @@
 					</p>
 					<hr>
 					<br>
-					<form id="insertAppr" action="insertStorageAppr.si" method="post" enctype="multipart/form-data" >
-						<input type="hidden" value="" name="apprTotal">
+					<form id="insertAppr" action="" method="post" enctype="multipart/form-data" >
 						<input type="hidden" value="${ loginUser.empNo }" name="empNo">
 						<input type="hidden" value="${ s.apprNo }" name="apprNo">
 						<div class="appr-table-wrapper">
-							<button type="submit" class="btn btn-success appr-write-btn">
+							<button type="button" class="btn btn-success appr-write-btn" onclick="postFormSubmit('insertStorageAppr.si');">
 								<i class="mdi mdi-arrow-up-bold" style="color: white;"></i>&nbsp;
 								<span>결재요청</span>
 							</button>
@@ -161,10 +160,26 @@
 								<i class="mdi mdi-application menu-icon"></i>&nbsp; 
 								<span>결재양식 선택</span>
 							</button>
-							<button type="button" class="btn btn-outline-success btn-green">
+							<button type="button" class="btn btn-outline-success btn-green" onclick="postFormSubmit('againStorageReport.si');">
 								<i class="mdi mdi-download menu-icon"></i>&nbsp; 
 								<span>임시저장</span>
 							</button>
+							
+							<script>
+								function postFormSubmit(url){
+									
+									let result;
+									if(url == 'insertStorageAppr.si'){
+										result = confirm("결재요청 하시겠습니까?");
+									}else{
+										result = confirm("임시저장 하시겠습니까?");
+									}
+									
+									if(result == true){
+										$("#insertAppr").attr("action", url).submit();
+									}
+								}
+							</script>
 							
 							<table class="table table-bordered appr-table">
 								<tr>
@@ -657,7 +672,7 @@
 			function selectedApprLine(){ // 결재라인 지정 '선택하기' 버튼 클릭시 form에 넘길 요소
 				
 				let apprTotal = $("#apprLine").children(".ap-md-bd").length;
-				$("input[name=apprTotal]").attr('value', apprTotal); // 총결재자수
+				$("#insertAppr").append("<input type='hidden' value='" + apprTotal + "' name='apprTotal'>"); // 총결재자수
 				
 				$("#apprLine").children(".ap-md-bd").each(function(index, item){ // 결재자들 
 					$("#insertAppr").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='lineList[" + index + "].empNo'>")

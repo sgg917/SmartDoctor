@@ -292,4 +292,9 @@ public class SignDao {
 	public int insertStorageAppr(SqlSessionTemplate sqlSession, Sign s) {
 		return sqlSession.insert("signMapper.insertStorageAppr", s);
 	}
+	
+	// 임시저장페이지에서 임시저장
+	public int updateStorage(SqlSessionTemplate sqlSession, Sign s) {
+		return sqlSession.update("signMapper.updateStorage", s);
+	}
 }
