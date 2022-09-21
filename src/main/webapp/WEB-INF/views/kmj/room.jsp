@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,8 @@
 	href="resources/images/favicon-16x16.png">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
-	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'
+	crossorigin='anonymous'></script>
 <style>
 .wrap11 {
 	width: 100%;
@@ -45,6 +47,7 @@
 	border-radius: 50px;
 	border: 0;
 }
+
 .detail {
 	width: 60px;
 	height: 30px;
@@ -65,31 +68,29 @@ b {
 .title {
 	border-radius: 7px;
 	height: 50px;
-
 }
 
 .table {
-	 width: 100%;
+	width: 100%;
 }
 
-.innerArea{
+.innerArea {
 	width: 1000px;
 	height: auto;
 	margin: auto;
 }
 
-#tableArea{
+#tableArea {
 	height: 100%;
 	width: auto;
 	text-align: center;
 	overflow: auto;
 }
-#tableArea>table{
+
+#tableArea>table {
 	width: 100%;
 	box-sizing: border-box;
 }
-
-
 </style>
 
 
@@ -101,7 +102,7 @@ b {
 		<div class="content-wrapper">
 			<!-- 이 안에서 작업해 주세요 -->
 			<div class="wrap11">
-				<br><br><br>
+				<br> <br> <br>
 
 				<div class="innerArea">
 					<table class="table bggray title">
@@ -112,7 +113,9 @@ b {
 					<br>
 
 					<div align="center">
-						<button type="button" class="button">&lt;</button> 2022년 9월 <button type="button" class="button">&gt;</button>
+						<button type="button" class="button">&lt;</button>
+						2022년 9월
+						<button type="button" class="button">&gt;</button>
 					</div>
 
 					<br>
@@ -121,257 +124,80 @@ b {
 							<thead>
 								<tr>
 									<th>날짜 / 호</th>
-									<th>1101호 2인실 (F)</th>
-									<th>1102호 4인실 (F)</th>
-									<th>1301호 2인실 (M)</th>
-									<th>1302호 4인실 (M)</th>
+									<c:forEach var="r" items="${ roomList }">
+										<th>${r.proomNo }호${r.capacity }인실</th>
+									</c:forEach>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>박은빈</td>
-									<td class="bggray">
-										박은빈
-										<br>
-										천우희
-										<br>
-										박민영
-										<br>
-										강하늘
-									</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>5</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>6</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>7</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>8</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>9</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>10</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>11</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>12</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>13</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>14</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>15</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td class="bggray">
-										박은빈
-										<br>
-										천우희
-									</td>
-								</tr>
-								<tr>
-									<td>16</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
 
-								<tr>
-									<td>17</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>18</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>19</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>20</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>21</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>22</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>23</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td class="bggray">
-										박은빈
-										<br>
-										천우희
-										<br>
-										박민영
-										<br>
-										강하늘
-									</td>
-								</tr>
-								<tr>
-									<td>24</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>25</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>26</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>27</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>28</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>29</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>30</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
-								<tr>
-									<td>31</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-									<td>박은빈</td>
-								</tr>
+								<c:forEach var="d" items="${ dayList }">
+									<tr>
+										<td>${ d.date }</td>
+										<td>
+											<c:forEach var="b" items="${ bookingList }">
+													<c:choose>
+														<c:when test="${ d.date == b.date and b.proomNo == '102' }">
+															${ fn:replace(b.nameList, ',', '<br>') }
+														</c:when>
+														<c:otherwise>
+														
+														</c:otherwise>
+													</c:choose>
+	
+												</c:forEach>
+										</td>
+
+										<td>
+											<c:forEach var="b" items="${ bookingList }">
+													<c:choose>
+														<c:when test="${ d.date == b.date and b.proomNo == '104' }">
+															${ fn:replace(b.nameList, ',', '<br>') }
+														</c:when>
+														<c:otherwise>
+														
+														</c:otherwise>
+													</c:choose>
+	
+												</c:forEach>
+										</td>
+										
+										<td>
+											<c:forEach var="b" items="${ bookingList }">
+													<c:choose>
+														<c:when test="${ d.date == b.date and b.proomNo == '202' }">
+															${ fn:replace(b.nameList, ',', '<br>') }
+														</c:when>
+														<c:otherwise>
+														
+														</c:otherwise>
+													</c:choose>
+	
+												</c:forEach>
+										</td>
+										
+										<td>
+											<c:forEach var="b" items="${ bookingList }">
+													<c:choose>
+														<c:when test="${ d.date == b.date and b.proomNo == '204' }">
+															${ fn:replace(b.nameList, ',', '<br>') }
+														</c:when>
+														<c:otherwise>
+														
+														</c:otherwise>
+													</c:choose>
+	
+												</c:forEach>
+										</td>
+								</c:forEach>
 
 							</tbody>
 						</table>
 					</div>
-					
+
 				</div>
-				<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+				<br> <br> <br> <br> <br> <br> <br>
+				<br> <br> <br> <br> <br> <br> <br>
 			</div>
 		</div>
 		<jsp:include page="../common/footer.jsp" />

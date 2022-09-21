@@ -120,7 +120,18 @@
 		<result column="surgery_name" property="surgeryName" />
 		<result column="total" property="total" />
 	</resultMap>
-
+	
+	<!-- proomCalendar result -->
+	<resultMap id="proomResult" type="ProomCalendar">
+		<result column="WORKING_DAY" property="date" />
+		<result column="proom_no" property="proomNo" />
+		<result column="room_name" property="roomName" />
+		<result column="capacity" property="capacity" />
+		<result column="price" property="price" />
+		<result column="namelist" property="nameList" />
+	</resultMap>
+	
+	<!-- 전체 환자 수 조회 -->	
 	<select id="selectListCount" resultType="_int">
 		select
 			   count(*)
@@ -129,7 +140,7 @@
 
 	<!-- 전체 환자 조회 -->
 	<select id="selectList" resultMap="patientResult">
-		select 
+ 		select 
 		       chart_no
 		     , dept_name as "last_dep"
 		     , patient_name
@@ -164,6 +175,8 @@
 		           from patient
               left join department on(last_dep = dept_no)
 		        )
+                  order
+                     by last_visit desc
 	</select>
 
 	<!-- 환자 insert -->
@@ -199,7 +212,7 @@
 		)
 	</insert>
 	
-	<!-- 전체 환자 리스트 조회 -->
+	<!-- 접수할 환자 선택 -->
 	<select id="selectPatient" resultMap="patientResult">
 		select 
 		       chart_no
@@ -429,7 +442,7 @@
 	
 	<!-- 과거 진료 내역 조회 -->
 	<select id="pastClinicList" resultMap="clinicResult">	
-		select 
+   		select 
 			   clinic_no
 			 , chart_no
 			 , enroll_date
@@ -440,6 +453,8 @@
 		  join disease using(diseases_code)
 		 where chart_no = #{chartNo}
 		   and c.status = 'D'
+         order
+            by enroll_date desc;
 	</select>
 	
 	<!-- 과거 진료 내역 수 조회 -->
@@ -515,4 +530,42 @@
          left join surgery s using(SURGERY_NO)
 	    where clinic_no = #{clinicNo}
     </select> 
+    
+ 	<!-- 입원실 출력용 날짜 조회 -->    
+   <select id="selectDateList" resultMap="proomResult"> 
+	SELECT TO_CHAR(TRUNC(to_date(#{strDate}), 'MM') + LEVEL - 1, 'YYYY-MM-DD') WORKING_DAY
+	          FROM DUAL
+	        CONNECT BY LEVEL <![CDATA[ <= ]]> TO_CHAR(LAST_DAY(to_date(#{strDate})), 'DD')
+   </select>
+   
+ 	<!-- 입원실 출력용 입원실 리스트 조회 -->    
+   <select id="selectPRoomList" resultMap="proomResult">    
+	   select proom_no
+		    , room_name
+		    , capacity
+		    , price
+		 from patientroom
+		order
+		   by proom_no asc
+   </select> 
+   
+   <!-- 입원실 출력용 입원실 예약 리스트 조회 -->
+   <select id="selectPRoomBookingList" resultMap="proomResult">    
+	   SELECT M.WORKING_DAY, PB.PROOM_NO, PB.ROOM_NAME, LISTAGG(p.patient_name, ',') WITHIN GROUP(ORDER BY p.patient_name) as "namelist"
+		  FROM PROOM_BOOKING PB
+		 
+		  JOIN (
+		        SELECT WORKING_DAY, PROOM_NO, ROOM_NAME
+		          FROM (
+		                    SELECT to_char(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'YYYY-MM-DD') WORKING_DAY
+		                      FROM DUAL
+		                    CONNECT BY LEVEL <![CDATA[ <= ]]> TO_CHAR(LAST_DAY(SYSDATE), 'DD')
+		                ), ( SELECT PROOM_NO, ROOM_NAME FROM PATIENTROOM )
+		        ) M ON ( (M.WORKING_DAY BETWEEN PB.ENTER_DATE AND PB.LEAVE_DATE) AND M.PROOM_NO = PB.PROOM_NO AND M.ROOM_NAME = PB.ROOM_NAME)
+		  LEFT JOIN CLINIC C ON(PB.CLINIC_NO = C.CLINIC_NO)
+		  LEFT JOIN PATIENT P ON(C.CHART_NO = P.CHART_NO)
+		 GROUP BY M.WORKING_DAY, PB.PROOM_NO, PB.ROOM_NAME
+		ORDER 
+		   BY M.WORKING_DAY, PROOM_NO
+      </select> 
 </mapper>

@@ -1,6 +1,8 @@
 package com.fp.smartDoctor.reception.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +22,7 @@ import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.reception.model.service.ReceptionService;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
+import com.fp.smartDoctor.reception.model.vo.ProomCalendar;
 import com.fp.smartDoctor.reception.model.vo.Receipt;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
@@ -32,7 +35,7 @@ public class ReceptionController {
 	@Autowired
 	private ReceptionService rService;
 	
-	//------------------페이지 이동 매핑---------------------
+	//------------------페이지 이동 매핑------------------------------------------------------------------------------------
 	
 	// 진료 페이지
 	@RequestMapping("reception.mj")
@@ -139,9 +142,29 @@ public class ReceptionController {
 	
 	// 입원실 현황 페이지
 	@RequestMapping("room.mj")
-	public String room() {
+	public String room(Date date, Model model) {
+		
+		// 오늘 날짜 구하기
+		date = new Date();
+		
+		// String으로 형변환
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+		String strDate = simpleDateFormat.format(date); 
+		
+		// String으로 형변환한 오늘 날짜 전달해서 이번달 1일~말일 구하기
+		ArrayList<ProomCalendar> dayList = rService.selectDateList(strDate);
+		
+		// thead에 들어갈 입원실 목록 조회
+		ArrayList<ProomCalendar> roomList = rService.selectPRoomList();
+		ArrayList<ProomCalendar> bookingList = rService.selectPRoomBookingList();
+
+		model.addAttribute("dayList", dayList);
+		model.addAttribute("roomList", roomList);
+		model.addAttribute("bookingList", bookingList);
+		
 		return "kmj/room";
 	}
+	
 	
 	// 수납 대기 페이지
 	@RequestMapping("pay.mj")
@@ -155,7 +178,7 @@ public class ReceptionController {
 		return "kmj/payDone";
 	}
 	
-	//-----------------------------------------------------
+	//------------------------------------------------------------------------------------------------------------------------
 	
 	
 	// 환자 조회용 메소드

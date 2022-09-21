@@ -1,11 +1,13 @@
 package com.fp.smartDoctor.reception.model.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
+import com.fp.smartDoctor.reception.model.vo.ProomCalendar;
 import com.fp.smartDoctor.reception.model.vo.Receipt;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
@@ -69,4 +71,13 @@ public interface ReceptionService {
 	
 	// 19. 수납 영수증 조회
 	Receipt selectReceipt(int clinicNo);
+	
+	// 20. 입원실 출력용 날짜 조회
+	ArrayList<ProomCalendar> selectDateList(String strDate);
+	
+	// 21. 입원실 출력용 입원실 리스트 조회
+	ArrayList<ProomCalendar> selectPRoomList();
+	
+	// 22. 입원실 출력용 입원실 예약 리스트 조회
+	ArrayList<ProomCalendar> selectPRoomBookingList();
 }

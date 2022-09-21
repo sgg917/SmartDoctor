@@ -1,5 +1,6 @@
 package com.fp.smartDoctor.reception.model.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -11,6 +12,7 @@ import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.reception.model.dao.ReceptionDao;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
+import com.fp.smartDoctor.reception.model.vo.ProomCalendar;
 import com.fp.smartDoctor.reception.model.vo.Receipt;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
@@ -137,5 +139,20 @@ public class ReceptionServiceImpl implements ReceptionService{
 	@Override
 	public Receipt selectReceipt(int clinicNo) {
 		return rDao.selectReceipt(sqlSession, clinicNo);
+	}
+
+	@Override
+	public ArrayList<ProomCalendar> selectDateList(String strDate) {
+		return rDao.selectDateList(sqlSession, strDate);
+	}
+
+	@Override
+	public ArrayList<ProomCalendar> selectPRoomList() {
+		return rDao.selectPRoomList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<ProomCalendar> selectPRoomBookingList() {
+		return rDao.selectPRoomBookingList(sqlSession);
 	}
 }
