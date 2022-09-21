@@ -325,7 +325,12 @@ public class TreatmentController {
 	}
 	
 	
-
+	@RequestMapping("insert.tmt")
+	public String insertTreatment(Clinic c) {
+		
+		int clinicResult = tService.updateClinic(c);
+		
+	}
 	
 	
 	

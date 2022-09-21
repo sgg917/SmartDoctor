@@ -70,4 +70,7 @@ public interface TreatmentService {
 	
 	//입원예약 풀캘린더
 	List<RevOProom> getpCalendar();
+	
+	// 진료 테이블 업데이트
+	int updateClinic(Clinic c);
 }

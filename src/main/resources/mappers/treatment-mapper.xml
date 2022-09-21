@@ -470,4 +470,17 @@
 			, 'navy'
 		)
 	</insert>
+	
+	<update id="updateClinic">
+		update
+		       clinic
+		   set diagnosis_content = #{diagnosisContent}
+		     , surgery = 
+		     , enter = 
+		     , status = 'D'
+		     , surgery_no2 = #{surgeryNo2}
+		     , diseases_code = #{diseaseCode}
+		 where chart_no = #{}
+	</update>
+	
 </mapper>

@@ -137,6 +137,12 @@ public class TreatmentServiceImpl implements TreatmentService{
 		return tDao.insertPR(sqlSession, paraMap);
 	}
 
+	// 진료 업데이트
+	@Override
+	public int updateClinic(Clinic c) {
+		return tDao.updateClinic(sqlSession, c);
+	}
+
 
 
 }
