@@ -227,15 +227,36 @@ img {
 
 							<c:forEach var="p" begin="${ pi.startPage }"
 								end="${ pi.endPage }">
+								
 								<c:choose>
-									<c:when test="${ empty keyword }">
-										<li class="page-item"><a class="page-link"
-											style="color: rgb(29, 92, 99);" href="list.mj?cpage=${ p }">${ p }</a></li>
+									<c:when test="${ pi.currentPage == p }">
+										<!-- 현재페이지 -->
+										<c:choose>
+											<c:when test="${ empty keyword }">
+												<li class="page-item"><a class="page-link"
+													style="color: white; background: rgb(29, 92, 99)" href="list.mj?cpage=${ p }">${ p }</a></li>
+											</c:when>
+											<c:otherwise>
+												<li class="page-item"><a class="page-link"
+													style="color: white; background: rgb(29, 92, 99)"
+													href="search.pt?cpage=${ p }&keyword=${keyword}">${ p }</a></li>
+											</c:otherwise>
+										</c:choose>
 									</c:when>
 									<c:otherwise>
-										<li class="page-item"><a class="page-link"
-											style="color: rgb(29, 92, 99);"
-											href="search.pt?cpage=${ p }&keyword=${keyword}">${ p }</a></li>
+										<!-- 현재페이지가 아닌거 -->
+										
+										<c:choose>
+											<c:when test="${ empty keyword }">
+												<li class="page-item"><a class="page-link"
+													style="color: rgb(29, 92, 99);" href="list.mj?cpage=${ p }">${ p }</a></li>
+											</c:when>
+											<c:otherwise>
+												<li class="page-item"><a class="page-link"
+													style="color: rgb(29, 92, 99);"
+													href="search.pt?cpage=${ p }&keyword=${keyword}">${ p }</a></li>
+											</c:otherwise>
+										</c:choose>
 									</c:otherwise>
 								</c:choose>
 
