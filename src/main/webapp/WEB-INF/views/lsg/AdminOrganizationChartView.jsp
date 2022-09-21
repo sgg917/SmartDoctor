@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 로고 -->
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 <meta charset="UTF-8">
 <title>조직도 조회</title>
 <style>
@@ -83,18 +85,23 @@ li {
   height:60px;
 }
 
-.jobNo, .empName {
+.jobNo {
   width:20%;
+}
+.empName{
+  width:15%;
 }
 
 /* 테이블 내의 아이콘 */
 #mem-tb i {
-  font-size:20px;
+  font-size:17px;
 }
 
-/* 사원 조회 스타일 (수정페이지) */
+
+/* input 요소 글씨 크기 */
 .form-control {
-    height:30px;
+	font-size:15px !important;
+	margin-top:10px;
 }
       
 /* 초록 버튼 */
@@ -371,6 +378,7 @@ input, select {
 						txt += '<tr>';
 						
 						txt += '<input type="hidden" name="empNo" value="' + list[i].empNo + '">';
+						txt += '<input type="hidden" name="deptNo" value="' + list[i].deptNo + '">';
                         txt += 	'<td>';
                         txt +=    '<img src="' + list[i].path + '">';
                         txt +=  '</td>';
@@ -394,7 +402,7 @@ input, select {
                         txt += 	'</th>';
                         txt += 	'<td class="empName"><input class="form-control" type="text" name="empName" value="' + list[i].empName + '" required></td>';
                         txt +=  '<td class="email"><input class="form-control" type="email" name="email" value="' + list[i].email + '" required></td>';
-                        txt +=  '<td>';
+                        txt +=  '<td style="vertical-align:middle;">';
                         txt += 		'<i class="deleteBtn mdi mdi-close" data-bs-toggle="modal" data-bs-target="#deleteMemModal" data-id="' + list[i].empNo + '"></i>';
                     	txt +=  	' <i class="updateBtn mdi mdi-account-settings"></i>';
                     	txt += 	'</td>';
@@ -564,10 +572,11 @@ input, select {
 	//$(".updateBtn").click(function(){
 	$(document).on("click", ".updateBtn", function(){
 	
-		console.log( $(this).parent().siblings('input[type=hidden]').val() );
-		console.log( $(this).parent().siblings('.jobNo').children('select[name=jobNo]').val() ); 
-		console.log( $(this).parent().siblings('.empName').children('input[name=empName]').val() ); 
-		console.log( $(this).parent().siblings('.email').children('input[name=email]').val() ); 
+		//console.log( $(this).parent().siblings('input[name=empNo]').val() );
+		//console.log( $(this).parent().siblings('.jobNo').children('select[name=jobNo]').val() ); 
+		//console.log( $(this).parent().siblings('.empName').children('input[name=empName]').val() ); 
+		//console.log( $(this).parent().siblings('.email').children('input[name=email]').val() ); 
+		//console.log( $(this).parent().siblings('input[name=deptNo]').val() );
 		
 		$.ajax({
 			url:"updateEmp.me",
@@ -576,7 +585,8 @@ input, select {
 				empNo:parseInt($(this).parent().siblings('input[type=hidden]').val()),
 				jobNo:parseInt($(this).parent().siblings('.jobNo').children('select[name=jobNo]').val()),
 				empName:$(this).parent().siblings('.empName').children('input[name=empName]').val(),
-				email:$(this).parent().siblings('.email').children('input[name=email]').val()
+				email:$(this).parent().siblings('.email').children('input[name=email]').val(),
+				deptNo:$(this).parent().siblings('input[name=deptNo]').val()
 			},
 			success:function(str){
 				

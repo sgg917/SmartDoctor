@@ -44,7 +44,7 @@ public class AttendanceDao {
 	public int endAttendance(SqlSessionTemplate sqlSession, int empNo) {
 		return sqlSession.update("attendanceMapper.endAttendance", empNo);
 	}
-	 
+	
 	public int selectVacListCount(SqlSessionTemplate sqlSession, int empNo) {
 		return sqlSession.selectOne("attendanceMapper.selectVacListCount", empNo);
 	}

@@ -64,7 +64,19 @@
 			<mapping path="/apprReportList.si"/>
 			<mapping path="/apprGetList.si"/>
 			<mapping path="/apprStorageList.si"/>
+			<mapping path="/list.vac"/>
+			<mapping path="/goCalendar.att"/>
+			<mapping path="/orgChart.me"/>
+			<mapping path="/allList.att"/>
+			<mapping path="/allList.vac"/>
+			<mapping path="/adOrgChart.me"/>
 			<beans:bean class="com.fp.smartDoctor.common.interceptor.LoginInterceptor" id="loginInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/allList.att"/>
+			<mapping path="/allList.vac"/>
+			<mapping path="/adOrgChart.me"/>
+			<beans:bean class="com.fp.smartDoctor.common.interceptor.AdminInterceptor" id="adminInterceptor"/>
 		</interceptor>
 	</interceptors>
 	
