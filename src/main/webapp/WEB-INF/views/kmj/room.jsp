@@ -112,7 +112,7 @@ b {
 					</table>
 					<br>
 					
-					<form action="room.mj" method="post">
+					<form action="room.mj" method="get">
 						<div align="center">
 							<button type="submit" name="cDate" class="button" value="${preDate}">&lt;</button>
 							${showDate}
@@ -127,7 +127,7 @@ b {
 								<tr>
 									<th>날짜 / 호</th>
 									<c:forEach var="r" items="${ roomList }">
-										<th>${r.proomNo }호${r.capacity }인실</th>
+										<th>${r.proomNo}호 ${r.capacity }인실</th>
 									</c:forEach>
 								</tr>
 							</thead>
@@ -142,9 +142,6 @@ b {
 														<c:when test="${ d.date == b.date and b.proomNo == '102' }">
 															${ fn:replace(b.nameList, ',', '<br>') }
 														</c:when>
-														<c:otherwise>
-														
-														</c:otherwise>
 													</c:choose>
 	
 												</c:forEach>
@@ -156,9 +153,6 @@ b {
 														<c:when test="${ d.date == b.date and b.proomNo == '104' }">
 															${ fn:replace(b.nameList, ',', '<br>') }
 														</c:when>
-														<c:otherwise>
-														
-														</c:otherwise>
 													</c:choose>
 	
 												</c:forEach>
@@ -170,9 +164,6 @@ b {
 														<c:when test="${ d.date == b.date and b.proomNo == '202' }">
 															${ fn:replace(b.nameList, ',', '<br>') }
 														</c:when>
-														<c:otherwise>
-														
-														</c:otherwise>
 													</c:choose>
 	
 												</c:forEach>
@@ -184,9 +175,6 @@ b {
 														<c:when test="${ d.date == b.date and b.proomNo == '204' }">
 															${ fn:replace(b.nameList, ',', '<br>') }
 														</c:when>
-														<c:otherwise>
-														
-														</c:otherwise>
 													</c:choose>
 	
 												</c:forEach>
