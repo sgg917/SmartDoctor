@@ -230,6 +230,10 @@ public class SignServiceImpl implements SignService {
 	public int insertStorageAppr(Sign s) {
 		return sDao.insertStorageAppr(sqlSession, s);
 	}
+	@Override
+	public int updateStorage(Sign s) {
+		return sDao.updateStorage(sqlSession, s);
+	}
 	
 	
 

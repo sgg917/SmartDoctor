@@ -60,6 +60,14 @@
 		<result column="surgery_date" property="surDate" />
 		<result column="memo" property="memo" />
 		<result column="booking_no" property="bookingNo" />
+		
+		<result column="pbooking_no" property="pbookingNo"/>
+		<result column="proom_no" property="proomNo"/>
+		<result column="room_name" property="proomName"/>
+		<result column="enter_date" property="enterDate"/>
+		<result column="leave_date" property="leaveDate"/>
+		<result column="memo" property="pmemo"/>
+		
 	</resultMap>
 
 
@@ -115,14 +123,14 @@
 
 	<!-- Proom booking result -->
 	<resultMap id="proomResult" type="RevPatientRoom">
-		<result column="booking_no" property="bookingNo" />
-		<result column="proom_no" property=""/>
-		<result column="clinic_no" property=""/>
-		<result column="room_name" property=""/>
-		<result column="enter_date" property=""/>
-		<result column="memo" property=""/>
-		<result column="patient_status" property=""/>
-		<result column="leave_date" property=""/>
+		<result column="pbooking_no" property="pbookingNo" />
+		<result column="proom_no" property="proomNo"/>
+		<result column="clinic_no" property="clinicNo"/>
+		<result column="room_name" property="roomName"/>
+		<result column="enter_date" property="enterDate"/>
+		<result column="memo" property="memo"/>
+		<result column="patient_status" property="patientStatus"/>
+		<result column="leave_date" property="leaveDate"/>
 	</resultMap>
 	
 	
@@ -376,41 +384,41 @@
 	
 	
 	<!-- 입원실 캘린더 조회 select -->
-	<select id="pcalendarList" resultMap="OPResult">
+	<select id="pcalendarList" resultMap="proomResult">
 		select
 			   calendar_no
-			 , booking_no
+			 , pbooking_no
 			 , clinic_no
-			 , surgery_date
-			 , surgery_date
+			 , enter_date
+			 , leave_date
 			 , textcolor
 			 , backgroundcolor
-		  from surgery_booking
-		 where surgery_status = 'R'
+		  from proom_booking
+		 where patient_status = 'Y'
 
 	</select>
 
 	<!-- 입원실 정보 조회 select-->
 	<select id="selectProom" resultMap="ClinicResult">
 		select 
-      		   sb.clinic_no
-      		 , sb.booking_no
+      		   pb.clinic_no
+      		 , pb.pbooking_no
      		 , (select p.patient_name
           		  from patient p
           		  join clinic cll on (cll.chart_no = p.chart_no)
                   where clinic_no=#{clinicNo}) as patient_name
-     		 , sb.room_name
-     		 , sb.surgery_date
-     		 , sb.sur_starttime
-     		 , sb.sur_endtime
+     		 , pb.room_name
+     		 
+     		 , pb.enter_date
+     		 , pb.leave_date
      		 , (select m.emp_name
           		 from member m
           		 join clinic clll on (clll.emp_no = m.emp_no)
                  where clinic_no=#{clinicNo}) as doctor_name
-          	 , sb.memo
-		  from surgery_booking sb
-          join clinic c on ( sb.clinic_no = c.clinic_no)
-		 where sb.booking_no = #{bookingNo}
+          	 , pb.memo
+		  from proom_booking pb
+          join clinic c on ( pb.clinic_no = c.clinic_no)
+		 where pb.pbooking_no = #{pbookingNo}
 	</select>
 	
 	<!-- 입원실 예약을 위한 정보 조회 select-->
@@ -425,49 +433,42 @@
           		  from member m
           		  join clinic clll on (clll.emp_no = m.emp_no)
                   where clinic_no=#{clinicNo}) as doctor_name
-          	 , surgery_no2
-             , lead_time
 		  from clinic c
-          join surgery on (surgery_no2 = surgery_no)
 		 where c.clinic_no=#{clinicNo}
-           and surgery = 'Y'
+           
 	</select>
 	
 	
 	<!-- 입원실 예약 insert -->
 	<insert id="insertp">
 		insert
-		into surgery_booking
-		(
-			booking_no
-			, clinic_no
-			, surgery_no
-			, calendar_no
-			, room_name
-			, surgery_date
-			, sur_starttime
-			, memo
-			, surgery_status
-			, doctor_name
-			, sur_endtime
-			, textcolor
-			, backgroundcolor
-			)
-			values
-			(
-			seq_sbno.nextval
-			, #{clinicNo}
-			, 'G-10080'
-			, seq_rca.nextval
-			, #{roomName}
-			, #{surDate}
-			, #{surStartTime}
-			, #{memo}
-			, default
-			, #{doctorName}
-			, #{surEndTime}
-			, 'white'
-			, 'navy'
+		  into proom_booking
+		 (
+			   pbooking_no
+			 , calendar_no
+			 , proom_no 
+			 , clinic_no
+			 , room_name
+			 , enter_date
+			 , leave_date
+			 , memo
+			 , textcolor
+			 , backgroundcolor
+			 , staydate
+			 )
+			 values
+			 (
+			   seq_prno.nextval
+			 , rca_seq.nextval
+			 , #{proomNo}
+			 , #{clinicNo}
+			 , #{proomName}
+			 , #{enterDate}
+			 , #{leaveDate}
+			 , #{memo}
+			 , 'white'
+			 , 'green'
+			 , 3
 		)
 	</insert>
 	
@@ -481,6 +482,17 @@
 		     , surgery_no2 = #{surgeryNo2}
 		     , diseases_code = #{diseaseCode}
 		 where chart_no = #{}
+	<!-- 입원료 업데이트 -->
+	<update id="updatePRpay">
+		update
+			   pay
+		   set enter_fee = (select price * staydate
+						   	  from proom_booking pb
+						   	  join patientroom pr on (pb.proom_no = pr.proom_no) 
+							 where pb.proom_no = pr.proom_no
+							   and clinic_no=#{clinicNo}
+						   )
+		 where clinic_no=#{clinic_no}
 	</update>
 	
 </mapper>

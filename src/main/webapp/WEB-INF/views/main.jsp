@@ -43,8 +43,7 @@
 					class="card-body card-body-padding d-flex align-items-center justify-content-between">
 					<div class="ps-lg-1">
 						<div class="d-flex align-items-center justify-content-between">
-							<p class="mb-0 font-weight-medium me-3 buy-now-text">공지 넣으면
-								좋을것같아요</p>
+							<p class="mb-0 font-weight-medium me-3 buy-now-text">서버 일시점검 안내</p>
 						</div>
 					</div>
 					<div class="d-flex align-items-center justify-content-between">

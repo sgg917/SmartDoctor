@@ -361,7 +361,7 @@
 		 where appr_storage = 'N'
 		   and v.emp_no = #{empNo}
 		 order
-		    by appr_no desc
+		    by v.enroll_date desc
 	</select>
 	
 	<!-- 사용자_기안문서함 상세조회 -->
@@ -434,7 +434,7 @@
 		   and l.emp_no = #{empNo}
 		   and line_refer= 'N'
 		 order
-		    by appr_no desc
+		    by v.enroll_date desc
 	</select>
 	
 	<!-- 결재완료일 조회 
@@ -719,7 +719,9 @@
              , appr_storage
 			 , origin_name
 			 , change_name
+			 <if test='apprTotal != null and !"".equals(apprTotal)'>			 
 			 , appr_total
+			 </if>
 			 , emp_no
 			 , form_no
 		  	 ) 
@@ -731,9 +733,30 @@
              , 'Y'
 			 , #{originName}
 			 , #{changeName}
+			 <if test='apprTotal != null and !"".equals(apprTotal)'>
 			 , #{apprTotal}
+			 </if>
 			 , #{empNo}
 			 , #{formNo}
 			 )
 	</insert>
+	
+	<!-- 사용자_임시저장함 결재문작성페이지에서 임시저장 -->
+	<update id="updateStorage">
+		update
+		       approval
+		   set appr_title = #{apprTitle}
+		     , appr_content = #{apprContent}
+		     , enroll_date = sysdate
+		     <if test='originName != null and !originName.equals("") and changeName != null and !changeName.equals("")'>
+		     , origin_name = #{originName}
+		     , change_name = #{changeName}
+		     </if>
+		     , appr_total = #{apprTotal}
+		     <if test='formNo != null and formNo != 0'>
+		     , form_no = #{formNo}
+		     </if>
+		 where appr_no = #{apprNo}
+	</update>
+	
 </mapper>

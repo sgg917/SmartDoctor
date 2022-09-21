@@ -124,4 +124,7 @@ public interface SignService {
 	
 	// 사용자_임시저장
 	int insertStorageAppr(Sign s);
+	
+	// 사용자_임시저장 기안페이지에서 임시저장
+	int updateStorage(Sign s);
 }

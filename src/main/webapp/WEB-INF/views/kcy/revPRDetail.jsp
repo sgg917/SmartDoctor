@@ -132,7 +132,7 @@ th {
 							<td colspan="2">
 								<div class="smallbtn1">조회</div>
 								<div style="display: inline-block; margin-left: 30px;">
-									<h3>${c.surDate}</h3>
+									<h3>${c.enterDate}</h3>
 								</div>
 							</td>
 						</tr>
@@ -154,13 +154,13 @@ th {
 						<tr>
 							<th>입원날짜</th>
 							<td><input type="date" style="width: 300px;"
-								name="surDate" readonly value="${c.surDate }"><br></td>
+								name="enterDate" readonly value="${c.enterDate }"><br></td>
 						</tr>
 						<tr>
 							<th>퇴원날짜</th>
-							<td><input type="time" style="width: 300px;"
-								name="surStartTime" id="surStartTime" readonly
-								value="${c.surStartTime }"></td>
+							<td><input type="date" style="width: 300px;"
+								name="leaveDate" readonly
+								value="${c.leaveDate }"></td>
 						</tr>
 						<tr>
 							<th>담당의</th>

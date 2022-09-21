@@ -2,6 +2,7 @@ package com.fp.smartDoctor.sign.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -599,7 +600,7 @@ public class SignController {
 	
 	// 사용자_일괄결재
 	@RequestMapping("allApprove.si")
-	public String updateAllApprove(HttpSession session) {
+	public String updateAllApprove(List<String> noArr, HttpSession session) {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String empNo = loginUser.getEmpNo();
@@ -666,6 +667,56 @@ public class SignController {
 			
 			session.setAttribute("alertMsg", "임시저장에 실패하였습니다.");
 			return "redirect:apprEnrollForm.si";
+		}
+		
+	}
+	
+	// 사용자_임시저장함에서 다시 임시저장, 기안하기
+	@RequestMapping("againStorageReport.si")
+	public String againStorageReport(Sign s, Line i, MultipartFile upfile, HttpSession session) {
+		
+		int apprNo = s.getApprNo();
+		
+		if(!upfile.getOriginalFilename().equals("")) {
+			
+			String saveFilePath = FileUpload.saveFile(upfile, session, "resources/appr_files/");
+			
+			s.setOriginName(upfile.getOriginalFilename());
+			s.setChangeName(saveFilePath);
+		}
+
+		ArrayList<Line> lineList = i.getLineList();
+		ArrayList<Line> refList = i.getRefList();
+		
+		int apprResult = sService.updateStorage(s);
+		int delResult = sService.deleteApprLine(s);
+		
+		if(lineList != null) {
+			
+			int num = 1;
+			for(Line l : lineList) { // 결재자 lineLevel, apprNo 세팅
+				l.setLineLevel(num);
+				l.setApprNo(s.getApprNo());
+				num++;
+			}
+			sService.insertStorageLine(lineList);
+		}
+		
+		if(refList != null) { // 참조자가 있을 시에만 insert 요청
+			
+			for(Line l : refList) { // apprNo 세팅
+				l.setApprNo(s.getApprNo());
+			}
+
+			sService.insertStorageRef(refList);
+		}
+		
+		if(apprResult > 0) {
+			session.setAttribute("alertMsg", "임시저장 되었습니다.");
+			return "redirect:storageReport.si?apprNo=" + apprNo;
+		}else {
+			session.setAttribute("alertMsg", "임시저장 실패하였습니다.");
+			return "redirect:apprStorageList.si";
 		}
 		
 	}
