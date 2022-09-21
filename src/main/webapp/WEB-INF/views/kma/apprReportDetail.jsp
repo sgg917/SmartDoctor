@@ -28,20 +28,22 @@
 					<div class="appr-table-wrapper" style="margin-left:30px;">
 						<form id="againReport" action="againReport.si" method="post">
 							<input type="hidden" value="${ s.formNo }" name="formNo">
-							<c:choose>
-								<c:when test="${ s.apprStatus eq '대기' }">
-									<button type="button" class="btn btn-success appr-write-btn" onclick="reportCancel();">
-										<i class="mdi mdi-close" style="color: white;"></i>&nbsp; 
-										<span>상신취소</span>
-									</button>
-								</c:when>
-								<c:when test="${ s.apprStatus eq '반려' || s.apprStatus eq '완료' }">
-									<button type="submit" class="btn btn-success appr-write-btn">
-			                            <i class="mdi mdi-arrow-up-bold" style="color:white;"></i>&nbsp;&nbsp;
-			                            <span>재기안</span>
-		                          	</button>
-								</c:when>
-							</c:choose>
+							<c:if test="${ s.formNo ne 1 && s.formNo ne 2 }">
+								<c:choose>
+									<c:when test="${ s.apprStatus eq '대기' }">
+										<button type="button" class="btn btn-success appr-write-btn" onclick="reportCancel();">
+											<i class="mdi mdi-close" style="color: white;"></i>&nbsp; 
+											<span>상신취소</span>
+										</button>
+									</c:when>
+									<c:when test="${ s.apprStatus eq '반려' || s.apprStatus eq '완료' }">
+										<button type="submit" class="btn btn-success appr-write-btn">
+				                            <i class="mdi mdi-arrow-up-bold" style="color:white;"></i>&nbsp;&nbsp;
+				                            <span>재기안</span>
+			                          	</button>
+									</c:when>
+								</c:choose>
+							</c:if>
 							
 							<button type="button" class="btn btn-outline-success btn-green" 
 								    style="width: 100px;" onclick="history.back();">

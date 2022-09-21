@@ -114,4 +114,14 @@ public interface SignService {
 	int deleteApprLine(Sign s);
 	int insertStorageLine(ArrayList<Line> lineList);
 	int insertStorageRef(ArrayList<Line> refList);
+	
+	// 사용자_일괄결재
+	int updateAllApproval(String empNo);
+	int updateAllLine(String empNo);
+	
+	int updateAllApproval2(HashMap<String, String> map);
+	int updateAllLine2(HashMap<String, String> map);
+	
+	// 사용자_임시저장
+	int insertStorageAppr(Sign s);
 }

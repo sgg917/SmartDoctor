@@ -140,12 +140,12 @@
 					</p>
 					<hr>
 					<br>
-					<form id="insertAppr" action="apprInsert.si" method="post" enctype="multipart/form-data" >
+					<form id="insertAppr" action="" method="post" enctype="multipart/form-data" >
 						<input type="hidden" value="" name="apprTotal">
 						<input type="hidden" value="${ loginUser.empNo }" name="empNo">
 						<input type="hidden" value="" name="formNo">
 						<div class="appr-table-wrapper">
-							<button type="submit" class="btn btn-success appr-write-btn">
+							<button type="button" class="btn btn-success appr-write-btn" onclick="postFormSubmit('apprInsert.si');">
 								<i class="mdi mdi-arrow-up-bold" style="color: white;"></i>&nbsp;
 								<span>결재요청</span>
 							</button>
@@ -161,10 +161,16 @@
 								<i class="mdi mdi-application menu-icon"></i>&nbsp; 
 								<span>결재양식 선택</span>
 							</button>
-							<button type="button" class="btn btn-outline-success btn-green">
+							<button type="button" class="btn btn-outline-success btn-green" onclick="postFormSubmit('apprStorageInsert.si');">
 								<i class="mdi mdi-download menu-icon"></i>&nbsp; 
 								<span>임시저장</span>
 							</button>
+							
+							<script>
+								function postFormSubmit(url){
+									$("#insertAppr").attr("action", url).submit();
+								}
+							</script>
 							
 							<table class="table table-bordered appr-table">
 								<tr>

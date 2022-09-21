@@ -267,4 +267,29 @@ public class SignDao {
 		
 		return result;
 	}
+	
+	// 일괄결재
+	public int updateAllApproval(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.update("signMapper.updateAllApproval", empNo);
+	}
+	
+	public int updateAllLine(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.update("signMapper.updateAllLine", empNo);
+	}
+	
+	
+	
+	
+	public int updateAllApproval2(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.update("signMapper.updateAllApproval", map);
+	}
+	
+	public int updateAllLine2(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.update("signMapper.updateAllLine", map);
+	}
+	
+	// 임시저장
+	public int insertStorageAppr(SqlSessionTemplate sqlSession, Sign s) {
+		return sqlSession.insert("signMapper.insertStorageAppr", s);
+	}
 }
