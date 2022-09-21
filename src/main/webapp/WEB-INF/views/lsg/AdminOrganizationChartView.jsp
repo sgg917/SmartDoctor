@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 로고 -->
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 <meta charset="UTF-8">
 <title>조직도 조회</title>
 <style>
