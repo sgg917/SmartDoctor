@@ -142,8 +142,8 @@ public class ReceptionServiceImpl implements ReceptionService{
 	}
 
 	@Override
-	public ArrayList<ProomCalendar> selectDateList(String strDate) {
-		return rDao.selectDateList(sqlSession, strDate);
+	public ArrayList<ProomCalendar> selectDateList(String nowDate) {
+		return rDao.selectDateList(sqlSession, nowDate);
 	}
 
 	@Override
@@ -152,7 +152,7 @@ public class ReceptionServiceImpl implements ReceptionService{
 	}
 
 	@Override
-	public ArrayList<ProomCalendar> selectPRoomBookingList() {
-		return rDao.selectPRoomBookingList(sqlSession);
+	public ArrayList<ProomCalendar> selectPRoomBookingList(String nowDate) {
+		return rDao.selectPRoomBookingList(sqlSession, nowDate);
 	}
 }

@@ -3,6 +3,7 @@ package com.fp.smartDoctor.reception.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -142,25 +143,49 @@ public class ReceptionController {
 	
 	// 입원실 현황 페이지
 	@RequestMapping("room.mj")
-	public String room(Date date, Model model) {
-		
-		// 오늘 날짜 구하기
-		date = new Date();
-		
-		// String으로 형변환
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
-		String strDate = simpleDateFormat.format(date); 
-		
-		// String으로 형변환한 오늘 날짜 전달해서 이번달 1일~말일 구하기
-		ArrayList<ProomCalendar> dayList = rService.selectDateList(strDate);
+	public String room(@RequestParam(value="cDate" , defaultValue="0") String cDate, Model model) {
 		
 		// thead에 들어갈 입원실 목록 조회
 		ArrayList<ProomCalendar> roomList = rService.selectPRoomList();
-		ArrayList<ProomCalendar> bookingList = rService.selectPRoomBookingList();
-
-		model.addAttribute("dayList", dayList);
 		model.addAttribute("roomList", roomList);
-		model.addAttribute("bookingList", bookingList);
+		
+	
+		if(cDate.equals("0")) { // 전달받은 cDate가 없으면 현재달로 입원실 현황 조회
+			
+			// 오늘 날짜 구해서 String으로 형변환
+			GregorianCalendar cal = new GregorianCalendar();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+			String nowDate = sdf.format(cal.getTime()); 
+			
+			// 화면에 출력할 현재날짜(yyyy년 mm월)
+			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy년 MM월");
+			String showDate = sdf2.format(cal.getTime()); 
+			
+			// 전월 날짜 구하기
+			cal.add(GregorianCalendar.MONTH, -1);
+			String preDate = sdf.format(cal.getTime());
+			
+			// 다음 날짜 구하기
+			cal.add(GregorianCalendar.MONTH, +2);
+			String nextDate = sdf.format(cal.getTime());
+			
+			System.out.println(nowDate);
+			System.out.println(preDate);
+			System.out.println(nextDate);
+			
+			// String으로 형변환한 오늘 날짜 전달해서 이번달 1일~말일 구하기
+			ArrayList<ProomCalendar> dayList = rService.selectDateList(nowDate);
+			
+			// 예약중인 환자 리스트 조회
+			ArrayList<ProomCalendar> bookingList = rService.selectPRoomBookingList(nowDate);
+
+			model.addAttribute("dayList", dayList);
+			model.addAttribute("showDate", showDate);
+			model.addAttribute("preDate", preDate);
+			model.addAttribute("nextDate", nextDate);
+			model.addAttribute("bookingList", bookingList);
+			
+		}
 		
 		return "kmj/room";
 	}

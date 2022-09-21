@@ -73,11 +73,11 @@ public interface ReceptionService {
 	Receipt selectReceipt(int clinicNo);
 	
 	// 20. 입원실 출력용 날짜 조회
-	ArrayList<ProomCalendar> selectDateList(String strDate);
+	ArrayList<ProomCalendar> selectDateList(String nowDate);
 	
 	// 21. 입원실 출력용 입원실 리스트 조회
 	ArrayList<ProomCalendar> selectPRoomList();
 	
 	// 22. 입원실 출력용 입원실 예약 리스트 조회
-	ArrayList<ProomCalendar> selectPRoomBookingList();
+	ArrayList<ProomCalendar> selectPRoomBookingList(String nowDate);
 }

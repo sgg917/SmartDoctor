@@ -125,8 +125,8 @@ public class ReceptionDao {
 	}
 	
 	// 20. 입원실 출력용 날짜 조회
-	public ArrayList<ProomCalendar> selectDateList(SqlSessionTemplate sqlSession, String strDate) {
-		return (ArrayList)sqlSession.selectList("receptionMapper.selectDateList", strDate);
+	public ArrayList<ProomCalendar> selectDateList(SqlSessionTemplate sqlSession, String nowDate) {
+		return (ArrayList)sqlSession.selectList("receptionMapper.selectDateList", nowDate);
 	}
 	
 	// 21. 입원실 출력용 입원실 리스트 조회
@@ -135,7 +135,7 @@ public class ReceptionDao {
 	}
 	
 	// 21. 입원실 출력용 입원실 예약 리스트 조회
-	public ArrayList<ProomCalendar> selectPRoomBookingList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("receptionMapper.selectPRoomBookingList");
+	public ArrayList<ProomCalendar> selectPRoomBookingList(SqlSessionTemplate sqlSession, String nowDate) {
+		return (ArrayList)sqlSession.selectList("receptionMapper.selectPRoomBookingList", nowDate);
 	}
 }

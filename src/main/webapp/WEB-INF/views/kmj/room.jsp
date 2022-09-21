@@ -111,13 +111,15 @@ b {
 						</tr>
 					</table>
 					<br>
-
-					<div align="center">
-						<button type="button" class="button">&lt;</button>
-						2022년 9월
-						<button type="button" class="button">&gt;</button>
-					</div>
-
+					
+					<form action="room.mj" method="post">
+						<div align="center">
+							<button type="submit" name="cDate" class="button" value="${preDate}">&lt;</button>
+							${showDate}
+							<button type="submit" name="cDate" class="button" value="${nextDate}">&gt;</button>
+						</div>
+					</form>
+					
 					<br>
 					<div id="tableArea" align="center">
 						<table class="table table-bordered">
