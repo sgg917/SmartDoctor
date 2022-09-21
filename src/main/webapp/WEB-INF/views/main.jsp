@@ -97,12 +97,24 @@
 	              </div>
 	            </div>
 				<!-- 내원 환자 수 카드 끝 -->
+				
+				<!-- 진료과별 차트 -->
+				<div class="row">
+		            <div class="col-md-7 grid-margin stretch-card">
+		              <div class="card">
+		                <div class="card-body">
+		                  <h4 class="card-title">Sale Overview</h4>
+		                  <canvas id="sales-chart"></canvas>
+		                </div>
+		              </div>
+		            </div>
+	           </div>
+	           <!-- 진료과별 차트 끝 -->
 			</div>
 			<jsp:include page="common/footer.jsp" />
 		</div>
 
 
 	</div>
-
 </body>
 </html>
