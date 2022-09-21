@@ -96,12 +96,20 @@
 	              </div>
 	            </div>
 				<!-- 내원 환자 수 카드 끝 -->
+				
+				
+				
+				
+			
+              
 			</div>
 			<jsp:include page="common/footer.jsp" />
 		</div>
 
 
 	</div>
+
+	
 
 </body>
 </html>
