@@ -277,7 +277,7 @@ th {
 				url : "list.ca",
 				success : function(list) {
 
-					//console.log(list);
+					console.log(list);
 
 					let data = [];/* 내가 넘겨주고자 하는 값을 리스트로 다시 담아줘야함! */
 					for (let i = 0; i < list.length; i++) {

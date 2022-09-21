@@ -141,8 +141,7 @@ th {
 						<!-- 숨겨서 넘길 값--> 
 						<input type="hidden" id="clinicNo1" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
 						<input type="hidden" id="surgeryNo1" class="form-control" value="${ c.surgeryNo2 }" name="surgeryNo"> 
-						<input type="hidden" id="leadTime1" class="form-control" value="${ c.leadTime }" name="leadTime">
-						<input type="hidden" id="bookingNo1" class="form-control" value="${ c.bookingNo }" name="bookingNo">
+						<input type="hidden" id="bookingNo1" class="form-control" value="${ c.pbookingNo }" name="pbookingNo">
 	
 						<br>
 						<h3> <b>차트번호 ${c.clinicNo} 입원실 예약</b> </h3>
@@ -174,7 +173,7 @@ th {
 									<tr>
 										<th>입원실</th>
 										<td>
-										<select name="proomName" id="proomName" style="width: 300px;">
+										<select name="proomNo" id="proomNo" style="width: 300px;">
 												<option value="x">선택안함</option>
 												<option value="104">PR4A</option>
 												<option value="204">PR4B</option>
@@ -212,7 +211,7 @@ th {
 								
 								<br>
 								<br>
-								<button type="submit" class="btn btn-danger"
+								<button type="submit" class="btn btn-danger" name="revPRroom"
 									style="height: 30px; width: 100px; padding: 0%; color: black; border: 0; background-color: rgb(65, 125, 122);">예약</button>
 
 								<br><br><br><br><br><br><br><br>
@@ -319,7 +318,7 @@ th {
 		
 		
 		//수술정보 상세조회
-		$(".modal-content").load("detail.op2");
+		$(".modal-content").load("detail.pr2");
 		
 		function ModalOpen(arg){
 			
@@ -329,17 +328,16 @@ th {
 			//해당 예약번호를 넘겨서 해당 수술예약 정보 상세 조회하는 ajax
 			//ajax success function 에서 조회된 정보를 #myModal1인 모달 div안 input요소에 value값으로 뿌리는
 			$.ajax({
-		      url:"detail.op",
+		      url:"detail.pr",
 		      data:{ clinicNo : arg.event._def.title },
-		      success:function(surgery){
-		 	  	  	console.log(surgery);
-			 	  	$('input[name=clinicNo]').attr('value',surgery.clinicNo);
-			 	  	$('input[name=docName]').attr('value',surgery.docName);
-			 	  	$('input[name=patientName]').attr('value',surgery.patientName);
-			 	  	$('input[name=roomName]').attr('value',surgery.roomName);
-			 	  	$('input[name=surDate]').attr('value',surgery.surDate);
-			 	  	$('input[name=surEndTime]').attr('value',surgery.surEndTime);
-			 	  	$('input[name=surStartTime]').attr('value',surgery.surStartTime);
+		      success:function(proom){
+		 	  	  	console.log(proom);
+			 	  	$('input[name=clinicNo]').attr('value',proom.clinicNo);
+			 	  	$('input[name=docName]').attr('value',proom.docName);
+			 	  	$('input[name=patientName]').attr('value',proom.patientName);
+			 	  	$('input[name=roomName]').attr('value',proom.roomName);
+			 	  	$('input[name=enterDate]').attr('value',proom.enterDate);
+			 	  	$('input[name=leaveDate]').attr('value',proom.leaveDate);
 		      },
 		      error: function(){
 		         alert("조회 실패");
@@ -353,6 +351,32 @@ th {
 		function ModalClose(){
 			$("#myModal1").modal("hide");
 		}
+		
+		
+		/* $(document).on("click","button[name=revPRroom]",function(){
+			
+			updatePRpay($(this).attr('value'));
+			
+		})
+		
+		function updatePRpay(value){
+			
+			$.ajax({
+				url : "updatePay.pr",
+				data : {
+					clinicNo : value
+				},
+				success : function(clinicNo) {
+					console.log(clinicNo);
+
+				},
+				error : function() {
+					console.log("ajax통신 실패");
+				}
+			});
+			
+		} */
+		
 		
 	</script>
 	<!-- 계속 새로운 일정이 들어가면 또 새로 바로 띄워주게하기위해서 ajax를 function으로 빼줘서 사용하는것이 좋음-->
