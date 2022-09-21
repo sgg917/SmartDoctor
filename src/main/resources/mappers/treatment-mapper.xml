@@ -506,4 +506,42 @@
 		 where clinic_no=#{clinic_no}
 	</update>
 	
+	<!-- 처방전 입력 -->
+	<insert id="insertPre">
+		insert
+		  into prescription
+		  (
+		    pre_no
+		  , clinic_no
+		  , inject_day
+		  , usage
+		  )
+		  values
+		  (
+		    seq_psno.nextval
+		  , #{clinicNo}
+		  , #{injectDay}
+		  , '2'
+		  )
+	</insert>
+	
+	<!-- 처방약 입력 -->
+	<insert id="insertPmed">
+		 insert
+		   into pre_med
+		   (
+		     pre_no
+		   , med_no
+		   , dosetime
+		   )
+		   values
+		   (
+		     #{preNo}
+		   , #{medNo}
+		   , #{dosetime}
+		   )
+	</insert>
+	
+	
+	
 </mapper>

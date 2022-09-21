@@ -8,11 +8,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.treatment.model.dao.TreatmentDao;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
+import com.fp.smartDoctor.treatment.model.vo.PreMed;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 import com.fp.smartDoctor.treatment.model.vo.RevPatientRoom;
 import com.fp.smartDoctor.treatment.model.vo.Surgery;
@@ -149,6 +151,18 @@ public class TreatmentServiceImpl implements TreatmentService{
 	@Override
 	public int updatePRpay(int clinicNo) {
 		return tDao.updatePRpay(sqlSession, clinicNo);
+	}
+
+	// 처방전 입력
+	@Override
+	public int insertPre(Prescription pre) {
+		return tDao.insertPre(sqlSession, pre);
+	}
+
+	// 처방약 입력
+	@Override
+	public int insertPmed(PreMed pmd, String preNo) {
+		return tDao.insertPmed(sqlSession, pmd);
 	}
 
 	

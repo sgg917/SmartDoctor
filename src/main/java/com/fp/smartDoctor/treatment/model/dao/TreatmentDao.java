@@ -7,10 +7,12 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
+import com.fp.smartDoctor.treatment.model.vo.PreMed;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 import com.fp.smartDoctor.treatment.model.vo.RevPatientRoom;
 import com.fp.smartDoctor.treatment.model.vo.Surgery;
@@ -133,4 +135,18 @@ public class TreatmentDao {
 		return sqlSession.update("treatmentMapper.updatePRpay",clinicNo);
 	}
 		
+	// 처방전 입력
+	public int insertPre(SqlSessionTemplate sqlSession, Prescription pre) {
+		return sqlSession.insert("treatmentMapper.insertPre", pre);
+	}
+	
+	// 처방약 입력
+	public int insertPmed(SqlSessionTemplate sqlSession, PreMed pmd, String preNo) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("PreMed", pmd);
+		map.put("preNo", preNo);
+		
+		return sqlSession.insert("treatmentMapper.insertPmed", map);
+	}
 }

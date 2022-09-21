@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.smartDoctor.member.model.vo.Member;
+import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.treatment.model.service.TreatmentService;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
+import com.fp.smartDoctor.treatment.model.vo.PreMed;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 import com.fp.smartDoctor.treatment.model.vo.RevPatientRoom;
 import com.fp.smartDoctor.treatment.model.vo.Surgery;
@@ -108,7 +110,7 @@ public class TreatmentController {
 		
 		// 진료할 환자의 정보 조회
 		Patient nowPatient = tService.selectNowPatient(p, empNo);
-		System.out.println("진료중인 환자 : " + nowPatient);
+		System.out.println("진료중인 환자 : " + nowPatient); // 나중에 지워야됨
 		
 		if(nowPatient == null) {
 			session.setAttribute("alertMsg", "진료중인 환자가 없습니다.");
@@ -328,14 +330,44 @@ public class TreatmentController {
 	}
 	
 	@RequestMapping("insert.tmt")
-	public String insertTreatment(Clinic c, HttpSession session, String checkSurgery, String clinicNo) {
+	public String insertTreatment(Clinic c, Prescription pre, PreMed pmd, HttpSession session, String injectDay) {
 		
 		// 진료테이블 업데이트
 		int clinicResult = tService.updateClinic(c); 
-		System.out.println(clinicNo);
 		System.out.println(c);
 		
-		if(clinicResult > 0) {
+		// 처방전 입력
+		int preResult = tService.insertPre(pre);
+		
+		/*
+		if(clinicResult > 0 && preResult > 0) {
+			
+			System.out.println("1차성공");
+			session.setAttribute("Prescription", pre);
+			
+			String preNo = ((Prescription)session.getAttribute("Prescription")).getPreNo();
+			
+			// 처방약 입력
+			int pMedResult = tService.insertPmed(pmd, preNo);
+			
+			if(pMedResult > 0) {
+				session.setAttribute("alertMsg", "진료 완료되었습니다!");
+				System.out.println("2차성공");
+				return "redirect:/";
+			}
+			
+		}else {
+			System.out.println("실패");
+			session.setAttribute("errorMsg", "진료 실패");
+			return "ljy/enrollTreatment";
+		}
+		*/
+		
+		
+		
+		
+		
+		if(clinicResult > 0 && preResult > 0) {
 			session.setAttribute("alertMsg", "진료 완료되었습니다!");
 			System.out.println("성공");
 			return "redirect:/";
@@ -344,6 +376,10 @@ public class TreatmentController {
 			session.setAttribute("errorMsg", "진료 실패");
 			return "ljy/enrollTreatment";
 		}
+		
+		
+		
+		
 		
 	}
 	
