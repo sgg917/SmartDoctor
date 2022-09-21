@@ -118,6 +118,10 @@ public class TreatmentDao {
 		return sqlSession.insert("treatmentMapper.insertp", paraMap);
 	}
 
+	
+	// 진료 업데이트
+	public int updateClinic(SqlSessionTemplate sqlSession, Clinic c) {
+		return sqlSession.update("treatmentMapper.updateClinic", c);
 	//입원실 예약 후 수납 입원료 업데이트
 	public int updatePRpay(SqlSessionTemplate sqlSession, int clinicNo) {
 		return sqlSession.update("treatmentMapper.updatePRpay",clinicNo);

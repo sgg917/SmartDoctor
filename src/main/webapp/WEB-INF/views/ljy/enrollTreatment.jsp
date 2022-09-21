@@ -120,6 +120,10 @@
 	  font-size: 15px !important;
 	}
 	
+	#outout{
+		width: 900px !important;
+	}
+	
 </style>
 </head>
 <body>
@@ -140,7 +144,7 @@
                     <!-- style="border: 2px solid blue;" -->
                     <form action="">
                     <br><br>
-                      <table style="text-align: center; margin:auto;">
+                      <table id="outout"style="text-align: center; margin:auto;">
 
                         <tr>
                           <td colspan="2">
@@ -213,7 +217,7 @@
                                   </td>
     
                                   <td>
-                                    <textarea cols="30" rows="15" style="border-radius: 10px;">${ nowPatient.diagnosis }</textarea>
+                                    <textarea name="diagnosisContent" cols="30" rows="15" style="border-radius: 10px;">${ nowPatient.diagnosis }</textarea>
                                   </td>
                                   
                                   <td style="width: 33%;">
@@ -244,7 +248,7 @@
                             </select>
                             &nbsp;&nbsp;
 
-                            <input type="text" id="dCode" placeholder="질병코드" style="width: 90px;">
+                            <input type="text" name="diseaseCode" id="dCode" placeholder="질병코드" style="width: 90px;">
                             
                           <script>
                           	$("#sickness").change(function(){
@@ -272,7 +276,7 @@
 							</select>
                             &nbsp;
                             
-                            <input type="text" id="sCode" placeholder="수술코드" style="width: 90px;">
+                            <input name="surgeryNo2" type="text" id="sCode" placeholder="수술코드" style="width: 90px;">
                             
                             <script>
                             
@@ -324,19 +328,7 @@
 	                              </tr>
                               </thead>
                               <tbody id="table1">
-	                              <!-- <tr>
-	                                <td>A-02 약코드</td>
-	                                <td>알버트정 약명칭</td>
-	                                <td>
-	                                  <select name="times" class="custom-select">
-	                                    <option selected>선택</option>
-	                                    <option value="1">1회</option>
-	                                    <option value="2">2회</option>
-	                                    <option value="3">3회</option>
-	                                  </select>
-	                                </td>
-	                                <td>3일 총투여일수</td>
-	                              </tr> -->
+	                              
                               </tbody>
                              
                             </table>
@@ -346,7 +338,7 @@
                     </form>
 
                     <div class="template-demo">
-                      <button type="button" class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 100px;">저장</button>
+                      <a class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 100px;" href="insert.tmt">저장</a>
                       <button type="reset" class="btn btn-gradient-primary btn-sm" style="float: right; background: gray; color: white; border: none; width: 100px;">초기화</button>
                       <br><br>
                     </div>
@@ -438,17 +430,17 @@
             		
             		$.each(list, function(index, obj){
             			var row = '<tr>'
-   				     		+ '<td>' + obj.medNo + '</td>'
-   				     		+ '<td>' + obj.medName + '</td>'
-   				     		+ '<td>' +  
-   				     					'<select name="times" class="custom-select">'
-   				     				 +    '<option selected>선택</option>'
-   				     				 +	  '<option value="1">1회</option>'
-   				     				 +    '<option value="2">2회</option>'
-   				     				 +    '<option value="3">3회</option>'
-				                     +  '</select>'  + '</td>'
-   				     		+ '<td>' + obj.times + '</td>'
-   				     	 + '</tr>';
+		   				     		+ '<td>' + obj.medNo + '</td>'
+		   				     		+ '<td>' + obj.medName + '</td>'
+		   				     		+ '<td>' +  
+		   				     					'<select name="times" class="custom-select">'
+		   				     				 +    '<option selected>선택</option>'
+		   				     				 +	  '<option value="1">1회</option>'
+		   				     				 +    '<option value="2">2회</option>'
+		   				     				 +    '<option value="3">3회</option>'
+						                     +  '</select>'  + '</td>'
+		   				     		+ '<td>' + obj.times + '</td>'
+		   				     	 + '</tr>';
             			$("#table1").append(row);
             		})
             			

@@ -471,7 +471,19 @@
 			 , 3
 		)
 	</insert>
-	
+	<!-- 
+	<update id="updateClinic">
+		update
+		       clinic
+		   set diagnosis_content = #{diagnosisContent}
+		     , surgery = 
+		     , enter = 
+		     , status = 'D'
+		     , surgery_no2 = #{surgeryNo2}
+		     , diseases_code = #{diseaseCode}
+		 where chart_no = #{}
+	 </update>
+	 -->
 	<!-- 입원료 업데이트 -->
 	<update id="updatePRpay">
 		update

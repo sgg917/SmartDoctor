@@ -70,6 +70,10 @@ public interface TreatmentService {
 	int insertPR(HashMap<String, String> paraMap);
 	
 	//입원예약 풀캘린더
+	List<RevOProom> getpCalendar();
+	
+	// 진료 테이블 업데이트
+	int updateClinic(Clinic c);
 	List<RevPatientRoom> getpCalendar();
 	
 	//입원 하기 누른 후, 수납에서 입원료 변경

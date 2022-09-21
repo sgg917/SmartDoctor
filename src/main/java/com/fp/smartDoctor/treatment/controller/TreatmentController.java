@@ -324,6 +324,13 @@ public class TreatmentController {
 	}
 	
 	
+	@RequestMapping("insert.tmt")
+	public String insertTreatment(Clinic c) {
+		
+		int clinicResult = tService.updateClinic(c);
+		
+	}
+	
 	/*
 	 * //입원실 예약 후 수납 입원료 변경
 	 * 

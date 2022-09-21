@@ -1,5 +1,6 @@
 package com.fp.smartDoctor.reception.model.dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.RowBounds;
@@ -10,6 +11,7 @@ import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
+import com.fp.smartDoctor.reception.model.vo.ProomCalendar;
 import com.fp.smartDoctor.reception.model.vo.Receipt;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
@@ -122,4 +124,18 @@ public class ReceptionDao {
 		return sqlSession.selectOne("receptionMapper.selectReceipt", clinicNo);
 	}
 	
+	// 20. 입원실 출력용 날짜 조회
+	public ArrayList<ProomCalendar> selectDateList(SqlSessionTemplate sqlSession, String strDate) {
+		return (ArrayList)sqlSession.selectList("receptionMapper.selectDateList", strDate);
+	}
+	
+	// 21. 입원실 출력용 입원실 리스트 조회
+	public ArrayList<ProomCalendar> selectPRoomList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("receptionMapper.selectPRoomList");
+	}
+	
+	// 21. 입원실 출력용 입원실 예약 리스트 조회
+	public ArrayList<ProomCalendar> selectPRoomBookingList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("receptionMapper.selectPRoomBookingList");
+	}
 }
