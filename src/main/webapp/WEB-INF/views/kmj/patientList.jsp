@@ -164,7 +164,7 @@ img {
 								src="resources/images/search.jpg">
 						</div>
 						<div id="header3">
-							<button type="button" class="button">신규환자등록</button>
+							<button type="button" class="button" data-toggle="modal" data-target="#enrollPatient">신규환자등록</button>
 						</div>
 					</div>
 					<br> <br>
@@ -227,15 +227,14 @@ img {
 
 							<c:forEach var="p" begin="${ pi.startPage }"
 								end="${ pi.endPage }">
-
-								<!-- 현재페이지 -->
+								
 								<c:choose>
 									<c:when test="${ pi.currentPage == p }">
+										<!-- 현재페이지 -->
 										<c:choose>
 											<c:when test="${ empty keyword }">
 												<li class="page-item"><a class="page-link"
-													style="color: white; background: rgb(29, 92, 99)"
-													href="list.mj?cpage=${ p }">${ p }</a></li>
+													style="color: white; background: rgb(29, 92, 99)" href="list.mj?cpage=${ p }">${ p }</a></li>
 											</c:when>
 											<c:otherwise>
 												<li class="page-item"><a class="page-link"
@@ -244,8 +243,9 @@ img {
 											</c:otherwise>
 										</c:choose>
 									</c:when>
-									<!-- 현재페이지가 아닌거 -->
 									<c:otherwise>
+										<!-- 현재페이지가 아닌거 -->
+										
 										<c:choose>
 											<c:when test="${ empty keyword }">
 												<li class="page-item"><a class="page-link"
@@ -280,12 +280,63 @@ img {
 
 			</div>
 		</div>
+		
+		<div class="modal" id="enrollPatient">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<div class="modal-header">
+							환자등록
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<div class="modal-body" align="center">
+							<form action="insert.pt" method="post">
+								<table class="table-bordered">
+									<tr>
+										<td>이름</td>
+										<td><input type="text" name="patientName" required></td>
+									</tr>
+									<tr>
+										<td>주민등록번호</td>
+										<td><input type="text" name="idNo" required></td>
+									</tr>
+									<tr>
+										<td>연락처</td>
+										<td><input type="text" name="phone" required></td>
+									</tr>
+									<tr>
+										<td>보호자 연락처</td>
+										<td><input type="text" name="protector"></td>
+									</tr>
+									<tr>
+										<td>주소</td>
+										<td><input type="text" name="address" required></td>
+									</tr>
+									<tr>
+										<td>메모</td>
+										<td><input type="text" name="memo"></td>
+									</tr>
+								</table>
+								<br>
+								<button type="submit" class="btn btn-sm btn-secondary button">등록하기</button>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			
 		<script>
+		
 			$(function() {
-				$("#patientList>tbody>tr>td>button").click(function() {
-					location.href = "detail.pt?chartNo=" + $(this).val();
-				})
+				$("#patientList>tbody>tr>td>button").click(
+						function() {
+							location.href = "detail.pt?chartNo="
+									+ $(this).val();
+						})
 			})
+		
 		</script>
 		<jsp:include page="../common/footer.jsp" />
 </body>

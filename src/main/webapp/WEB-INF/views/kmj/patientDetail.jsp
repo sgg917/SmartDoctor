@@ -118,6 +118,21 @@ input {
 	width: fit-content;
 	margin: auto;
 }
+
+.button2 {
+	width: 110px;
+	height: 30px;
+	background-color: rgb(29, 92, 99);
+	color: white;
+	border-radius: 7px;
+	border: 0;
+	cursor: pointer;
+}
+
+.bggray2 {
+	background-color: lightgray;
+	color: black;
+}
 </style>
 
 
@@ -251,7 +266,10 @@ input {
 								</c:choose>
 							</ul>
 						</div>
-
+						
+						<div style="width: 100%; height: 30px;" align="right">
+							<button class="button2 bggray2" onclick="history.back()">뒤로가기</button>
+						</div>
 
 
 

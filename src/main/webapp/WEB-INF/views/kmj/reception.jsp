@@ -179,7 +179,7 @@ input {
 								<td colspan="5" style="text-align: left;">${p.memo}</td>
 							</tr>
 						</table>
-						<br> <br> <br> <br> <br>
+						<br> <br> <br> <br> <br> <br> <br>
 
 						<table class="table">
 							<tr>
@@ -258,13 +258,14 @@ input {
 								</tbody>
 							</table>
 						</div>
-
+						
+						<br>
 						<button class="click button" style="width: 110px;" onclick="ajaxChangePatientStatus();">상태변경</button>
 
 						
 						<br> <br>
 
-						<table class="table" style="margin-top: 4px;">
+						<table class="table" style="margin-top: 6px;">
 							<tr height="30">
 								<td width="120" style="padding: 5px;">
 									<button class="button maintitle">진료중</button>
