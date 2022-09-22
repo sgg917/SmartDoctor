@@ -1,5 +1,9 @@
 package com.fp.smartDoctor.reception.model.vo;
 
+import java.util.ArrayList;
+
+import com.fp.smartDoctor.treatment.model.vo.PreMed;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,4 +29,6 @@ public class Prescription {
 	private String diseasesCode; // 질병코드
 	private String diseaseName; // 질병이름
 	
+	
+	private ArrayList<PreMed> preMedList;
 }

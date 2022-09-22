@@ -85,6 +85,6 @@ public interface TreatmentService {
 	int insertPre(Prescription pre);
 	
 	// 처방약 입력
-	int insertPmed(PreMed pmd, String preNo);
+	int insertPmed(PreMed pmd, Prescription pre, String dosetime);
 	
 }

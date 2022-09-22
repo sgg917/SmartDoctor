@@ -434,7 +434,7 @@
             		
             		$.each(list, function(index, obj){
             			var row = '<tr>'
-		   				     		+ '<td>' + '<span name="medNo">' + obj.medNo + '</span>' + '</td>'
+		   				     		+ '<td>' + '<span name="medNo">' + '<input type="hidden" value="' + obj.medNo + '" name="preMedList[' + index + '].medNo">' + obj.medNo + '</span>' + '</td>'
 		   				     		+ '<td>' + obj.medName + '</td>'
 		   				     		+ '<td>' +  
 		   				     					'<select name="dosetime" class="custom-select">'
@@ -443,7 +443,7 @@
 		   				     				 +    '<option value="2">2회</option>'
 		   				     				 +    '<option value="3">3회</option>'
 						                     +  '</select>'  + '</td>'
-		   				     		+ '<td>' + obj.times + '</td>'
+		   				     		+ '<td>' + '<span name="dosetime">' + '<input type="hidden" value="' + obj.times + '" name="preMedList[' + index + '].dosetime">' + obj.times + "</span>" + '</td>'
 		   				     	 + '</tr>';
             			$("#table1").append(row);
             		})

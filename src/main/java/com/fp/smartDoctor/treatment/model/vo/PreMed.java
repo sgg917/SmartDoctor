@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class PreMed {
 	
-	private int preNo;
+	private String preNo;
 	private String medNo;
 	private String dosetime;
 
