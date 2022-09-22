@@ -141,11 +141,12 @@ public class TreatmentDao {
 	}
 	
 	// 처방약 입력
-	public int insertPmed(SqlSessionTemplate sqlSession, PreMed pmd, String preNo) {
+	public int insertPmed(SqlSessionTemplate sqlSession, PreMed pmd, Prescription pre, String dosetime) {
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("PreMed", pmd);
-		map.put("preNo", preNo);
+		map.put("Prescription", pre);
+		map.put("dosetime", dosetime);
 		
 		return sqlSession.insert("treatmentMapper.insertPmed", map);
 	}

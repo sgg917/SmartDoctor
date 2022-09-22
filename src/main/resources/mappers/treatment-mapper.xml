@@ -536,7 +536,7 @@
 		   )
 		   values
 		   (
-		     #{preNo}
+		     seq_psno.currval
 		   , #{medNo}
 		   , #{dosetime}
 		   )

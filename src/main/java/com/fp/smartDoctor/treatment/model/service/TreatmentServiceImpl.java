@@ -161,8 +161,8 @@ public class TreatmentServiceImpl implements TreatmentService{
 
 	// 처방약 입력
 	@Override
-	public int insertPmed(PreMed pmd, String preNo) {
-		return tDao.insertPmed(sqlSession, pmd);
+	public int insertPmed(PreMed pmd, Prescription pre, String dosetime) {
+		return tDao.insertPmed(sqlSession, pmd, pre, dosetime);
 	}
 
 	
