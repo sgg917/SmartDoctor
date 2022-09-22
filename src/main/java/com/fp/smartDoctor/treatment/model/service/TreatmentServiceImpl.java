@@ -165,5 +165,25 @@ public class TreatmentServiceImpl implements TreatmentService{
 		return tDao.insertPmed(sqlSession, pmd);
 	}
 
+	// 수납 입력
+	/*
+	@Override
+	public int insertPay(int clinicNo, String meals) {
+		System.out.println("ser clinicNo : " + c.getClinicNo());
+		return tDao.insertPay(sqlSession, c, meals);
+	}*/
+
+	@Override
+	public int updatePatient(String chartNo) {
+		return tDao.updatePatient(sqlSession, chartNo);
+	}
+
+	@Override
+	public int insertPay(int clinicNo, String meals) {
+		return 0;
+	}
+	
+
+
 	
 }
