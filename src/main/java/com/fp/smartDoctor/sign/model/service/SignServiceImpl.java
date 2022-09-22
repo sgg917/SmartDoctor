@@ -210,21 +210,12 @@ public class SignServiceImpl implements SignService {
 		return sDao.selectLineComment(sqlSession, apprNo);
 	}
 	@Override
-	public int updateAllApproval(String empNo) {
-		return sDao.updateAllApproval(sqlSession, empNo);
+	public int updateAllApproval(ArrayList<String> list) {
+		return sDao.updateAllApproval(sqlSession, list);
 	}
 	@Override
-	public int updateAllLine(String empNo) {
-		return sDao.updateAllLine(sqlSession, empNo);
-	}
-	
-	@Override
-	public int updateAllApproval2(HashMap<String, String> map) {
-		return sDao.updateAllApproval2(sqlSession, map);
-	}
-	@Override
-	public int updateAllLine2(HashMap<String, String> map) {
-		return sDao.updateAllLine2(sqlSession, map);
+	public int updateAllLine(ArrayList<String> list) {
+		return sDao.updateAllLine(sqlSession, list);
 	}
 	@Override
 	public int insertStorageAppr(Sign s) {

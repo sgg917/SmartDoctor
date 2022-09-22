@@ -389,13 +389,13 @@
 				
 				let lineArr = [];
 				$("#apprLine").children(".ap-md-bd").each(function(index, item){ // 결재자들 
-					$("#insertVacation").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='lineList[" + index + "].empNo'>")
+					$("#insertOvertime").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='lineList[" + index + "].empNo'>")
 					lineArr.push( $(item).children('.empName').text() );
 				})
 				
 				let refArr = [];
 				$("#apprRef").children(".ap-md-bd").each(function(index, item){ // 참조자들
-					$("#insertVacation").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='RefList[" + index + "].empNo'>");
+					$("#insertOvertime").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='RefList[" + index + "].empNo'>");
 					refArr.push( $(item).children('.empName').text() );
 				})
 				

@@ -51,21 +51,6 @@
 							</button>
 						</div>
 						
-						<script>
-							function allApprove(){
-								
-								let noArr = [];
-								$('input:checkbox :checked').each(function(){
-									noArr.push( $(this).next().text() );
-								})
-								
-								let result = confirm("일괄결재 하시겠습니까? 일괄결재 시 결재의견은 '승인합니다'로 통일됩니다.");
-								if(result == true){
-									location.href='allApprove.si?noArr=' + noArr;
-								}
-							}
-						</script>
-
 						<table class="table appr-standby-tb" id="appr-all-table">
 							<thead>
 								<tr>	
@@ -87,7 +72,7 @@
 									<c:otherwise>
 										<c:forEach var="a" items="${ list }">
 											<tr>
-												<td><input type="checkbox"></td>
+												<td class="check"><input type="checkbox" value="1"></td>
 												<td class="apprNo">${ a.apprNo }</td>
 												<td>${ a.formTitle }</td>
 												<td>${ a.apprTitle } &nbsp;
@@ -106,11 +91,25 @@
 						</table>
 						
 						<script>
-							$(function(){
-			            		$(".appr-standby-tb>tbody>tr").click(function(){
-			            			location.href = 'apprStandbyDetail.si?apprNo=' + $(this).find(".apprNo").text();
+							$(function(){ // 상세페이지
+			            		$(".appr-standby-tb>tbody").on('click', 'tr td:not(:first-child)', function(e){
+			            			location.href = 'apprStandbyDetail.si?apprNo=' + $(e.target).siblings(".apprNo").text();
 			            		})
 			            	})
+			            	
+			            	function allApprove(){ // 일괄결재
+								
+								let noArr = [];
+								$('input[type=checkbox]:checked').each(function(){
+									noArr.push( $(this).parent().siblings('.apprNo').text() );
+								})
+								//console.log(noArr);
+								
+								let result = confirm("일괄결재 하시겠습니까? 일괄결재 시 결재의견은 '승인합니다'로 통일됩니다.");
+								if(result == true){
+									location.href='allApprove.si?noArr=' + noArr;
+								} 
+							}
 						</script>
 						
 						<!-- 페이징 -->

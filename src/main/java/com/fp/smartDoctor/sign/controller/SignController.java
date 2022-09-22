@@ -600,26 +600,40 @@ public class SignController {
 	
 	// 사용자_일괄결재
 	@RequestMapping("allApprove.si")
-	public String updateAllApprove(List<String> noArr, HttpSession session) {
+	public String updateAllApprove(@RequestParam(value="noArr")List<String> noArr, Line l, HttpSession session) {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		String empNo = loginUser.getEmpNo();
-		String empNo2 = loginUser.getEmpNo();
+		int empNo = Integer.parseInt(loginUser.getEmpNo());
 		
-		HashMap<String, String> map = new HashMap<>();
-		map.put("empNo", empNo);
-		map.put("empNo2", empNo2);
+		//HashMap<String, String> map = new HashMap<>();
 		
-		//int apprResult = sService.updateAllApproval(empNo); 
-		//int lineResult = sService.updateAllLine(empNo);
+		ArrayList<Line> list = l.getLineList();
+		//ArrayList<Line> lineList = new ArrayList<>();
 		
+		/*
+		for(String n : noArr) {
+			map.put("empNo", empNo);
+			map.put("apprNo", n);
+		}
+		*/
 		
-		int apprResult = sService.updateAllApproval2(map); 
-		int lineResult = sService.updateAllLine2(map);
+		for(int i=0; i<noArr.size(); i++) {
+			
+			//list.add(new Line(empNo, noArr.get(i)));
+		}
+		
+		System.out.println(list);
+		System.out.println(noArr);
+		
+		//int apprResult = sService.updateAllApproval(map); 
+		//int lineResult = sService.updateAllLine(map);
+		
+		int apprResult = sService.updateAllApproval(list); 
+		int lineResult = sService.updateAllLine(list);
 
 		if(apprResult > 0 && lineResult > 0) {
 			
-			session.setAttribute("alertMsg", "결재 승인되었습니다.");
+			session.setAttribute("alertMsg", "일괄결재 되었습니다.");
 			return "redirect:apprStandbyList.si";
 		}else {
 			
