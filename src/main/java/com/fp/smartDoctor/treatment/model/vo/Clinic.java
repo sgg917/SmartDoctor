@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class Clinic {
 
-	private int clinicNo;
+	private String clinicNo;
 	private int chartNo;//문자는 안들어가나요?? 네!숫자로만 할게용 10000번 이후로용
 	private int deptNo;
 	private String enrollTime;

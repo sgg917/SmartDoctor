@@ -357,7 +357,7 @@ public class TreatmentController {
 			System.out.println(pre.getPreMedList()); // 입력한 약 list 보기
 			
 			int pMedResult = 0;
-			//String meals = "";
+			String meals = "";
 			
 			// 처방약 입력
 			for(PreMed pmd : pre.getPreMedList()) {
@@ -365,7 +365,7 @@ public class TreatmentController {
 				System.out.println("처방약 : " + pmd);
 			}
 			
-			/*
+			
 			if(c.getSurgeryNo2() != null) { // 수술코드가 null이 아니면 == 수술을 한다면
 				ArrayList<Surgery> sList = tService.selectSurgeryList();
 				for(int i = 0; i<sList.size(); i++) {
@@ -382,13 +382,14 @@ public class TreatmentController {
 			System.out.println("meals3 : " + meals);
 			
 			System.out.println("clinicNo : " + c.getClinicNo());
+			System.out.println("surgeryNo2" + c.getSurgeryNo2());
 			
-			int payResult = tService.insertPay(c.getClinicNo(), meals);
-			*/
+			int payResult = tService.insertPay(c.getClinicNo(), c.getSurgeryNo2(), meals);
 			
-			//&& payResult > 0
 			
-			if(pMedResult > 0) {
+			
+			
+			if(pMedResult > 0 && payResult > 0) {
 				session.setAttribute("alertMsg", "진료 완료되었습니다!");
 				System.out.println("2차성공");
 				return "redirect:/";

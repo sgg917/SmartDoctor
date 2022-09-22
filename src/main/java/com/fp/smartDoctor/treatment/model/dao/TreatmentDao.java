@@ -147,15 +147,18 @@ public class TreatmentDao {
 	}
 	
 	// 수납 입력
-	public int insertPay(SqlSessionTemplate sqlSession, Clinic c, String meals) {
+	public int insertPay(SqlSessionTemplate sqlSession, String clinicNo, String surgeryNo2, String meals) {
 		
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("Clinic", c);
+		HashMap<String, String> map = new HashMap<>();
+		map.put("clinicNo", clinicNo);
+		map.put("surgeryNo2", surgeryNo2);
 		map.put("meals", meals);
 		
-		System.out.println("Dao clinicNo : " + c.getClinicNo());
+		
+		System.out.println("Dao clinicNo : " + clinicNo);
 		System.out.println("dao meals" + meals);
 		System.out.println("dao Map" + map);
+		System.out.println("dao surgeryNo2" + surgeryNo2);
 		
 		return sqlSession.insert("treatmentMapper.insertPay", map);
 	}
