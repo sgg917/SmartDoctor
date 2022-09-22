@@ -104,6 +104,10 @@ public class TreatmentController {
 	@RequestMapping("enroll.tmt")
 	public ModelAndView enrollTreatment(Patient p, Clinic c, Disease d, HttpSession session, ModelAndView mv) {
 		
+		
+		// 교수만 진료 가능하게 수정
+		
+		
 		// 로그인한 의사의 사번
 		String empNo = ((Member)session.getAttribute("loginUser")).getEmpNo();
 		//System.out.println("empNo" + empNo);
@@ -112,31 +116,34 @@ public class TreatmentController {
 		Patient nowPatient = tService.selectNowPatient(p, empNo);
 		System.out.println("진료중인 환자 : " + nowPatient); // 나중에 지워야됨
 		
-		if(nowPatient == null) {
-			session.setAttribute("alertMsg", "진료중인 환자가 없습니다.");
-			mv.setViewName("redirect:/");
-		}else {
+		if(nowPatient != null) {
+			
+			// 진료할 환자 존재
 			session.setAttribute("nowPatient", nowPatient);
+			
+			// 진료할 환자의 과거 내역 조회
+			ArrayList<Clinic> list = tService.selectPatientInfo(nowPatient.getChartNo());
+			mv.addObject("list", list);
+			
+			// 질병 리스트 조회
+			ArrayList<Disease> dList = tService.selectDiseaseList();
+			mv.addObject("dList", dList).setViewName("ljy/enrollTreatment");
+			
+			// 수술 전체 리스트 조회
+			ArrayList<Surgery> sList = tService.selectSurgeryList();
+			mv.addObject("sList", sList).setViewName("ljy/enrollTreatment");
+			
+			// 약 전체 리스트 조회
+			ArrayList<Medicine> mList = tService.selectMedList();
+			mv.addObject("mList", mList).setViewName("ljy/enrollTreatment");
+			
 			mv.setViewName("ljy/enrollTreatment");
-		}
-		
-		// 진료할 환자의 과거 내역 조회
-		ArrayList<Clinic> list = tService.selectPatientInfo(nowPatient.getChartNo());
-		mv.addObject("list", list)
-		  .setViewName("ljy/enrollTreatment");
-		
-		// 질병 리스트 조회
-		ArrayList<Disease> dList = tService.selectDiseaseList();
-		mv.addObject("dList", dList).setViewName("ljy/enrollTreatment");
-		
-		// 수술 전체 리스트 조회
-		ArrayList<Surgery> sList = tService.selectSurgeryList();
-		mv.addObject("sList", sList).setViewName("ljy/enrollTreatment");
-		
-		// 약 전체 리스트 조회
-		ArrayList<Medicine> mList = tService.selectMedList();
-		mv.addObject("mList", mList).setViewName("ljy/enrollTreatment");
+			
+		}else { 
 
+			session.setAttribute("errorMsg", "진료중인 환자가 없습니다.");
+			mv.setViewName("common/errorPage");
+		}
 		return mv;
 	}
 	
@@ -358,6 +365,7 @@ public class TreatmentController {
 			
 			int pMedResult = 0;
 			String meals = "";
+			System.out.println("meals" + meals);
 			
 			// 처방약 입력
 			for(PreMed pmd : pre.getPreMedList()) {
@@ -365,8 +373,9 @@ public class TreatmentController {
 				System.out.println("처방약 : " + pmd);
 			}
 			
+			System.out.println("안녕하세요");
 			
-			if(c.getSurgeryNo2() != null) { // 수술코드가 null이 아니면 == 수술을 한다면
+			if(c.getSurgeryNo2().equals(" ")) { // 수술코드가 null이 아니면 == 수술을 한다면
 				ArrayList<Surgery> sList = tService.selectSurgeryList();
 				for(int i = 0; i<sList.size(); i++) {
 					if(sList.get(i).getSurgeryNo().equals(c.getSurgeryNo2())) {
