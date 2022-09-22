@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mailSendForm</title>
+<title>Smart Doctor</title>
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <style>
@@ -113,8 +114,7 @@
 	.mailUpload tr:nth-child(4) th,.mailUpload tr:nth-child(4) td {
 		padding-top:10px;
 	}
-	/* 입력폼 영역 */
-	/* 큰버튼 스타일 */
+
 	.bigBtn {
 		width: 140px;
 		height: 40px;
@@ -128,9 +128,7 @@
 	.bigBtn:hover {
 		cursor: pointer;
 	}
-	/* 큰버튼 스타일 */
-	/* 파일 첨부 관련 */
- 	/* 파일 첨부 관련 */
+	
  	.upload-btn-wrapper {
 	    position: relative;
 	    overflow: hidden;
@@ -196,7 +194,11 @@
 	.inputDual3 {
 		border-left:none;
 	}
-	
+	.wrap2{
+		width:95%;
+		text-align : left;
+		margin:auto;
+	}
 </style>
 </head>
 <body>
@@ -206,11 +208,15 @@
 		<div class="content-wrapper">
 			<div class="wrap11" style="height: 100%;">
 
-				<div class="topBar">
-					<!-- 메뉴명 -->
-					<span>메일쓰기</span>
+				<div class="wrap2">
+				<br><br>
+				<p style="font-size: 22px;">
+						메일 &nbsp;|&nbsp; <b>답장쓰기</b>
+					</p>
+					<hr>
+					<br><br><br>
+				
 				</div>
-				<br><br><br>
 		<div class="contentArea">
 			<div class="inputForm">
 				<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="get">
@@ -324,7 +330,7 @@
 	
 	
 	
----------------original Message-------------
+-----------------------------------------original Message-----------------------------------------
 
 ${m.mailContent }
 </textarea>
@@ -568,7 +574,6 @@ ${m.mailContent }
 	     html += "<tr id='fileTr_" + fIndex + "'>";
 	     html += "    <td id='dropZone' class='left' >";
 	     html += fileName + " (" + fileSizeStr +") " 
-	             //+ "<a href='#' onclick='deleteFile(" + fIndex + "); return false;' class='btn small bg_02'> 삭제</a>"
 	             + "<span id='deleteBtn' class='material-icons' onclick='deleteFile(" + fIndex + "); return false;'>highlight_off</span>"
 	     html += "    </td>"
 	     html += "</tr>"

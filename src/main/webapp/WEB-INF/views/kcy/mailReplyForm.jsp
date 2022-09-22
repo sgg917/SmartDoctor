@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>SMART DOCTOR</title>
+<title>Smart Doctor</title>
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
@@ -200,7 +201,11 @@
 	.inputDual3 {
 		border-left:none;
 	}
-	
+	.wrap2{
+		width:95%;
+		text-align : left;
+		margin:auto;
+	}
 </style>
 </head>
 <body>
@@ -210,11 +215,15 @@
 		<div class="content-wrapper">
 			<div class="wrap11" style="height: 100%;">
 
-				<div class="topBar">
-					<!-- 메뉴명 -->
-					<span>메일쓰기</span>
+				<div class="wrap2">
+				<br><br>
+				<p style="font-size: 22px;">
+						메일 &nbsp;|&nbsp; <b>답장쓰기</b>
+					</p>
+					<hr>
+					<br><br><br>
+				
 				</div>
-				<br><br><br>
 					
 							<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="get">
 								<table class="mailUpload" id="boardDetail">

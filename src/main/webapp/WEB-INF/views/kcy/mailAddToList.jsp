@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mailAddToList</title>
+<title>Smart Doctor</title>
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -46,7 +47,6 @@ html, body {
 	padding: 20px;
 }
 
-/* 검색창 스타일 */
 .searchBar {
 	margin-left: 15px;
 }
@@ -80,12 +80,10 @@ html, body {
 	cursor: pointer;
 	opacity: 70%;
 }
-/* 검색창 스타일 */
 div {
 	box-sizing: border-box;
 }
 
-/* 전체영역틀 */
 #wrap {
 	margin-top: 20px;
 	margin-left: 15px; width : 1200px;
@@ -98,14 +96,12 @@ div {
 	margin-right: 18px;
 }
 
-/* 좌측 조직도영역 */
 #groupArea {
 	height: 100%;
 	width: 380px;
 	border: 1px solid lightgray;
 }
 
-/* depList_area - 조직도 tree 스타일 */
 .group_tree, .group_tree ul {
 	list-style: none;
 	padding-left: 17px;
@@ -154,19 +150,16 @@ div {
 	height: 35px;
 }
 
-/* 중앙 리스트영역 */
 #listArea {
 	height: 100%;
 	width: 380px;
 	border: 1px solid lightgray;
 }
 
-/* 체크박스 스타일 */
 .checkBox {
 	zoom: 1.7;
 }
 
-/* 게시판 스타일 */
 .boardTable {
 	width: 100%;
 	height: auto;
@@ -196,9 +189,7 @@ div {
 	cursor: pointer;
 }
 
-/* 게시판 스타일 */
 
-/* 우측 선택영역 */
 #selectArea {
 	height: 100%;
 	width: 380px;	
@@ -210,7 +201,6 @@ div {
 }
 #selectArea>div>div{border: 1px solid lightgray;}
 
-/* 작은버튼 스타일 */
 .smallBtn {
 	width: 60px;
 	height: 25px;
@@ -221,7 +211,6 @@ div {
 	font-size: 12px;
 }
 
-/* 중간버튼 스타일 */
 .middleBtn {
 	width: 90px;
 	height: 35px;
@@ -235,9 +224,7 @@ div {
 .middleBtn:hover {
 	cursor: pointer;
 }
-/* 중간버튼 스타일 */
 
-/* 큰버튼 스타일 */
 .bigBtn {
 	width: 140px;
 	height: 40px;
@@ -252,7 +239,6 @@ div {
 .bigBtn:hover {
 	cursor: pointer;
 }
-/* 큰버튼 스타일 */
 #btnArea {
 	margin-left: 910px;
 }
@@ -268,6 +254,7 @@ div {
 }
 </style>
 </head>
+
 <body>
 
 
@@ -318,14 +305,14 @@ div {
 						
 						
 						
-						//결재자 아이디 배열에 담기
+						//선택자 아이디 배열에 담기
 						var signerId=new Array();
 						var cnt = $("#signList tbody input[name=empNo]").length;
 						for(var i=0;i<cnt;i++){
 							var signerIdStr = $("#signList tbody input[name=empNo]").eq(i).val();
 							signerId.push(signerIdStr);
 						}
-						//결재자 이름 배열에 담기
+						//선택자 이름 배열에 담기
 						var signerName=new Array();
 						cnt = $("#signList tbody input[name=empName]").length;
 						for(var i=0;i<cnt;i++){
@@ -474,13 +461,11 @@ div {
 		     }
 		 });
 		
-		//삭제버튼 클릭시 추가된 행 삭제
 		$(document).on("click",".btnDel",function(){
 			$(this).parent().parent().remove();
 		});
 		
 		
-		// 선택 추가
 		
 		var value1 = "";
 		

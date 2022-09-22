@@ -9,7 +9,6 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Smart Doctor</title>
-
 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 
 
@@ -105,16 +104,94 @@
 
 				<!-- 진료과별 차트 -->
 				<div class="row">
-		            <div class="col-md-7 grid-margin stretch-card">
-		              <div class="card">
-		                <div class="card-body">
-		                  <h4 class="card-title">Sale Overview</h4>
-		                  <canvas id="sales-chart"></canvas>
-		                </div>
-		              </div>
-		            </div>
-	           </div>
+              <div class="col-md-7 grid-margin stretch-card">
+                <div class="card" style="height:100%;">
+                  <div class="card-body">
+                    <div class="clearfix">
+                      <h4 class="card-title float-left">Visit And Sales Statistics</h4>
+                      <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right"></div>
+                    </div>
+                    <canvas id="visit-sale-chart" class="mt-4"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 grid-margin stretch-card">
+                <div class="card" style="height:100%;">
+                  <div class="card-body">
+                    <h4 class="card-title">Traffic Sources</h4>
+                    <canvas id="traffic-chart"></canvas>
+                    <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
 	           <!-- 진료과별 차트 끝 -->
+	           
+	           
+	           
+	           <div class="col-md-5 grid-margin stretch-card">
+                <div class="card" style="height:100%;">
+                  <div class="card-body" style="height:100%;">
+                    <h4 class="card-title text-white">Todo</h4>
+                    <div class="add-items d-flex">
+                      <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?">
+                      <button class="add btn btn-gradient-primary font-weight-bold todo-list-add-btn" id="add-task">Add</button>
+                    </div>
+                    <div class="list-wrapper">
+                      <ul class="d-flex flex-column-reverse todo-list todo-list-custom">
+                        <li>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="checkbox" type="checkbox"> Meeting with Alisa </label>
+                          </div>
+                          <i class="remove mdi mdi-close-circle-outline"></i>
+                        </li>
+                        <li class="completed">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="checkbox" type="checkbox" checked> Call John </label>
+                          </div>
+                          <i class="remove mdi mdi-close-circle-outline"></i>
+                        </li>
+                        <li>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="checkbox" type="checkbox"> Create invoice </label>
+                          </div>
+                          <i class="remove mdi mdi-close-circle-outline"></i>
+                        </li>
+                        <li>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="checkbox" type="checkbox"> Print Statements </label>
+                          </div>
+                          <i class="remove mdi mdi-close-circle-outline"></i>
+                        </li>
+                        <li class="completed">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="checkbox" type="checkbox" checked> Prepare for presentation </label>
+                          </div>
+                          <i class="remove mdi mdi-close-circle-outline"></i>
+                        </li>
+                        <li>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="checkbox" type="checkbox"> Pick up kids from school </label>
+                          </div>
+                          <i class="remove mdi mdi-close-circle-outline"></i>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+	           
+	           
+	           
+	           
+	           
+	           
 			</div>
 			<jsp:include page="common/footer.jsp" />
 		</div>

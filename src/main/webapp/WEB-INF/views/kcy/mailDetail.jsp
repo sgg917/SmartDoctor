@@ -7,7 +7,8 @@
 <!-- 메일상세페이지 -->
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Smart Doctor</title>
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 <style>
 .wrap11 {
 		width: 100%;
@@ -18,23 +19,11 @@
 		height: 100%;
 	}
  
-   .topBar {
-      	background-color: rgb(65, 125, 122);
-		width: 100%;
-		height: 50px;
-		color: white;
-		font-size: 25px;
-		box-sizing: border-box;
-		padding-top: 10px;
-		padding-left: 30px;
-		font-weight: 500;
-		border-radius: 30px 10px;
-    }
+
 
 
 
     
-    /* 콘텐츠영역 */
     .contentArea {
        margin:auto;
        width:90%;
@@ -45,7 +34,7 @@
 		height: 25px;
 		border: 0px;
 		border-radius: 5px;
-		background: rgb(26, 188, 156); /* 회색 : rgb(190, 190, 190) */
+		background: RGB(65, 125, 122) ; 
 		color: white;
 		font-size: 12px;
 	}
@@ -53,14 +42,13 @@
 	.smallBtn:hover {
 		cursor: pointer;
 	}
-	/* 작은버튼 스타일 */
-	/* 큰버튼 스타일 */
+
 	.bigBtn {
 		width: 140px;
 		height: 40px;
 		border: 0px;
 		border-radius: 5px;
-		background: rgb(26, 188, 156); /* 회색 : rgb(190, 190, 190) */
+		background: RGB(65, 125, 122) ; 
 		color: white;
 		font-size: 18px;
 	}
@@ -68,7 +56,7 @@
 	.bigBtn:hover {
 		cursor: pointer;
 	}
-	/* 큰버튼 스타일 */
+	
 	.importantIcon {
 		margin:auto;
 		padding-top:13px;
@@ -134,8 +122,8 @@
 	.contentPre {
 		margin-left:10px;
 	}
-/* ==========페이지영역========== */
-/* 파일테이블 */
+
+
 .fileTable {
 	text-align:left;
 }
@@ -152,11 +140,15 @@
 .fileShow:hover {
 	cursor:pointer;
 }
-/* 파일 첨부 관련 */
 .pageNoClick{
    pointer-events: none;
     cursor: default;
 }
+.wrap2{
+		width:95%;
+		text-align : left;
+		margin:auto;
+	}
 </style>   
 </head>
 <body>
@@ -166,12 +158,15 @@
 		<div class="content-wrapper">
 			<div class="wrap11" style="height: 100%;">
 
-				<div class="topBar">
-					<!-- 메뉴명 -->
-					<span>받은 메일함</span>
+				<div class="wrap2">
+				<br><br>
+				<p style="font-size: 22px;">
+						메일 &nbsp;|&nbsp; <b>메일 상세</b>
+					</p>
+					<hr>
+				
 				</div>
 		<div class="contentArea">
-			<!-- 내용 작성 영역 입니다-->
 			<br>
 			
 			<div class="wrap">
@@ -257,7 +252,7 @@
 			</div>
 			<br><br>
 			<div id="btnArea">
-				<button class="bigBtn listBtn" type="button" onclick="location.href='list.mil?currentPage=1&mailOwn=${loginUser.empNo}'">목록으로</button>
+				<button class="bigBtn listBtn" type="button" onclick="location.href='list.mil?currentPage=1&mailOwn=${loginUser.empNo}'">목록</button>
 			</div>
 			
 			<br><br><br><br>
@@ -297,7 +292,7 @@
 				}else{
 					for(var i in list){
 						value += "<tr>" +
-									"<td>" + "<a href='"+"${pageContext.servletContext.contextPath }/resources/uploadFiles/mail/"+list[i].changeName+"' download=" +list[i].originName+ ">"+ list[i].originName +"</a>" +"</td>" +
+									"<td>" + "<a href='"+"resources/uploadFiles/mail/"+list[i].changeName+"' download=" +list[i].originName+ ">"+ list[i].originName +"</a>" +"</td>" +
 								 "<tr>";
 					}
 				}
