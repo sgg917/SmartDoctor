@@ -15,6 +15,7 @@
 	background-color: white;
 	border-radius: 10px 20px 30px 40px;
 	box-shadow: 3px 3px 3px 3px lightgray;
+	font-size:17px;
 }
 
 /* 초록 버튼 */
@@ -33,7 +34,7 @@
 /* 작은 버튼 */
 .small-btn {
 	width:70px;
-	height:30px;
+	height:33px;
 	border-style:none;
 	border-radius:7px;
 	font-weight:400;
@@ -63,12 +64,18 @@ th {
 	padding:30px;
 	background:#F2F2F2;
 	width:220px;
-	height:500px;
+	/* height:500px; */
 	border-radius:7px;
 }
+#att-sidebar p{
+	height:20px; 
+	font-size:1rem !important; 
+	line-height:3;
+}
 #att-count {text-align:center;}
-#att-count th {width:80px;}
+#att-count th {width:80px; font-size:1rem !important;}
 #att-count tr {height:50px;}
+#attTable td, #attTable th {font-size:1rem !important;}
 
 /* 페이징 스타일 */
 .page-item {
@@ -78,6 +85,12 @@ th {
 .page-item .active {
 	background:rgb(65, 125, 122) !important;
 	color:white;
+}
+.pagination ul {
+	font-size:1rem;
+}
+.page-link {
+	padding: 0.7rem 1rem !important;
 }
 </style>
 </head>
@@ -92,12 +105,12 @@ th {
 			<br>
 			<hr>
 
-			<div class="container card wrap11" id="att-area">
+			<div class="wrap11" id="att-area">
 				<div class="row" style="width: 100%">
 
 					<!-- 근태 상세 조회 영역 -->
-					<div class="col-8" style="padding: 50px 70px;">
-						<h5><b>조건별 근태 조회</b></h5>
+					<div class="col-8" style="padding: 50px 100px;">
+						<h4><b>조건별 근태 조회</b></h4>
 						<br>
 						<br>
 						
@@ -114,8 +127,9 @@ th {
 
 						<br>
 						<br>
+						<br>
 
-						<table class="table" id="attTable" style="width: 550px;">
+						<table class="table" id="attTable">
 							<thead>
 								<tr style="background: #f2f2f2;">
 									<th>날짜</th>
@@ -165,7 +179,7 @@ th {
 						<br>
 
 						<!-- 테이블 페이징 -->
-						<div class="pagination" style="width: 550px;">
+						<div class="pagination">
 							<ul class="pagination" id="pageArea" style="margin: auto;">
 							
 								<c:if test="${ pi.currentPage ne 1 }">
@@ -198,16 +212,17 @@ th {
 					<!-- 출퇴근 사이드바 영역 -->
 					<div class="col-4">
 						<div id="att-sidebar">
-							<h5>TODAY</h5>
+							<h4>TODAY</h5>
 							<p id="today">2022.08.26 금요일</p>
+							<br>
 							<button id="startAttBtn" class="small-btn green-btn" onclick="startAtt();">출근</button>
 							&nbsp;
 							<button id="endAttBtn" class="small-btn green-btn" data-bs-toggle="modal" data-bs-target="#endAttModal">퇴근</button>
 							<br><br>
 							<button class="small-btn green-btn" style="width: 150px;" onclick="location.href='apprOvertimeForm.si';">연장근무 신청</button>
 							<hr>
-							<p id="sTime" style="height:15px">출근 &nbsp;&nbsp;&nbsp;&nbsp;</p>
-							<p id="eTime" style="height:15px">퇴근 &nbsp;&nbsp;&nbsp;&nbsp;<p>
+							<p id="sTime" style="height:20px">출근 &nbsp;&nbsp;&nbsp;&nbsp;</p>
+							<p id="eTime" style="height:20px">퇴근 &nbsp;&nbsp;&nbsp;&nbsp;  <p>
 							<hr>
 							<table id="att-count">
 									<tr>

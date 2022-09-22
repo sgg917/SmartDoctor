@@ -37,12 +37,18 @@
 
 /* 페이징 스타일 */
 .page-item {
-    background:none;
-    color:rgb(65, 125, 122);
+	background:none;
+	color:rgb(65, 125, 122);
 }
 .page-item .active {
-    background:rgb(65, 125, 122) !important;
-    color:white;
+	background:rgb(65, 125, 122) !important;
+	color:white;
+}
+.pagination ul {
+	font-size:1rem;
+}
+.page-link {
+	padding: 0.7rem 1rem !important;
 }
 
 /* 연차 테이블 스타일 */
@@ -51,9 +57,10 @@
 #my-vacation td {
     width:100px;
     border:solid 1px lightgray;
-    font-size:14px;
+    font-size:1rem !important;
 }
 th {
+	font-size:1rem !important;
     font-weight:bold !important;
     background:#f2f2f2 !important;
 }
@@ -76,9 +83,9 @@ th {
         <h3><b>휴가 관리</b></h3>
         <br><hr>
 
-        <div class="container card wrap11">
+        <div class="wrap11">
             <div style="padding:50px 70px;">
-                <h5><b>내 연차 정보</b></h5>  
+                <h4><b>내 연차 정보</b></h4>  
                 <br>
                 <table id="my-vacation">
                     <tr>
@@ -95,9 +102,9 @@ th {
 
                 <br><br><br>
               
-                <h5><b>연차 사용 내역</b></h5> 
+                <h4><b>연차 사용 내역</b></h4> 
                 <br> 
-                <table class="table">
+                <table class="table" id="vacTable">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -171,7 +178,7 @@ th {
               
                <!-- 테이블 페이징 -->
                <div class="pagination">
-                  <ul class="pagination" style="margin-left:400px;">
+                  <ul class="pagination">
                   
                     <c:if test="${ pi.currentPage ne 1 }">
 						<li class="page-item"><a class="page-link" href="list.vac?cpage=${pi.currentPage-1}&no=${loginUser.empNo}">&lt;</a></li>
@@ -181,7 +188,7 @@ th {
 						
 						<c:choose>
 							<c:when test="${ p eq pi.currentPage }">
-								<li class="page-item active"><a class="page-link" href="list.vac?cpage=${p}&no=${loginUser.empNo}">${p}</a></li>
+								<li class="page-item active"><a class="page-link" href="list.vac?cpage=${p}&no=${loginUser.empNo}" style="margin-left:700px;">${p}</a></li>
 							</c:when>
 							<c:otherwise>
 								<li class="page-item"><a class="page-link" href="list.vac?cpage=${p}&no=${loginUser.empNo}">${p}</a></li>
@@ -193,10 +200,10 @@ th {
                     <c:choose>
                     	<c:when test="${ pi.currentPage ne pi.maxPage }">
                     		<li class="page-item"><a class="page-link" href="list.vac?cpage=${pi.currentPage+1}&no=${loginUser.empNo}">&gt;</a></li>
-                    		<li style="width:450px;"><button class="btn green-btn medium-btn" style="float:right;" onclick="location.href='vacationForm.si';">휴가 신청</button></li>
+                    		<li style="width:680px;"><button class="btn green-btn medium-btn" style="float:right;" onclick="location.href='vacationForm.si';">휴가 신청</button></li>
                   		</c:when>
                   		<c:otherwise>
-                  			<li style="width:550px;"><button class="btn green-btn medium-btn" style="float:right;" onclick="location.href='vacationForm.si';">휴가 신청</button></li>
+                  			<li style="width:680px;"><button class="btn green-btn medium-btn" style="float:right;" onclick="location.href='vacationForm.si';">휴가 신청</button></li>
                   		</c:otherwise>
                   	</c:choose>
                   </ul>

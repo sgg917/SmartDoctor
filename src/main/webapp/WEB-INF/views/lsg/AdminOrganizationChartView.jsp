@@ -41,14 +41,18 @@ box-shadow: 3px 3px 3px 3px lightgray;
 .org-wrap a,span{
 	color:black !important;
 }
-
 li {
   list-style:none;
 }
 .nav-link {
     color:black;
 }
-
+#chartArea {
+	padding-left:40px;
+}
+#chartArea * {
+	font-size:1rem;
+}
 .mdi-settings {
   float:right;
 }
@@ -58,9 +62,11 @@ li {
   width: 90%;
   margin-left: 35px;
 }
-
 #org-mem i {
 	cursor:pointer;
+}
+#org-mem>p {
+  font-size:1rem;
 }
 
 #mem-tb {
@@ -75,8 +81,8 @@ li {
 
 #mem-tb img {
   border-radius:50%;
-  width:60px;
-  height:60px;
+  width:70px;
+  height:70px;
 }
 
 .jobNo {
@@ -92,13 +98,13 @@ li {
 
 /* 테이블 내의 아이콘 */
 #mem-tb i {
-  font-size:17px;
+  font-size:20px;
 }
 
 
 /* input 요소 글씨 크기 */
 .form-control {
-	font-size:13px !important;
+	font-size:1rem !important;
 	margin-top:15px;
 }
       
@@ -114,14 +120,14 @@ li {
 /* 작은 버튼 */
 .small-btn {
   width:70px;
-  height:30px;
+  height:40px;
   border-style:none;
   border-radius:7px;
   font-weight:400;
 }
 .medium-btn {
   width:100px;
-  height:40px;
+  height:50px;
   border-style:none;
   border-radius:7px;
   font-weight:400;
@@ -152,7 +158,7 @@ input, select {
         <h3><b>조직도 수정</b></h3>
         <hr>
         <br>
-        <div class="container card wrap11" id="att-area">
+        <div class="wrap11" id="att-area">
 
             <div class="row">
 
@@ -453,8 +459,8 @@ input, select {
 	      <div class="modal-footer" style="margin:auto;">
 	      	<form id="deleteEmpForm" action="deleteEmp.me" method="POST">
 	      		<input type="hidden" name="empNo">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-		        <button class="btn btn-danger" style="background:red; color:white;">삭제</button>
+		        <button type="button" class="btn medium-btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button class="btn medium-btn btn-danger" style="background:red; color:white;">삭제</button>
 	        </form>
 	      </div>
 	
@@ -504,9 +510,9 @@ input, select {
      
              <!-- Modal footer -->
              <div class="modal-footer" style="justify-content: center;">
-             <button type="button" class="updateDeptBtn btn btn-primary">수정</button>
-             <button type="button" class="deleteDeptBtn btn btn-danger">삭제</button>
-             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+             <button type="button" class="updateDeptBtn btn medium-btn btn-primary">수정</button>
+             <button type="button" class="deleteDeptBtn btn medium-btn btn-danger">삭제</button>
+             <button type="button" class="btn medium-btn btn-secondary" data-bs-dismiss="modal">취소</button>
              </div>
      
          </div>
@@ -538,8 +544,8 @@ input, select {
 		
 		      <!-- Modal footer -->
 		      <div class="modal-footer" style="justify-content: center;">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-		        <button type="button" onclick="insertDept();" class="btn btn-primary">추가</button>
+		        <button type="button" class="btn medium-btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button type="button" onclick="insertDept();" class="btn medium-btn btn-primary">추가</button>
 		      </div>
 		
 		    </div>
