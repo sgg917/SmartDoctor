@@ -47,18 +47,25 @@ body{
 .org-wrap a,span{
 	color:black !important;
 }
-
 li {
   list-style:none;
 }
 .nav-link {
     color:black;
 }
-
+#chartArea {
+	padding-left:40px;
+}
+#chartArea * {
+	font-size:1rem;
+}
 /* 사원 조회 테이블 스타일 */
 #org-mem hr {
   width: 90%;
   margin-left: 35px;
+}
+#org-mem>p {
+  font-size:1rem;
 }
 
 #mem-tb {
@@ -69,16 +76,18 @@ li {
 
 #mem-tb tr {
   height:50px;
+  font-size:1rem;
 }
 
 #mem-tb td, #mem-tb th{
-	vertical-align:middle !important;
+  vertical-align:middle !important;
+  font-size:1rem;
 }
 
 #mem-tb img {
   border-radius:50%;
-  width:60px;
-  height:60px;
+  width:70px;
+  height:70px;
 }
 
 .jobNo {
@@ -105,7 +114,7 @@ li {
 /* 작은 버튼 */
 .small-btn {
   width:70px;
-  height:30px;
+  height:40px;
   border-style:none;
   border-radius:7px;
   font-weight:400;
@@ -122,13 +131,13 @@ li {
         <h3><b>조직도 조회</b></h3>
         <hr>
         <br>
-        <div class="container card wrap11" id="att-area">
+        <div class="wrap11" id="att-area">
 
             <div class="row">
 
                 <!-- 조직도 영역 (왼쪽) -->
                 <div class="col-4">
-                    <div class="org-wrap" id="org-chart" style="width:80%; margin-right:10px;">
+                    <div class="org-wrap" id="org-chart" style="width:80%; margin-right:20px;">
                         <br>
                         <h4><b><i class="mdi mdi-hospital-building"></i>율제병원</b></h4>
                         <ul id="chartArea">

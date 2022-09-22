@@ -34,10 +34,10 @@
 
 .small-btn {
 	width: 70px;
-	height: 30px;
+	height: 33px;
 	border-style: none;
 	border-radius: 7px;
-	font-weight: 400;
+	font-weight: 600;
 }
 
 .btn-gradient-primary {
@@ -48,31 +48,50 @@
 #memAtt-condition {
 	margin-top: 50px;
 }
+#memAtt-condition tr * {
+	font-size:1rem;
+}
 
 /* 사원 근태 조회 테이블 스타일 */
 #memAtt {
 	text-align: center;
 }
-
 th {
 	font-weight: bold !important;
 	background: #f2f2f2 !important;
 }
+#memAtt th, #memAtt td {
+	font-size:1rem !important;
+}
+#memAtt>tbody>tr:hover {
+	cursor: pointer;
+}
+#memAtt tr {
+	height:40px !important;
+}
 
 /* 페이징 스타일 */
 .page-item {
-	background: none;
-	color: rgb(65, 125, 122);
+	background:none;
+	color:rgb(65, 125, 122);
 }
-
 .page-item .active {
-	background: rgb(65, 125, 122) !important;
-	color: white;
+	background:rgb(65, 125, 122) !important;
+	color:white;
+}
+.pagination ul {
+	font-size:1rem;
+}
+.page-link {
+	padding: 0.7rem 1rem !important;
 }
 
-/* 사원 근태 리스트 테이블 스타일 */
-#memAtt>tbody>tr:hover {
-	cursor: pointer;
+/* 근태 정보 수정 모달 스타일 */
+#updateAttModal .modal-body * {
+	font-size:1rem !important;
+}
+#updateAttModal input {
+	height:40px !important;
 }
 </style>
 </head>
@@ -89,19 +108,19 @@ th {
 			<br>
 			<hr>
 
-			<div class="container card wrap11" id="att-area">
+			<div class="wrap11" id="att-area">
 
 				<!-- 조건 검색 테이블 -->
 				<div class="form-group" style="margin-left: 80px;">
 					<table id="memAtt-condition">
-						<tr height="30px">
+						<tr height="40px">
 							<td width="100px;"><select class="form-control"
 								name="condition" id="condition">
 									<option name="condition" value="dept_name">부서명</option>
 									<option name="condition" value="emp_name">이름</option>
 							</select></td>
 							<td width="200px;"><input class="form-control" type="text"
-								name="keyword" placeholder="키워드를 입력해 주세요." style="height: 25px;">
+								name="keyword" placeholder="키워드를 입력해 주세요.">
 							</td>
 							<td width="100px;" style="text-align:right;">
 								<button class="green-btn small-btn" onclick="searchAllAtt(1);">조회</button>
@@ -113,7 +132,7 @@ th {
 
 				<!-- 사원 근태 조회 테이블 -->
 				<table id="memAtt" class="table"
-					style="width:1000px; margin: 0px 80px;">
+					style="width:1400px; margin: 10px 80px;">
 					<thead>
 						<tr>
 							<th width="20%">날짜</th>
@@ -233,7 +252,7 @@ th {
 
 					<!-- Modal Header -->
 					<div class="modal-header" style="background: white;">
-						<h4 class="modal-title">
+						<h4 class="modal-title" style="margin:10px auto;">
 							<b>근태 정보 수정</b>
 						</h4>
 					</div>
@@ -284,7 +303,7 @@ th {
 								<div class="col-sm-9">
 									<div class="input-group">
 										<select name="status" id="status" class="form-control"
-											style="height: 50px;">
+											style="height: 40px;">
 											<option name="status" value="정상">정상</option>
 											<option name="status" value="지각">지각</option>
 											<option name="status" value="휴가">휴가</option>

@@ -38,28 +38,47 @@
 
 /* 페이징 스타일 */
 .page-item {
-	background: none;
-	color: rgb(65, 125, 122);
+	background:none;
+	color:rgb(65, 125, 122);
 }
-
 .page-item .active {
-	background: rgb(65, 125, 122) !important;
-	color: white;
+	background:rgb(65, 125, 122) !important;
+	color:white;
+}
+.pagination ul {
+	font-size:1rem;
+}
+.page-link {
+	padding: 0.7rem 1rem !important;
 }
 
 /* 조건 검색 테이블 스타일 */
 #mem-vac-condition {
 	margin-top: 50px;
 }
+#mem-vac-condition tr * {
+	font-size:1rem;
+}
 
 /* 연차 테이블 스타일 */
 #mem-vacation {
 	text-align: center;
 }
+#mem-vacation th, #mem-vacation td {
+	font-size:1rem !important;
+}
+#mem-vacation tr {
+	height:40px !important;
+}
 
 th {
 	font-weight: bold !important;
 	background: #f2f2f2 !important;
+}
+
+/* 연차 내역 모달 스타일 */
+#vacationModal .modal-body * {
+	font-size:1rem !important;
 }
 </style>
 </head>
@@ -75,12 +94,12 @@ th {
 			<hr>
 
 			<!-- wrap 영역 -->
-			<div class="container card wrap11">
+			<div class="wrap11">
 				<br>
 				<!-- 조건 검색 테이블 -->
 				<div class="form-group" style="margin-left: 80px;">
 					<table id="mem-vac-condition">
-						<tr height="30px">
+						<tr height="40px">
 							<td width="100px;">
 								<select class="form-control" name="condition" id="condition">
 									<option name="type" value="dept_name">부서명</option>
@@ -89,7 +108,7 @@ th {
 							</td>
 							<td width="200px;">
 								<input class="form-control" type="text" name="keyword"
-									   placeholder="키워드를 입력해 주세요." style="height: 25px;">
+									   placeholder="키워드를 입력해 주세요.">
 							</td>
 							<td width="100px;" style="text-align: right;">
 								<button class="green-btn small-btn" onclick="searchVac(1);">조회</button>
