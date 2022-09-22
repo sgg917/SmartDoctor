@@ -234,7 +234,73 @@ $(document).ready(function(){setTimeout(function(){window.location.reload(1)},30
 				</div>
 
 				<!-- 투두리스트 + 날씨 끝 -->
+				
+				
+				
+				<!-- 공지사항 시작 -->
+				<div class="row">
+					<div class="col-md-12 grid-margin stretch-card">
+						<div class="card" style="height: 100%;">
+							<div class="card-body">
+							<div style="float: left;">
+		                    	<h2 style="float: left;">공지사항</h2>
+		                    	<br>
+		                    </div>
+                    
+					<br><br><br><br>
+					
 
+                    <table id="noticeList" class="table table-hover">
+
+                      <thead>
+                        <tr>
+                          <th>번호</th>
+                          <th>제목</th>
+                          <th>작성일</th>
+                          <th>조회수</th>
+                        </tr>
+                      </thead>
+                      
+                      <tbody>
+	                      <c:choose>
+	                      	<c:when test="${ empty list }">
+	                      		<tr>
+	                      			<td colspan="4">현재 공지사항이 없습니다.</td>
+	                      		</tr>
+	                      	</c:when>
+	                      	<c:otherwise>
+	                      		<c:forEach var="n" items="${ list }">
+	                      			<tr>
+			                          <td class="no">${ n.noticeNo }</td>
+			                          <td>${ n.noticeTitle }</td>
+			                          <td>${ n.enrollDate }</td>
+			                          <td>${ n.count }</td>
+			                        </tr>
+	                      		</c:forEach>
+	                      	</c:otherwise>
+	                      </c:choose>
+                      </tbody>
+                      
+                     <script>
+                      	$(function(){
+                      		$("#noticeList>tbody>tr").click(function(){
+                      			location.href = "detail.no?no=" + $(this).children(".no").text();
+                      		})
+                      	})
+                      </script>
+                      
+                    </table>
+							
+							
+							
+							
+							
+							
+							
+							</div>
+						</div>
+					</div>
+				</div>
 
 			</div>
 			<jsp:include page="common/footer.jsp" />
