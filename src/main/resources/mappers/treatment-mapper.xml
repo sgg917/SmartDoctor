@@ -205,7 +205,7 @@
 		  from clinic c
           join surgery on (surgery_no2 = surgery_no)
 		 where c.clinic_no=#{clinicNo}
-           and surgery = 'Y'
+          
 	</select>
 	
 	<!-- 수술실 중복 체크 안씀-->
