@@ -83,7 +83,7 @@
 								<h4 class="font-weight-normal mb-3">
 									오늘 내원 환자 수 <i class="mdi mdi-chart-line mdi-24px float-right"></i>
 								</h4>
-								<h2 class="mb-5" id="day">15</h2>
+								<h2 class="mb-5" id="day">150</h2>
 							</div>
 						</div>
 					</div>
@@ -125,8 +125,7 @@
 						<div class="card" style="height: 100%;">
 							<div class="card-body">
 								<div class="clearfix">
-									<h4 class="card-title float-left">Visit And Sales
-										Statistics</h4>
+									<h4 class="card-title float-left">월간 방문자 수</h4>
 									<div id="visit-sale-chart-legend"
 										class="rounded-legend legend-horizontal legend-top-right float-right"></div>
 								</div>
@@ -137,7 +136,7 @@
 					<div class="col-md-5 grid-margin stretch-card">
 						<div class="card" style="height: 100%;">
 							<div class="card-body">
-								<h4 class="card-title">Traffic Sources</h4>
+								<h4 class="card-title">진료과별 내원객 수</h4>
 								<canvas id="traffic-chart"></canvas>
 								<div id="traffic-chart-legend"
 									class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>
