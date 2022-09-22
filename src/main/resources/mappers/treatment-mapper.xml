@@ -304,6 +304,7 @@
 		     , "new"
 		     , 성별
 		     , diagnosis_content
+		     , clinic_no
           from (
 		         select
 		                chart_no
@@ -319,6 +320,7 @@
 		            , decode(new, 'Y', '초진', 'N', '재진', '??') as "new"
 		            , enroll_date||' '||enroll_time as "enroll"
 		            , diagnosis_content
+		            , clinic_no
 		            , case 
 		                 when substr(id_no, 8, 1) in ('1', '3') then '남자'
 		                 when substr(id_no, 8, 1) in ('2', '4') then '여자'
@@ -327,6 +329,7 @@
 		          from patient
 		          join clinic using (chart_no)  
 		         where status = 'P'
+		           and emp_no = #{empNo}
 		         order 
 		            by "enroll" asc
 		       )
@@ -471,19 +474,25 @@
 			 , 3
 		)
 	</insert>
-	<!-- 
+
+	<!-- 진료 테이블 업데이트 --> 
 	<update id="updateClinic">
 		update
 		       clinic
 		   set diagnosis_content = #{diagnosisContent}
-		     , surgery = 
-		     , enter = 
+		   <choose>
+		      <when test="checkSurgery == 'yes'">
+		      	, surgery = 'Y'
+		        , enter = 'Y'
+		      </when>
+		    </choose>
 		     , status = 'D'
 		     , surgery_no2 = #{surgeryNo2}
 		     , diseases_code = #{diseaseCode}
-		 where chart_no = #{}
-	 </update>
-	 -->
+		 where clinic_no = #{clinicNo}
+	</update>	
+	
+
 	<!-- 입원료 업데이트 -->
 	<update id="updatePRpay">
 		update
@@ -496,5 +505,43 @@
 						   )
 		 where clinic_no=#{clinic_no}
 	</update>
+	
+	<!-- 처방전 입력 -->
+	<insert id="insertPre">
+		insert
+		  into prescription
+		  (
+		    pre_no
+		  , clinic_no
+		  , inject_day
+		  , usage
+		  )
+		  values
+		  (
+		    seq_psno.nextval
+		  , #{clinicNo}
+		  , #{injectDay}
+		  , '2'
+		  )
+	</insert>
+	
+	<!-- 처방약 입력 -->
+	<insert id="insertPmed">
+		 insert
+		   into pre_med
+		   (
+		     pre_no
+		   , med_no
+		   , dosetime
+		   )
+		   values
+		   (
+		     #{preNo}
+		   , #{medNo}
+		   , #{dosetime}
+		   )
+	</insert>
+	
+	
 	
 </mapper>

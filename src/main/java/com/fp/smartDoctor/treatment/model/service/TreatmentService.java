@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
+import com.fp.smartDoctor.treatment.model.vo.PreMed;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 import com.fp.smartDoctor.treatment.model.vo.RevPatientRoom;
 import com.fp.smartDoctor.treatment.model.vo.Surgery;
@@ -46,7 +48,7 @@ public interface TreatmentService {
 	List<RevOProom> getCalendar();
 	
 	// 진료중인 환자 조회
-	Patient selectNowPatient(Patient p);
+	Patient selectNowPatient(Patient p, String empNo);
 	
 	// 진료할 환자의 과거 내역 조회
 	ArrayList<Clinic> selectPatientInfo(String chartNo);
@@ -78,5 +80,11 @@ public interface TreatmentService {
 	
 	//입원 하기 누른 후, 수납에서 입원료 변경
 	int updatePRpay(int clinicNo);
+	
+	// 처방전 입력
+	int insertPre(Prescription pre);
+	
+	// 처방약 입력
+	int insertPmed(PreMed pmd, String preNo);
 	
 }

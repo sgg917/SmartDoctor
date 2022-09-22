@@ -7,10 +7,12 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Disease;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
+import com.fp.smartDoctor.treatment.model.vo.PreMed;
 import com.fp.smartDoctor.treatment.model.vo.RevOProom;
 import com.fp.smartDoctor.treatment.model.vo.RevPatientRoom;
 import com.fp.smartDoctor.treatment.model.vo.Surgery;
@@ -63,8 +65,13 @@ public class TreatmentDao {
 	}
 	
 	// 진료중인 환자 조회
-	public Patient selectNowPatient(SqlSessionTemplate sqlSession, Patient p) {
-		return sqlSession.selectOne("treatmentMapper.selectNowPatient", p);
+	public Patient selectNowPatient(SqlSessionTemplate sqlSession, Patient p, String empNo) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("Patient", p);
+		map.put("empNo", empNo);
+		
+		return sqlSession.selectOne("treatmentMapper.selectNowPatient", map);
 	}
 	
 	// 진료할 환자의 과거 내역 조회
@@ -128,4 +135,18 @@ public class TreatmentDao {
 		return sqlSession.update("treatmentMapper.updatePRpay",clinicNo);
 	}
 		
+	// 처방전 입력
+	public int insertPre(SqlSessionTemplate sqlSession, Prescription pre) {
+		return sqlSession.insert("treatmentMapper.insertPre", pre);
+	}
+	
+	// 처방약 입력
+	public int insertPmed(SqlSessionTemplate sqlSession, PreMed pmd, String preNo) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("PreMed", pmd);
+		map.put("preNo", preNo);
+		
+		return sqlSession.insert("treatmentMapper.insertPmed", map);
+	}
 }
