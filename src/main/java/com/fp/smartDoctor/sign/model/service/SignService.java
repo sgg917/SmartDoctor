@@ -116,11 +116,11 @@ public interface SignService {
 	int insertStorageRef(ArrayList<Line> refList);
 	
 	// 사용자_일괄결재
-	int updateAllApproval(String empNo);
-	int updateAllLine(String empNo);
+	//int updateAllApproval(HashMap<String, String> map);
+	//int updateAllLine(HashMap<String, String> map);
 	
-	int updateAllApproval2(HashMap<String, String> map);
-	int updateAllLine2(HashMap<String, String> map);
+	int updateAllApproval(ArrayList<String> list);
+	int updateAllLine(ArrayList<String> list);
 	
 	// 사용자_임시저장
 	int insertStorageAppr(Sign s);

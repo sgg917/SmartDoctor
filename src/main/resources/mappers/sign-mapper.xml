@@ -679,15 +679,7 @@
 		       case when appr_status in('대기', '진행') and appr_now = appr_total then appr_now
 		            else appr_now + 1
 		        end
-		 where appr_no in (select
-                                   v.appr_no
-                              from approval v
-                              join appr_line l on (v.appr_no = l.appr_no)
-                             where (appr_status = '대기' 
-                                or appr_status = '진행')
-                               and appr_now = line_level
-                               and l.emp_no = #{empNo}
-                               and appr_storage = 'N')
+		 where appr_no = #{apprNo}
 	</update>
 	
 	<update id="updateAllLine">
@@ -697,15 +689,7 @@
 		     , line_comment = '승인합니다.'
 		     , line_date = sysdate
 		 where emp_no = #{empNo}
-           and appr_no in (select
-                                  l.appr_no
-                             from appr_line l 
-                             join approval v on (l.appr_no = v.appr_no)
-                            where (appr_status = '대기' 
-                               or appr_status = '진행')
-                              and appr_now = line_level
-                              and l.emp_no = #{empNo2}
-                              and appr_storage = 'N')
+           and appr_no = #{apprNo}
 	</update>
 	
 	<!-- 사용자_임시저장 -->

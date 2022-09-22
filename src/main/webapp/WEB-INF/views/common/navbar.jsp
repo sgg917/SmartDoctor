@@ -324,8 +324,10 @@ content="width=device-width, initial-scale=1, shrink-to-fit=no">
                     <li class="nav-item"> <a class="nav-link" href="list.att?no=${ loginUser.empNo }">출퇴근 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="list.vac?no=${ loginUser.empNo }">휴가 관리</a></li>
                     <li class="nav-item"> <a class="nav-link" href="goCalendar.att">월간 근태 체크</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="allList.att">사원 근태 관리</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="allList.vac">사원 휴가 관리</a></li>
+                    <c:if test="${ loginUser.status eq 'A' }">
+	                    <li class="nav-item"> <a class="nav-link" href="allList.att">사원 근태 관리</a></li>
+	                    <li class="nav-item"> <a class="nav-link" href="allList.vac">사원 휴가 관리</a></li>
+                    </c:if>
                   </ul>
                 </div>
               </li>
@@ -390,7 +392,9 @@ content="width=device-width, initial-scale=1, shrink-to-fit=no">
                 <div class="collapse" id="number7">
                   <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="orgChart.me">조직도 조회</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="adOrgChart.me">조직도 수정</a></li>
+                    <c:if test="${ loginUser.status eq 'A' }">
+                   		<li class="nav-item"> <a class="nav-link" href="adOrgChart.me">조직도 수정</a></li>
+                    </c:if>
                   </ul>
                 </div>
               </li>

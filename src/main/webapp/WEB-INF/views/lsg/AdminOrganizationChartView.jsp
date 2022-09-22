@@ -689,42 +689,6 @@ input, select {
 		
 		})
 	}
-	
-	// -------------- 프로필 변경 ----------------
-	// 프로필 사진 클릭 시 첨부파일 선택 가능
-	$(document).on("click", ".profileImg", function(){
-		$(this).siblings('input[type=file]').click();
-    })
-    
-    $(document).on("change", "input[type=file]", function(){
-		// 선택한 파일 변수에 담기
-    	const uploadFile = $(this)[0].files[0];
-		
-		//console.log(uploadFile);
-		
-		var formData = new FormData();
-		formData.append("uploadFile", uploadFile);
-		
-		$.ajax({
-			url:"uploadProfile.me",
-			type:"POST",
-			data: {
-				uploadFile:formData,
-				empNo:$(this).parents("input[name=empNo]").val()
-			},
-			contentType: false,
-			processData: false,
-			success:function(){
-				
-			},
-			error:function(){
-				console.log("프로필이미지 변경용 ajax통신 실패");
-			}
-		})
-		
-		
-		
-    })
 	</script>
 	
       <!-- !!! 메인 끝 !!! -->
