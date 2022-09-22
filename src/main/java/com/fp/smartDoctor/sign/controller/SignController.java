@@ -600,34 +600,17 @@ public class SignController {
 	
 	// 사용자_일괄결재
 	@RequestMapping("allApprove.si")
-	public String updateAllApprove(@RequestParam(value="noArr")List<String> noArr, Line l, HttpSession session) {
+	public String updateAllApprove(Line l, HttpSession session) {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		int empNo = Integer.parseInt(loginUser.getEmpNo());
 		
-		//HashMap<String, String> map = new HashMap<>();
-		
 		ArrayList<Line> list = l.getLineList();
-		//ArrayList<Line> lineList = new ArrayList<>();
 		
-		/*
-		for(String n : noArr) {
-			map.put("empNo", empNo);
-			map.put("apprNo", n);
+		for(Line i : list) { 
+			i.setEmpNo(empNo);
 		}
-		*/
-		
-		for(int i=0; i<noArr.size(); i++) {
-			
-			//list.add(new Line(empNo, noArr.get(i)));
-		}
-		
-		System.out.println(list);
-		System.out.println(noArr);
-		
-		//int apprResult = sService.updateAllApproval(map); 
-		//int lineResult = sService.updateAllLine(map);
-		
+
 		int apprResult = sService.updateAllApproval(list); 
 		int lineResult = sService.updateAllLine(list);
 

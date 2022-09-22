@@ -37,7 +37,7 @@
 										</button>
 									</c:when>
 									<c:when test="${ s.apprStatus eq '반려' || s.apprStatus eq '완료' }">
-										<button type="button" class="btn btn-success appr-write-btn">
+										<button type="button" class="btn btn-success appr-write-btn" onclick="againReport();">
 				                            <i class="mdi mdi-arrow-up-bold" style="color:white;"></i>&nbsp;&nbsp;
 				                            <span>재기안</span>
 			                          	</button>

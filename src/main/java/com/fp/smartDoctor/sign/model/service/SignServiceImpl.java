@@ -210,11 +210,11 @@ public class SignServiceImpl implements SignService {
 		return sDao.selectLineComment(sqlSession, apprNo);
 	}
 	@Override
-	public int updateAllApproval(ArrayList<String> list) {
+	public int updateAllApproval(ArrayList<Line> list) {
 		return sDao.updateAllApproval(sqlSession, list);
 	}
 	@Override
-	public int updateAllLine(ArrayList<String> list) {
+	public int updateAllLine(ArrayList<Line> list) {
 		return sDao.updateAllLine(sqlSession, list);
 	}
 	@Override
