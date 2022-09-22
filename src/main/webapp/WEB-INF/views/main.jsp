@@ -39,6 +39,7 @@
 	color: white;
 	font-size: 15px;
 }
+
 </style>
 
 
@@ -80,7 +81,7 @@
 						<div class="card bg-gradient-danger card-img-holder text-white">
 							<div class="card-body">
 								<!-- <img src="../assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" /> -->
-								<h4 class="font-weight-normal mb-3">
+								<h4 class="font-weight-bold mb-3">
 									오늘 내원 환자 수 <i class="mdi mdi-chart-line mdi-24px float-right"></i>
 								</h4>
 								<h2 class="mb-5" id="day">15</h2>
@@ -91,7 +92,7 @@
 						<div class="card bg-gradient-info card-img-holder text-white">
 							<div class="card-body">
 								<!-- <img src="../assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" /> -->
-								<h4 class="font-weight-normal mb-3">
+								<h4 class="font-weight-bold mb-3">
 									이번 주 내원 환자 수 <i
 										class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
 								</h4>
@@ -103,7 +104,7 @@
 						<div class="card bg-gradient-success card-img-holder text-white">
 							<div class="card-body">
 								<!-- <img src="../assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" /> -->
-								<h4 class="font-weight-normal mb-3">
+								<h4 class="font-weight-bold mb-3">
 									이번 달 내원 환자 수 <i class="mdi mdi-diamond mdi-24px float-right"></i>
 								</h4>
 								<h2 class="mb-5" id="month">40,949</h2>

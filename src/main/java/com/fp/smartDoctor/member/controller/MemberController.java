@@ -249,5 +249,5 @@ public class MemberController {
 		
 		return result > 0 ? "성공적으로 추가되었습니다." : "부서 추가에 실패하였습니다.";
 	}
-
+	
 }
