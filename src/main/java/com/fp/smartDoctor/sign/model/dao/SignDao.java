@@ -269,21 +269,21 @@ public class SignDao {
 	}
 	
 	// 일괄결재
-	public int updateAllApproval(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+	public int updateAllApproval(SqlSessionTemplate sqlSession, ArrayList<Line> list) {
 		
 		int result = 0;
-		for(int i=0; i<map.size(); i++) {
-			result += sqlSession.update("signMapper.updateAllApproval", map);
+		for(Line l : list) {
+			result += sqlSession.update("signMapper.updateAllApproval", l);
 		}
 		
 		return result;
 	}
 	
-	public int updateAllLine(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+	public int updateAllLine(SqlSessionTemplate sqlSession, ArrayList<Line> list) {
 		
 		int result = 0;
-		for(int i=0; i<map.size(); i++) {
-			result += sqlSession.update("signMapper.insertStorageRef", map);
+		for(Line l : list) {
+			result += sqlSession.update("signMapper.updateAllLine", l);
 		}
 		
 		return result;

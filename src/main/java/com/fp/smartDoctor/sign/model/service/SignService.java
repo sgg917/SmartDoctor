@@ -119,8 +119,8 @@ public interface SignService {
 	//int updateAllApproval(HashMap<String, String> map);
 	//int updateAllLine(HashMap<String, String> map);
 	
-	int updateAllApproval(ArrayList<String> list);
-	int updateAllLine(ArrayList<String> list);
+	int updateAllApproval(ArrayList<Line> list);
+	int updateAllLine(ArrayList<Line> list);
 	
 	// 사용자_임시저장
 	int insertStorageAppr(Sign s);
