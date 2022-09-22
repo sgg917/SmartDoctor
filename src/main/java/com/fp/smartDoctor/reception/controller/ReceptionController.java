@@ -167,7 +167,7 @@ public class ReceptionController {
 			// String으로 형변환한 오늘 날짜 전달해서 이번달 1일~말일 구하기
 			ArrayList<ProomCalendar> dayList = rService.selectDateList(nowDate);
 
-			System.out.println(dayList);
+			//System.out.println(dayList);
 
 			// 예약중인 환자 리스트 조회
 			ArrayList<ProomCalendar> bookingList = rService.selectPRoomBookingList(nowDate);

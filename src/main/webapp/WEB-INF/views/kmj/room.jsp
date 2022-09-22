@@ -61,6 +61,10 @@
 	background-color: lightgray !important;
 }
 
+.bgBeige{
+	background-color: rgb(237, 230, 214) !important;
+}
+
 b {
 	font-size: 20px;
 }
@@ -140,7 +144,7 @@ b {
 											<c:forEach var="b" items="${ bookingList }">
 													<c:choose>
 														<c:when test="${ d.date == b.date and b.proomNo == '102' }">
-															${ fn:replace(b.nameList, ',', '<br>') }
+															<span2 count="${b.count }">${ fn:replace(b.nameList, ',', '<br>') }</span2>
 														</c:when>
 													</c:choose>
 	
@@ -151,7 +155,7 @@ b {
 											<c:forEach var="b" items="${ bookingList }">
 													<c:choose>
 														<c:when test="${ d.date == b.date and b.proomNo == '104' }">
-															${ fn:replace(b.nameList, ',', '<br>') }
+															<span4 count="${b.count }">${ fn:replace(b.nameList, ',', '<br>') }</span4>
 														</c:when>
 													</c:choose>
 	
@@ -162,7 +166,7 @@ b {
 											<c:forEach var="b" items="${ bookingList }">
 													<c:choose>
 														<c:when test="${ d.date == b.date and b.proomNo == '202' }">
-															${ fn:replace(b.nameList, ',', '<br>') }
+															<span2 count="${b.count }">${ fn:replace(b.nameList, ',', '<br>') }</span2>
 														</c:when>
 													</c:choose>
 	
@@ -173,7 +177,7 @@ b {
 											<c:forEach var="b" items="${ bookingList }">
 													<c:choose>
 														<c:when test="${ d.date == b.date and b.proomNo == '204' }">
-															${ fn:replace(b.nameList, ',', '<br>') }
+															<span4 count="${b.count }">${ fn:replace(b.nameList, ',', '<br>') }</span4>
 														</c:when>
 													</c:choose>
 	
@@ -190,6 +194,22 @@ b {
 				<br> <br> <br> <br> <br> <br> <br>
 			</div>
 		</div>
+		
+		<script>
+			$(function(){
+				$("#tableArea span2").each(function(){
+					if($(this).attr("count") >= 2 ){
+						$(this).parent().addClass("bgBeige");
+					}
+				})
+				
+				$("#tableArea span4").each(function(){
+					if($(this).attr("count") >= 4 ){
+						$(this).parent().addClass("bgBeige");
+					}
+				})
+			})
+		</script>
 		<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
