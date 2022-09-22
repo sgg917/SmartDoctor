@@ -23,7 +23,7 @@
 		<div class="wrap11" style="width: 70%; height: 70%; margin: auto;">
 
 			<div class="row">
-				<div class="card">
+				<div class="card" style="background: none; border:none;">
 					<div class="card-body">
 					
 						<h2 align="center">직원가입</h2>
