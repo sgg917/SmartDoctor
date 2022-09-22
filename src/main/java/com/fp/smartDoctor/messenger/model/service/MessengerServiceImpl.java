@@ -49,7 +49,14 @@ public class MessengerServiceImpl implements MessengerService {
 	public ArrayList<Email> iselectList(PageInfo pi, String mailOwn) {
 		return mDao.iselectList(sqlSession, pi, mailOwn);
 	}
-	
+	@Override
+	public int dselectListCount(String mailTo) {
+		return mDao.selectListCount(sqlSession, mailTo);
+	}
+	@Override
+	public ArrayList<Email> dselectList(PageInfo pi, String mailTo) {
+		return mDao.dselectList(sqlSession, pi, mailTo);
+	}
 	
 	
 	
@@ -126,6 +133,10 @@ public class MessengerServiceImpl implements MessengerService {
 	@Override
 	public int deleteMail(int i) {
 		return mDao.deleteMail(sqlSession, i);
+	}
+	@Override
+	public int foreverdeleteMail(int i) {
+		return mDao.foreverdeleteMail(sqlSession, i);
 	}
 	@Override
 	public int importFlagUpdate(int mailNo) {

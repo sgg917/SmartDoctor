@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chatMapper">
+
+
+
+
+	<resultMap id="departmentResultSet" type="Department">
+		<result column="CHAT_DEPT_CODE" property="code"/>
+		<result column="DEPT_TITLE" property="title"/>
+		
+	</resultMap>
+	
+	<resultMap id="employeeResultSet" type="ContectList">
+		<result column="EMP_NO" property="eNo"/>
+		<result column="STATUS" property="eStatus"/>
+		<result column="EMP_NAME" property="eName"/>
+		<result column="PHONE" property="phone"/>
+		<result column="EMAIL" property="email"/>
+		<result column="DEPT_TITLE" property="deptTitle"/>
+		<result column="JOB_NAME" property="jobName"/>
+		
+	</resultMap>
+	
+	
+	<resultMap id="chatResultSet" type="Chat">
+			<result column="CHAT_NO" property="chatNo"/>
+			<result column="C_TO" property="sender"/>
+			<result column="C_FROM" property="receiver"/>
+			<result column="MSG" property="msg"/>
+			<result column="C_TIME" property="time"/>
+	
+	</resultMap>
+	<resultMap id="chatFavoriteResultSet" type="Favorites">
+			<result column="EMP_NO" property="eno"/>
+			<result column="EMP_NAME" property="fName"/>
+			<result column="STATUS" property="status"/>
+	
+	</resultMap>
+	
+	<resultMap id="memberResult" type="Member">
+		<result column="emp_no" property="empNo" />
+		<result column="emp_name" property="empName" />
+		<result column="emp_pwd" property="empPwd" />
+		<result column="phone" property="phone" />
+		<result column="email" property="email" />
+		<result column="profile_originname" property="originName" />
+		<result column="profile_path" property="path" />
+		<result column="status" property="status" />
+		<result column="vac_all" property="vacAll" />
+		<result column="job_no" property="jobNo" />
+		<result column="dept_no" property="deptNo" />
+		<result column="job_name" property="jobName" />
+		<result column="dept_name" property="deptName" />
+	</resultMap>
+	
+	
+	
+
+	
+	<insert id="insertMessage">	
+		INSERT INTO CON_CHAT VALUES(
+		#{receiver},#{sender},#{msg},TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI:SS'),SEQ_CHAT_NO.NEXTVAL)
+		
+	</insert>
+	
+	
+	<update id="updateStatus" parameterType="ContectList">
+	
+		UPDATE CONTECT_LIST SET S_NO = #{eStatus} WHERE EMP_NO = #{eNo} 
+	</update>
+	
+	<select id="selectChatList" parameterType="Chat" resultMap="chatResultSet">
+		<![CDATA[
+		SELECT 
+		*
+		FROM CON_CHAT
+		WHERE (C_TO=#{sender}
+		AND C_FROM= #{receiver})
+		OR ( C_TO=#{receiver} AND C_FROM = #{sender})
+		AND ROUND((SYSDATE-TO_DATE(C_TIME,'YYYY-MM-DD HH24:MI:SS'))*24,2) <= 48
+		ORDER BY C_TIME
+		]]>
+	</select>
+	
+	<select id="selectFavoriteList" parameterType="_int" resultMap = "memberResult">
+		SELECT EMP_NO FROM MEMBER
+	</select>
+	
+	<insert id ="insertFavorites" parameterType="Favorites">
+		INSERT INTO CON_FAVORITES VALUES(SEQ_FAVORITES_NO.NEXTVAL,#{eno})
+	</insert>
+	
+	<delete id ="deleteFavorites" parameterType="Favorites">
+		DELETE FROM CON_FAVORITES WHERE EMP_NO = #{eno} AND FAVORITES=#{fno}
+	</delete>
+	
+	<select id="checkFavorites" parameterType="Favorites" resultMap = "chatFavoriteResultSet">
+		SELECT * FROM CON_FAVORITES WHERE EMP_NO = #{eno} AND FAVORITES=#{fno}
+	
+	</select>
+
+</mapper>

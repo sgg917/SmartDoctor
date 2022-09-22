@@ -14,12 +14,18 @@ public interface MessengerService{
 	// 받은메일
 	int selectListCount(String mailTo);
 	ArrayList<Email> selectList(PageInfo pi, String mailTo);
+	
 	// 보낸메일
 	int fselectListCount(String mailFrom);
 	ArrayList<Email> fselectList(PageInfo pi, String mailFrom);
 	// 중요메일
 	int iselectListCount(String mailOwn);
 	ArrayList<Email> iselectList(PageInfo pi, String mailOwn);
+	// 휴지통
+	int dselectListCount(String mailTo);
+	ArrayList<Email> dselectList(PageInfo pi, String mailTo);
+	
+	
 	
 	
 	// 받은메일+보낸메일 검색
@@ -43,6 +49,7 @@ public interface MessengerService{
 	Email nowMailNo();
 	String loadMailnameTo(String toname);
 	int deleteMail(int i);
+	int foreverdeleteMail(int i);
 	int importFlagUpdate(int mailNo);
 	int unImportFlagUpdate(int mailNo);
 	

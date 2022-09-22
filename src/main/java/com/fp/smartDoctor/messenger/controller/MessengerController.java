@@ -48,7 +48,7 @@ public class MessengerController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
 		
 		ArrayList<Email> list = milService.selectList(pi, mailOwn);
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		for(int i=0; i<list.size(); i++) {
 			list.get(i).setMailDateStr(format1.format(list.get(i).getMailDate()));
 		}
@@ -69,7 +69,7 @@ public class MessengerController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
 		
 		ArrayList<Email> list = milService.fselectList(pi, mailOwn);
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		for(int i=0; i<list.size(); i++) {
 			list.get(i).setMailDateStr(format1.format(list.get(i).getMailDate()));
 		}
@@ -89,7 +89,7 @@ public class MessengerController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
 		
 		ArrayList<Email> list = milService.iselectList(pi, mailOwn);
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		for(int i=0; i<list.size(); i++) {
 			list.get(i).setMailDateStr(format1.format(list.get(i).getMailDate()));
 		}
@@ -99,6 +99,23 @@ public class MessengerController {
 		return "kcy/mailImportantbox";
 	}
 	
+	@RequestMapping("dlist.mil")
+	public String dselectList(int currentPage, String mailOwn, Model model) {
+		int listCount = milService.dselectListCount(mailOwn);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
+		
+		ArrayList<Email> list = milService.dselectList(pi, mailOwn);
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+		for(int i=0; i<list.size(); i++) {
+			list.get(i).setMailDateStr(format1.format(list.get(i).getMailDate()));
+		}
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+
+		return "kcy/mailDeletebox";
+	}
 	
 	
 	@RequestMapping("search.mil")
@@ -119,7 +136,7 @@ public class MessengerController {
 		PageInfo pi = Pagination.getPageInfo(searchListCount, currentPage, 5, 10);
 		
 		ArrayList<Email> slist = milService.searchList(pi,sc);
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		for(int i=0; i<slist.size(); i++) {
 			slist.get(i).setMailDateStr(format1.format(slist.get(i).getMailDate()));
 		}
@@ -152,7 +169,7 @@ public class MessengerController {
 		PageInfo pi = Pagination.getPageInfo(searchListCount, currentPage, 5, 10);
 		
 		ArrayList<Email> slist = milService.searchList(pi,sc);
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		for(int i=0; i<slist.size(); i++) {
 			slist.get(i).setMailDateStr(format1.format(slist.get(i).getMailDate()));
 		}
@@ -187,7 +204,7 @@ public class MessengerController {
 		PageInfo pi = Pagination.getPageInfo(searchListCount, currentPage, 5, 10);
 		
 		ArrayList<Email> slist = milService.isearchList(pi,sc);
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		for(int i=0; i<slist.size(); i++) {
 			slist.get(i).setMailDateStr(format1.format(slist.get(i).getMailDate()));
 		}
@@ -207,7 +224,7 @@ public class MessengerController {
 
 		int readResult = milService.readFlagUpdate(mailNo);
 		Email e = milService.selectMail(mailNo);
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		
 		e.setMailDateStr(format1.format(e.getMailDate()));
 		
@@ -351,6 +368,17 @@ public class MessengerController {
 		int result = 0;
 		for(int i=0; i<mailNo.length; i++) {
 			result = milService.deleteMail(mailNo[i]);
+		}
+		
+		return "redirect:list.mil?currentPage=1&mailOwn=" + mailOwn;
+	}  
+	
+	@RequestMapping("fdelete.mil")
+	public String foreverdeleteMail(int mailNo[], String mailOwn, Model model) {
+		
+		int result = 0;
+		for(int i=0; i<mailNo.length; i++) {
+			result = milService.foreverdeleteMail(mailNo[i]);
 		}
 		
 		return "redirect:list.mil?currentPage=1&mailOwn=" + mailOwn;
