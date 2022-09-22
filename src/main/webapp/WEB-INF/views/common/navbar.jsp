@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Purple Admin</title>
 <!-- 모달 부트스트랩 -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
@@ -97,8 +97,8 @@
             </li>
             <!-- 채팅아이콘 -->
             <li class="nav-item d-none d-lg-block full-screen-link" style="cursor:pointer;" >
-              <a class="nav-link">
-                <i class="mdi mdi-comment-processing-outline" id="fullscreen-button"></i>
+              <a class="nav-link" href="chatPage.ch"> 
+                <i class="mdi mdi-comment-processing-outline" id="fullscreen-button" ></i>
               </a>
             </li>
             <!-- 메일 아이콘 -->
@@ -374,9 +374,9 @@
                 	<li class="nav-item"> <a class="nav-link" href="enrollForm.mil">메일쓰기</a></li>
                   	<li class="nav-item"> <a class="nav-link" href="list.mil?currentPage=1&mailOwn=${loginUser.empNo }">받은메일함</a></li>
                     <li class="nav-item"> <a class="nav-link" href="flist.mil?currentPage=1&mailOwn=${loginUser.empNo }">보낸메일함</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">임시메일함</a></li>
+                    <!--<li class="nav-item"> <a class="nav-link" href="">임시메일함</a></li>-->
                     <li class="nav-item"> <a class="nav-link" href="ilist.mil?currentPage=1&mailOwn=${loginUser.empNo }">중요보관함</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">휴지통</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="dlist.mil?currentPage=1&mailOwn=${loginUser.empNo }">휴지통</a></li>
                     <li class="nav-item"> <a class="nav-link" href="">주소록</a></li>
                 </ul>
               </div>
