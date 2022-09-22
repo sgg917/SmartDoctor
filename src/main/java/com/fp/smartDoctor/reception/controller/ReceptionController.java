@@ -235,17 +235,42 @@ public class ReceptionController {
 	public String payDone() {
 		return "kmj/payDone";
 	}
+	
+	
+	
+	@RequestMapping("selectList.pt")
+	public ModelAndView selectListPt(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv) {
+		
+		
+		// 전체 환자 수 조회
+		int listCount = rService.selectListCount();
+
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
+		ArrayList<Patient> list = rService.selectList(pi);
+
+		mv.addObject("pi", pi).addObject("list", list).setViewName("kmj/selectPatient");
+
+		return mv;
+		
+	}
+	
+	
 
 	// ------------------------------------------------------------------------------------------------------------------------
 
 	// 환자 조회용 메소드
 	@ResponseBody
 	@RequestMapping(value = "list.pt", produces = "apllication/json; charset=utf-8")
-	public String ajaxSelectPatientList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage) {
+	public Map<String, Object> ajaxSelectPatientList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
 		int listCount = rService.selectListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
+		
 		ArrayList<Patient> list = rService.selectList(pi);
-		return new Gson().toJson(list); // "[{}, {}, {} ..]"
+		map.put("list", list);
+		map.put("pi", pi);
+		return map; // "[{}, {}, {} ..]"
 	}
 
 	// 환자 등록

@@ -119,6 +119,7 @@ input {
 	border: none;
 	outline: none !important;
 }
+
 </style>
 
 
@@ -145,9 +146,7 @@ input {
 								<th colspan="2" height="30" width="200"
 									style="text-align: left; padding-bottom: 5px; padding-left: 17px; font-size: 17px;">인적정보</th>
 								<td width="100" style="padding: 5px;">
-									<button type="button" class="button" style="height: 30px"
-										data-toggle="modal" data-target="#searchPatient"
-										onclick="openModal();">환자검색</button>
+									<button type="button" class="button"  style="height: 30px" onclick="openPopupWindow();" >환자검색</button>
 								</td>
 								<td width="100" style="padding: 5px;">
 									<button type="button" class="button" style="height: 30px"
@@ -431,6 +430,7 @@ input {
 				})
 				
 				// 환자 조회용 ajax 함수
+				/*
 				function openModal() {
 
 					$.ajax({
@@ -438,10 +438,15 @@ input {
 						data : {
 							cpage : 0
 						},
-						success : function(list) {
+						success : function(data) {
 
+							
+							let list = data.list;
+							let pi = data.pi;
+							
 							console.log(list);
-
+							console.log(pi);
+							
 							let value = "";
 							for (let i = 0; i < list.length; i++) {
 
@@ -465,10 +470,7 @@ input {
 					})
 
 				}
-
-				function modalClose() {
-					$('#searchPatient').modal('hide');
-				}
+*/
 
 				// 진료 접수
 				function ajaxEnrollTreatment() {
@@ -572,6 +574,14 @@ input {
 					    checkbox.checked = selectAll.checked;
 					  })
 					}
+				
+				
+				// 환자 선택 팝업창 띄우기
+				function openPopupWindow(){
+					window.open("selectList.pt", "popup", "width=500, height=650")
+				}
+				
+				
 			</script>
 
 			<jsp:include page="../common/footer.jsp" />
