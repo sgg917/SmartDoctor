@@ -144,6 +144,8 @@
                     <!-- style="border: 2px solid blue;" -->
                     <form action="insert.tmt">
                     <input type="hidden" name="clinicNo" value="${ nowPatient.clinicNo }">
+                    <input type="hidden" name="chartNo" value="${ nowPatient.chartNo }">
+                    <input type="hidden" name="newOne" value="${ nowPatient.newOne }">
                     <br><br>
                       <table id="outout"style="text-align: center; margin:auto;">
 
@@ -281,9 +283,9 @@
                             
                             <script>
                             
-                            	$('input[name=surgery]').click(function(){
+                            	$('input[name=checkSurgery]').click(function(){
                             		
-                            		if($('input[name=surgery]:checked').val() == "no"){
+                            		if($('input[name=checkSurgery]:checked').val() == "no"){
                                 		$("#chooseSurgery>option").prop('disabled', true);
                                 		$("#sCode").prop('disabled', true);
                                 		$("#choose").prop('selected', true);
@@ -437,13 +439,13 @@
 		   				     		+ '<td>' + '<span name="medNo">' + '<input type="hidden" value="' + obj.medNo + '" name="preMedList[' + index + '].medNo">' + obj.medNo + '</span>' + '</td>'
 		   				     		+ '<td>' + obj.medName + '</td>'
 		   				     		+ '<td>' +  
-		   				     					'<select name="preMedList[' + index + '].dosetime" class="custom-select">' 
+		   				     					'<select name="preMedList[' + index + '].dosetime" class="custom-select">'
 		   				     				 +    '<option selected>선택</option>'
 		   				     				 +	  '<option value="1">1회</option>'
 		   				     				 +    '<option value="2">2회</option>'
 		   				     				 +    '<option value="3">3회</option>'
 						                     +  '</select>'  + '</td>'
-		   				     		+ '<td>' + '<span name="tiems">' + obj.times + "</span>" + '</td>'
+		   				     		+ '<td>' +  '<span name="tiems">' + obj.times + "</span>" + '</td>'
 		   				     	 + '</tr>';
             			$("#table1").append(row);
             		})

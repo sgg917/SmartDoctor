@@ -330,7 +330,9 @@ public class TreatmentController {
 	}
 	
 	@RequestMapping("insert.tmt")
-	public String insertTreatment(Clinic c, Prescription pre, HttpSession session, String injectDay, String dosetime) {
+	public String insertTreatment(Clinic c, Prescription pre, HttpSession session, String injectDay, String chartNo, String newOne) {
+		
+		//System.out.println("chartNo : " + chartNo);
 		
 		// 진료테이블 업데이트
 		int clinicResult = tService.updateClinic(c); 
@@ -340,19 +342,51 @@ public class TreatmentController {
 		int preResult = tService.insertPre(pre);
 		System.out.println("처방전 : " + pre);
 		
-		if(clinicResult > 0 && preResult > 0) {
+		int pResult = 0;
+		
+		// 환자 초진/재진 여부 업데이트
+		if(newOne.equals("초진")) {
+			pResult = tService.updatePatient(chartNo);
+			System.out.println("chartNo : " + chartNo);
+		}
+		
+		if(clinicResult > 0 && preResult > 0 && pResult > 0) {
 			
 			System.out.println("1차성공");
 			
-			System.out.println(pre.getPreMedList());
+			System.out.println(pre.getPreMedList()); // 입력한 약 list 보기
 			
 			int pMedResult = 0;
+			//String meals = "";
 			
 			// 처방약 입력
 			for(PreMed pmd : pre.getPreMedList()) {
 				pMedResult = tService.insertPmed(pmd);
 				System.out.println("처방약 : " + pmd);
 			}
+			
+			/*
+			if(c.getSurgeryNo2() != null) { // 수술코드가 null이 아니면 == 수술을 한다면
+				ArrayList<Surgery> sList = tService.selectSurgeryList();
+				for(int i = 0; i<sList.size(); i++) {
+					if(sList.get(i).getSurgeryNo().equals(c.getSurgeryNo2())) {
+						meals = Integer.toString(Integer.parseInt(sList.get(i).getPeriod()) * 15000);
+						System.out.println("meals : " + meals);
+					}
+				}
+		
+			}else {
+				meals = null;
+				System.out.println("meals2 : " + meals);
+			}
+			System.out.println("meals3 : " + meals);
+			
+			System.out.println("clinicNo : " + c.getClinicNo());
+			
+			int payResult = tService.insertPay(c.getClinicNo(), meals);
+			*/
+			
+			//&& payResult > 0
 			
 			if(pMedResult > 0) {
 				session.setAttribute("alertMsg", "진료 완료되었습니다!");

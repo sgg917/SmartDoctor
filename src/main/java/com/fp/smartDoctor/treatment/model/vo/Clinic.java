@@ -29,6 +29,7 @@ public class Clinic {
 	private String disease;
 	private String deptName;
 	private String checkSurgery;
+	private String period;
 	
 	//수술실 예약 조회
 	private String patientName;

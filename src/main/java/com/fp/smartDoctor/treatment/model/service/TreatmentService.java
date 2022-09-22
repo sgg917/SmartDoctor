@@ -87,4 +87,10 @@ public interface TreatmentService {
 	// 처방약 입력
 	int insertPmed(PreMed pmd);
 	
+	// 수납 입력
+	int insertPay(int clinicNo, String meals);
+	
+	// 환자 초진/재진 여부 업데이트
+	int updatePatient(String chartNo);
+	
 }

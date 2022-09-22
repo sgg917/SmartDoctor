@@ -542,6 +542,44 @@
 		   )
 	</insert>
 	
+	<!-- 수납 입력 -->
+	<insert id="insertPay">
+		insert 
+		  into pay
+		  (
+		    pay_no
+		  , clinic_no
+		  , surgery_no
+		  , meals
+		  , status
+		  , pay_date
+		  , enter_fee
+		  )
+		  values
+		  (
+		    seq_payno.nextval
+		  , #{clinicNo}
+		  <choose>
+		  	<when test = "checkSurgery == 'yes'">
+		  		, #{surgeryNo2}
+		  		, #{meals}
+		  	</when>
+		  	<otherwise>
+		  		, null
+		  		, null
+		  	</otherwise>
+		  </choose>
+		  , default
+		  , default
+		  , default
+		  )
+	</insert>
 	
+	<!-- 환자 초진/재진 여부 업데이트 -->
+	<update id="updatePatient">
+		 update patient
+		    set new = 'N'
+		  where chart_no = #{chartNo}
+	</update>
 	
 </mapper>
