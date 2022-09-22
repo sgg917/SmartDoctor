@@ -21,12 +21,6 @@ box-shadow: 3px 3px 3px 3px lightgray;
   padding-bottom:80px;
   padding-top:20px;
 }
-
-body{
-  font-family: 'IBM Plex Sans KR', sans-serif;
-  font-family: 'Nanum Gothic', sans-serif;
-  font-size:15px;
-}
 /* ---------- */
 
 /* 조직도 영역 스타일 */
@@ -92,6 +86,10 @@ li {
   width:15%;
 }
 
+.table td, .table th {
+  vertical-align:middle !important;
+}
+
 /* 테이블 내의 아이콘 */
 #mem-tb i {
   font-size:17px;
@@ -100,8 +98,8 @@ li {
 
 /* input 요소 글씨 크기 */
 .form-control {
-	font-size:15px !important;
-	margin-top:10px;
+	font-size:13px !important;
+	margin-top:15px;
 }
       
 /* 초록 버튼 */
@@ -380,7 +378,8 @@ input, select {
 						txt += '<input type="hidden" name="empNo" value="' + list[i].empNo + '">';
 						txt += '<input type="hidden" name="deptNo" value="' + list[i].deptNo + '">';
                         txt += 	'<td>';
-                        txt +=    '<img src="' + list[i].path + '">';
+                        txt +=    '<img class="profileImg" src="' + list[i].path + '">';
+                        txt +=	  '<input type="file" name="path" style="display:none;"';
                         txt +=  '</td>';
                         txt += 	'<th class="jobNo">';
                         txt +=	  '<input type="hidden" value="' + list[i].jobNo + '">';
@@ -429,13 +428,13 @@ input, select {
 		})
 		
 		// 하위부서 없는 부서일 경우
-		if(upperNo == 0 && deptNo != 0){
-			location.href="#dept"+deptNo;
+		//if(upperNo == 0 && deptNo != 0){
+		//	location.href="#dept"+deptNo;
 			
-		}else if(upperNo != 0 && deptNo != null){
+		//}else if(upperNo != 0 && deptNo != null){
 		// 하위부서 있는 부서일 경우
-			location.href="#dept"+upperNo+"-"+deptNo;
-		}
+		//	location.href="#dept"+upperNo+"-"+deptNo;
+		//}
 	}
 	</script>
 	
@@ -466,18 +465,16 @@ input, select {
 	
 	<!-- alert 대체용 모달 -->
 	<div class="modal fade" id="alertModal">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content" style="background:white;">
-				
-				<!-- Modal Body -->
+				<!-- Modal body -->
 				<div class="modal-body" style="text-align:center; margin:20px 10px;">
 				</div>
-				
-				<!-- Modal Footer -->
-				<div class="modal-footer" style="margin:auto;">
-					<button type="button" class="btn green-btn" data-bs-dismiss="modal">확인</button>
+
+				<!-- Modal footer -->
+				<div class="modal-footer" style="justify-content:center;">
+					<button type="button" class="btn medium-btn green-btn" data-dismiss="modal">확인</button>
 				</div>
-				
 			</div>
 		</div>
 	</div>

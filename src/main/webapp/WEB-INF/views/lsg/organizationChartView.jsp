@@ -71,10 +71,26 @@ li {
   height:50px;
 }
 
+#mem-tb td, #mem-tb th{
+	vertical-align:middle !important;
+}
+
 #mem-tb img {
   border-radius:50%;
   width:60px;
   height:60px;
+}
+
+.jobNo {
+  width:20%;
+}
+.empName{
+  width:15%;
+}
+
+/* 테이블 내의 아이콘 */
+#mem-tb i {
+  font-size:17px;
 }
 
 /* 초록 버튼 */
@@ -342,13 +358,13 @@ li {
 		})
 		
 		// 하위부서 없는 부서일 경우
-		if(upperNo == 0 && deptNo != 0){
-			location.href="#dept"+deptNo;
+		//if(upperNo == 0 && deptNo != 0){
+		//	location.href="#dept"+deptNo;
 			
-		}else if(upperNo != 0 && deptNo != null){
+		//}else if(upperNo != 0 && deptNo != null){
 		// 하위부서 있는 부서일 경우
-			location.href="#dept"+upperNo+"-"+deptNo;
-		}
+		//	location.href="#dept"+upperNo+"-"+deptNo;
+		//}
 	}
 	</script>
 

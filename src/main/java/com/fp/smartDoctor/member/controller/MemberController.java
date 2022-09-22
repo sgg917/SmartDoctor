@@ -239,6 +239,7 @@ public class MemberController {
 		return result > 0 ? "삭제 완료되었습니다." : "부서 삭제에 실패하였습니다.";
 	}
 	
+	// 부서 추가
 	@ResponseBody
 	@RequestMapping(value="insert.de", produces="text/html; charset=utf-8")
 	public String insertDept(String deptName) {
@@ -248,5 +249,5 @@ public class MemberController {
 		
 		return result > 0 ? "성공적으로 추가되었습니다." : "부서 추가에 실패하였습니다.";
 	}
-
+	
 }

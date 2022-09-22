@@ -18,7 +18,6 @@
     .wrap11 {
 		width: 100%;
 		background-color: white;
-		border-radius: 30px 10px;
 		box-shadow: 3px 3px 3px 3px lightgray;
 		text-align: center;
 		height: 100%;
@@ -201,6 +200,11 @@
 		border-left:none;
 	}
 	
+	.wrap2{
+		width:95%;
+		text-align : left;
+		margin:auto;
+	}
 </style>
 </head>
 <body>
@@ -209,13 +213,15 @@
 	<div class="main-panel">
 		<div class="content-wrapper">
 			<div class="wrap11" style="height: 100%;">
-
-				<div class="topBar">
-					<!-- 메뉴명 -->
-					<span>메일쓰기</span>
+				<div class="wrap2">
+				<br><br>
+				<p style="font-size: 22px;">
+						메일 &nbsp;|&nbsp; <b>메일쓰기</b>
+					</p>
+					<hr>
+					<br><br><br>
+				
 				</div>
-				<br><br><br>
-					
 							<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="get">
 								<table class="mailUpload" id="boardDetail">
 									<tr>
@@ -283,7 +289,7 @@
 													<input type="file" id="input_file" multiple="multiple" style="height: 100%;" />
 													<button class="upload-btn fileShow mdi mdi-file-outline"></button>
 												</div>
-										        <div id="dropZone" style="width: 896px; height: 100px; border: 1px solid lightgray;">
+										        <div id="dropZone" style="width: 1030px; height: 300px; border: 1px solid lightgray;">
 										            <div id="fileDragDesc">
 										            	<div class="mdi mdi-paperclip" style="display: inline-block;"></div>이곳에 첨부파일을 끌어오세요
 										            </div>
@@ -309,7 +315,7 @@
 									</tr>
 									<tr>
 										<th>내용</th>
-										<td colspan="2"><textarea class="textArea" rows="25" cols="125" name="mailContent" style="resize:none;"></textarea></td>
+										<td colspan="2"><textarea class="textArea" rows="30" cols="126" name="mailContent" style="resize:none;"></textarea></td>
 									</tr>
 								</table>
 								<input type="hidden" name="mailnameFrom" value="${ loginUser.empName }">
