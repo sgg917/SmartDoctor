@@ -57,7 +57,19 @@ public class MessengerDao {
 		
 		return (ArrayList)sqlSession.selectList("messengerMapper.iselectList", mailOwn, rowBounds);
 	}
+	// 휴지통
+	public int dselectListCount(SqlSessionTemplate sqlSession, String mailTo) {
+		return sqlSession.selectOne("messengerMapper.dselectListCount", mailTo);
+	}
 	
+	public ArrayList<Email> dselectList(SqlSessionTemplate sqlSession, PageInfo pi, String mailTo) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("messengerMapper.dselectList", mailTo, rowBounds);
+	}
+		
 	
 	
 	
@@ -140,6 +152,10 @@ public class MessengerDao {
 	
 	public int deleteMail(SqlSessionTemplate sqlSession, int mailOwn) {
 		return sqlSession.update("messengerMapper.deleteMail", mailOwn);
+	}
+	
+	public int foreverdeleteMail(SqlSessionTemplate sqlSession, int mailOwn) {
+		return sqlSession.update("messengerMapper.foreverdeleteMail", mailOwn);
 	}
 	
 	public int importFlagUpdate(SqlSessionTemplate sqlSession, int mailNo) {

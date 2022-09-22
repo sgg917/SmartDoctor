@@ -264,7 +264,7 @@ content="width=device-width, initial-scale=1, shrink-to-fit=no">
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
-            <!-- 화면 테스트용 네비바 -->
+            <!-- 화면 테스트용 네비바 
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#numberzero" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">화면테스트용(지워야됨)</span>
@@ -280,7 +280,7 @@ content="width=device-width, initial-scale=1, shrink-to-fit=no">
                 </ul>
               </div>
             </li>
-            <!-- 테스트용네비바 끝 -->
+                 테스트용네비바 끝 -->
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#numberone" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">진료</span>

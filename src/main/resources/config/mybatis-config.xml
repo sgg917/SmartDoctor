@@ -38,7 +38,7 @@
 		<typeAlias type="com.fp.smartDoctor.reception.model.vo.Receipt" alias="Receipt"/>
 		<typeAlias type="com.fp.smartDoctor.reception.model.vo.ProomCalendar" alias="ProomCalendar"/>
 		
-		
+	
 		
 		
 	</typeAliases>

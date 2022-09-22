@@ -212,7 +212,7 @@
 				<table class="bas">
 					<tr>
 						<td id="leftArea" >
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="mdi mdi-delete" type="button" style="color:gray; background:white; border:0px; font-size:20px;"></button>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="mdi mdi-delete takeManyBtn" type="button" style="color:gray; background:white; border:0px; font-size:20px;"></button>
 						</td>
 						<td id="rightArea" style="width:100%;">
 							<!-- 검색바 -->
@@ -501,7 +501,7 @@
 		 });
 		 
 		 location.href="delete.mil?mailNo=" + delchk + "&mailOwn=" + '${param.mailOwn}';
-
+		 alert("메일을 삭제하시겠습니까?");
 	})
 	
 	$('.disabled').click(function () {return false;});

@@ -213,7 +213,7 @@
 				<table class="bas">
 					<tr>
 						<td id="leftArea" >
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="mdi mdi-delete" type="button" style="color:gray; background:white; border:0px; font-size:20px;"></button>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="mdi mdi-delete takeManyBtn" type="button" style="color:gray; background:white; border:0px; font-size:20px;"></button>
 						</td>
 						<td id="rightArea">
 							<!-- 검색바 -->
