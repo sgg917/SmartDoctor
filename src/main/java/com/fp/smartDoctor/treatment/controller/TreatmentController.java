@@ -330,19 +330,15 @@ public class TreatmentController {
 	}
 	
 	@RequestMapping("insert.tmt")
-	public String insertTreatment(Clinic c, Prescription pre, PreMed pmd, HttpSession session, String injectDay, String dosetime) {
+	public String insertTreatment(Clinic c, Prescription pre, HttpSession session, String injectDay, String dosetime) {
 		
 		// 진료테이블 업데이트
 		int clinicResult = tService.updateClinic(c); 
-		System.out.println(c);
+		System.out.println("진료테이블 : " + c);
 		
 		// 처방전 입력
 		int preResult = tService.insertPre(pre);
 		System.out.println("처방전 : " + pre);
-		
-		String preNo = pre.getPreNo();
-		System.out.println("preNo : " + preNo);
-		
 		
 		if(clinicResult > 0 && preResult > 0) {
 			
@@ -350,17 +346,12 @@ public class TreatmentController {
 			
 			System.out.println(pre.getPreMedList());
 			
-			
-			
-			
 			int pMedResult = 0;
 			
 			// 처방약 입력
-			for(int i=0; i<pre.getPreMedList().size(); i++) {
-				pMedResult = tService.insertPmed(pmd, pre, dosetime);
-				System.out.println(pmd);
-				
-				
+			for(PreMed pmd : pre.getPreMedList()) {
+				pMedResult = tService.insertPmed(pmd);
+				System.out.println("처방약 : " + pmd);
 			}
 			
 			if(pMedResult > 0) {
@@ -372,7 +363,6 @@ public class TreatmentController {
 				session.setAttribute("errorMsg", "진료 실패");
 				return "ljy/enrollTreatment";
 			
-				
 			}
 			
 		}else {
@@ -380,25 +370,6 @@ public class TreatmentController {
 			session.setAttribute("errorMsg", "진료 실패");
 			return "ljy/enrollTreatment";
 		}
-		
-		
-		
-		
-		
-		/*
-		if(clinicResult > 0 && preResult > 0) {
-			session.setAttribute("alertMsg", "진료 완료되었습니다!");
-			System.out.println("성공");
-			return "redirect:/";
-		}else {
-			System.out.println("실패");
-			session.setAttribute("errorMsg", "진료 실패");
-			return "ljy/enrollTreatment";
-		}
-		
-		*/
-		
-		
 		
 	}
 	

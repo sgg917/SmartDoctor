@@ -68,9 +68,9 @@
 		<div class="content-wrapper">
 			<h3><b>월간 근태 체크</b></h3>
 			<br><hr><br>
-			<div class="container card wrap11" id="att-area">
+			<div class="wrap11" id="att-area">
 				<div id="calendar-wrapper">
-					<div id='calendar' width="90%"></div>
+					<div id='calendar' width="90%">로딩중...</div>
 				</div>
 			</div>
 
@@ -161,6 +161,7 @@
 							meridiem : false
 						}
 					});
+					$('#calendar').empty();
 					calendar.render();
 				},
 				error:function(){
