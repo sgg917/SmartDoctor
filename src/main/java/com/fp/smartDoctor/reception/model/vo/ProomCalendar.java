@@ -20,5 +20,6 @@ public class ProomCalendar {
 	private String capacity;
 	private String price;
 	private String nameList;
+	private String count;
 	
 }

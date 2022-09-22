@@ -129,6 +129,7 @@
 		<result column="capacity" property="capacity" />
 		<result column="price" property="price" />
 		<result column="namelist" property="nameList" />
+		<result column="count" property="count" />
 	</resultMap>
 	
 	<!-- 전체 환자 수 조회 -->	
@@ -454,7 +455,7 @@
 		 where chart_no = #{chartNo}
 		   and c.status = 'D'
          order
-            by enroll_date desc;
+            by enroll_date desc
 	</select>
 	
 	<!-- 과거 진료 내역 수 조회 -->
@@ -550,7 +551,7 @@
    </select> 
    <!-- 입원실 출력용 입원실 예약 리스트 조회 -->
    <select id="selectPRoomBookingList" resultMap="proomResult">    
-	   SELECT M.WORKING_DAY, PB.PROOM_NO, PB.ROOM_NAME, LISTAGG(p.patient_name, ',') WITHIN GROUP(ORDER BY p.patient_name) as "namelist"
+	   SELECT M.WORKING_DAY, PB.PROOM_NO, PB.ROOM_NAME, LISTAGG(p.patient_name, ',') WITHIN GROUP(ORDER BY p.patient_name) as "namelist", count(*) as "count"
 		  FROM PROOM_BOOKING PB
 		  JOIN (
 		        SELECT WORKING_DAY, PROOM_NO, ROOM_NAME

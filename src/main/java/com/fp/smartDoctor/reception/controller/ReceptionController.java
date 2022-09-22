@@ -164,10 +164,6 @@ public class ReceptionController {
 			cal.add(GregorianCalendar.MONTH, +2);
 			String nextDate = sdf.format(cal.getTime());
 
-			System.out.println("nowDate : " + nowDate);
-			System.out.println(preDate);
-			System.out.println(nextDate);
-
 			// String으로 형변환한 오늘 날짜 전달해서 이번달 1일~말일 구하기
 			ArrayList<ProomCalendar> dayList = rService.selectDateList(nowDate);
 
@@ -207,10 +203,6 @@ public class ReceptionController {
 			// 다음 날짜 구하기
 			cal.add(GregorianCalendar.MONTH, +2);
 			String nextDate = sdf.format(cal.getTime());
-
-			System.out.println("nowDate : " + nowDate);
-			System.out.println(preDate);
-			System.out.println(nextDate);
 
 			// String으로 형변환한 오늘 날짜 전달해서 이번달 1일~말일 구하기
 			ArrayList<ProomCalendar> dayList = rService.selectDateList(nowDate);

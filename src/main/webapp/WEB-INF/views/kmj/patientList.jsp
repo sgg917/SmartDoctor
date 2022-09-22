@@ -227,14 +227,15 @@ img {
 
 							<c:forEach var="p" begin="${ pi.startPage }"
 								end="${ pi.endPage }">
-								
+
+								<!-- 현재페이지 -->
 								<c:choose>
 									<c:when test="${ pi.currentPage == p }">
-										<!-- 현재페이지 -->
 										<c:choose>
 											<c:when test="${ empty keyword }">
 												<li class="page-item"><a class="page-link"
-													style="color: white; background: rgb(29, 92, 99)" href="list.mj?cpage=${ p }">${ p }</a></li>
+													style="color: white; background: rgb(29, 92, 99)"
+													href="list.mj?cpage=${ p }">${ p }</a></li>
 											</c:when>
 											<c:otherwise>
 												<li class="page-item"><a class="page-link"
@@ -243,9 +244,8 @@ img {
 											</c:otherwise>
 										</c:choose>
 									</c:when>
+									<!-- 현재페이지가 아닌거 -->
 									<c:otherwise>
-										<!-- 현재페이지가 아닌거 -->
-										
 										<c:choose>
 											<c:when test="${ empty keyword }">
 												<li class="page-item"><a class="page-link"
@@ -281,15 +281,11 @@ img {
 			</div>
 		</div>
 		<script>
-		
 			$(function() {
-				$("#patientList>tbody>tr>td>button").click(
-						function() {
-							location.href = "detail.pt?chartNo="
-									+ $(this).val();
-						})
+				$("#patientList>tbody>tr>td>button").click(function() {
+					location.href = "detail.pt?chartNo=" + $(this).val();
+				})
 			})
-		
 		</script>
 		<jsp:include page="../common/footer.jsp" />
 </body>
