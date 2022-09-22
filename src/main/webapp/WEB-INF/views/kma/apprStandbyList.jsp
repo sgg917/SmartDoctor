@@ -34,22 +34,24 @@
 					<hr>
 					<br><br>
 					<div class="appr-table-wrapper" style="margin-left:40px;">
-						<button type="button" class="btn btn-outline-success appr-doc-btn"
-							onclick="allApprove();">
-							<i class="mdi mdi-playlist-check"></i>&nbsp;
-							<span>일괄결재</span>
-						</button>
-						<div class="input-group appr-search-div" style="float: right;">
-							<select name="" style="display: inline-block;">
-								<option>제목</option>
-								<option>결재양식</option>
-							</select> <input type="text" class="form-control"
-								placeholder="검색어를 입력해주세요" style="display: inline-block;">
-							<button class="btn appr-write-btn btn-sm" type="button"
-								style="display: inline-block;">
-								<img src="resources/images/kma/search.png">
+						<form id="allApprove" action="" method="post">
+							<button type="button" class="btn btn-outline-success appr-doc-btn"
+								onclick="allApprove('allApprove.si');">
+								<i class="mdi mdi-playlist-check"></i>&nbsp;
+								<span>일괄결재</span>
 							</button>
-						</div>
+							<div class="input-group appr-search-div" style="float: right;">
+								<select name="" style="display: inline-block;">
+									<option>제목</option>
+									<option>결재양식</option>
+								</select> <input type="text" class="form-control"
+									placeholder="검색어를 입력해주세요" style="display: inline-block;">
+								<button class="btn appr-write-btn btn-sm" type="button"
+									style="display: inline-block;">
+									<img src="resources/images/kma/search.png">
+								</button>
+							</div>
+						</form>
 						
 						<table class="table appr-standby-tb" id="appr-all-table">
 							<thead>
@@ -97,17 +99,15 @@
 			            		})
 			            	})
 			            	
-			            	function allApprove(){ // 일괄결재
+			            	function allApprove(url){ // 일괄결재
 								
-								let noArr = [];
-								$('input[type=checkbox]:checked').each(function(){
-									noArr.push( $(this).parent().siblings('.apprNo').text() );
+								$('input[type=checkbox]:checked').each(function(index, item){
+									$("#allApprove").append("<input type='hidden' value='" + $(item).parent().siblings('.apprNo').text() + "' name='lineList[" + index + "].apprNo'>")
 								})
-								//console.log(noArr);
 								
 								let result = confirm("일괄결재 하시겠습니까? 일괄결재 시 결재의견은 '승인합니다'로 통일됩니다.");
 								if(result == true){
-									location.href='allApprove.si?noArr=' + noArr;
+									$("#allApprove").attr("action", url).submit();
 								} 
 							}
 						</script>
