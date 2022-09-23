@@ -248,7 +248,7 @@ input {
 										<th>순번</th>
 										<th>이름</th>
 										<th>성별</th>
-										<th>나이</th>
+										<th>나이(만)</th>
 										<th>진료과</th>
 									</tr>
 								</thead>
@@ -287,7 +287,7 @@ input {
 										<th>순번</th>
 										<th>이름</th>
 										<th>성별</th>
-										<th>나이</th>
+										<th>나이(만)</th>
 										<th>진료과</th>
 									</tr>
 								</thead>

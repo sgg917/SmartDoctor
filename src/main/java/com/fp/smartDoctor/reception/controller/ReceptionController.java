@@ -367,13 +367,11 @@ public class ReceptionController {
 
 		Patient p = rService.selectPatient(chartNo);
 
-		// System.out.println(p);
-
 		String beforeFV = p.getFirstVisit();
 		p.setFirstVisit(beforeFV.substring(0, 11));
 		String beforeLV = p.getLastVisit();
 		p.setLastVisit(beforeLV.substring(0, 11));
-
+		
 		if (p != null) {
 			mv.addObject("p", p);
 			ArrayList<Dept> deptList = rService.selectDeptList();
@@ -396,10 +394,9 @@ public class ReceptionController {
 	public String ajaxInsertTreatment(Clinic c, HttpSession session, Model model) {
 
 		int result = rService.insertTreatment(c);
-		int result2 = rService.updatePatientLastDept(c);
 		
 
-		return result * result2 > 0 ? "success" : "fail";
+		return result > 0 ? "success" : "fail";
 
 	}
 

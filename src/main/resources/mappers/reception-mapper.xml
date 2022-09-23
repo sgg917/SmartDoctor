@@ -625,7 +625,7 @@
 		update
 			   patient
 		   set last_dep = #{deptNo}
-		   and last_visit = sysdate
+		     , last_visit = sysdate
 		 where chart_no = #{chartNo}
 	</update>
 	
