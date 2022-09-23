@@ -375,7 +375,7 @@ public class TreatmentController {
 			
 			System.out.println("안녕하세요");
 			
-			if(c.getSurgeryNo2().equals(" ")) { // 수술코드가 null이 아니면 == 수술을 한다면
+			if(c.getSurgeryNo2() != null) { // 수술코드가 null이 아니면 == 수술을 한다면
 				ArrayList<Surgery> sList = tService.selectSurgeryList();
 				for(int i = 0; i<sList.size(); i++) {
 					if(sList.get(i).getSurgeryNo().equals(c.getSurgeryNo2())) {
