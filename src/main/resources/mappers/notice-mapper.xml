@@ -132,7 +132,7 @@
 		             , notice_count
 		          from notice
 		         where notice_status = 'Y'
-		           and sysdate - notice_edate <![CDATA[ < ]]> 5
+		           and sysdate - notice_edate <![CDATA[ < ]]> 7
 		         order
 		            by notice_count desc
 		        )

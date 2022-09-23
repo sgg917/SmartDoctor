@@ -221,7 +221,7 @@
 					<div class="col-md-7 grid-margin stretch-card">
 						<div class="card" style="height: 100%;">
 							<div class="card-body">
-								<iframe width="100% " height="245"
+								<iframe width="100% " height="245" style="margin-top: 70px;"
 									src="https://forecast.io/embed/#lat=37.5662&lon=126.9785&name=서울&color=#F6A8A6&font=arial&units=si"
 									frameborder="0"></iframe>
 								<script>/*<![CDATA[*/
@@ -262,28 +262,6 @@ $(document).ready(function(){setTimeout(function(){window.location.reload(1)},30
                       </thead>
                       
                       <tbody>
-                      
-                      
-	                     <%--  <c:choose>
-	                      
-	                      	<c:when test="${ empty list }">
-	                      		<tr>
-	                      			<td colspan="4">현재 공지사항이 없습니다.</td>
-	                      		</tr>
-	                      	</c:when>
-	                      	
-	                      	<c:otherwise>
-	                      		<c:forEach var="n" items="${ list }">
-	                      			<tr>
-			                          <td class="no">${ n.noticeNo }</td>
-			                          <td>${ n.noticeTitle }</td>
-			                          <td>${ n.enrollDate }</td>
-			                          <td>${ n.count }</td>
-			                        </tr>
-	                      		</c:forEach>
-	                      	</c:otherwise>
-	                      </c:choose> --%>
-	                      
 	                      
                       </tbody>
                       
@@ -321,13 +299,13 @@ $(document).ready(function(){setTimeout(function(){window.location.reload(1)},30
                      	}
                      	
                       </script>
-                      
                     </table>
 							</div>
 						</div>
 					</div>
 				</div>
 				<!-- 공지사항 끝 -->
+				
 
 			</div>
 			<jsp:include page="common/footer.jsp" />

@@ -39,7 +39,7 @@
                         <thead>
                           <tr>
                             <th style="font-weight: bold;">제목</th>
-                            <td style="border: 0;">${ n.noticeTitle }</td>
+                            <td style="border: none;">${ n.noticeTitle }</td>
                           </tr>
                         </thead>
 
