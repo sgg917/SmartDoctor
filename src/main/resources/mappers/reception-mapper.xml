@@ -624,7 +624,7 @@
 	<update id="updatePatientLastDept">
 		update
 			   patient
-		     , last_dep = #{deptNo}
+		   set last_dep = #{deptNo}
 		   and last_visit = sysdate
 		 where chart_no = #{chartNo}
 	</update>
