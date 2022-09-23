@@ -620,11 +620,12 @@
              by last_visit desc
 	</select>
 	
-	<!-- 최근 진료과 변경 -->
+	<!-- 최근 진료과/방문일 변경 -->
 	<update id="updatePatientLastDept">
 		update
 			   patient
-		   set last_dep = #{deptNo}
+		     , last_dep = #{deptNo}
+		   and last_visit = sysdate
 		 where chart_no = #{chartNo}
 	</update>
 	
