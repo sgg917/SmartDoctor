@@ -12,31 +12,31 @@ public interface MemberService {
 	
 	int updatePwd(Member m);
 	
-	// 조직도 부서 조회 - 슬
+	// 조직도 부서 조회
 	ArrayList<Dept> selectOrgChartDept();
 	
-	// 조직도 사원 조회 - 슬
+	// 조직도 사원 조회
 	ArrayList<Member> selectOrgChartEmp();
 
-	// 조직도 부서별 사원 수 조회 - 슬
+	// 조직도 부서별 사원 수 조회
 	int selectEmpCount(Dept d);
 	
-	// 조직도 부서별 사원 조회 - 슬
+	// 조직도 부서별 사원 조회
 	ArrayList<Member> selectEmp(Dept d);
 	
-	// 조직도 사원 삭제 - 슬
+	// 조직도 사원 삭제
 	int deleteEmp(String empNo);
 	
-	// 조직도 사원 수정 - 슬
+	// 조직도 사원 수정
 	int updateEmp(Member m);
 	
-	// 조직도 부서명 수정 - 슬
+	// 조직도 부서명 수정
 	int updateDept(Dept d);
 	
-	// 조직도 부서 삭제 - 슬
+	// 조직도 부서 삭제
 	int deleteDept(int deptNo);
 	
-	// 조직도 부서 추가 - 슬
+	// 조직도 부서 추가
 	int insertDept(String deptName);
 
 	// 사원가입
