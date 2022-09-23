@@ -27,5 +27,8 @@ public interface NoticeService {
 	// 공지사항 검색
 	int selectSearchCount(String keyword);
 	ArrayList<Notice> selectSearchList(String keyword, PageInfo pi);
+	
+	// 공지사항 조회수 top5조회
+	ArrayList<Notice> selectTopNoticeList();
 
 }
