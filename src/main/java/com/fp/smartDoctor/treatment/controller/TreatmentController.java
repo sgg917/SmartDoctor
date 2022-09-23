@@ -112,9 +112,8 @@ public class TreatmentController {
 		Patient nowPatient = tService.selectNowPatient(p, empNo);
 		System.out.println("진료중인 환자 : " + nowPatient); // 나중에 지워야됨
 		
-		if(nowPatient != null) {
+		if(nowPatient != null) { // 진료할 환자 존재
 			
-			// 진료할 환자 존재
 			session.setAttribute("nowPatient", nowPatient);
 			
 			// 진료할 환자의 과거 내역 조회
@@ -138,7 +137,7 @@ public class TreatmentController {
 		}else { 
 
 			session.setAttribute("alertMsg", "진료중인 환자가 없습니다.");
-			mv.setViewName("ljy/enrollTreatment");
+			mv.setViewName("redirect:/");
 		}
 		return mv;
 	}
@@ -332,41 +331,35 @@ public class TreatmentController {
 		return mv;
 	}
 	
+	// 진료 저장
 	@RequestMapping("insert.tmt")
 	public String insertTreatment(Clinic c, Prescription pre, HttpSession session, String injectDay, String chartNo, String newOne) {
 		
-		//System.out.println("chartNo : " + chartNo);
-		
 		// 진료테이블 업데이트
 		int clinicResult = tService.updateClinic(c); 
-		System.out.println("진료테이블 : " + c);
 		
 		// 처방전 입력
 		int preResult = tService.insertPre(pre);
-		System.out.println("처방전 : " + pre);
 		
+		// 환자 초진 or 재진 여부 업데이트
 		int pResult = 0;
 		
-		// 환자 초진/재진 여부 업데이트
 		if(newOne.equals("초진")) {
 			pResult = tService.updatePatient(chartNo);
-			System.out.println("chartNo : " + chartNo);
 		}
 		
 		if(clinicResult > 0 && preResult > 0 && pResult > 0) {
 			
-			System.out.println("1차성공");
+			//System.out.println("1차성공");
 			
-			System.out.println(pre.getPreMedList()); // 입력한 약 list 보기
-			
-			int pMedResult = 0;
-			String meals = "";
-			System.out.println("meals" + meals);
+			//System.out.println(pre.getPreMedList()); // 입력한 약 list 보기
 			
 			// 처방약 입력
+			int pMedResult = 0;
+			String meals = "";
+			
 			for(PreMed pmd : pre.getPreMedList()) {
 				pMedResult = tService.insertPmed(pmd);
-				System.out.println("처방약 : " + pmd);
 			}
 			
 			System.out.println("안녕하세요");
@@ -376,33 +369,23 @@ public class TreatmentController {
 				for(int i = 0; i<sList.size(); i++) {
 					if(sList.get(i).getSurgeryNo().equals(c.getSurgeryNo2())) {
 						meals = Integer.toString(Integer.parseInt(sList.get(i).getPeriod()) * 15000);
-						System.out.println("meals : " + meals);
 					}
 				}
 		
 			}else {
 				meals = null;
-				System.out.println("meals2 : " + meals);
 			}
-			System.out.println("meals3 : " + meals);
 			
-			System.out.println("clinicNo : " + c.getClinicNo());
-			System.out.println("surgeryNo2 : " + c.getSurgeryNo2());
-			
+			// 수납입력
 			int payResult = tService.insertPay(c.getClinicNo(), c.getSurgeryNo2(), meals);
-			
-			
-			
 			
 			if(pMedResult > 0 && payResult > 0) {
 				session.setAttribute("alertMsg", "진료 완료되었습니다!");
-				System.out.println("2차성공");
+				// System.out.println("2차성공");
 				return "redirect:/";
 			}else {
-				System.out.println("처방약 입력 실패");
 				session.setAttribute("errorMsg", "진료 실패");
 				return "ljy/enrollTreatment";
-			
 			}
 			
 		}else {
