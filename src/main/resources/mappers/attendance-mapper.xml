@@ -233,7 +233,7 @@
 		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
 	</select>
 	
-	<!-- 퇴근 여부 -->
+	<!-- ` 여부 -->
 	<select id="selectEndTime" resultType="String">
 		select
 		       end_time
@@ -247,14 +247,14 @@
 		update attendance
 		   set end_time = to_char(sysdate, 'HH24:MI')
 		     , total_time = 
-		     case when (to_date(end_time, 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24 &lt; 1
-		            then round( (to_date(end_time, 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24, 0) 
-		            when (to_date(end_time, 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24 &gt;= 1
-		            then round( (to_date(end_time, 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24, 0) - 1
-		       end
+		     case when (to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24 &lt; 5
+	              then round( (to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24, 0) 
+	              when (to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24 &gt;= 5
+	              then round( (to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24, 0) - 1
+	         end
 		     , status = 
 		     case when to_date(start_time, 'HH24:MI') &gt; to_date('09:00', 'HH24:MI') then '지각'
-		          when to_date(end_time, 'HH24:MI') &gt;= to_date('18:00', 'HH24:MI') then '정상'
+		          when to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') &gt;= to_date('18:00', 'HH24:MI') then '정상'
 		     end
 		 where emp_no = #{empNo}
 		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
@@ -486,22 +486,26 @@
 	</insert>
 	
 	<insert id="insertAttVacation">
-		insert
-		  into attendance
-		     (
-		       att_no
-		     , emp_no
-		     , att_date
-		     , status
-		     )
-		values
-		     (
-		       seq_attno.nextval
-		     , #{empNo}
-		     , #{attDate}
-		     , 'V'
-		     )
-	</insert>
+		insert all
+  		  into attendance 
+  		  (
+  		    att_no
+  		  , emp_no
+  		  , att_date
+  		  , status
+  		  ) 
+  		  values
+  		  (
+  		  	seq_attno.nextval
+  		  , #{empNo}
+  		  , insertDate
+  		  , '휴가'
+  		  )
+		  select 
+		  	     to_char(to_date(#{startDate}) + level - 1, 'YYYY-MM-DD') insertDate
+            from dual
+		  <![CDATA[connect by level <= to_date(#{endDate}) - to_date(#{startDate}) + 1]]>
+	</insert> 
 	
 	<!-- 휴가신청서 조회 -->
 	<select id="selectVacation" resultMap="vacationResult">

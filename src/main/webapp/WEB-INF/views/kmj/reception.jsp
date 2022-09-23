@@ -146,7 +146,7 @@ input {
 								<th colspan="2" height="30" width="200"
 									style="text-align: left; padding-bottom: 5px; padding-left: 17px; font-size: 17px;">인적정보</th>
 								<td width="100" style="padding: 5px;">
-									<button type="button" class="button"  style="height: 30px" onclick="openPopupWindow();" >환자검색</button>
+									<button type="button" class="button"  style="height: 30px" onclick="openPopupWindow();" >환자조회</button>
 								</td>
 								<td width="100" style="padding: 5px;">
 									<button type="button" class="button" style="height: 30px"

@@ -385,10 +385,21 @@ public class SignController {
 	
 	// 사용자_결재하기
 	@RequestMapping("approve.si")
-	public String updateApprove(Line l, HttpSession session) {
+	public String updateApprove(Line l, Sign s, Vacation v, HttpSession session) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("empNo", s.getEmpNo());
+		map.put("apprNo", s.getApprNo());
+		map.put("startDate", v.getStartDate());
+		map.put("endDate", v.getEndDate());
 		
 		int apprResult = sService.updateApproval(l);
 		int lineResult = sService.updateApprLine(l);
+		Line e = sService.selectLineLevel(map); // 내결재순번 조회
+		
+		if( s.getFormNo() == 1 && e.getLineLevel() == s.getApprTotal() ) { // 내결재순번이 마지막순번일때 근태 insert
+			sService.insertAttVacation(map);
+		}
 
 		if(apprResult > 0 && lineResult > 0) {
 			

@@ -374,6 +374,7 @@
 		     , appr_status
 		     , origin_name
 		     , change_name
+		     , appr_total
 		     , emp_name
 		     , dept_name
 		     , job_name

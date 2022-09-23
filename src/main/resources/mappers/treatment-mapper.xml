@@ -553,24 +553,14 @@
 		  , meals
 		  , status
 		  , pay_date
-		  , enter_fee
 		  )
 		  values
 		  (
 		    seq_payno.nextval
 		  , #{clinicNo}
-		  <choose>
-		  	<when test = "checkSurgery == 'yes'">
-		  		, #{surgeryNo2}
-		  		, #{meals}
-		  	</when>
-		  	<otherwise>
-		  		, null
-		  		, null
-		  	</otherwise>
-		  </choose>
-		  , default
-		  , default
+  		  , #{surgeryNo2}
+  		  , #{meals}
+		  , 'N'
 		  , default
 		  )
 	</insert>

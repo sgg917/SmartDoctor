@@ -206,15 +206,19 @@
                                         <th style="background: lightgray;">진료과</th>
                                       </thead>
                                       <tbody>
+                                      	<c:if test="${ empty list }">
+                                      		<tr>
+                                    			<td colspan="3">초진환자입니다.</td>
+                                    		</tr>
+                                      	</c:if>
+                                      	<c:forEach var="c" items="${ list }">
+	                                      	<tr>
+	                                          <td>${ c.enrollDate }</td>
+	                                          <td>${ c.disease }</td>
+	                                          <td>${ c.deptName }</td>
+	                                        </tr>
+		                                 </c:forEach>
                                       
-                                      <c:forEach var="c" items="${ list }">
-                                      	<tr>
-                                          <td>${ c.enrollDate }</td>
-                                          <td>${ c.disease }</td>
-                                          <td>${ c.deptName }</td>
-                                        </tr>
-                                      </c:forEach>
-                                        
                                       </tbody>
                                     </table>
                                   </td>
@@ -243,7 +247,7 @@
                             
                             <span style="font-weight: bold;">병명</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             
-                            <select name="sickness" id="sickness">
+                            <select name="sickness" id="sickness" required>
                             	<option aria-placeholder="">병명선택</option>
 	                            <c:forEach var="d" items="${ dList }">
 	                            	<option value="${ d.diseaseCode }" name="diseases" id="dName">${ d.diseaseName }</option>
@@ -271,7 +275,7 @@
                             <input type="radio" class="form-check-input" name="checkSurgery" value="yes" checked>수술O&nbsp;
                             <input type="radio" class="form-check-input" name="checkSurgery" value="no" >수술X&nbsp;&nbsp;
 
-							<select name="chooseSurgery" id="chooseSurgery">
+							<select name="chooseSurgery" id="chooseSurgery" required>
 								<option aria-placeholder="" id="choose" selected>수술선택</option>
 								<c:forEach var="s" items="${ sList }">
 									<option value=${ s.surgeryNo }>${ s.surgeryName }</option>
@@ -359,7 +363,7 @@
                 <!-- The Modal -->
                 <div class="modal" id="chooseMedicine">
                   <div class="modal-dialog">
-                    <div class="modal-content">
+                    <div class="modal-content" style="background: white; width: 600px;">
                     
                       <!-- Modal Header -->
                       <div class="modal-header">
@@ -379,7 +383,7 @@
                   			<c:forEach var="m" items="${ mList }" varStatus="s">
                   				
                   				<c:if test="${ s.index mod 4 eq 0 }">
-                  					<tr>
+                  					<tr style="height: 25px;">
                   				</c:if>
                   				
                   				<td><input id="sss" type="checkbox" name="aa" value="${ m.medNo }"><span>${ m.medName }</span></td>
@@ -392,24 +396,24 @@
                       	</table>
                       
                       	<br>
-                        <span>총 투여일수</span>
+                        <span>총 투여일수</span><br><br>
                         <select name="injectDay" class="custom-select">
                           <option selected required>선택</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
+                          <option value="3">3일</option>
+                          <option value="4">4일</option>
+                          <option value="5">5일</option>
+                          <option value="6">6일</option>
+                          <option value="7">7일</option>
+                          <option value="8">8일</option>
+                          <option value="9">9일</option>
+                          <option value="10">10일</option>
                         </select>
                       </div>
                       
                       <!-- Modal footer -->
                       <div class="modal-footer">
                       	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button>
-                        <button type="button" class="btn btn-secondary btn-sm" id="saveMed" data-dismiss="modal">저장</button>
+                        <button type="button" class="btn btn-secondary btn-sm" id="saveMed" data-dismiss="modal" style="background: rgb(29, 92, 99); color: white;">저장</button>
                       </div>
                       
                     </div>
@@ -440,7 +444,7 @@
 		   				     		+ '<td>' + obj.medName + '</td>'
 		   				     		+ '<td>' +  
 		   				     					'<select name="preMedList[' + index + '].dosetime" class="custom-select">'
-		   				     				 +    '<option selected>선택</option>'
+		   				     				 +    '<option selected required>선택</option>'
 		   				     				 +	  '<option value="1">1회</option>'
 		   				     				 +    '<option value="2">2회</option>'
 		   				     				 +    '<option value="3">3회</option>'

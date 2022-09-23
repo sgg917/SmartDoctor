@@ -447,15 +447,16 @@
 			   clinic_no
 			 , chart_no
 			 , enroll_date
+ 			 , enroll_date||' '||enroll_time as "enroll"
 			 , disease
 			 , emp_name
 	      from clinic c
 		  join member using(emp_no)
-		  join disease using(diseases_code)
+     left join disease using(diseases_code)
 		 where chart_no = #{chartNo}
 		   and c.status = 'D'
          order
-            by enroll_date desc
+            by "enroll" desc
 	</select>
 	
 	<!-- 과거 진료 내역 수 조회 -->
@@ -515,19 +516,19 @@
 			 , enter_date
 			 , leave_date
 			 , fee
-			 , nvl(enter_fee,'0')
-             , nvl(s.S_PAYMENT,'0')
+			 , nvl(enter_fee,'0') "enter_fee"
+             , nvl(s.S_PAYMENT,'0') "s_payment"
 			 , chart_no
-			 , nvl(meals,'0')
+			 , nvl(meals,'0') "meals"
              , disease
              , s.surgery_name
              , fee + nvl(enter_fee,0) + nvl(s.S_PAYMENT,0) + nvl(meals,0) "total"
 	     from pay p
 		 left join clinic using(clinic_no)
-		  join patient using(chart_no)
+		 left join patient using(chart_no)
 		 left join surgery using(surgery_no)
 	   	 left join proom_booking using(clinic_no)
-         join disease using(DISEASES_CODE)
+         left join disease using(DISEASES_CODE)
          left join surgery s using(SURGERY_NO)
 	    where clinic_no = #{clinicNo}
     </select> 
@@ -549,6 +550,7 @@
 		order
 		   by proom_no asc
    </select> 
+   
    <!-- 입원실 출력용 입원실 예약 리스트 조회 -->
    <select id="selectPRoomBookingList" resultMap="proomResult">    
 	   SELECT M.WORKING_DAY, PB.PROOM_NO, PB.ROOM_NAME, LISTAGG(p.patient_name, ',') WITHIN GROUP(ORDER BY p.patient_name) as "namelist", count(*) as "count"
@@ -567,4 +569,54 @@
 		ORDER 
 		   BY M.WORKING_DAY, PROOM_NO
       </select>
+      
+    <!-- 검색 환자 수 조회 -->	
+	<select id="selectSearchCount" resultType="_int">
+		select
+			   count(*)
+		  from patient
+		 where patient_name like '%' || #{keyword} || '%'
+	</select>
+	
+	<!-- 검색 환자 조회 -->
+	<select id="selectSearchList" resultMap="patientResult">
+ 		select 
+		       chart_no
+		     , dept_name as "last_dep"
+		     , patient_name
+		     , trunc((to_number(to_char(sysdate, 'YYYYMMDD'))-to_number(to_char(decode(substr(id_no, 8, 1), '1', '19', '2', '19', '20')||substr(id_no, 1, 6))))/10000) as "age"
+		     , "id_no"
+		     , memo
+		     , first_visit
+		     , last_visit
+		     , "new"
+		     , "gender"
+   		     , phone
+             , protector
+             , address
+               from (
+		          select
+                   chart_no
+		             , dept_name
+		             , patient_name
+                     , id_no
+		             , rpad(substr(id_no,1,8),14,'*')as "id_no"
+		             , address
+		             , memo
+		             , first_visit
+		             , last_visit
+		             , phone
+		             , protector
+		             , decode(new, 'Y', '초진', 'N', '재진') as "new"
+		             , case 
+		                  when substr(id_no, 8, 1) in ('1', '3') then '남'
+		                  when substr(id_no, 8, 1) in ('2', '4') then '여'
+		               end "gender"
+		           from patient
+              left join department on(last_dep = dept_no)
+		        )
+          where patient_name like '%' || #{keyword} || '%'
+          order
+             by last_visit desc
+	</select>
 </mapper>
