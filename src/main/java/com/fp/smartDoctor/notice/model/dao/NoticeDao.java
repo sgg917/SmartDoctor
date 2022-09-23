@@ -56,4 +56,8 @@ public class NoticeDao {
 		return (ArrayList)sqlSession.selectList("noticeMapper.selectSearchList", keyword, rowBounds);
 		
 	}
+	
+	public ArrayList<Notice> selectTopNoticeList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("noticeMapper.selectTopNoticeList");
+	}
 }

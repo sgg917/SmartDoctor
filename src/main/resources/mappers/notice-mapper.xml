@@ -121,5 +121,22 @@
 		 order
 		    by notice_no desc
 	</select>
+	
+	<select id="selectTopNoticeList" resultMap="noticeResult">
+		select *
+		  from (
+		        select 
+		               notice_no
+		             , notice_title
+		             , to_char(to_date(notice_edate), 'YYYY-MM-DD') as "notice_edate"
+		             , notice_count
+		          from notice
+		         where notice_status = 'Y'
+		           and sysdate - notice_edate <![CDATA[ < ]]> 5
+		         order
+		            by notice_count desc
+		        )
+		 where rownum between 1 and 5
+	</select>
 
 </mapper>
