@@ -516,19 +516,19 @@
 			 , enter_date
 			 , leave_date
 			 , fee
-			 , nvl(enter_fee,'0')
-             , nvl(s.S_PAYMENT,'0')
+			 , nvl(enter_fee,'0') "enter_fee"
+             , nvl(s.S_PAYMENT,'0') "s_payment"
 			 , chart_no
-			 , nvl(meals,'0')
+			 , nvl(meals,'0') "meals"
              , disease
              , s.surgery_name
              , fee + nvl(enter_fee,0) + nvl(s.S_PAYMENT,0) + nvl(meals,0) "total"
 	     from pay p
 		 left join clinic using(clinic_no)
-		  join patient using(chart_no)
+		 left join patient using(chart_no)
 		 left join surgery using(surgery_no)
 	   	 left join proom_booking using(clinic_no)
-         join disease using(DISEASES_CODE)
+         left join disease using(DISEASES_CODE)
          left join surgery s using(SURGERY_NO)
 	    where clinic_no = #{clinicNo}
     </select> 

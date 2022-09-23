@@ -178,7 +178,7 @@ b {
 												<td>진료일 : ${r.enrollDate}</td>
 											</c:when>
 											<c:otherwise>
-												<td>진료일 : ${r.enrollDate}<br> 입원일 : ${r.enterDate} - ${r.leaveDate}</td>
+												<td>진료일 : ${r.enrollDate} <br><br> 입원일 : ${r.enterDate} - ${r.leaveDate}</td>
 											</c:otherwise>
 										</c:choose>
 										
@@ -187,7 +187,7 @@ b {
 												<td>질병명 : ${r.disease}</td>
 											</c:when>
 											<c:otherwise>
-												<td>진료일 : ${r.disease} <br> <br> 수술명 : ${r.surgeryName}</td>
+												<td>질병명 : ${r.disease} <br><br> 수술명 : ${r.surgeryName}</td>
 											</c:otherwise>
 										</c:choose>
 										

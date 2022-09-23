@@ -114,7 +114,16 @@ public class ReceptionController {
 
 		// 처방전 -> 진료 정보 조회
 		Receipt r = rService.selectReceipt(clinicNo);
-
+		//System.out.println(r);
+		if(r.getEnterFee() == null) {
+			r.setEnterFee("0");
+		}
+		if(r.getSurgeryFee() == null) {
+			r.setSurgeryFee("0");
+		}
+		if(r.getMeals() == null) {
+			r.setMeals("0");
+		}
 		mv.addObject("r", r).setViewName("kmj/receipt");
 
 		return mv;
