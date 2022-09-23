@@ -1,6 +1,5 @@
 package com.fp.smartDoctor.reception.model.service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
-import com.fp.smartDoctor.notice.model.vo.Notice;
 import com.fp.smartDoctor.reception.model.dao.ReceptionDao;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.reception.model.vo.ProomCalendar;
@@ -18,6 +16,7 @@ import com.fp.smartDoctor.reception.model.vo.Receipt;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
+import com.fp.smartDoctor.treatment.model.vo.Pay;
 
 @Service
 public class ReceptionServiceImpl implements ReceptionService{
@@ -173,5 +172,11 @@ public class ReceptionServiceImpl implements ReceptionService{
 	@Override
 	public int updatePatientLastDept(Clinic c) {
 		return rDao.updatePatientLastDept(sqlSession, c);
+	}
+	
+	// 25. 수납 대기 리스트
+	@Override
+	public ArrayList<Pay> selectPayWaitingList() {
+		return rDao.selectPayWaitingList(sqlSession);
 	}
 }

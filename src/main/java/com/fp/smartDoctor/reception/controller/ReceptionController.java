@@ -22,7 +22,6 @@ import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.common.template.Pagination;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
-import com.fp.smartDoctor.notice.model.vo.Notice;
 import com.fp.smartDoctor.reception.model.service.ReceptionService;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.reception.model.vo.ProomCalendar;
@@ -30,7 +29,7 @@ import com.fp.smartDoctor.reception.model.vo.Receipt;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
-import com.google.gson.Gson;
+import com.fp.smartDoctor.treatment.model.vo.Pay;
 
 @Controller
 public class ReceptionController {
@@ -251,9 +250,16 @@ public class ReceptionController {
 		return "kmj/room";
 	}
 
-	// 수납 대기 페이지
+	// 수납관리 수납대기
 	@RequestMapping("pay.mj")
-	public String pay() {
+	public String selectPayWaitingList(Model model) {
+
+		ArrayList<Pay> list = rService.selectPayWaitingList();
+		
+		System.out.println(list);
+		
+		model.addAttribute("list", list);
+
 		return "kmj/payWaiting";
 	}
 
@@ -471,4 +477,6 @@ public class ReceptionController {
 		return result > 0 ? clinicNo : null;
 
 	}
+	
+
 }
