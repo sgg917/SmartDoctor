@@ -188,6 +188,10 @@ public class SignDao {
 		return sqlSession.update("signMapper.updateApprLine", l);
 	}
 	
+	public int insertAttVacation(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.insert("attendanceMapper.insertAttVacation", map);
+	}
+	
 	// 반려하기
 	public int updateDisapproval(SqlSessionTemplate sqlSession, Line l) {
 		return sqlSession.update("signMapper.updateDisapproval", l);

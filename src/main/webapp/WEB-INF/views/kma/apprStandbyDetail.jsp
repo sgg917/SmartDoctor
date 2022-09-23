@@ -99,8 +99,12 @@
 										$(document).ready(function(){ // 테이블에 출력할 요소
 											
 											let jobArr = [];
+											let empArr = [];
+											let dateArr = [];
 											<c:forEach var="i" items="${ line }">
 												jobArr.push( "${i.jobName}" );
+												empArr.push( "${i.empName}" );
+												dateArr.push( "${i.lineDate}" );
 											</c:forEach>
 											
 											$('#line-job').children().each(function(index, item){ // 직급 출력
@@ -108,20 +112,10 @@
 												$(item).text(jobArr[index]);
 											})
 											
-											let empArr = [];
-											<c:forEach var="i" items="${ line }">
-												empArr.push( "${i.empName}" );
-											</c:forEach>
-											
 											$('#line-emp').children().each(function(index, item){ // 이름 출력
 													
 												$(item).text(empArr[index]);
 											})
-											
-											let dateArr = [];
-											<c:forEach var="i" items="${ line }">
-												dateArr.push( "${i.lineDate}" );
-											</c:forEach>
 													
 											$('#line-appr').children().each(function(index, item){ // 승인도장 + 날짜 출력
 												
@@ -160,6 +154,11 @@
 							</tr>
 							</table>
 							
+							<script>
+								$("#approve").append("<input type='hidden' value='" + apprTotal + "' name='apprTotal'>");
+								
+							</script>
+							
 							<c:choose>
 								<c:when test="${ s.formNo eq 1 }">
 									<!-- 결재양식이 휴가신청서일 경우 -->
@@ -174,7 +173,7 @@
 			                            </tr>
 			                            <tr>
 			                              <th>일수</th>
-			                              <td>${ v.vacDays }일</td>
+			                              <td id="vacDays">${ v.vacDays }일</td>
 			                            </tr>
 			                            <tr>
 			                              <th>사유</th>
@@ -266,9 +265,13 @@
                  <h5 class="modal-title" id="apprModalLabel" style="margin-left:5px;">결재하기</h5>
                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
-               <form action="approve.si" method="post">
+               <form id="approve" action="approve.si" method="post">
                	   <input type="hidden" name="apprNo" value="${ s.apprNo }">
                	   <input type="hidden" name="empNo" value="${ loginUser.empNo }">
+               	   <input type="hidden" name="formNo" value="${ s.formNo }">
+               	   <input type="hidden" name="startDate" value="${ v.startDate }">
+               	   <input type="hidden" name="endDate" value="${ v.endDate }">
+               	   <input type="hidden" name="apprTotal" value="${ s.apprTotal }">
 	               <div class="modal-body" style="height:220px;">
 	                 <div class="form-group row" style="width:450px; padding-left:10px; margin-top:7px;">
 	                   <label class="col-sm-3 col-form-label">결재문서명</label>
