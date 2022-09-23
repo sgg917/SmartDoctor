@@ -168,7 +168,6 @@ public class TreatmentServiceImpl implements TreatmentService{
 	// 수납 입력
 	@Override
 	public int insertPay(String clinicNo, String surgeryNo2, String meals) {
-		System.out.println("ser clinicNo : " + clinicNo);
 		return tDao.insertPay(sqlSession, clinicNo, surgeryNo2, meals);
 	}
 
