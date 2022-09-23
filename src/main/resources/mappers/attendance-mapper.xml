@@ -486,22 +486,26 @@
 	</insert>
 	
 	<insert id="insertAttVacation">
-		insert
-		  into attendance
-		     (
-		       att_no
-		     , emp_no
-		     , att_date
-		     , status
-		     )
-		values
-		     (
-		       seq_attno.nextval
-		     , #{empNo}
-		     , #{attDate}
-		     , 'V'
-		     )
-	</insert>
+		insert all
+  		  into attendance 
+  		  (
+  		    att_no
+  		  , emp_no
+  		  , att_date
+  		  , status
+  		  ) 
+  		  values
+  		  (
+  		  	seq_attno.nextval
+  		  , #{empNo}
+  		  , insertDate
+  		  , '휴가'
+  		  )
+		  select 
+		  	     to_char(to_date(#{startDate}) + level - 1, 'YYYY-MM-DD') insertDate
+            from dual
+		  <![CDATA[connect by level <= to_date(#{endDate}) - to_date(#{startDate}) + 1]]>
+	</insert> 
 	
 	<!-- 휴가신청서 조회 -->
 	<select id="selectVacation" resultMap="vacationResult">

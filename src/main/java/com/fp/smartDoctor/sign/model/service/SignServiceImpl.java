@@ -225,6 +225,10 @@ public class SignServiceImpl implements SignService {
 	public int updateStorage(Sign s) {
 		return sDao.updateStorage(sqlSession, s);
 	}
+	@Override
+	public int insertAttVacation(HashMap<String, Object> map) {
+		return sDao.insertAttVacation(sqlSession, map);
+	}
 	
 	
 

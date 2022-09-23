@@ -86,6 +86,7 @@ public interface SignService {
 	// 사용자_결재하기
 	int updateApproval(Line l);
 	int updateApprLine(Line l);
+	int insertAttVacation(HashMap<String, Object> map);
 	
 	// 사용자_반려하기
 	int updateDisapproval(Line l);
