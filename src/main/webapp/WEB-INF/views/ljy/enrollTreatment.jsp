@@ -207,13 +207,15 @@
                                       </thead>
                                       <tbody>
                                       
-                                      <c:forEach var="c" items="${ list }">
-                                      	<tr>
-                                          <td>${ c.enrollDate }</td>
-                                          <td>${ c.disease }</td>
-                                          <td>${ c.deptName }</td>
-                                        </tr>
-                                      </c:forEach>
+                                   		<c:forEach var="c" items="${ list }">
+	                                      	<tr>
+	                                          <td>${ c.enrollDate }</td>
+	                                          <td>${ c.disease }</td>
+	                                          <td>${ c.deptName }</td>
+	                                        </tr>
+                                      	</c:forEach>
+                                     
+                                      
                                         
                                       </tbody>
                                     </table>

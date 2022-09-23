@@ -553,7 +553,6 @@
 		  , meals
 		  , status
 		  , pay_date
-		  , enter_fee
 		  )
 		  values
 		  (
@@ -568,9 +567,9 @@
 		  		, null
 		  		, null
 		  	</otherwise>
+		  	
 		  </choose>
-		  , default
-		  , default
+		  , 'N'
 		  , default
 		  )
 	</insert>
