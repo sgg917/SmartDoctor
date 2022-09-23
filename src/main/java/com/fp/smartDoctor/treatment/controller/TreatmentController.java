@@ -104,10 +104,6 @@ public class TreatmentController {
 	@RequestMapping("enroll.tmt")
 	public ModelAndView enrollTreatment(Patient p, Clinic c, Disease d, HttpSession session, ModelAndView mv) {
 		
-		
-		// 교수만 진료 가능하게 수정
-		
-		
 		// 로그인한 의사의 사번
 		String empNo = ((Member)session.getAttribute("loginUser")).getEmpNo();
 		//System.out.println("empNo" + empNo);
@@ -141,8 +137,8 @@ public class TreatmentController {
 			
 		}else { 
 
-			session.setAttribute("errorMsg", "진료중인 환자가 없습니다.");
-			mv.setViewName("common/errorPage");
+			session.setAttribute("alertMsg", "진료중인 환자가 없습니다.");
+			mv.setViewName("ljy/enrollTreatment");
 		}
 		return mv;
 	}
@@ -391,7 +387,7 @@ public class TreatmentController {
 			System.out.println("meals3 : " + meals);
 			
 			System.out.println("clinicNo : " + c.getClinicNo());
-			System.out.println("surgeryNo2" + c.getSurgeryNo2());
+			System.out.println("surgeryNo2 : " + c.getSurgeryNo2());
 			
 			int payResult = tService.insertPay(c.getClinicNo(), c.getSurgeryNo2(), meals);
 			
