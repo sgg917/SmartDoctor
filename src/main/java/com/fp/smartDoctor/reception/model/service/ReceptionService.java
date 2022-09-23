@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
+import com.fp.smartDoctor.notice.model.vo.Notice;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.reception.model.vo.ProomCalendar;
 import com.fp.smartDoctor.reception.model.vo.Receipt;
@@ -80,4 +81,8 @@ public interface ReceptionService {
 	
 	// 22. 입원실 출력용 입원실 예약 리스트 조회
 	ArrayList<ProomCalendar> selectPRoomBookingList(String nowDate);
+	
+	// 23. 환자 검색
+	int selectSearchCount(String keyword);
+	ArrayList<Patient> selectSearchList(String keyword, PageInfo pi);
 }

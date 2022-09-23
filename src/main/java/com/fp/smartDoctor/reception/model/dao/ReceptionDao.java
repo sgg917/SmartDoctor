@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
+import com.fp.smartDoctor.notice.model.vo.Notice;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.reception.model.vo.ProomCalendar;
 import com.fp.smartDoctor.reception.model.vo.Receipt;
@@ -137,5 +138,20 @@ public class ReceptionDao {
 	// 21. 입원실 출력용 입원실 예약 리스트 조회
 	public ArrayList<ProomCalendar> selectPRoomBookingList(SqlSessionTemplate sqlSession, String nowDate) {
 		return (ArrayList)sqlSession.selectList("receptionMapper.selectPRoomBookingList", nowDate);
+	}
+	
+	// 22. 검색된 환자 카운트
+	public int selectSearchCount(SqlSessionTemplate sqlSession, String keyword) {
+		return sqlSession.selectOne("receptionMapper.selectSearchCount", keyword);
+	}
+	
+	// 23. 검색된 환자 리스트
+	public ArrayList<Patient> selectSearchList(SqlSessionTemplate sqlSession, String keyword, PageInfo pi){
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("receptionMapper.selectSearchList", keyword, rowBounds);
+		
 	}
 }

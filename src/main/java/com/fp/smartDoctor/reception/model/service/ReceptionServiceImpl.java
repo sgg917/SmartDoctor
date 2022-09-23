@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
+import com.fp.smartDoctor.notice.model.vo.Notice;
 import com.fp.smartDoctor.reception.model.dao.ReceptionDao;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.reception.model.vo.ProomCalendar;
@@ -154,5 +155,17 @@ public class ReceptionServiceImpl implements ReceptionService{
 	@Override
 	public ArrayList<ProomCalendar> selectPRoomBookingList(String nowDate) {
 		return rDao.selectPRoomBookingList(sqlSession, nowDate);
+	}
+	
+	// 검색된 환자 카운트
+	@Override
+	public int selectSearchCount(String keyword) {
+		return rDao.selectSearchCount(sqlSession, keyword);
+	}
+
+	// 검색된 환자 리스트
+	@Override
+	public ArrayList<Patient> selectSearchList(String keyword, PageInfo pi) {
+		return rDao.selectSearchList(sqlSession, keyword, pi);
 	}
 }
