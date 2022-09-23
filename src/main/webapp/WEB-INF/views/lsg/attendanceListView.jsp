@@ -80,17 +80,20 @@ th {
 /* 페이징 스타일 */
 .page-item {
 	background:none;
-	color:rgb(65, 125, 122);
 }
 .page-item .active {
 	background:rgb(65, 125, 122) !important;
-	color:white;
 }
 .pagination ul {
 	font-size:1rem;
 }
 .page-link {
 	padding: 0.7rem 1rem !important;
+	color:black;
+	/* font-weight:300; */
+}
+.page-link:active{
+	color:white !important;
 }
 </style>
 </head>
@@ -183,7 +186,7 @@ th {
 							<ul class="pagination" id="pageArea" style="margin: auto;">
 							
 								<c:if test="${ pi.currentPage ne 1 }">
-									<li class="page-item"><a class="page-link" href="list.att?cpage=${pi.currentPage-1}&no=${loginUser.empNo}">&lt;</a></li>
+									<li class="page-item"><a class="page-link" href="list.att?cpage=${pi.currentPage-1}&no=${loginUser.empNo}">Previous</a></li>
 								</c:if>
 							
 								<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
@@ -200,7 +203,7 @@ th {
 								</c:forEach>
 									
 								<c:if test="${ pi.currentPage ne pi.maxPage }">
-									<li class="page-item"><a class="page-link" href="list.att?cpage=${pi.currentPage+1}&no=${loginUser.empNo}">&gt;</a></li>
+									<li class="page-item"><a class="page-link" href="list.att?cpage=${pi.currentPage+1}&no=${loginUser.empNo}">Next</a></li>
 								</c:if>
 								
 							</ul>
@@ -450,7 +453,7 @@ th {
 						// 검색 결과 페이징 처리
 						if(newPi.currentPage != 1){
 							
-							ptxt += '<li class="page-item"><a class="page-link" href="searchAtt(' + newPi.currentPage-1 + ')">&lt;</a></li>';
+							ptxt += '<li class="page-item"><a class="page-link" href="searchAtt(' + newPi.currentPage-1 + ')">Previous</a></li>';
 						}
 						
 						for(var p = newPi.startPage; p <= newPi.endPage; p++){
@@ -467,7 +470,7 @@ th {
 						
 						if(newPi.currentPage != newPi.maxPage){
 							
-							ptxt += '<li class="page-item"><a class="page-link" href="searchAtt(' + newPi.currentPage+1 + ')">&gt;</a></li>';
+							ptxt += '<li class="page-item"><a class="page-link" href="searchAtt(' + newPi.currentPage+1 + ')">Next</a></li>';
 						}
 						
 						// 각 영역에 코드 넣어주기

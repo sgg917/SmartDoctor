@@ -160,9 +160,9 @@ img {
 						<div id="header1"></div>
 						<div id="header2">
 							<input type="text" class="form-control input-sm"
-								placeholder="이름 입력"
+								placeholder="이름 입력" id="keyword" autofocus
 								style="width: 100px; height: 30px; display: inline;">&nbsp;
-								<img src="resources/images/search.jpg">
+								<img src="resources/images/search.jpg" id="searchIcon">
 						</div>
 						<div id="header3">
 							<button type="button" class="button" onclick="selfCloseSubmit();" >선택</button>
@@ -282,7 +282,26 @@ img {
 		f.submit();
 		self.close();
 	}
+	
+	let click = document.getElementById('searchIcon');
+	
+	click.addEventListener('click', function () {
+	let keyword = document.getElementById('keyword').value;
+		location.href = "search.pt?keyword=" + keyword;
+	});
+	
+	
+	
+	
+	let input = document.getElementById("keyword");
 
+    input.addEventListener("keydown", function (event) {
+        if (event.key == "Enter") {
+          event.preventDefault();
+          click.click();
+        }
+      });
+	
 </script>
 </body>
 </html>

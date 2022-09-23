@@ -7,7 +7,7 @@
 <!-- 로고 -->
 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
 <meta charset="UTF-8">
-<title>조직도 조회</title>
+<title>조직도 수정</title>
 <style>
 /* --- 공통 ---*/
 .wrap11{
@@ -380,12 +380,11 @@ input, select {
 					
 					for(let i=0; i<list.length; i++){
 						txt += '<tr>';
-						
-						txt += '<input type="hidden" name="empNo" value="' + list[i].empNo + '">';
 						txt += '<input type="hidden" name="deptNo" value="' + list[i].deptNo + '">';
+						txt += '<input type="hidden" name="empNo" value="' + list[i].empNo + '">';
                         txt += 	'<td>';
-                        txt +=    '<img class="profileImg" src="' + list[i].path + '">';
-                        txt +=	  '<input type="file" name="path" style="display:none;"';
+                        txt +=    	'<img class="profileImg" src="' + list[i].path + '">';
+                        txt +=	  	'<input type="file" name="path" style="display:none;"';
                         txt +=  '</td>';
                         txt += 	'<th class="jobNo">';
                         txt +=	  '<input type="hidden" value="' + list[i].jobNo + '">';
@@ -502,7 +501,7 @@ input, select {
                  <div class="form-group row">
                      <label for="department" class="col-sm-3 col-form-label" style="margin-top:20px; text-align:right;">부서명</label>
                      <div class="col-sm-9">
-                         <input type="email" class="form-control" id="department" name="deptName" style="margin-top: 25px;">
+                         <input type="email" class="form-control" id="department" name="deptName" style="margin-top:15px;">
                          <input type="hidden" name="deptNo">
                      </div>
                  </div>
@@ -534,10 +533,10 @@ input, select {
 		      <!-- Modal body -->
 		      <div class="modal-body">
 		      	<div class="row">
-			         <label for="department" class="col-sm-3 col-form-label" style="margin-top:20px; text-align:right;">부서명</label>
+			         <label for="department" class="col-sm-3 col-form-label" style="margin-top:10px; text-align:right;">부서명</label>
 	                 <div class="col-sm-9">
 	                     <input type="text" class="form-control" id="department" name="deptName" 
-	                     	placeholder="부서명을 입력해 주세요." style="margin-top:25px; width:250px; height:40px;">
+	                     	placeholder="부서명을 입력해 주세요." style="margin-top:5px; width:250px; height:40px;">
 	                 </div>
                  </div>
 		      </div>

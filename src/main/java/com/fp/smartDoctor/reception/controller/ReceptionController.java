@@ -22,6 +22,7 @@ import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.common.template.Pagination;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
+import com.fp.smartDoctor.notice.model.vo.Notice;
 import com.fp.smartDoctor.reception.model.service.ReceptionService;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.reception.model.vo.ProomCalendar;
@@ -113,7 +114,16 @@ public class ReceptionController {
 
 		// 처방전 -> 진료 정보 조회
 		Receipt r = rService.selectReceipt(clinicNo);
-
+		//System.out.println(r);
+		if(r.getEnterFee() == null) {
+			r.setEnterFee("0");
+		}
+		if(r.getSurgeryFee() == null) {
+			r.setSurgeryFee("0");
+		}
+		if(r.getMeals() == null) {
+			r.setMeals("0");
+		}
 		mv.addObject("r", r).setViewName("kmj/receipt");
 
 		return mv;
@@ -151,10 +161,14 @@ public class ReceptionController {
 			GregorianCalendar cal = new GregorianCalendar();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String nowDate = sdf.format(cal.getTime());
+			String today2 = sdf.format(cal.getTime()); // 오늘날짜 tr css용
 
 			// 화면에 출력할 현재날짜(yyyy년 mm월)
 			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy년 MM월");
 			String showDate = sdf2.format(cal.getTime());
+			
+			SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy년 MM월 dd일 (E요일)");
+			String today = sdf3.format(cal.getTime());
 
 			// 전월 날짜 구하기
 			cal.add(GregorianCalendar.MONTH, -1);
@@ -176,6 +190,9 @@ public class ReceptionController {
 
 			model.addAttribute("dayList", dayList);
 			model.addAttribute("showDate", showDate);
+			model.addAttribute("nowDate", nowDate);
+			model.addAttribute("today", today); // fix 용
+			model.addAttribute("today2", today2); // 오늘날짜 tr css용
 			model.addAttribute("preDate", preDate);
 			model.addAttribute("nextDate", nextDate);
 			model.addAttribute("bookingList", bookingList);
@@ -185,9 +202,14 @@ public class ReceptionController {
 			GregorianCalendar cal = new GregorianCalendar();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String nowDate = cDate;
+			String today2 = sdf.format(cal.getTime()); // 오늘날짜 tr css용
 			
 			// 전달받은 날짜 Date로 변환
 			Date tempt = sdf.parse(cDate);
+			
+			// fix로 보여줄 오늘날짜
+			SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy년 MM월 dd일 (E요일)");
+			String today = sdf3.format(cal.getTime());
 			
 			// 전달받은 날짜 대입
 			cal.setTime(tempt);
@@ -196,6 +218,8 @@ public class ReceptionController {
 			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy년 MM월");
 			String showDate = sdf2.format(cal.getTime());
 
+
+			
 			// 전월 날짜 구하기
 			cal.add(GregorianCalendar.MONTH, -1);
 			String preDate = sdf.format(cal.getTime());
@@ -207,15 +231,18 @@ public class ReceptionController {
 			// String으로 형변환한 오늘 날짜 전달해서 이번달 1일~말일 구하기
 			ArrayList<ProomCalendar> dayList = rService.selectDateList(nowDate);
 
-			System.out.println(dayList);
+			//System.out.println(dayList);
 
 			// 예약중인 환자 리스트 조회
 			ArrayList<ProomCalendar> bookingList = rService.selectPRoomBookingList(nowDate);
 
-			System.out.println(bookingList);
+			//System.out.println(bookingList);
 
 			model.addAttribute("dayList", dayList);
 			model.addAttribute("showDate", showDate);
+			model.addAttribute("nowDate", nowDate);
+			model.addAttribute("today", today);   // fix 용
+			model.addAttribute("today2", today2); // 오늘날짜 tr css용
 			model.addAttribute("preDate", preDate);
 			model.addAttribute("nextDate", nextDate);
 			model.addAttribute("bookingList", bookingList);
@@ -237,10 +264,9 @@ public class ReceptionController {
 	}
 	
 	
-	
+	// 원무 _ 접수 _ 환자 조회 팝업창
 	@RequestMapping("selectList.pt")
 	public ModelAndView selectListPt(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv) {
-		
 		
 		// 전체 환자 수 조회
 		int listCount = rService.selectListCount();
@@ -254,7 +280,49 @@ public class ReceptionController {
 		
 	}
 	
+	// 팝업창에서 검색
+	@RequestMapping("search.pt")
+	public ModelAndView searchPatient(@RequestParam(value="cpage", defaultValue="1") int currentPage, String keyword, ModelAndView mv) {
+		
+		int searchCount = rService.selectSearchCount(keyword);
+		
+		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 5);
+		
+		ArrayList<Patient> list = rService.selectSearchList(keyword, pi);
+		
+		//System.out.println("searchCount : " + searchCount);
+		
+		mv.addObject("pi", pi)
+		  .addObject("list", list)
+		  .addObject("searchCount", searchCount)
+		  .addObject("keyword", keyword)
+		  .setViewName("kmj/selectPatient");
+		
+		return mv;
+		
+	}
 	
+	// 환자 리스트 페이지에서 검색
+	@RequestMapping("searchList.pt")
+	public ModelAndView searchPatientList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String keyword, ModelAndView mv) {
+		
+		int searchCount = rService.selectSearchCount(keyword);
+		
+		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 5);
+		
+		ArrayList<Patient> list = rService.selectSearchList(keyword, pi);
+		
+		//System.out.println("searchCount : " + searchCount);
+		
+		mv.addObject("pi", pi)
+		  .addObject("list", list)
+		  .addObject("searchCount", searchCount)
+		  .addObject("keyword", keyword)
+		  .setViewName("kmj/patientList");
+		
+		return mv;
+		
+	}
 
 	// ------------------------------------------------------------------------------------------------------------------------
 

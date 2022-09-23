@@ -135,6 +135,28 @@ img {
 	background: #E1F0FF;
 	cursor: pointer;
 }
+
+.btn-green { /* outline-btn */
+	border-color: RGB(29, 92, 99);
+	color: RGB(29, 92, 99);
+	float: right;
+	width: 110px;
+	height: 35px;
+	display: flex;
+	margin-bottom: 15px;
+	margin-right: 5px;
+}
+
+.btn-green:hover {
+	background: RGB(29, 92, 99);
+	border-color: RGB(29, 92, 99);
+	color: white;
+}
+
+.btn {
+	white-space: nowrap;
+}
+
 </style>
 
 
@@ -159,12 +181,13 @@ img {
 						<div id="header1"></div>
 						<div id="header2">
 							<input type="text" class="form-control input-sm"
-								placeholder="이름 입력"
-								style="width: 200px; height: 30px; display: inline;">&nbsp;<img
-								src="resources/images/search.jpg">
+								placeholder="이름 입력" id="keyword" autofocus
+								style="width: 200px; height: 30px; display: inline;">&nbsp;
+							<img src="resources/images/search.jpg" id="searchIcon">
 						</div>
 						<div id="header3">
-							<button type="button" class="button" data-toggle="modal" data-target="#enrollPatient">신규환자등록</button>
+							<button type="button" class="btn btn-outline-success btn-green"
+								data-toggle="modal" data-target="#enrollPatient">신규환자등록</button>
 						</div>
 					</div>
 					<br> <br>
@@ -193,7 +216,7 @@ img {
 									<c:otherwise>
 										<c:forEach var="p" items="${ list }">
 											<tr>
-												<td class="chartNo">${ p.chartNo }</td>
+												<td class="chartNo" >${ p.chartNo }</td>
 												<td>${ p.patientName }</td>
 												<td>${ p.gender }</td>
 												<td>${ p.idNo }</td>
@@ -227,14 +250,15 @@ img {
 
 							<c:forEach var="p" begin="${ pi.startPage }"
 								end="${ pi.endPage }">
-								
+
 								<c:choose>
 									<c:when test="${ pi.currentPage == p }">
 										<!-- 현재페이지 -->
 										<c:choose>
 											<c:when test="${ empty keyword }">
 												<li class="page-item"><a class="page-link"
-													style="color: white; background: rgb(29, 92, 99)" href="list.mj?cpage=${ p }">${ p }</a></li>
+													style="color: white; background: rgb(29, 92, 99)"
+													href="list.mj?cpage=${ p }">${ p }</a></li>
 											</c:when>
 											<c:otherwise>
 												<li class="page-item"><a class="page-link"
@@ -245,7 +269,7 @@ img {
 									</c:when>
 									<c:otherwise>
 										<!-- 현재페이지가 아닌거 -->
-										
+
 										<c:choose>
 											<c:when test="${ empty keyword }">
 												<li class="page-item"><a class="page-link"
@@ -280,63 +304,75 @@ img {
 
 			</div>
 		</div>
-		
+
 		<div class="modal" id="enrollPatient">
-				<div class="modal-dialog">
-					<div class="modal-content">
+			<div class="modal-dialog">
+				<div class="modal-content">
 
-						<div class="modal-header">
-							환자등록
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-
-						<div class="modal-body" align="center">
-							<form action="insert.pt" method="post">
-								<table class="table-bordered">
-									<tr>
-										<td>이름</td>
-										<td><input type="text" name="patientName" required></td>
-									</tr>
-									<tr>
-										<td>주민등록번호</td>
-										<td><input type="text" name="idNo" required></td>
-									</tr>
-									<tr>
-										<td>연락처</td>
-										<td><input type="text" name="phone" required></td>
-									</tr>
-									<tr>
-										<td>보호자 연락처</td>
-										<td><input type="text" name="protector"></td>
-									</tr>
-									<tr>
-										<td>주소</td>
-										<td><input type="text" name="address" required></td>
-									</tr>
-									<tr>
-										<td>메모</td>
-										<td><input type="text" name="memo"></td>
-									</tr>
-								</table>
-								<br>
-								<button type="submit" class="btn btn-sm btn-secondary button">등록하기</button>
-							</form>
-						</div>
-
+					<div class="modal-header">
+						환자등록
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
+
+					<div class="modal-body" align="center">
+						<form action="insert.pt" method="post">
+							<table class="table-bordered">
+								<tr>
+									<td>이름</td>
+									<td><input type="text" name="patientName" required></td>
+								</tr>
+								<tr>
+									<td>주민등록번호</td>
+									<td><input type="text" name="idNo" required></td>
+								</tr>
+								<tr>
+									<td>연락처</td>
+									<td><input type="text" name="phone" required></td>
+								</tr>
+								<tr>
+									<td>보호자 연락처</td>
+									<td><input type="text" name="protector"></td>
+								</tr>
+								<tr>
+									<td>주소</td>
+									<td><input type="text" name="address" required></td>
+								</tr>
+								<tr>
+									<td>메모</td>
+									<td><input type="text" name="memo"></td>
+								</tr>
+							</table>
+							<br>
+							<button type="submit" class="btn btn-sm btn-secondary button">등록하기</button>
+						</form>
+					</div>
+
 				</div>
 			</div>
-			
+		</div>
+
 		<script>
-		
 			$(function() {
-				$("#patientList>tbody>tr>td>button").click(
-						function() {
-							location.href = "detail.pt?chartNo="
-									+ $(this).val();
-						})
+				$("#patientList>tbody>tr>td>button").click(function() {
+					location.href = "detail.pt?chartNo=" + $(this).val();
+				})
 			})
-		
+
+			let click = document.getElementById('searchIcon');
+
+			click.addEventListener('click', function() {
+				let keyword = document.getElementById('keyword').value;
+				location.href = "searchList.pt?keyword=" + keyword;
+			});
+
+			let input = document.getElementById("keyword");
+
+			input.addEventListener("keydown", function(event) {
+				if (event.key == "Enter") {
+					event.preventDefault();
+					click.click();
+				}
+			});
 		</script>
 		<jsp:include page="../common/footer.jsp" />
 </body>
