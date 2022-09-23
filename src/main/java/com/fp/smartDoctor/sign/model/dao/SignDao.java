@@ -189,6 +189,8 @@ public class SignDao {
 	}
 	
 	public int insertAttVacation(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		System.out.println(map);
+		
 		return sqlSession.insert("attendanceMapper.insertAttVacation", map);
 	}
 	

@@ -390,8 +390,8 @@ public class SignController {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("empNo", s.getEmpNo());
 		map.put("apprNo", s.getApprNo());
-		map.put("startDate", v.getStartDate());
-		map.put("endDate", v.getEndDate());
+		map.put("startDate", v.getStartDate().replace(" 00:00:00", ""));
+		map.put("endDate", v.getEndDate().replace(" 00:00:00", ""));
 		
 		int apprResult = sService.updateApproval(l);
 		int lineResult = sService.updateApprLine(l);
