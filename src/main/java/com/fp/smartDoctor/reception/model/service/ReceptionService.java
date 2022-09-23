@@ -85,4 +85,7 @@ public interface ReceptionService {
 	// 23. 환자 검색
 	int selectSearchCount(String keyword);
 	ArrayList<Patient> selectSearchList(String keyword, PageInfo pi);
+	
+	// 24. 진료 접수 후 환자 상태 변경
+	int updatePatientLastDept(Clinic c);
 }

@@ -396,8 +396,10 @@ public class ReceptionController {
 	public String ajaxInsertTreatment(Clinic c, HttpSession session, Model model) {
 
 		int result = rService.insertTreatment(c);
+		int result2 = rService.updatePatientLastDept(c);
+		
 
-		return result > 0 ? "success" : "fail";
+		return result * result2 > 0 ? "success" : "fail";
 
 	}
 

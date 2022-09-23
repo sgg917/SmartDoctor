@@ -168,4 +168,10 @@ public class ReceptionServiceImpl implements ReceptionService{
 	public ArrayList<Patient> selectSearchList(String keyword, PageInfo pi) {
 		return rDao.selectSearchList(sqlSession, keyword, pi);
 	}
+	
+	// 24. 진료 접수 후 환자 상태 변경
+	@Override
+	public int updatePatientLastDept(Clinic c) {
+		return rDao.updatePatientLastDept(sqlSession, c);
+	}
 }

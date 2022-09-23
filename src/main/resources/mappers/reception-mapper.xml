@@ -269,7 +269,7 @@
          where job_no = 2
 	</select>
 	
-	<!-- 환자 insert -->
+	<!-- 진료 insert -->
 	<insert id="insertTreatment">
 		insert
 		into clinic
@@ -619,4 +619,13 @@
           order
              by last_visit desc
 	</select>
+	
+	<!-- 최근 진료과 변경 -->
+	<update id="updatePatientLastDept">
+		update
+			   patient
+		   set last_dep = #{deptNo}
+		 where chart_no = #{chartNo}
+	</update>
+	
 </mapper>

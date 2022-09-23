@@ -226,7 +226,7 @@ input {
 								<td width="120" style="padding: 5px;"><button
 										class="button maintitle">진료대기</button></td>
 
-								<td width="280" style="padding: 5px;"><select name="deptNo"
+								<td width="280" style="padding: 5px;"><select name="waitingDeptNo"
 									id="deptNo">
 										<option value="">전체</option>
 										<c:forEach var="d" items="${ deptList }">
@@ -269,7 +269,7 @@ input {
 								<td width="120" style="padding: 5px;">
 									<button class="button maintitle">진료중</button>
 								</td>
-								<td width="280" style="padding: 5px;"><select name="deptNo"
+								<td width="280" style="padding: 5px;"><select name="ingDeptNo"
 									id="deptNo">
 										<option value="">전체</option>
 										<c:forEach var="d" items="${ deptList }">

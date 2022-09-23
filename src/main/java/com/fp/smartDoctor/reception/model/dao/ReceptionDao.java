@@ -154,4 +154,9 @@ public class ReceptionDao {
 		return (ArrayList)sqlSession.selectList("receptionMapper.selectSearchList", keyword, rowBounds);
 		
 	}
+	
+	// 24. 진료 접수 후 환자 상태 변경
+	public int updatePatientLastDept(SqlSessionTemplate sqlSession, Clinic c) {
+		return sqlSession.update("receptionMapper.updatePatientLastDept", c);
+	}
 }
