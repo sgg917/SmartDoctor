@@ -182,4 +182,9 @@ public class ReceptionDao {
 	public int ajaxChangePayStatus(SqlSessionTemplate sqlSession, int changePayNo) {
 		return sqlSession.update("receptionMapper.ajaxChangePayStatus", changePayNo);
 	}
+	
+	// 29. 환자 정보 변경
+	public int updatePatient(SqlSessionTemplate sqlSession, Patient p) {
+		return sqlSession.update("receptionMapper.updatePatient", p);
+	}
 }

@@ -100,4 +100,7 @@ public interface ReceptionService {
 	// 28. 수납 상태 변경
 	int ajaxChangePayStatus(int changePayNo);
 	
+	// 29. 환자 정보 변경
+	int updatePatient(Patient p);
+	
 }

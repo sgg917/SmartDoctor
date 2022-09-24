@@ -235,6 +235,9 @@
 		     , patient_name
 		     , trunc((to_number(to_char(sysdate, 'YYYYMMDD'))-to_number(to_char(decode(substr(id_no, 8, 1), '1', '19', '2', '19', '20')||substr(id_no, 1, 6))))/10000) as "age"
 		     , "id_no"
+		     , phone
+		     , protector
+		     , address
 		     , memo
 		     , first_visit
 		     , last_visit
@@ -708,5 +711,16 @@
 		   set status = 'Y'
              , pay_date = sysdate
 		 where pay_no = #{changePayNo}
+	</update>
+	
+   	<!-- 환자 정보 변경 -->	
+	<update id="updatePatient">
+		update
+			   patient
+		   set phone = #{phone}
+             , protector = #{protector}
+             , address = #{address}
+             , memo = #{memo}
+		 where chart_no = #{chartNo}
 	</update>
 </mapper>

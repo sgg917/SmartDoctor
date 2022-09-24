@@ -338,6 +338,19 @@ public class ReceptionController {
 		return mv;
 		
 	}
+	
+	// 원무 _ 환자 조회 _ 환자 업데이트 팝업창
+	@RequestMapping("updatePage.pt")
+	public ModelAndView updatePtPopup(int chartNo, ModelAndView mv) {
+		
+		// 환자 정보 조회
+		Patient p = rService.selectPatient(chartNo);
+		System.out.println(p);
+		mv.addObject("p", p).setViewName("kmj/updatePatient");
+
+		return mv;
+		
+	}
 
 	// ------------------------------------------------------------------------------------------------------------------------
 
@@ -498,6 +511,21 @@ public class ReceptionController {
 		}
 
 		return result > 0 ? "success" : "fail";
+	}
+	
+	// 환자 정보 업데이트
+	@RequestMapping("update.pt")
+	public String updatePatient(Patient p, HttpSession session) {
+		int result = rService.updatePatient(p);
+
+		if (result > 0) { // 성공 => alert, url 재요청
+			System.out.println("성공");
+			session.setAttribute("alertMsg", "성공적으로 수정되었습니다.");
+			return "redirect:updatePage.pt?chartNo="+p.getChartNo();
+		}else {
+			session.setAttribute("alertMsg", "수정 실패했습니다.");
+			return "redirect:updatePage.pt?chartNo="+p.getChartNo();
+		}
 	}
 
 }

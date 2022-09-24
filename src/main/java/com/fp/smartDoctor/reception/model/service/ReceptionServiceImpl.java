@@ -197,5 +197,10 @@ public class ReceptionServiceImpl implements ReceptionService{
 	public int ajaxChangePayStatus(int changePayNo) {
 		return rDao.ajaxChangePayStatus(sqlSession, changePayNo);
 	}
+
+	@Override
+	public int updatePatient(Patient p) {
+		return rDao.updatePatient(sqlSession, p);
+	}
 	
 }
