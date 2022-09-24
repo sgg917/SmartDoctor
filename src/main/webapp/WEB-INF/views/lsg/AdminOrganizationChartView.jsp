@@ -55,6 +55,7 @@ li {
 }
 .mdi-settings {
   float:right;
+  margin-right:20px;
 }
 
 /* 사원 조회 테이블 스타일 */
@@ -239,8 +240,12 @@ input, select {
 					var upper = "";
 					if(dlist[i].level == 1 && dlist[i].upperNo == 0){
 						upper = '<li class="nav-item" id="nav' + dlist[i].deptNo + '">';
-						//upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
+						
+                       	if(dlist[i].deptNo > 4 ){
+							upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
+                       	}else{
 						upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + 0 + ',' + dlist[i].deptNo + ')">';
+                       	}
 						upper += 		'<i class="mdi mdi-chevron-double-right"></i> ';
 						upper += 		'<span class="menu-title">' + dlist[i].deptName + '</span>';
 						upper += 		'<i class="mdi mdi-settings"></i>';
@@ -501,7 +506,7 @@ input, select {
                  <div class="form-group row">
                      <label for="department" class="col-sm-3 col-form-label" style="margin-top:20px; text-align:right;">부서명</label>
                      <div class="col-sm-9">
-                         <input type="email" class="form-control" id="department" name="deptName" style="margin-top:15px;">
+                         <input type="text" class="form-control" id="department" name="deptName" style="margin-top:15px;" required>
                          <input type="hidden" name="deptNo">
                      </div>
                  </div>
@@ -584,7 +589,7 @@ input, select {
 			url:"updateEmp.me",
 			type:"POST",
 			data:{
-				empNo:parseInt($(this).parent().siblings('input[type=hidden]').val()),
+				empNo:parseInt($(this).parent().siblings('input[name=empNo]').val()),
 				jobNo:parseInt($(this).parent().siblings('.jobNo').children('select[name=jobNo]').val()),
 				empName:$(this).parent().siblings('.empName').children('input[name=empName]').val(),
 				email:$(this).parent().siblings('.email').children('input[name=email]').val(),
@@ -607,7 +612,7 @@ input, select {
 	// ----------------- 부서 수정/삭제 모달 띄우기 ------------------
 	$(document).on("click", ".mdi-settings", function(){
 		
-		$('#deptModal input[name=deptName]').attr("placeholder", $(this).siblings('span').text() ); // 부서명
+		$('#deptModal input[name=deptName]').attr("value", $(this).siblings('span').text() ); // 부서명
 		$('#deptModal input[type=hidden]').val( $(this).siblings('input[type=hidden]').val() ); // 부서코드
 		$('#deptModal').modal('show');
 		
@@ -644,11 +649,11 @@ input, select {
 	// ----------------- 부서 삭제 함수 ------------------
 	$(document).on("click", ".deleteDeptBtn", function(){
 		
-		// 부서 수정/삭제 모달 숨기기
-		$('#deptModal').modal('hide');
-		
 		// 부서코드 넣어주기
 		var deptNo = $('#deptModal input[type=hidden]').val();
+		
+		// 부서 수정/삭제 모달 숨기기
+		$('#deptModal').modal('hide');
 		
 		$.ajax({
 			url:"delete.de",

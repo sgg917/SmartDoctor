@@ -106,7 +106,7 @@
 	}
 	.appr-line-div{
 		width:500px; 
-		height:150px; 
+		height:145px; 
 		border: 1px solid #DFDFDF;
 	}
 	.appr-line-div>button{
@@ -117,7 +117,7 @@
 		float:left;
 	}
 	.appr-line-div>table{
-		width:433px; 
+		width:433px;
 		float:right;
 	}
 	.ap-md-th{

@@ -72,5 +72,11 @@ public class NoticeServiceImpl implements NoticeService{
 	public ArrayList<Notice> selectSearchList(String keyword, PageInfo pi) {
 		return nDao.selectSearchList(sqlSession, keyword, pi);
 	}
+
+	// 메인 공지사항 조회수 상위 5개 조회
+	@Override
+	public ArrayList<Notice> selectTopNoticeList() {
+		return nDao.selectTopNoticeList(sqlSession);
+	}
 	
 }

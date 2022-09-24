@@ -101,7 +101,7 @@ input {
 }
 
 #tableArea{
-	height: 700px;
+	height: auto;
 	width: 100%;
 	/* border: 1px solid black; */
 	text-align: center;
@@ -139,8 +139,8 @@ input {
 					<br>
 
 					<div align="left">
-						<a type="button" class="button bggray" href="pay.mj">수납대기</a>
-						<a type="button" class="button" href="payDone.mj">수납완료</a>
+						<button type="button" class="button bggray" onclick="location.href='pay.mj'">수납대기</button>
+						<button type="button" class="button" onclick="location.href='payDone.mj'">수납완료</button>
 					</div>
 
 					<br>
@@ -153,118 +153,106 @@ input {
 									<th width="50px">성별</th>
 									<th width="100px">주민등록번호</th>
 									<th width="100px">진료과</th>
+									<th width="100px">진료의</th>
+									<th width="200px">수납일</th>
 									<th width="100px">처방전</th>
 									<th width="100px">수납</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>5</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>6</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>7</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>8</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>9</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>10</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-
+							
+								<c:choose>
+									<c:when test="${ empty list }">
+										<tr>
+											<td colspan="8">환자가 없습니다.</td>
+										</tr>
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="p" items="${ list }">
+											<tr>
+												<td>${p.payNo}</td>
+												<td>${p.patientName}</td>
+												<td>${p.gender}</td>
+												<td>${p.idNo}</td>
+												<td>${p.deptName}</td>
+												<td>${p.docName}</td>
+												<td>${p.payDate}</td>
+												<td><button class="button" onclick="location.href='prescription.pt?clinicNo=${p.clinicNo}'">조회</button></td>
+												<td><button class="button" onclick="location.href='receipt.pt?clinicNo=${p.clinicNo}'">조회</button></td>
+											</tr>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+								
 							</tbody>
 						</table>
 						<br>
 					</div>
 
-					<div id="pagingArea">
-						<ul class="pagination">
-							<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">4</a></li>
-							<li class="page-item"><a class="page-link" href="#">5</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a></li>
+					<!-- 페이징바 -->
+					<div id="pagingbar">
+						<ul class="pagination" style="justify-content: center;">
+
+							<c:choose>
+								<c:when test="${ pi.currentPage eq 1 }">
+									<li class="page-item disabled"><a class="page-link">&lsaquo;</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link"
+										style="color: rgb(29, 92, 99);"
+										href="payDone.mj?cpage=${ pi.currentPage - 1 }">&lsaquo;</a></li>
+								</c:otherwise>
+							</c:choose>
+
+							<c:forEach var="p" begin="${ pi.startPage }"
+								end="${ pi.endPage }">
+
+								<c:choose>
+									<c:when test="${ pi.currentPage == p }">
+										<!-- 현재페이지 -->
+										<c:choose>
+											<c:when test="${ empty keyword }">
+												<li class="page-item"><a class="page-link"
+													style="color: white; background: rgb(29, 92, 99)"
+													href="payDone.mj?cpage=${ p }">${ p }</a></li>
+											</c:when>
+											<c:otherwise>
+												<li class="page-item"><a class="page-link"
+													style="color: white; background: rgb(29, 92, 99)"
+													href="search.pt?cpage=${ p }&keyword=${keyword}">${ p }</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:when>
+									<c:otherwise>
+										<!-- 현재페이지가 아닌거 -->
+
+										<c:choose>
+											<c:when test="${ empty keyword }">
+												<li class="page-item"><a class="page-link"
+													style="color: rgb(29, 92, 99);" href="payDone.mj?cpage=${ p }">${ p }</a></li>
+											</c:when>
+											<c:otherwise>
+												<li class="page-item"><a class="page-link"
+													style="color: rgb(29, 92, 99);"
+													href="search.pt?cpage=${ p }&keyword=${keyword}">${ p }</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+
+							</c:forEach>
+
+							<c:choose>
+								<c:when test="${ pi.currentPage eq pi.maxPage }">
+									<li class="page-item disabled"><a class="page-link">&rsaquo;</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link" id="aaa"
+										style="color: rgb(29, 92, 99);"
+										href="payDone.mj?cpage=${ pi.currentPage + 1 }">&rsaquo;</a></li>
+								</c:otherwise>
+							</c:choose>
 						</ul>
-						<br><br>
 					</div>
 					<br><br>
 

@@ -39,7 +39,7 @@
                         <thead>
                           <tr>
                             <th style="font-weight: bold;">제목</th>
-                            <td>${ n.noticeTitle }</td>
+                            <td style="border: none;">${ n.noticeTitle }</td>
                           </tr>
                         </thead>
 
@@ -56,7 +56,7 @@
                             			첨부파일이 없습니다.
                             		</c:when>
                             		<c:otherwise>
-                            			<a href="${ n.noticePath }" download="${ n.noticeOrigin }">${ n.noticeOrigin }</a>
+                            			<a href="${ n.noticePath }" download="${ n.noticePath }">${ n.noticeOrigin }</a>
                             		</c:otherwise>
                             	</c:choose>
                             </td>

@@ -35,7 +35,7 @@
 	}
 	.appr-line-div{
 		width:500px; 
-		height:150px; 
+		height:145px; 
 		border: 1px solid #DFDFDF;
 	}
 	.appr-line-div>button{
@@ -103,7 +103,7 @@
 								</tr>
 								<tr>
 									<th>제목</th>
-									<td><input type="text" name="apprTitle" placeholder="제목을 입력해주세요"></td>
+									<td><input type="text" name="apprTitle" placeholder="제목을 입력해주세요" required></td>
 								</tr>
 							</table>
 							<br>
@@ -117,7 +117,8 @@
                               <th width="250px;">신청일시</th>
                               <td colspan="3">
                                 <input type="date" name="startDate"> &nbsp; ~ &nbsp;
-                                <input type="date" name="endDate">
+                                <input type="date" name="endDate"> &nbsp; 
+                                <button type="button" id="date-btn" class="btn btn-sm" style="background:#DFDFDF; height:25px; line-height:3px;">확인</button>
                               </td>
                             </tr>
                             <tr>
@@ -147,6 +148,18 @@
 			</div>
 		</div>
 		
+		<script>
+			$('#date-btn').click(function(){
+				
+				let dateDiff = 0;
+				let sdt = new Date($("input[name='startDate']").val());
+				let edt = new Date($("input[name='endDate']").val());
+				dateDiff = Math.ceil((edt.getTime()-sdt.getTime())/(1000*3600*24))+1;
+				
+				$("input[name='vacDays']").attr('value', dateDiff);
+			})
+		</script>
+
 		<!-- 결재라인 모달창 -->
 		<div class="modal fade" id="lineModal" tabindex="-1"
 			aria-labelledby="lineModalLabel" aria-hidden="true">

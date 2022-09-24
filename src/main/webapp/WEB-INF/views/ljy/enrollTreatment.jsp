@@ -265,6 +265,12 @@
                           		
                           		$("#dCode").val(($("#sickness>option:selected").val()));
                           	})
+                          	
+                          	if($("#dCode").val().length() == 0){
+                          		$("#saveMed").attr("disabled", true);
+                          	}else{
+                          		$("#saveMed").attr("disabled", false);
+                          	}
                           </script>
                             
                           </td>

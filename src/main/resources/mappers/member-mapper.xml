@@ -195,7 +195,7 @@
 		  join job using(job_no)
 		  left join department using (dept_no)
 		 where status in ('Y', 'A')
-		  order by job_no
+		  order by job_no, emp_name
 	</select>
 	
 	<!-- 부서별 사원 수 조회 -->
@@ -244,12 +244,12 @@
 			</when>
 			<when test="upperNo == 0 and deptNo != 0 and deptNo &lt; 3">
 				and upper_no = #{deptNo}
-			  order by upper_no
+			  order by upper_no, emp_name
 			</when>
 			<otherwise>
 				and upper_no = #{upperNo}
 				and d.dept_no = #{deptNo}
-			  order by m.job_no
+			  order by m.job_no, emp_name
 			</otherwise>
 		</choose>
 	</select>
@@ -351,7 +351,7 @@
 	
 	<!-- 조직도 부서 삭제 -->
 	<delete id="deleteDept">
-		delete department
+		delete from department
 		 where dept_no = #{deptNo}
 	</delete>
 	

@@ -120,6 +120,7 @@ input {
 	outline: none !important;
 }
 
+
 </style>
 
 
@@ -226,7 +227,7 @@ input {
 								<td width="120" style="padding: 5px;"><button
 										class="button maintitle">진료대기</button></td>
 
-								<td width="280" style="padding: 5px;"><select name="deptNo"
+								<td width="280" style="padding: 5px;"><select name="waitingDeptNo"
 									id="deptNo">
 										<option value="">전체</option>
 										<c:forEach var="d" items="${ deptList }">
@@ -247,7 +248,7 @@ input {
 										<th>순번</th>
 										<th>이름</th>
 										<th>성별</th>
-										<th>나이</th>
+										<th>나이(만)</th>
 										<th>진료과</th>
 									</tr>
 								</thead>
@@ -269,7 +270,7 @@ input {
 								<td width="120" style="padding: 5px;">
 									<button class="button maintitle">진료중</button>
 								</td>
-								<td width="280" style="padding: 5px;"><select name="deptNo"
+								<td width="280" style="padding: 5px;"><select name="ingDeptNo"
 									id="deptNo">
 										<option value="">전체</option>
 										<c:forEach var="d" items="${ deptList }">
@@ -286,7 +287,7 @@ input {
 										<th>순번</th>
 										<th>이름</th>
 										<th>성별</th>
-										<th>나이</th>
+										<th>나이(만)</th>
 										<th>진료과</th>
 									</tr>
 								</thead>
@@ -301,88 +302,14 @@ input {
 				</div>
 			</div>
 
-			<div class="modal" id="searchPatient">
-				<div class="modal-dialog">
-					<div class="modal-content">
-
-						<div class="modal-header">
-							<h4 class="modal-title">환자검색</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								onclick="modalClose();">&times;</button>
-						</div>
-
-						<div class="modal-body" align="center">
-							<div id="header2">
-								<input type="text" class="form-control input-sm"
-									placeholder="이름 입력"
-									style="width: 200px; height: 30px; display: inline;">&nbsp;<img
-									src="resources/images/search.jpg">
-							</div>
-							<form action="select.pt" method="post">
-								<table id="patientListArea" border="1"
-									style="text-align: center;">
-									<thead>
-										<tr>
-											<th width="40px">선택</th>
-											<th width="100px">이름</th>
-											<th width="150px">주민등록번호</th>
-										</tr>
-									</thead>
-									<tbody>
-
-									</tbody>
-								</table>
-								<br>
-								<button type="submit" class="btn btn-sm btn-secondary">선택</button>
-							</form>
-
-							<!-- 페이징바 -->
-							<div id="pagingbar">
-								<ul class="pagination" style="justify-content: center;">
-
-									<c:choose>
-										<c:when test="${ pi.currentPage eq 1 }">
-											<li class="page-item disabled"><a class="page-link">&lsaquo;</a></li>
-										</c:when>
-										<c:otherwise>
-											<li class="page-item"><a class="page-link" id="aaa"
-												style="color: rgb(29, 92, 99);"
-												href="reception.mj?cpage=${ pi.currentPage - 1 }">&lsaquo;</a></li>
-										</c:otherwise>
-									</c:choose>
-
-									<c:forEach var="p" begin="${ pi.startPage }"
-										end="${ pi.endPage }">
-										<li class="page-item"><a class="page-link" id="aaa"
-											style="color: rgb(29, 92, 99);"
-											href="reception.mj?cpage=${ p }">${ p }</a></li>
-									</c:forEach>
-
-									<c:choose>
-										<c:when test="${ pi.currentPage eq pi.maxPage }">
-											<li class="page-item disabled"><a class="page-link">&rsaquo;</a></li>
-										</c:when>
-										<c:otherwise>
-											<li class="page-item"><a class="page-link" id="aaa"
-												style="color: rgb(29, 92, 99);"
-												href="reception.mj?cpage=${ pi.currentPage + 1 }">&rsaquo;</a></li>
-										</c:otherwise>
-									</c:choose>
-								</ul>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-
+	
 			<div class="modal" id="enrollPatient">
 				<div class="modal-dialog">
-					<div class="modal-content">
+					<div class="modal-content" style="background:white !important;">
 
-						<div class="modal-header">
+						<div class="modal-header" style="font-weight: bold; margin:auto;">
 							환자등록
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<button type="button" class="close" style="float:right !important;" data-dismiss="modal">&times;</button>
 						</div>
 
 						<div class="modal-body" align="center">
@@ -414,7 +341,7 @@ input {
 									</tr>
 								</table>
 								<br>
-								<button type="submit" class="btn btn-sm btn-secondary button">등록하기</button>
+								<button type="submit" class="btn btn-sm btn-secondary" style="background : rgb(29,92,99)!important; color:white !important;">등록하기</button>
 							</form>
 						</div>
 
@@ -428,49 +355,6 @@ input {
 				$(function(){
 					ajaxSelectClinicList();
 				})
-				
-				// 환자 조회용 ajax 함수
-				/*
-				function openModal() {
-
-					$.ajax({
-						url : "list.pt",
-						data : {
-							cpage : 0
-						},
-						success : function(data) {
-
-							
-							let list = data.list;
-							let pi = data.pi;
-							
-							console.log(list);
-							console.log(pi);
-							
-							let value = "";
-							for (let i = 0; i < list.length; i++) {
-
-								value += "<tr>"
-										+ "<td><input type='radio' name='chartNo' value='" + list[i].chartNo + "'></td>"
-										+ "<td>" + list[i].patientName
-										+ "</td>" + "<td>"
-										+ list[i].idNo + "</td>"
-										+ "</tr>";
-
-							}
-
-							$("#patientListArea tbody").html(value);
-
-							$('#searchPatient').modal('show');
-
-						},
-						error : function() {
-							console.log("환자 조회용 ajax 통신 실패");
-						}
-					})
-
-				}
-*/
 
 				// 진료 접수
 				function ajaxEnrollTreatment() {
@@ -578,7 +462,12 @@ input {
 				
 				// 환자 선택 팝업창 띄우기
 				function openPopupWindow(){
-					window.open("selectList.pt", "popup", "width=500, height=650")
+					var popupWidth = 500;
+					var popupHeight = 650;
+
+					var popupX = (window.screen.width / 2) - (popupWidth / 2);
+					var popupY= (window.screen.height / 2) - (popupHeight / 2);
+					window.open("selectList.pt", "popup",'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 				}
 				
 				

@@ -390,8 +390,8 @@ public class SignController {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("empNo", s.getEmpNo());
 		map.put("apprNo", s.getApprNo());
-		map.put("startDate", v.getStartDate());
-		map.put("endDate", v.getEndDate());
+		map.put("startDate", v.getStartDate().replace(" 00:00:00", ""));
+		map.put("endDate", v.getEndDate().replace(" 00:00:00", ""));
 		
 		int apprResult = sService.updateApproval(l);
 		int lineResult = sService.updateApprLine(l);
@@ -727,6 +727,34 @@ public class SignController {
 			return "redirect:apprStorageList.si";
 		}
 		
+	}
+	
+	// 사용자_전결처리
+	@RequestMapping("endApprove.si")
+	public String updateEndApprove(Line l, Sign s, Vacation v, HttpSession session) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("empNo", s.getEmpNo());
+		map.put("apprNo", s.getApprNo());
+		map.put("startDate", v.getStartDate().replace(" 00:00:00", ""));
+		map.put("endDate", v.getEndDate().replace(" 00:00:00", ""));
+		
+		int apprResult = sService.updateEndApproval(l);
+		int lineResult = sService.updateEndApprLine(l);
+		
+		if( s.getFormNo() == 1 ) { // 휴가신청일때 근태 insert
+			sService.insertAttVacation(map);
+		}
+
+		if(apprResult > 0 && lineResult > 0) {
+			
+			session.setAttribute("alertMsg", "전결 처리되었습니다.");
+			return "redirect:apprStandbyList.si";
+		}else {
+			
+			session.setAttribute("alertMsg", "결재처리에 실패하였습니다.");
+			return "redirect:apprStandbyList.si";
+		}
 	}
 	
 }

@@ -135,8 +135,16 @@
 											$(document).ready(function(){ // 테이블에 출력할 요소
 												
 												let jobArr = [];
+												let empArr = [];
+												let empNoArr = [];
+												let dateArr = [];
+												let deptArr = [];
 												<c:forEach var="i" items="${ line }">
 													jobArr.push( "${i.jobName}" );
+													empArr.push( "${i.empName}" );
+													empNoArr.push( "${i.empNo}" );
+													deptArr.push("${i.deptName}");
+													dateArr.push( "${i.lineDate}" );
 												</c:forEach>
 												
 												$('#line-job').children().each(function(index, item){ // 직급 출력
@@ -144,19 +152,9 @@
 													$(item).text(jobArr[index]);
 												})
 												
-												let empArr = [];
-												let empNoArr = [];
-												let deptArr = [];
-												<c:forEach var="i" items="${ line }">
-													empArr.push( "${i.empName}" );
-													empNoArr.push( "${i.empNo}" );
-													deptArr.push("${i.deptName}");
-												</c:forEach>
-												
 												$('#line-emp').children().each(function(index, item){ // 이름 출력
 														
 													$(item).text(empArr[index]);
-													//$(item).attr('id', empNoArr[index]);
 												})
 												
 												$('#line-dept').children().each(function(index, item){ // 부서 출력
@@ -170,12 +168,6 @@
 													$('#line-emp').append("<td style='display:none' class='empNo'>" + empNoArr[i] + "</td>");
 												}
 												
-												
-												let dateArr = [];
-												<c:forEach var="i" items="${ line }">
-													dateArr.push( "${i.lineDate}" );
-												</c:forEach>
-														
 												$('#line-appr').children().each(function(index, item){ // 승인도장 + 날짜 출력
 													
 													if( dateArr[index] != "" && typeof dateArr[index] != 'undefined' ){ 
@@ -201,9 +193,6 @@
 													if( $(item).text() != null && $(item).text() != "" && $(item).text() != "undefined"){
 														$("#againReport").append("<input type='hidden' value='" + $(item).text() + "' name='lineList[" + index + "].deptName'>");
 													}
-													
-													
-													
 												})
 												
 												// 문서내용 form에 넘기기

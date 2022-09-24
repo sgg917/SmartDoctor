@@ -26,7 +26,7 @@
                 <div class="card"  style="width: 100%;">
                   <div class="card-body" style="width: 100%;">
                   
-                  <h2>공지사항 수정하기</h2>
+                  <h2 style="border: 0;">공지사항 수정하기</h2>
 
 					
 					<form id="updateForm" method="post" action="update.no" enctype="multipart/form-data">
@@ -35,8 +35,8 @@
 	
 		                  <thead>
 		                    <tr>
-		                      <th style="font-weight: bold;"><label for="noticeTitle">제목</label></th>
-		                      <td><input type="text" id="noticeTitle" class="form-control" name="noticeTitle" value="${ n.noticeTitle }" style="border: 0; height: 1px; width: 600px;" required></td>
+		                      <th style="font-weight: bold; border: 0;"><label for="noticeTitle">제목</label></th>
+		                      <td style="border: 0;"><input type="text" id="noticeTitle" class="form-control" name="noticeTitle" value="${ n.noticeTitle }" style="border: 0; height: 1px; width: 600px;" required></td>
 		                    </tr>
 		                  </thead>
 	

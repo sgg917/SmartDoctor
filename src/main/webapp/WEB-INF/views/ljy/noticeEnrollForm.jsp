@@ -36,7 +36,7 @@
 	                  <thead>
 	                    <tr>
 	                      <th style="font-weight: bold;"><label for="noticeTitle">제목</label></th>
-	                      <td><input type="text" id="noticeTitle" class="form-control" name="noticeTitle" style="border: 0; height: 1px; width: 600px;" required></td>
+	                      <td style="border: 0;"><input type="text" id="noticeTitle" class="form-control" name="noticeTitle" style="border: 0; height: 1px; width: 600px;" required></td>
 	                    </tr>
 	                  </thead>
 

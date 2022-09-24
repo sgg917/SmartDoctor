@@ -1,18 +1,17 @@
 package com.fp.smartDoctor.reception.model.service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
-import com.fp.smartDoctor.notice.model.vo.Notice;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.reception.model.vo.ProomCalendar;
 import com.fp.smartDoctor.reception.model.vo.Receipt;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
+import com.fp.smartDoctor.treatment.model.vo.Pay;
 
 public interface ReceptionService {
 	
@@ -85,4 +84,23 @@ public interface ReceptionService {
 	// 23. 환자 검색
 	int selectSearchCount(String keyword);
 	ArrayList<Patient> selectSearchList(String keyword, PageInfo pi);
+	
+	// 24. 진료 접수 후 환자 상태 변경
+	int updatePatientLastDept(Clinic c);
+	
+	// 25.수납 대기 환자 검색
+	ArrayList<Pay> selectPayWaitingList();
+	
+	// 26. 수납 완료 카운트
+	int selectPayDoneCount();
+	
+	// 27. 수납 완료 리스트
+	ArrayList<Pay> selectPayDoneList(PageInfo pi);
+	
+	// 28. 수납 상태 변경
+	int ajaxChangePayStatus(int changePayNo);
+	
+	// 29. 환자 정보 변경
+	int updatePatient(Patient p);
+	
 }

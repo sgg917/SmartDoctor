@@ -115,7 +115,7 @@ img {
 }
 
 #tableArea {
-	height: 100%;
+	height: 275px;
 	width: 100%;
 	/* border: 1px solid black; */
 	text-align: center;

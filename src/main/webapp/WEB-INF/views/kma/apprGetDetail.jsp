@@ -14,6 +14,12 @@
 	 	margin-top:5px; 
 	 	margin-bottom:12.9px;
 	 }
+	 .endappr-tb{
+	 	color:RGB(65, 125, 122);
+	 	margin:0; 
+	 	margin-top:5px; 
+	 	margin-bottom:12.9px;
+	 }
 </style>
 </head>
 <body>
@@ -110,8 +116,16 @@
 										$(document).ready(function(){ // 테이블에 출력할 요소
 											
 											let jobArr = [];
+											let empArr = [];
+											let dateArr = [];
+											let disArr = [];
+											let endArr = [];
 											<c:forEach var="i" items="${ line }">
 												jobArr.push( "${i.jobName}" );
+												empArr.push( "${i.empName}" );
+												dateArr.push( "${i.lineDate}" );
+												disArr.push( "${i.lineDisappr}" );
+												endArr.push( "${i.lineEnd}" );
 											</c:forEach>
 											
 											$('#line-job').children().each(function(index, item){ // 직급 출력
@@ -119,32 +133,21 @@
 												$(item).text(jobArr[index]);
 											})
 											
-											let empArr = [];
-											<c:forEach var="i" items="${ line }">
-												empArr.push( "${i.empName}" );
-											</c:forEach>
-											
 											$('#line-emp').children().each(function(index, item){ // 이름 출력
 													
 												$(item).text(empArr[index]);
 											})
-											
-											let dateArr = [];
-											<c:forEach var="i" items="${ line }">
-												dateArr.push( "${i.lineDate}" );
-											</c:forEach>
-											
-											let disArr = [];
-											<c:forEach var="i" items="${ line }">
-												disArr.push( "${i.lineDisappr}" );
-											</c:forEach>
 													
 											$('#line-appr').children().each(function(index, item){ // 승인도장 + 날짜 출력
 												
 												if( dateArr[index] != "" && typeof dateArr[index] != 'undefined' ){ 
 													
-													if( disArr[index] == "Y"){ // 반려일 경우
+													if( disArr[index] == "Y" ){ // 반려일 경우
 														$(item).html("<p class='disappr-tb'>(반려)</p>" + dateArr[index]);
+													
+													}else if( endArr[index] == "Y" ){ // 전결일 경우
+														$(item).html("<p class='endappr-tb'>(전결)</p>" + dateArr[index]);
+													
 													}else{ // 승인일 경우
 														$(item).html("<img src='resources/images/kma/approved.png'>" + dateArr[index]);
 													}

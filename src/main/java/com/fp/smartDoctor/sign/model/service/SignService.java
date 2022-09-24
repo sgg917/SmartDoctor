@@ -117,9 +117,6 @@ public interface SignService {
 	int insertStorageRef(ArrayList<Line> refList);
 	
 	// 사용자_일괄결재
-	//int updateAllApproval(HashMap<String, String> map);
-	//int updateAllLine(HashMap<String, String> map);
-	
 	int updateAllApproval(ArrayList<Line> list);
 	int updateAllLine(ArrayList<Line> list);
 	
@@ -128,4 +125,8 @@ public interface SignService {
 	
 	// 사용자_임시저장 기안페이지에서 임시저장
 	int updateStorage(Sign s);
+	
+	// 사용자_전결처리
+	int updateEndApproval(Line l);
+	int updateEndApprLine(Line l);
 }

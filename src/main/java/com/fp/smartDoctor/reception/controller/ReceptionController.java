@@ -22,7 +22,6 @@ import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.common.template.Pagination;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
-import com.fp.smartDoctor.notice.model.vo.Notice;
 import com.fp.smartDoctor.reception.model.service.ReceptionService;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.reception.model.vo.ProomCalendar;
@@ -30,7 +29,7 @@ import com.fp.smartDoctor.reception.model.vo.Receipt;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
-import com.google.gson.Gson;
+import com.fp.smartDoctor.treatment.model.vo.Pay;
 
 @Controller
 public class ReceptionController {
@@ -251,16 +250,32 @@ public class ReceptionController {
 		return "kmj/room";
 	}
 
-	// 수납 대기 페이지
+	// 수납관리 수납대기
 	@RequestMapping("pay.mj")
-	public String pay() {
+	public String selectPayWaitingList(Model model) {
+
+		ArrayList<Pay> list = rService.selectPayWaitingList();
+		
+		//System.out.println(list);
+		
+		model.addAttribute("list", list);
+
 		return "kmj/payWaiting";
 	}
-
+	
 	// 수납 완료 페이지
 	@RequestMapping("payDone.mj")
-	public String payDone() {
-		return "kmj/payDone";
+	public ModelAndView payDone(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv) {
+
+		// 전체 환자 수 조회
+		int listCount = rService.selectPayDoneCount();
+
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
+		ArrayList<Pay> list = rService.selectPayDoneList(pi);
+
+		mv.addObject("pi", pi).addObject("list", list).setViewName("kmj/payDone");
+
+		return mv;
 	}
 	
 	
@@ -323,6 +338,19 @@ public class ReceptionController {
 		return mv;
 		
 	}
+	
+	// 원무 _ 환자 조회 _ 환자 업데이트 팝업창
+	@RequestMapping("updatePage.pt")
+	public ModelAndView updatePtPopup(int chartNo, ModelAndView mv) {
+		
+		// 환자 정보 조회
+		Patient p = rService.selectPatient(chartNo);
+		System.out.println(p);
+		mv.addObject("p", p).setViewName("kmj/updatePatient");
+
+		return mv;
+		
+	}
 
 	// ------------------------------------------------------------------------------------------------------------------------
 
@@ -367,13 +395,11 @@ public class ReceptionController {
 
 		Patient p = rService.selectPatient(chartNo);
 
-		// System.out.println(p);
-
 		String beforeFV = p.getFirstVisit();
 		p.setFirstVisit(beforeFV.substring(0, 11));
 		String beforeLV = p.getLastVisit();
 		p.setLastVisit(beforeLV.substring(0, 11));
-
+		
 		if (p != null) {
 			mv.addObject("p", p);
 			ArrayList<Dept> deptList = rService.selectDeptList();
@@ -396,6 +422,7 @@ public class ReceptionController {
 	public String ajaxInsertTreatment(Clinic c, HttpSession session, Model model) {
 
 		int result = rService.insertTreatment(c);
+		
 
 		return result > 0 ? "success" : "fail";
 
@@ -472,4 +499,33 @@ public class ReceptionController {
 		return result > 0 ? clinicNo : null;
 
 	}
+	
+	// 진료중으로 상태변경
+	@ResponseBody
+	@RequestMapping("change.pay")
+	public String ajaxChangePayStatus(@RequestParam("changeArray[]") int[] changeArray, Model model) {
+
+		int result = 0;
+		for (int changePayNo : changeArray) {
+			result = rService.ajaxChangePayStatus(changePayNo);
+		}
+
+		return result > 0 ? "success" : "fail";
+	}
+	
+	// 환자 정보 업데이트
+	@RequestMapping("update.pt")
+	public String updatePatient(Patient p, HttpSession session) {
+		int result = rService.updatePatient(p);
+
+		if (result > 0) { // 성공 => alert, url 재요청
+			System.out.println("성공");
+			session.setAttribute("alertMsg", "성공적으로 수정되었습니다.");
+			return "redirect:updatePage.pt?chartNo="+p.getChartNo();
+		}else {
+			session.setAttribute("alertMsg", "수정 실패했습니다.");
+			return "redirect:updatePage.pt?chartNo="+p.getChartNo();
+		}
+	}
+
 }

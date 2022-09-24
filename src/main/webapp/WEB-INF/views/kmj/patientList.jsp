@@ -157,6 +157,10 @@ img {
 	white-space: nowrap;
 }
 
+.input2 {
+	border: none;
+	outline: none !important;
+}
 </style>
 
 
@@ -216,7 +220,7 @@ img {
 									<c:otherwise>
 										<c:forEach var="p" items="${ list }">
 											<tr>
-												<td class="chartNo" >${ p.chartNo }</td>
+												<td class="chartNo">${ p.chartNo }</td>
 												<td>${ p.patientName }</td>
 												<td>${ p.gender }</td>
 												<td>${ p.idNo }</td>
@@ -307,9 +311,9 @@ img {
 
 		<div class="modal" id="enrollPatient">
 			<div class="modal-dialog">
-				<div class="modal-content">
+				<div class="modal-content" style="background: white !important;">
 
-					<div class="modal-header">
+					<div class="modal-header" style="font-weight: bold; margin: auto;">
 						환자등록
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
@@ -319,31 +323,35 @@ img {
 							<table class="table-bordered">
 								<tr>
 									<td>이름</td>
-									<td><input type="text" name="patientName" required></td>
+									<td><input type="text" name="patientName" required
+										class="input2"></td>
 								</tr>
 								<tr>
 									<td>주민등록번호</td>
-									<td><input type="text" name="idNo" required></td>
+									<td><input type="text" name="idNo" required class="input2"></td>
 								</tr>
 								<tr>
 									<td>연락처</td>
-									<td><input type="text" name="phone" required></td>
+									<td><input type="text" name="phone" required
+										class="input2"></td>
 								</tr>
 								<tr>
 									<td>보호자 연락처</td>
-									<td><input type="text" name="protector"></td>
+									<td><input type="text" name="protector" class="input2"></td>
 								</tr>
 								<tr>
 									<td>주소</td>
-									<td><input type="text" name="address" required></td>
+									<td><input type="text" name="address" required
+										class="input2"></td>
 								</tr>
 								<tr>
 									<td>메모</td>
-									<td><input type="text" name="memo"></td>
+									<td><input type="text" name="memo" class="input2"></td>
 								</tr>
 							</table>
 							<br>
-							<button type="submit" class="btn btn-sm btn-secondary button">등록하기</button>
+							<button type="submit" class="btn btn-sm btn-secondary button"
+								style="background: rgb(29, 92, 99) !important; color: white !important;">등록하기</button>
 						</form>
 					</div>
 
@@ -352,6 +360,19 @@ img {
 		</div>
 
 		<script>
+		
+			$(function() {
+				$("#patientList>tbody>tr").click(function() {
+					var popupWidth = 500;
+					var popupHeight = 588;
+
+					var popupX = (window.screen.width / 2) - (popupWidth / 2);
+					var popupY= (window.screen.height / 2) - (popupHeight / 2);
+					
+					window.open("updatePage.pt?chartNo="+ $(this).children('.chartNo').text(), "popup",'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+				})
+			})
+			
 			$(function() {
 				$("#patientList>tbody>tr>td>button").click(function() {
 					location.href = "detail.pt?chartNo=" + $(this).val();

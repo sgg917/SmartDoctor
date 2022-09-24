@@ -1,6 +1,5 @@
 package com.fp.smartDoctor.reception.model.dao;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.RowBounds;
@@ -10,13 +9,13 @@ import org.springframework.stereotype.Repository;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
-import com.fp.smartDoctor.notice.model.vo.Notice;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.reception.model.vo.ProomCalendar;
 import com.fp.smartDoctor.reception.model.vo.Receipt;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
+import com.fp.smartDoctor.treatment.model.vo.Pay;
 
 @Repository
 public class ReceptionDao {
@@ -153,5 +152,39 @@ public class ReceptionDao {
 		
 		return (ArrayList)sqlSession.selectList("receptionMapper.selectSearchList", keyword, rowBounds);
 		
+	}
+	
+	// 24. 진료 접수 후 환자 상태 변경
+	public int updatePatientLastDept(SqlSessionTemplate sqlSession, Clinic c) {
+		return sqlSession.update("receptionMapper.updatePatientLastDept", c);
+	}
+	
+	// 25. 수납 대기 리스트
+	public ArrayList<Pay> selectPayWaitingList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("receptionMapper.selectPayWaitingList");
+	}
+	
+	// 26. 수납 완료 카운트
+	public int selectPayDoneCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("receptionMapper.selectPayDoneCount");
+	}
+	
+	// 27. 수납 완료 리스트
+	public ArrayList<Pay> selectPayDoneList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("receptionMapper.selectPayDoneList", rowBounds);
+	}
+	
+	// 28. 수납 상태 변경
+	public int ajaxChangePayStatus(SqlSessionTemplate sqlSession, int changePayNo) {
+		return sqlSession.update("receptionMapper.ajaxChangePayStatus", changePayNo);
+	}
+	
+	// 29. 환자 정보 변경
+	public int updatePatient(SqlSessionTemplate sqlSession, Patient p) {
+		return sqlSession.update("receptionMapper.updatePatient", p);
 	}
 }

@@ -221,7 +221,7 @@
 					<div class="col-md-7 grid-margin stretch-card">
 						<div class="card" style="height: 100%;">
 							<div class="card-body">
-								<iframe width="100% " height="245"
+								<iframe width="100% " height="245" style="margin-top: 70px;"
 									src="https://forecast.io/embed/#lat=37.5662&lon=126.9785&name=서울&color=#F6A8A6&font=arial&units=si"
 									frameborder="0"></iframe>
 								<script>/*<![CDATA[*/
@@ -246,9 +246,9 @@ $(document).ready(function(){setTimeout(function(){window.location.reload(1)},30
 		                    	<h2 style="float: left;">공지사항</h2>
 		                    	<br>
 		                    </div>
+		                    <a href="list.no" style="float:right; text-decoration: none;">더보기+</a>
                     
 					<br><br><br><br>
-					
 
                     <table id="noticeList" class="table table-hover">
 
@@ -262,45 +262,50 @@ $(document).ready(function(){setTimeout(function(){window.location.reload(1)},30
                       </thead>
                       
                       <tbody>
-	                      <c:choose>
-	                      	<c:when test="${ empty list }">
-	                      		<tr>
-	                      			<td colspan="4">현재 공지사항이 없습니다.</td>
-	                      		</tr>
-	                      	</c:when>
-	                      	<c:otherwise>
-	                      		<c:forEach var="n" items="${ list }">
-	                      			<tr>
-			                          <td class="no">${ n.noticeNo }</td>
-			                          <td>${ n.noticeTitle }</td>
-			                          <td>${ n.enrollDate }</td>
-			                          <td>${ n.count }</td>
-			                        </tr>
-	                      		</c:forEach>
-	                      	</c:otherwise>
-	                      </c:choose>
+	                      
                       </tbody>
                       
                      <script>
-                      	$(function(){
-                      		$("#noticeList>tbody>tr").click(function(){
-                      			location.href = "detail.no?no=" + $(this).children(".no").text();
-                      		})
-                      	})
+                     	$(function(){
+                     		topNoticeList();
+                     		$(document).on("click", "#noticeList>tbody>tr", function(){
+                     			location.href = "detail.no?no=" + $(this).children().eq(0).text();
+                     		})
+                     		
+                     	})
+                     	
+                     	function topNoticeList(){
+                     		$.ajax({
+                     			url:"topList.no",
+                     			success:function(list){
+                     				console.log(list);
+                     				
+                     				let value = "";
+                     				for(let i in list){
+                     					value += "<tr>"
+                     					        + 	"<td>" + list[i].noticeNo + "</td>"
+                     					        +   "<td>" + list[i].noticeTitle + "</td>"
+                     					        + 	"<td>" + list[i].enrollDate + "</td>"
+                     					        +	"<td>" + list[i].count + "</td>"
+                     					        +"</tr>";
+                     				}
+                     				
+                     				$("#noticeList tbody").html(value);
+                     				
+                     			},error:function(){
+                     				console.log("조회수 top5 공지사항 ajax 통신 실패");
+                     			}
+                     		})
+                     	}
+                     	
                       </script>
-                      
                     </table>
-							
-							
-							
-							
-							
-							
-							
 							</div>
 						</div>
 					</div>
 				</div>
+				<!-- 공지사항 끝 -->
+				
 
 			</div>
 			<jsp:include page="common/footer.jsp" />

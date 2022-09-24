@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,6 +19,7 @@ import com.fp.smartDoctor.common.template.FileUpload;
 import com.fp.smartDoctor.common.template.Pagination;
 import com.fp.smartDoctor.notice.model.service.NoticeService;
 import com.fp.smartDoctor.notice.model.vo.Notice;
+import com.google.gson.Gson;
 
 @Controller
 public class NoticeController {
@@ -179,6 +181,14 @@ public class NoticeController {
 		
 		return mv;
 		
+	}
+	
+	// 메인 공지사항 조회수 상위 5개 조회
+	@ResponseBody
+	@RequestMapping(value="topList.no", produces="application/json; charset=utf-8")
+	public String ajaxTopNoticeList() {
+		ArrayList<Notice> list = nService.selectTopNoticeList();
+		return new Gson().toJson(list);
 	}
 
 }

@@ -20,4 +20,14 @@ public class Pay {
 	private String status;
 	private String payDate;
 	private int enterFee;
+	
+	// 수납 관리용
+	private String patientName;
+	private String gender;
+	private String idNo;
+	private String deptName;
+	private String empNo;
+	private String deptNo;
+	private String docName;
+	
 }

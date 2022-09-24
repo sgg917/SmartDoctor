@@ -189,6 +189,8 @@ public class SignDao {
 	}
 	
 	public int insertAttVacation(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		System.out.println(map);
+		
 		return sqlSession.insert("attendanceMapper.insertAttVacation", map);
 	}
 	
@@ -301,5 +303,14 @@ public class SignDao {
 	// 임시저장페이지에서 임시저장
 	public int updateStorage(SqlSessionTemplate sqlSession, Sign s) {
 		return sqlSession.update("signMapper.updateStorage", s);
+	}
+	
+	// 전결처리
+	public int updateEndApproval(SqlSessionTemplate sqlSession, Line l) {
+		return sqlSession.update("signMapper.updateEndApproval", l);
+	}
+	
+	public int updateEndApprLine(SqlSessionTemplate sqlSession, Line l) {
+		return sqlSession.update("signMapper.updateEndApprLine", l);
 	}
 }

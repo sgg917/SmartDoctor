@@ -44,6 +44,7 @@
 		<result column="job_name" property="jobName" />
 		<result column="appr_now" property="apprNow" />
 		<result column="dept_name" property="deptName"/>
+		<result column="line_end" property="lineEnd" />
 	</resultMap>
 	
 	<resultMap id="overtimeResult" type="Overtime">
@@ -306,6 +307,7 @@
 		     , line_comment
 		     , line_disappr
 		     , line_refer
+		     , line_end
 		     , l.emp_no
 		     , emp_name
 		     , to_char(line_date, 'YYYY-MM-DD') as "line_date"
@@ -437,18 +439,6 @@
 		 order
 		    by v.enroll_date desc
 	</select>
-	
-	<!-- 결재완료일 조회 
-	<select id="selectApprLineDate" resultMap="lineResult">
-		select
-		       line_date
-		  from appr_line l
-		  join approval v on (l.appr_no = v.appr_no)
-		 where appr_total = line_level
-		   and l.emp_no = #{empNo}
-		   and appr_storage = 'N'
-		   and line_refer= 'N'
-	</select>-->
 	
 	<!-- 사용자_결재하기 -->
 	<update id="updateApproval">
@@ -742,6 +732,25 @@
 		     , form_no = #{formNo}
 		     </if>
 		 where appr_no = #{apprNo}
+	</update>
+	
+	<!-- 사용자_전결처리 -->
+	<update id="updateEndApproval">
+		update 
+		       approval
+		   set appr_status = '완료'
+		 where appr_no = #{apprNo}
+	</update>
+	
+	<update id="updateEndApprLine">
+		update 
+		       appr_line
+		   set line_status = 'Y'
+		     , line_comment = #{lineComment}
+		     , line_date = sysdate
+		     , line_end = 'Y'
+		 where emp_no = #{empNo}
+		   and appr_no = #{apprNo}
 	</update>
 	
 </mapper>

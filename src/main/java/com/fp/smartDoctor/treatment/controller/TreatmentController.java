@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fp.smartDoctor.member.model.vo.Member;
+import com.fp.smartDoctor.reception.model.service.ReceptionService;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.treatment.model.service.TreatmentService;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
@@ -34,7 +35,9 @@ public class TreatmentController {
 	@Autowired 
 	private TreatmentService tService;
 	 
-		
+	@Autowired
+	private ReceptionService rService;
+	
 	//수술실 예약 풀캘린더 조회
 	/*
  	@RequestMapping("enrollForm.op")
@@ -335,6 +338,9 @@ public class TreatmentController {
 	@RequestMapping("insert.tmt")
 	public String insertTreatment(Clinic c, Prescription pre, HttpSession session, String injectDay, String chartNo, String newOne) {
 		
+		int deptNo = ((Member)session.getAttribute("loginUser")).getDeptNo();
+		c.setDeptNo(deptNo);
+		
 		// 진료테이블 업데이트
 		int clinicResult = tService.updateClinic(c); 
 		
@@ -347,8 +353,9 @@ public class TreatmentController {
 		if(newOne.equals("초진")) {
 			pResult = tService.updatePatient(chartNo);
 		}
+		int updateResult = rService.updatePatientLastDept(c); // last_dept, last_visit 업데이트 -> 민주추가
 		
-		if(clinicResult > 0 && preResult > 0 && pResult > 0) {
+		if(clinicResult > 0 && preResult > 0 && pResult > 0 && updateResult > 0) {
 			
 			//System.out.println("1차성공");
 			
@@ -393,7 +400,6 @@ public class TreatmentController {
 			session.setAttribute("errorMsg", "진료 실패");
 			return "ljy/enrollTreatment";
 		}
-		
 	}
 	
 	

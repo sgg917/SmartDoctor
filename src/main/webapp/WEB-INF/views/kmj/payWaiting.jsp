@@ -26,7 +26,8 @@
 	href="resources/images/favicon-16x16.png">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></link>
-	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'
+	crossorigin='anonymous'></script>
 <style>
 .wrap11 {
 	width: 100%;
@@ -49,6 +50,7 @@
 	text-decoration: none;
 	padding-top: 3px;
 }
+
 .detail {
 	width: 60px;
 	height: 30px;
@@ -70,11 +72,10 @@ b {
 .title {
 	border-radius: 7px;
 	height: 50px;
-
 }
 
 .table {
-	 width: 100%;
+	width: 100%;
 }
 
 input {
@@ -85,37 +86,57 @@ input {
 
 #searchbar {
 	height: 30px;
-
 }
-#searchbar>div{
+
+#searchbar>div {
 	height: 100%;
 	box-sizing: border-box;
-
 	float: left;
 }
-.innerArea{
+
+.innerArea {
 	width: 1000px;
 	height: 100%;
 	margin: auto;
 }
 
-#tableArea{
+#tableArea {
 	height: 700px;
 	width: 100%;
 	/* border: 1px solid black; */
 	text-align: center;
 	overflow: auto;
 }
-#tableArea>table{
+
+#tableArea>table {
 	width: 100%;
 	box-sizing: border-box;
 }
-#pagingArea{width:fit-content;margin:auto;}
 
-#tableArea>.table>tbody>tr:hover{
-   	background:#E1F0FF;
-    }
+#pagingArea {
+	width: fit-content;
+	margin: auto;
+}
 
+#tableArea>.table>tbody>tr:hover {
+	background: #E1F0FF;
+}
+
+.btn-green { /* outline-btn */
+	border-color: RGB(29, 92, 99);
+	color: RGB(29, 92, 99);
+	width: 100%;
+	height: 100%;
+}
+
+.btn-green:hover {
+	background: rgb(237, 230, 214) !important;
+	border-color: RGB(29, 92, 99);
+	color: RGB(29, 92, 99) !important;
+}
+.btn {
+	white-space: nowrap;
+}
 </style>
 
 
@@ -127,7 +148,9 @@ input {
 		<div class="content-wrapper">
 			<!-- 이 안에서 작업해 주세요 -->
 			<div class="wrap11">
-				<br><br><br>
+				<br>
+				<br>
+				<br>
 
 				<div class="innerArea">
 					<table class="table bggray title">
@@ -138,8 +161,9 @@ input {
 					<br>
 
 					<div align="left">
-						<a type="button" class="button" href="pay.mj">수납대기</a>
-						<a type="button" class="button bggray" href="payDone.mj">수납완료</a>
+						<button type="button" class="button" onclick="location.href='pay.mj'">수납대기</button>
+						<button type="button" class="button bggray" onclick="location.href='payDone.mj'">수납완료</button>
+						<button style="width:753px !important" class="btn btn-outline-success btn-green" onclick="ajaxChangePayStatus();">수납처리</button>
 					</div>
 
 					<br>
@@ -147,119 +171,92 @@ input {
 						<table class="table">
 							<thead>
 								<tr>
+									<th width="20px">전체 <input type='checkbox' id="selectAll" onclick='selectAll(this)' ></th>
 									<th width="85px">수납번호</th>
 									<th width="60px">이름</th>
 									<th width="50px">성별</th>
 									<th width="100px">주민등록번호</th>
 									<th width="100px">진료과</th>
+									<th width="100px">진료의</th>
 									<th width="100px">처방전</th>
 									<th width="100px">수납</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>5</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>6</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>7</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>8</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>9</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
-								<tr>
-									<td>10</td>
-									<td>강개똥</td>
-									<td>남</td>
-									<td>875558-5555555</td>
-									<td>내과</td>
-									<td><button class="button">출력</button></td>
-									<td><button class="button">출력</button></td>
-								</tr>
+							
+								<c:choose>
+									<c:when test="${ empty list }">
+										<tr>
+											<td colspan="9">환자가 없습니다.</td>
+										</tr>
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="p" items="${ list }">
+											<tr>
+												<td><input type='checkbox'name='payNo' value="${p.payNo}"></td>
+												<td>${p.payNo}</td>
+												<td>${p.patientName}</td>
+												<td>${p.gender}</td>
+												<td>${p.idNo}</td>
+												<td>${p.deptName}</td>
+												<td>${p.docName}</td>
+												<td><button class="button" onclick="location.href='prescription.pt?clinicNo=${p.clinicNo}'">출력</button></td>
+												<td><button class="button" onclick="location.href='receipt.pt?clinicNo=${p.clinicNo}'">출력</button></td>
+											</tr>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
 
 							</tbody>
 						</table>
-
 					</div>
-					<br><br>
-
-					<br>
+						
+					<br><br><br><br>
 
 				</div>
-				<br><br><br><br><br><br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
 			</div>
 		</div>
+		<script>
+		// 진료중으로 상태변경
+		function ajaxChangePayStatus() {
+			
+			let changeArray = new Array();
+			
+			$('input:checkbox[name=payNo]:checked').each(function() {
+				changeArray.push(this.value);
+		    });
+
+			$.ajax({
+				url : "change.pay",
+				data : {
+					changeArray : changeArray
+				},
+				success : function(result) {
+					console.log(result);
+					location.href = "pay.mj";
+				},
+				error : function() {
+					console.log("ajax통신 실패");
+				}
+			});
+		}
+		
+		// 전체 체크
+		function selectAll(selectAll)  {
+			  const checkboxes 
+			       = document.getElementsByName('payNo');
+			  
+			  checkboxes.forEach((checkbox) => {
+			    checkbox.checked = selectAll.checked;
+			  })
+			}
+		</script>
 		<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

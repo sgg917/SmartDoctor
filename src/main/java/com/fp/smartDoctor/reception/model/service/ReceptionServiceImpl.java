@@ -1,6 +1,5 @@
 package com.fp.smartDoctor.reception.model.service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Dept;
 import com.fp.smartDoctor.member.model.vo.Member;
-import com.fp.smartDoctor.notice.model.vo.Notice;
 import com.fp.smartDoctor.reception.model.dao.ReceptionDao;
 import com.fp.smartDoctor.reception.model.vo.Prescription;
 import com.fp.smartDoctor.reception.model.vo.ProomCalendar;
@@ -18,6 +16,7 @@ import com.fp.smartDoctor.reception.model.vo.Receipt;
 import com.fp.smartDoctor.treatment.model.vo.Clinic;
 import com.fp.smartDoctor.treatment.model.vo.Medicine;
 import com.fp.smartDoctor.treatment.model.vo.Patient;
+import com.fp.smartDoctor.treatment.model.vo.Pay;
 
 @Service
 public class ReceptionServiceImpl implements ReceptionService{
@@ -168,4 +167,40 @@ public class ReceptionServiceImpl implements ReceptionService{
 	public ArrayList<Patient> selectSearchList(String keyword, PageInfo pi) {
 		return rDao.selectSearchList(sqlSession, keyword, pi);
 	}
+	
+	// 24. 진료 접수 후 환자 상태 변경
+	@Override
+	public int updatePatientLastDept(Clinic c) {
+		return rDao.updatePatientLastDept(sqlSession, c);
+	}
+	
+	// 25. 수납 대기 리스트
+	@Override
+	public ArrayList<Pay> selectPayWaitingList() {
+		return rDao.selectPayWaitingList(sqlSession);
+	}
+	
+	// 26. 수납 완료 카운트
+	@Override
+	public int selectPayDoneCount() {
+		return rDao.selectPayDoneCount(sqlSession);
+	}
+	
+	// 27. 수납 완료 리스트
+	@Override
+	public ArrayList<Pay> selectPayDoneList(PageInfo pi) {
+		return rDao.selectPayDoneList(sqlSession, pi);
+	}
+
+	// 28. 수납 상태 변경
+	@Override
+	public int ajaxChangePayStatus(int changePayNo) {
+		return rDao.ajaxChangePayStatus(sqlSession, changePayNo);
+	}
+
+	@Override
+	public int updatePatient(Patient p) {
+		return rDao.updatePatient(sqlSession, p);
+	}
+	
 }
