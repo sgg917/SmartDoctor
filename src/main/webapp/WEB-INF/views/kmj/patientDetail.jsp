@@ -166,7 +166,7 @@ input {
 									<th width="150px">차트번호</th>
 									<th width="150px">이름</th>
 									<th width="100px">성별</th>
-									<th width="100px">나이</th>
+									<th width="100px">나이(만)</th>
 									<th width="200px">주민등록번호</th>
 									<th>메모</th>
 								</tr>
@@ -176,7 +176,7 @@ input {
 									<td>${p.chartNo}</td>
 									<td>${p.patientName}</td>
 									<td>${p.gender}</td>
-									<td>${p.age}세(만)</td>
+									<td>${p.age}세</td>
 									<td>${p.idNo}</td>
 									<td>${p.memo}</td>
 								</tr>

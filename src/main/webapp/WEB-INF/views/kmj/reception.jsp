@@ -400,7 +400,7 @@ input {
 											+"<td>" + (i+1) + "</td>"
 									        +"<td>" + wlist[i].patientName + "</td>"
 									        +"<td>" + wlist[i].gender + "</td>"
-									        +"<td>" + wlist[i].age + "</td>"
+									        +"<td>" + wlist[i].age + "세" + "</td>"
 									        +"<td>" + wlist[i].deptName + "</td>"
 									        +"</tr>";
 							}
@@ -412,7 +412,7 @@ input {
 											+"<td>" + (i+1) + "</td>"
 									        +"<td>" + plist[i].patientName + "</td>"
 									        +"<td>" + plist[i].gender + "</td>"
-									        +"<td>" + plist[i].age + "</td>"
+									        +"<td>" + plist[i].age + "세" + "</td>"
 									        +"<td>" + plist[i].deptName + "</td>"
 									        +"</tr>";
 								}
