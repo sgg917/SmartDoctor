@@ -187,7 +187,7 @@ input {
 								<c:choose>
 									<c:when test="${ empty list }">
 										<tr>
-											<td colspan="8">환자가 없습니다.</td>
+											<td colspan="9">환자가 없습니다.</td>
 										</tr>
 									</c:when>
 									<c:otherwise>

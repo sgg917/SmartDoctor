@@ -139,8 +139,8 @@ input {
 					<br>
 
 					<div align="left">
-						<button type="button" class="button" onclick="location.href='pay.mj'">수납대기</button>
-						<button type="button" class="button bggray" onclick="location.href='payDone.mj'">수납완료</button>
+						<button type="button" class="button bggray" onclick="location.href='pay.mj'">수납대기</button>
+						<button type="button" class="button" onclick="location.href='payDone.mj'">수납완료</button>
 					</div>
 
 					<br>
