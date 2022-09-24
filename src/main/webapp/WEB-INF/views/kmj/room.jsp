@@ -32,7 +32,7 @@
 <style>
 .wrap11 {
 	width: 100%;
-	height: 115% !important;
+	height: 100% !important;
 	background-color: white;
 	border-radius: 30px 10px;
 	box-shadow: 3px 3px 3px 3px lightgray;
@@ -90,7 +90,7 @@ b2 {
 
 .innerArea {
 	width: 1000px;
-	height: auto;
+	height: 100%;
 	margin: auto;
 }
 
@@ -206,6 +206,7 @@ b2 {
 
 							</tbody>
 						</table>
+						<br><br><br>
 					</div>
 
 				</div>
@@ -230,9 +231,7 @@ b2 {
 				})
 				
 				$("#tableArea span").each(function() {
-						console.log("${nowDate}");
 					if ($(this).attr("date") == "${today2}") {
-						console.log("${nowDate}");
 						$(this).parent().parent().addClass("textBold");
 					}
 				})
