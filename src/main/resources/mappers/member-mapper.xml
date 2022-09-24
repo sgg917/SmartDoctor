@@ -276,14 +276,14 @@
 		  where (status = 'Y' 
              or status = 'A')
 		    and emp_no = #{empNo}
-		    and emp_pwd = #{empPwd}
+		    <!-- and emp_pwd = #{empPwd} -->
 	</select>
 
 	<!-- 비밀번호 변경 -->
 	<update id="updatePwd">
 		update
 			   member
-		   set emp_pwd = #{empPwd}
+		   set emp_pwd = #{updatePwd}
 		 where emp_no = #{empNo}
 	</update>
 	
