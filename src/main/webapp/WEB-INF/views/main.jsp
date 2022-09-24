@@ -84,7 +84,7 @@
 								<h4 class="font-weight-bold mb-3">
 									오늘 내원 환자 수 <i class="mdi mdi-chart-line mdi-24px float-right"></i>
 								</h4>
-								<h2 class="mb-5" id="day">150</h2>
+								<h2 class="mb-5" id="day">48</h2>
 							</div>
 						</div>
 					</div>
@@ -96,7 +96,7 @@
 									이번 주 내원 환자 수 <i
 										class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
 								</h4>
-								<h2 class="mb-5" id="week">1,253</h2>
+								<h2 class="mb-5" id="week">245</h2>
 							</div>
 						</div>
 					</div>
@@ -107,7 +107,7 @@
 								<h4 class="font-weight-bold mb-3">
 									이번 달 내원 환자 수 <i class="mdi mdi-diamond mdi-24px float-right"></i>
 								</h4>
-								<h2 class="mb-5" id="month">40,949</h2>
+								<h2 class="mb-5" id="month">1308</h2>
 							</div>
 						</div>
 					</div>
