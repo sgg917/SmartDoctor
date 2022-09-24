@@ -355,49 +355,6 @@ input {
 				$(function(){
 					ajaxSelectClinicList();
 				})
-				
-				// 환자 조회용 ajax 함수
-				/*
-				function openModal() {
-
-					$.ajax({
-						url : "list.pt",
-						data : {
-							cpage : 0
-						},
-						success : function(data) {
-
-							
-							let list = data.list;
-							let pi = data.pi;
-							
-							console.log(list);
-							console.log(pi);
-							
-							let value = "";
-							for (let i = 0; i < list.length; i++) {
-
-								value += "<tr>"
-										+ "<td><input type='radio' name='chartNo' value='" + list[i].chartNo + "'></td>"
-										+ "<td>" + list[i].patientName
-										+ "</td>" + "<td>"
-										+ list[i].idNo + "</td>"
-										+ "</tr>";
-
-							}
-
-							$("#patientListArea tbody").html(value);
-
-							$('#searchPatient').modal('show');
-
-						},
-						error : function() {
-							console.log("환자 조회용 ajax 통신 실패");
-						}
-					})
-
-				}
-*/
 
 				// 진료 접수
 				function ajaxEnrollTreatment() {
