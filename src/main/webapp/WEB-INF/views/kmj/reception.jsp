@@ -462,7 +462,12 @@ input {
 				
 				// 환자 선택 팝업창 띄우기
 				function openPopupWindow(){
-					window.open("selectList.pt", "popup", "width=500, height=650")
+					var popupWidth = 500;
+					var popupHeight = 650;
+
+					var popupX = (window.screen.width / 2) - (popupWidth / 2);
+					var popupY= (window.screen.height / 2) - (popupHeight / 2);
+					window.open("selectList.pt", "popup",'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 				}
 				
 				
