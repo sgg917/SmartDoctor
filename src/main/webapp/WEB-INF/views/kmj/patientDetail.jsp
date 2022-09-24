@@ -194,11 +194,12 @@ input {
 						<table class="table">
 							<thead>
 								<tr>
-									<th width="20%">내원일</th>
-									<th width="20%">질병</th>
-									<th width="20%">진료의</th>
-									<th width="20%">처방전</th>
-									<th width="20%">수납</th>
+									<th>내원일</th>
+									<th>진료과</th>
+									<th>진료의</th>
+									<th>질병</th>
+									<th>처방전</th>
+									<th>수납</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -206,15 +207,16 @@ input {
 								<c:choose>
 									<c:when test="${ empty list }">
 										<tr>
-											<td colspan="5">과거 진료 내역이 없습니다.</td>
+											<td colspan="6">과거 진료 내역이 없습니다.</td>
 										</tr>
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="c" items="${ list }">
 											<tr>
 												<td>${ c.enrollDate }</td>
-												<td>${ c.disease }</td>
+												<td>${ c.deptName }</td>
 												<td>${ c.docName }</td>
+												<td>${ c.disease }</td>
 												<td><button class="detail" 
 														 onclick="location.href='prescription.pt?clinicNo=${c.clinicNo}'">조회</button></td>
 												<td><button class="detail" 

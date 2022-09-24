@@ -458,17 +458,20 @@
 	
 	<!-- 과거 진료 내역 조회 -->
 	<select id="pastClinicList" resultMap="clinicResult">	
-   		select 
+        select 
 			   clinic_no
 			 , chart_no
 			 , enroll_date
  			 , enroll_date||' '||enroll_time as "enroll"
 			 , disease
 			 , emp_name
+             , emp_no
+             , dept_name
 	      from clinic c
-		  join member using(emp_no)
+		  join member m using(emp_no)
      left join disease using(diseases_code)
-		 where chart_no = #{chartNo}
+     join department d on(d.dept_no = m.dept_no)
+		 where chart_no = #{chart_no}
 		   and c.status = 'D'
          order
             by "enroll" desc
