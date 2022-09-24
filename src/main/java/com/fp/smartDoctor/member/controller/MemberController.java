@@ -210,7 +210,7 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value="updateEmp.me", produces="text/html; charset=utf-8")
 	public String updateEmp(Member m) {
-		//System.out.println(m);
+		
 		// 사원 정보 수정 update
 		int result = mService.updateEmp(m);
 		
