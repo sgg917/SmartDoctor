@@ -20,6 +20,7 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDao mDao;
 
+	// 로그인
 	@Override
 	public Member loginMember(Member m) {
 		
@@ -27,9 +28,10 @@ public class MemberServiceImpl implements MemberService {
 		return loginUser;
 	}
 
+	// 비번변경
 	@Override
-	public int updatePwd(Member m) {
-		return mDao.updatePwd(sqlSession, m);
+	public int updatePwd(Member m, String updatePwd) {
+		return mDao.updatePwd(sqlSession, m, updatePwd);
 	}
 
 	@Override

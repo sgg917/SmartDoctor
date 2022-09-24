@@ -34,10 +34,12 @@ public class MemberController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	
+	
 	@RequestMapping("login.me")
 	public String loginMember() {
 		return "ljy/loginMember";
 	}
+	
 	
 	@RequestMapping("enter.me")
 	public ModelAndView loginMember(Member m, HttpSession session, ModelAndView mv) {
@@ -45,19 +47,23 @@ public class MemberController {
 		Member loginUser = mService.loginMember(m);
 		System.out.println(loginUser);
 		
-		if(loginUser == null) { //로그인실패
-			System.out.println("로그인 실패");
-		}else { //로그인성공
+		if (loginUser != null && bcryptPasswordEncoder.matches(m.getEmpPwd(), loginUser.getEmpPwd())) { // 로그인성공
 			session.setAttribute("loginUser", loginUser);
-			mv.setViewName("redirect:/");
+			mv.setViewName("main");
+		} else {
+			System.out.println("로그인 실패");
+			mv.addObject("errorMsg", "로그인 실패");
+			mv.setViewName("common/errorPage");
 		}
+
 		return mv;
+		
 	}
 	
 	@RequestMapping("logout.me")
 	public String logoutMember(HttpSession session) {
 		session.invalidate();
-		return "redirect:/";
+		return "ljy/loginMember";
 	}
 	
 	@RequestMapping("changePwd.me")
@@ -70,12 +76,9 @@ public class MemberController {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
-		if(m.getEmpPwd().equals( loginUser.getEmpPwd())) { //로그인한 사람의 비번과 현재입력한비밀번호가 맞을 때 => 변경가능
-			
-			m.setEmpPwd(updatePwd);
-			
-			int result = mService.updatePwd(m);
-			
+		if(bcryptPasswordEncoder.matches(m.getEmpPwd(), loginUser.getEmpPwd())) {//로그인한 사람의 비번과 현재입력한비밀번호가 맞을 때 => 변경가능
+			int result = mService.updatePwd(m, bcryptPasswordEncoder.encode(updatePwd));
+		
 			if(result > 0) { //비밀번호 변경 성공
 				session.setAttribute("loginUser", mService.loginMember(m));
 				session.setAttribute("alertMsg", "비밀번호 변경 성공!");
@@ -85,11 +88,11 @@ public class MemberController {
 				System.out.println("비밀번호변경실패");
 				return "redirect:changePwd.me";
 			}
-			
 		}else {
 			session.setAttribute("alertMsg", "현재 비밀번호가 틀렸습니다. 다시 입력해주세요!");
 			return "redirect:changePwd.me";
 		}
+		
 	}
 	
 	@RequestMapping("orgChart.me")
@@ -154,7 +157,7 @@ public class MemberController {
 		String changeEmpNo = currentTime + ranNum;
 		
 		String newEmail = changeEmpNo + "@smartdoctor.com";
-			
+		
 		m.setEmpNo(changeEmpNo);
 		m.setEmpPwd(changeEmpNo);
 		m.setEmail(newEmail);
@@ -162,6 +165,12 @@ public class MemberController {
 		String saveFilepath = FileUpload.saveFile(upfile, session, "resources/profile_images/");
 		m.setOriginName(upfile.getOriginalFilename());
 		m.setPath(saveFilepath);
+		
+		System.out.println("empPwd : " + m.getEmpPwd());
+		
+		String encPwd = bcryptPasswordEncoder.encode(m.getEmpPwd());
+		
+		m.setEmpPwd(encPwd);
 		
 		int result = mService.insertMember(m);
 		

@@ -8,9 +8,11 @@ import com.fp.smartDoctor.member.model.vo.Member;
 
 public interface MemberService {
 	
+	// 로그인
 	Member loginMember(Member m);
 	
-	int updatePwd(Member m);
+	// 비번변경
+	int updatePwd(Member m, String updatePwd);
 	
 	// 조직도 부서 조회
 	ArrayList<Dept> selectOrgChartDept();

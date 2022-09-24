@@ -1,6 +1,7 @@
 package com.fp.smartDoctor.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,8 +16,12 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}
 	
-	public int updatePwd(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.update("memberMapper.updatePwd", m);
+	public int updatePwd(SqlSessionTemplate sqlSession, Member m, String updatePwd) {
+		HashMap<String, String> map = new HashMap<>();
+		map.put("empNo", m.getEmpNo());
+		map.put("updatePwd", updatePwd);
+		
+		return sqlSession.update("memberMapper.updatePwd", map);
 	}
 	
 	public ArrayList<Dept> selectOrgChartDept(SqlSessionTemplate sqlSession){
