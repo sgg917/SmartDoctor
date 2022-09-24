@@ -30,5 +30,6 @@ public class Line {
 	private ArrayList<Line> RefList;
 	private int apprNow;
 	private String deptName;
+	private String lineEnd;
 	
 }

@@ -265,7 +265,7 @@
                  <h5 class="modal-title" id="apprModalLabel" style="margin-left:5px;">결재하기</h5>
                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
-               <form id="approve" action="approve.si" method="post">
+               <form id="approve" action="" method="post">
                	   <input type="hidden" name="apprNo" value="${ s.apprNo }">
                	   <input type="hidden" name="empNo" value="${ loginUser.empNo }">
                	   <input type="hidden" name="formNo" value="${ s.formNo }">
@@ -276,7 +276,7 @@
 	                 <div class="form-group row" style="width:450px; padding-left:10px; margin-top:7px;">
 	                   <label class="col-sm-3 col-form-label">결재문서명</label>
 	                   <div class="col-sm-9">
-	                     <input type="text" class="form-control appr-tb-input" value="${ s.apprTitle }" style="background:none; padding-left:0; border:none;" readonly>
+	                     <input type="text" class="form-control appr-tb-input" value="${ s.apprTitle }" style="background:none; margin-top:4px; padding-left:0; border:none;" readonly>
 	                   </div>
 	                   <label class="col-sm-3 col-form-label">결재의견</label>
 	                   <div class="col-sm-9">
@@ -286,13 +286,33 @@
 	               </div>
 	               <div class="modal-footer">
 	                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">취소</button>
-	                 <button type="submit" class="btn btn-success btn-sm" style="background:RGB(29, 92, 99); color:white;">확인</button>
+	                 <button type="button" class="btn btn-success btn-sm" 
+	                 		 style="background:RGB(29, 92, 99); color:white;" onclick="postFormSubmit('endApprove.si');">전결</button>
+	                 <button type="button" class="btn btn-success btn-sm" 
+	                 		 style="background:RGB(29, 92, 99); color:white;" onclick="postFormSubmit('Approve.si');">결재</button>
 	               </div>
                </form>
              </div>
            </div>
         </div>
         <!-- 결재모달창 end -->
+        
+        <script>
+        
+	        function postFormSubmit(url){
+				
+				let result;
+				if(url == 'approve.si'){
+					result = confirm("결재하시겠습니까?");
+				}else{
+					result = confirm("전결 처리하시겠습니까?");
+				}
+				
+				if(result == true){
+					$("#approve").attr("action", url).submit();
+				}
+			}
+        </script>
         
         <!-- 반려하기 모달창 -->
 		<div class="modal fade" id="disapprModal" tabindex="-1" aria-labelledby="disapprModalLabel" aria-hidden="true">
@@ -309,7 +329,7 @@
 	                 <div class="form-group row" style="width:450px; padding-left:10px; margin-top:7px;">
 	                   <label class="col-sm-3 col-form-label">결재문서명</label>
 	                   <div class="col-sm-9">
-	                     <input type="text" class="form-control appr-tb-input" value="${ s.apprTitle }" style="background:none; padding-left:0; border:none;" readonly>
+	                     <input type="text" class="form-control appr-tb-input" value="${ s.apprTitle }" style="background:none; margin-top:4px; padding-left:0; border:none;" readonly>
 	                   </div>
 	                   <label class="col-sm-3 col-form-label">반려사유</label>
 	                   <div class="col-sm-9">
@@ -326,6 +346,7 @@
            </div>
         </div>
         <!-- 반려모달창 end -->
+        
 		<jsp:include page="../common/footer.jsp" />
 	</div>
 </body>

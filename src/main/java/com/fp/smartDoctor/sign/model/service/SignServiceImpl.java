@@ -229,6 +229,14 @@ public class SignServiceImpl implements SignService {
 	public int insertAttVacation(HashMap<String, Object> map) {
 		return sDao.insertAttVacation(sqlSession, map);
 	}
+	@Override
+	public int updateEndApproval(Line l) {
+		return sDao.updateEndApproval(sqlSession, l);
+	}
+	@Override
+	public int updateEndApprLine(Line l) {
+		return sDao.updateEndApprLine(sqlSession, l);
+	}
 	
 	
 

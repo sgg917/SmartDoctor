@@ -304,4 +304,13 @@ public class SignDao {
 	public int updateStorage(SqlSessionTemplate sqlSession, Sign s) {
 		return sqlSession.update("signMapper.updateStorage", s);
 	}
+	
+	// 전결처리
+	public int updateEndApproval(SqlSessionTemplate sqlSession, Line l) {
+		return sqlSession.update("signMapper.updateEndApproval", l);
+	}
+	
+	public int updateEndApprLine(SqlSessionTemplate sqlSession, Line l) {
+		return sqlSession.update("signMapper.updateEndApprLine", l);
+	}
 }
