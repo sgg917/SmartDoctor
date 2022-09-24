@@ -121,6 +121,22 @@ input {
 #tableArea>.table>tbody>tr:hover {
 	background: #E1F0FF;
 }
+
+.btn-green { /* outline-btn */
+	border-color: RGB(29, 92, 99);
+	color: RGB(29, 92, 99);
+	width: 100%;
+	height: 100%;
+}
+
+.btn-green:hover {
+	background: rgb(237, 230, 214) !important;
+	border-color: RGB(29, 92, 99);
+	color: RGB(29, 92, 99) !important;
+}
+.btn {
+	white-space: nowrap;
+}
 </style>
 
 
@@ -145,8 +161,9 @@ input {
 					<br>
 
 					<div align="left">
-						<a type="button" class="button" href="pay.mj">수납대기</a> <a
-							type="button" class="button bggray" href="payDone.mj">수납완료</a>
+						<button type="button" class="button" onclick="location.href='pay.mj'">수납대기</button>
+						<button type="button" class="button bggray" onclick="location.href='payDone.mj'">수납완료</button>
+						<button style="width:753px !important" class="btn btn-outline-success btn-green" onclick="ajaxChangePayStatus();">수납처리</button>
 					</div>
 
 					<br>
@@ -154,16 +171,19 @@ input {
 						<table class="table">
 							<thead>
 								<tr>
+									<th width="20px"></th>
 									<th width="85px">수납번호</th>
 									<th width="60px">이름</th>
 									<th width="50px">성별</th>
 									<th width="100px">주민등록번호</th>
 									<th width="100px">진료과</th>
+									<th width="100px">진료의</th>
 									<th width="100px">처방전</th>
 									<th width="100px">수납</th>
 								</tr>
 							</thead>
 							<tbody>
+							
 								<c:choose>
 									<c:when test="${ empty list }">
 										<tr>
@@ -173,11 +193,13 @@ input {
 									<c:otherwise>
 										<c:forEach var="p" items="${ list }">
 											<tr>
+												<td><input type='checkbox'name='payNo' value="${p.payNo}"></td>
 												<td>${p.payNo}</td>
 												<td>${p.patientName}</td>
 												<td>${p.gender}</td>
 												<td>${p.idNo}</td>
 												<td>${p.deptName}</td>
+												<td>${p.docName}</td>
 												<td><button class="button" onclick="location.href='prescription.pt?clinicNo=${p.clinicNo}'">출력</button></td>
 												<td><button class="button" onclick="location.href='receipt.pt?clinicNo=${p.clinicNo}'">출력</button></td>
 											</tr>
@@ -187,10 +209,9 @@ input {
 
 							</tbody>
 						</table>
-
 					</div>
-					<br>
-					<br> <br>
+						
+					<br><br><br><br>
 
 				</div>
 				<br>
@@ -201,6 +222,31 @@ input {
 				<br>
 			</div>
 		</div>
+		<script>
+		// 진료중으로 상태변경
+		function ajaxChangePayStatus() {
+			
+			let changeArray = new Array();
+			
+			$('input:checkbox[name=payNo]:checked').each(function() {
+				changeArray.push(this.value);
+		    });
+
+			$.ajax({
+				url : "change.pay",
+				data : {
+					changeArray : changeArray
+				},
+				success : function(result) {
+					console.log(result);
+					location.href = "pay.mj";
+				},
+				error : function() {
+					console.log("ajax통신 실패");
+				}
+			});
+		}
+		</script>
 		<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

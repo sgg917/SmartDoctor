@@ -28,5 +28,6 @@ public class Pay {
 	private String deptName;
 	private String empNo;
 	private String deptNo;
+	private String docName;
 	
 }

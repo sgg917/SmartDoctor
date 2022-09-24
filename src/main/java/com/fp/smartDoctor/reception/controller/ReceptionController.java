@@ -256,17 +256,26 @@ public class ReceptionController {
 
 		ArrayList<Pay> list = rService.selectPayWaitingList();
 		
-		System.out.println(list);
+		//System.out.println(list);
 		
 		model.addAttribute("list", list);
 
 		return "kmj/payWaiting";
 	}
-
+	
 	// 수납 완료 페이지
 	@RequestMapping("payDone.mj")
-	public String payDone() {
-		return "kmj/payDone";
+	public ModelAndView payDone(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv) {
+
+		// 전체 환자 수 조회
+		int listCount = rService.selectPayDoneCount();
+
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
+		ArrayList<Pay> list = rService.selectPayDoneList(pi);
+
+		mv.addObject("pi", pi).addObject("list", list).setViewName("kmj/payDone");
+
+		return mv;
 	}
 	
 	
@@ -478,5 +487,17 @@ public class ReceptionController {
 
 	}
 	
+	// 진료중으로 상태변경
+	@ResponseBody
+	@RequestMapping("change.pay")
+	public String ajaxChangePayStatus(@RequestParam("changeArray[]") int[] changeArray, Model model) {
+
+		int result = 0;
+		for (int changePayNo : changeArray) {
+			result = rService.ajaxChangePayStatus(changePayNo);
+		}
+
+		return result > 0 ? "success" : "fail";
+	}
 
 }

@@ -179,4 +179,23 @@ public class ReceptionServiceImpl implements ReceptionService{
 	public ArrayList<Pay> selectPayWaitingList() {
 		return rDao.selectPayWaitingList(sqlSession);
 	}
+	
+	// 26. 수납 완료 카운트
+	@Override
+	public int selectPayDoneCount() {
+		return rDao.selectPayDoneCount(sqlSession);
+	}
+	
+	// 27. 수납 완료 리스트
+	@Override
+	public ArrayList<Pay> selectPayDoneList(PageInfo pi) {
+		return rDao.selectPayDoneList(sqlSession, pi);
+	}
+
+	// 28. 수납 상태 변경
+	@Override
+	public int ajaxChangePayStatus(int changePayNo) {
+		return rDao.ajaxChangePayStatus(sqlSession, changePayNo);
+	}
+	
 }

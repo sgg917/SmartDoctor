@@ -90,4 +90,14 @@ public interface ReceptionService {
 	
 	// 25.수납 대기 환자 검색
 	ArrayList<Pay> selectPayWaitingList();
+	
+	// 26. 수납 완료 카운트
+	int selectPayDoneCount();
+	
+	// 27. 수납 완료 리스트
+	ArrayList<Pay> selectPayDoneList(PageInfo pi);
+	
+	// 28. 수납 상태 변경
+	int ajaxChangePayStatus(int changePayNo);
+	
 }

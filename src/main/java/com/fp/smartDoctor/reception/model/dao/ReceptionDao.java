@@ -161,8 +161,25 @@ public class ReceptionDao {
 	
 	// 25. 수납 대기 리스트
 	public ArrayList<Pay> selectPayWaitingList(SqlSessionTemplate sqlSession){
-		
 		return (ArrayList)sqlSession.selectList("receptionMapper.selectPayWaitingList");
+	}
+	
+	// 26. 수납 완료 카운트
+	public int selectPayDoneCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("receptionMapper.selectPayDoneCount");
+	}
+	
+	// 27. 수납 완료 리스트
+	public ArrayList<Pay> selectPayDoneList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
 		
+		return (ArrayList)sqlSession.selectList("receptionMapper.selectPayDoneList", rowBounds);
+	}
+	
+	// 28. 수납 상태 변경
+	public int ajaxChangePayStatus(SqlSessionTemplate sqlSession, int changePayNo) {
+		return sqlSession.update("receptionMapper.ajaxChangePayStatus", changePayNo);
 	}
 }
