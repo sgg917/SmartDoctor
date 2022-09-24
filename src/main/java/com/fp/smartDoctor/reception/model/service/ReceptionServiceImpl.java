@@ -197,10 +197,23 @@ public class ReceptionServiceImpl implements ReceptionService{
 	public int ajaxChangePayStatus(int changePayNo) {
 		return rDao.ajaxChangePayStatus(sqlSession, changePayNo);
 	}
-
+	
+	// 29. 환자 정보 변경
 	@Override
 	public int updatePatient(Patient p) {
 		return rDao.updatePatient(sqlSession, p);
+	}
+	
+	// 30. 선택한 과로 대기 리스트 조회
+	@Override
+	public ArrayList<Clinic> ajaxWaitingListDeptCondition(String deptNo) {
+		return rDao.ajaxWaitingListDeptCondition(sqlSession, deptNo);
+	}
+	
+	// 31. 선택한 과로 진료중 리스트 조회
+	@Override
+	public ArrayList<Clinic> ajaxIngListDeptCondition(String deptNo) {
+		return rDao.ajaxIngListDeptCondition(sqlSession, deptNo);
 	}
 	
 }

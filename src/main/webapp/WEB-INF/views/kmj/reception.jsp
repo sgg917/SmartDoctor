@@ -227,13 +227,14 @@ input {
 								<td width="120" style="padding: 5px;"><button
 										class="button maintitle">진료대기</button></td>
 
-								<td width="280" style="padding: 5px;"><select name="waitingDeptNo"
-									id="deptNo">
+								<td width="280" style="padding: 5px;">
+								<select name="waitingDeptNo" id="deptNo" onchange="changeWaitingCondition(this)">
 										<option value="">전체</option>
 										<c:forEach var="d" items="${ deptList }">
 											<option value="${ d.deptNo }">${ d.deptName }</option>
 										</c:forEach>
-								</select></td>
+								</select>
+								</td>
 							</tr>
 						</table>
 						
@@ -270,13 +271,14 @@ input {
 								<td width="120" style="padding: 5px;">
 									<button class="button maintitle">진료중</button>
 								</td>
-								<td width="280" style="padding: 5px;"><select name="ingDeptNo"
-									id="deptNo">
-										<option value="">전체</option>
-										<c:forEach var="d" items="${ deptList }">
-											<option value="${ d.deptNo }">${ d.deptName }</option>
-										</c:forEach>
-								</select></td>
+								<td width="280" style="padding: 5px;">
+									<select name="ingDeptNo" id="deptNo" onchange="changeIngCondition(this)">
+											<option value="">전체</option>
+											<c:forEach var="d" items="${ deptList }">
+												<option value="${ d.deptNo }">${ d.deptName }</option>
+											</c:forEach>
+									</select>
+								</td>
 							</tr>
 						</table>
 
@@ -354,6 +356,7 @@ input {
 				
 				$(function(){
 					ajaxSelectClinicList();
+					changeDeptCondition();
 				})
 
 				// 진료 접수
@@ -533,6 +536,77 @@ input {
 					
 				}
 				
+				function changeWaitingCondition(deptNo){
+					let selectDeptNo = $(deptNo).val();
+					//console.log(selectDeptNo);
+					
+					$.ajax({
+						url:"wlist.pt",
+						data : {
+							deptNo : selectDeptNo
+						},
+						success:function(data){
+							
+							//console.log(wlist);
+							let wlist = data.wlist;
+							
+							let waitingValue = "";
+							
+							for(let i=0; i<wlist.length; i++){
+								waitingValue += "<tr><td><input type='checkbox'name='change' value='" + wlist[i].chartNo + "'></td>"
+											+"<td>" + (i+1) + "</td>"
+									        +"<td>" + wlist[i].patientName + "</td>"
+									        +"<td>" + wlist[i].gender + "</td>"
+									        +"<td>" + wlist[i].age + "</td>"
+									        +"<td>" + wlist[i].deptName + "</td>"
+									        +"</tr>";
+							}
+							
+							$("#waitingListArea tbody").html(waitingValue);
+							
+						},error:function(){
+							console.log("진료 대기 환자 조회용 ajax통신 실패");
+						}
+					})
+					
+				}
+				
+				function changeIngCondition(deptNo){
+					let selectDeptNo = $(deptNo).val();
+					//console.log(selectDeptNo);
+					
+					$.ajax({
+						url:"plist.pt",
+						data : {
+							deptNo : selectDeptNo
+						},
+						success:function(data){
+							
+							//console.log(wlist);
+							let plist = data.wlist;
+							
+							let ingValue = "";
+							
+							for(let i=0; i<plist.length; i++){
+								ingValue += "<tr>"
+											+"<td>" + (i+1) + "</td>"
+									        +"<td>" + plist[i].patientName + "</td>"
+									        +"<td>" + plist[i].gender + "</td>"
+									        +"<td>" + plist[i].age + "</td>"
+									        +"<td>" + plist[i].deptName + "</td>"
+									        +"</tr>";
+								}
+							
+							
+							$("#ingListArea tbody").html(ingValue);
+							
+						},error:function(){
+							console.log("진료 대기 환자 조회용 ajax통신 실패");
+						}
+					})
+					
+				}
+
 				
 			</script>
 

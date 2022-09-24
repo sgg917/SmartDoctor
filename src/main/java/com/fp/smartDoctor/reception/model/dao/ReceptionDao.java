@@ -187,4 +187,14 @@ public class ReceptionDao {
 	public int updatePatient(SqlSessionTemplate sqlSession, Patient p) {
 		return sqlSession.update("receptionMapper.updatePatient", p);
 	}
+	
+	// 30. 선택한 과로 대기 리스트 조회
+	public ArrayList<Clinic> ajaxWaitingListDeptCondition(SqlSessionTemplate sqlSession, String deptNo) {
+		return (ArrayList)sqlSession.selectList("receptionMapper.ajaxWaitingListDeptCondition", deptNo);
+	}
+	
+	// 31. 선택한 과로 진료중 리스트 조회
+	public ArrayList<Clinic> ajaxIngListDeptCondition(SqlSessionTemplate sqlSession, String deptNo) {
+		return (ArrayList)sqlSession.selectList("receptionMapper.ajaxIngListDeptCondition", deptNo);
+	}
 }

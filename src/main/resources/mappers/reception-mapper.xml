@@ -725,4 +725,68 @@
              , memo = #{memo}
 		 where chart_no = #{chartNo}
 	</update>
+	
+	<select id="ajaxWaitingListDeptCondition" resultMap="clinicResult">	
+		select 
+              chart_no 
+	     	, patient_name
+            , "gender"
+	    	, trunc((to_number(to_char(sysdate, 'YYYYMMDD'))-to_number(to_char(decode(substr(id_no, 8, 1), '1', '19', '2', '19', '20')||substr(id_no, 1, 6))))/10000) as "age"
+	    	, dept_name
+            , dept_no
+          from (
+	          	 select
+                        chart_no 
+	             	  , patient_name
+	                  , id_no
+	             	  , case 
+	              	 	     when substr(id_no, 8, 1) in ('1', '3') then '남'
+	              	  	     when substr(id_no, 8, 1) in ('2', '4') then '여'
+	              	    end "gender"
+                      , dept_name
+                      , enroll_date||' '||enroll_time as "enroll"
+                      , dept_no
+	          	   from clinic c
+                   join patient using(chart_no)
+                   join department using(dept_no)
+                  where status = 'W'
+   					<if test='deptNo != ""'>
+                    and dept_no = #{deptNo}
+        			</if>
+                  order
+                     by "enroll" asc
+	        )
+	</select>
+	
+	<select id="ajaxIngListDeptCondition" resultMap="clinicResult">	
+		select 
+              chart_no 
+	     	, patient_name
+            , "gender"
+	    	, trunc((to_number(to_char(sysdate, 'YYYYMMDD'))-to_number(to_char(decode(substr(id_no, 8, 1), '1', '19', '2', '19', '20')||substr(id_no, 1, 6))))/10000) as "age"
+	    	, dept_name
+            , dept_no
+          from (
+	          	 select
+                        chart_no 
+	             	  , patient_name
+	                  , id_no
+	             	  , case 
+	              	 	     when substr(id_no, 8, 1) in ('1', '3') then '남'
+	              	  	     when substr(id_no, 8, 1) in ('2', '4') then '여'
+	              	    end "gender"
+                      , dept_name
+                      , enroll_date||' '||enroll_time as "enroll"
+                      , dept_no
+	          	   from clinic c
+                   join patient using(chart_no)
+                   join department using(dept_no)
+                  where status = 'P'
+   					<if test='deptNo != ""'>
+                    and dept_no = #{deptNo}
+        			</if>
+                  order
+                     by "enroll" asc
+	        )
+	</select>
 </mapper>

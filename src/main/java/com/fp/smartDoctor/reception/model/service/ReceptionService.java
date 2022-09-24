@@ -103,4 +103,10 @@ public interface ReceptionService {
 	// 29. 환자 정보 변경
 	int updatePatient(Patient p);
 	
+	// 30. 선택한 과로 대기 리스트 조회
+	ArrayList<Clinic> ajaxWaitingListDeptCondition(String deptNo);
+	
+	// 31. 선택한 과로 진료중 리스트 조회
+	ArrayList<Clinic> ajaxIngListDeptCondition(String deptNo);
+	
 }

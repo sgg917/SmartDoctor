@@ -527,5 +527,37 @@ public class ReceptionController {
 			return "redirect:updatePage.pt?chartNo="+p.getChartNo();
 		}
 	}
+	
+	// 선택된 과로 대기 리스트 조회
+	@ResponseBody
+	@RequestMapping(value = "wlist.pt")
+	public Map<String, Object> returnWaitingMap(String deptNo) throws Exception {
+		
+		System.out.println(deptNo);
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		ArrayList<Clinic> wlist = rService.ajaxWaitingListDeptCondition(deptNo);
+
+		/* map.put(jsp에서 사용할 이름, 넘길 자바변수); */
+		map.put("wlist", wlist);
+
+		return map;
+	}
+	
+	// 선택된 과로 진료중 리스트 조회
+	@ResponseBody
+	@RequestMapping(value = "plist.pt")
+	public Map<String, Object> returnIngMap(String deptNo) throws Exception {
+		
+		System.out.println(deptNo);
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		ArrayList<Clinic> wlist = rService.ajaxIngListDeptCondition(deptNo);
+
+		/* map.put(jsp에서 사용할 이름, 넘길 자바변수); */
+		map.put("wlist", wlist);
+
+		return map;
+	}
 
 }
