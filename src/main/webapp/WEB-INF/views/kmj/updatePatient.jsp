@@ -118,7 +118,7 @@ input {
 							<table class="table" id="patientList">
 								<tr>
 									<td style="width:30%">이름</td>
-									<td><input style="border:none;" type="text" name="patientName" disabled value="${p.patientName }"></td>
+									<td><input type="text" name="patientName" value="${p.patientName }"></td>
 								</tr>
 								<tr>
 									<td>주민등록번호</td>
@@ -139,6 +139,14 @@ input {
 								<tr>
 									<td>메모</td>
 									<td><input type="text" name="memo" value="${p.memo }"></td>
+								</tr>
+								<tr>
+									<td>최초방문일</td>
+									<td><input style="border:none;" type="text" name="firstVisit" disabled value="${p.firstVisit }"></td>
+								</tr>
+								<tr>
+									<td>최근방문일</td>
+									<td><input style="border:none;" type="text" name="lastViset" disabled value="${p.lastVisit }"></td>
 								</tr>
 							</table>
 							<br>
