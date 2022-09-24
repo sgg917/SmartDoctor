@@ -119,7 +119,9 @@ th {
 		<div class="wrap112">
 
 			<input type="hidden" id="clinicNo" class="form-control" value="${ c.clinicNo }" name="clinicNo"> 
-			<input type="hidden" id="bookingNo" class="form-control" value="${ c.bookingNo }" name="bookingNo">
+			<input type="hidden" id="bookingNo" class="form-control" value="${ c.pbookingNo }" name="pbookingNo">
+			<input type="hidden" id="proomNo" class="form-control" value="${ c.proomNo }" name="proomNo">
+			
 			<br>
 			<h3>
 				<b>입원실 예약 조회</b>
@@ -144,7 +146,7 @@ th {
 						<tr>
 							<th>수진자명</th>
 							<td><input name="patientName" type="text" style="width: 300px;" readonly
-								value="${c.patientName }"></td>
+								value="박보검"></td>
 						</tr>
 						<tr>
 							<th>입원실</th>
@@ -165,13 +167,13 @@ th {
 						<tr>
 							<th>담당의</th>
 							<td><input type="text" style="width: 300px;" readOnly
-								value="${ c.docName }" name="docName"></td>
+								value="이익준" name="docName"></td>
 						</tr>
 						<tr>
 							<th>특이사항</th>
 							<td><textarea
 									style="width: 300px; height: 100px; resize: none;"
-									name="memo" readonly>${c.memo}</textarea></td>
+									name="memo" readonly>경과에 따라 입원 기간이 연장 될 있음</textarea></td>
 						</tr>
 
 

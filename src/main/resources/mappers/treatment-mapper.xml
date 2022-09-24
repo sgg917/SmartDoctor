@@ -160,6 +160,7 @@
 			 , surgery_date
 			 , textcolor
 			 , backgroundcolor
+			 , room_name
 		  from surgery_booking
 		 where surgery_status = 'R'
 
@@ -268,7 +269,7 @@
 			seq_sbno.nextval
 			, #{clinicNo}
 			, 'G-10080'
-			, seq_rca.nextval
+			, rca_seq.nextval
 			, #{roomName}
 			, #{surDate}
 			, #{surStartTime}
@@ -287,7 +288,6 @@
 		update surgery_booking
 		   set surgery_status = 'C'
 		 where booking_no = #{bookingNo}
-	
 	</update>
 	
 	<!-- 진료할 환자 조회 -->
@@ -396,6 +396,7 @@
 			 , leave_date
 			 , textcolor
 			 , backgroundcolor
+			 , proom_no
 		  from proom_booking
 		 where patient_status = 'Y'
 

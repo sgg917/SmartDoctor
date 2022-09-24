@@ -370,7 +370,7 @@ public class MessengerController {
 			result = milService.deleteMail(mailNo[i]);
 		}
 		
-		return "redirect:list.mil?currentPage=1&mailOwn=" + mailOwn;
+		return "redirect:dlist.mil?currentPage=1&mailOwn=" + mailOwn;
 	}  
 	
 	@RequestMapping("fdelete.mil")
@@ -381,7 +381,7 @@ public class MessengerController {
 			result = milService.foreverdeleteMail(mailNo[i]);
 		}
 		
-		return "redirect:list.mil?currentPage=1&mailOwn=" + mailOwn;
+		return "redirect:dlist.mil?currentPage=1&mailOwn=" + mailOwn;
 	}  
 	
 	
