@@ -171,7 +171,7 @@ input {
 						<table class="table">
 							<thead>
 								<tr>
-									<th width="20px"></th>
+									<th width="20px">전체 <input type='checkbox' id="selectAll" onclick='selectAll(this)' ></th>
 									<th width="85px">수납번호</th>
 									<th width="60px">이름</th>
 									<th width="50px">성별</th>
@@ -246,6 +246,16 @@ input {
 				}
 			});
 		}
+		
+		// 전체 체크
+		function selectAll(selectAll)  {
+			  const checkboxes 
+			       = document.getElementsByName('payNo');
+			  
+			  checkboxes.forEach((checkbox) => {
+			    checkbox.checked = selectAll.checked;
+			  })
+			}
 		</script>
 		<jsp:include page="../common/footer.jsp" />
 </body>
