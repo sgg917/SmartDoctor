@@ -188,7 +188,7 @@ input {
 							</tr>
 							<tr>
 								<td width="100">진료과</td>
-								<td><select name="deptNo" id="deptNo">
+								<td><select name="deptNo" id="deptNo" onchange="changeProfOptions(this)">
 										<option value="">선택</option>
 										<c:forEach var="d" items="${ deptList }">
 											<option value="${ d.deptNo }">${ d.deptName }</option>
@@ -199,7 +199,7 @@ input {
 									id="empNo">
 										<option value="">선택</option>
 										<c:forEach var="p" items="${ profList }">
-											<option value="${ p.empNo }">${ p.empName }</option>
+											<option class="${p.deptName}"  value="${ p.empNo }">${ p.empName }</option>
 										</c:forEach>
 								</select></td>
 							</tr>
@@ -374,6 +374,7 @@ input {
 						},
 						error : function() {
 							console.log("ajax통신 실패");
+							alert("인적정보 및 접수정보를 다시 확인해주세요.");
 						}
 					});
 				}
@@ -468,6 +469,68 @@ input {
 					var popupX = (window.screen.width / 2) - (popupWidth / 2);
 					var popupY= (window.screen.height / 2) - (popupHeight / 2);
 					window.open("selectList.pt", "popup",'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+				}
+				
+				// 선택한 과로만 의사 선택 가능
+				function changeProfOptions(deptNo){
+					
+					let selectDeptNo = $(deptNo).val();
+					
+					if(selectDeptNo == ""){
+						//console.log("선택안함");
+					}else if(selectDeptNo == 5){
+						$("select option[class*='일반외과']").prop('disabled',false);
+						$("select option[class*='일반외과']").removeClass("bggray");
+						
+						$("select option[class*='일반내과']").prop('disabled',true);
+						$("select option[class*='일반내과']").addClass("bggray");
+						
+						$("select option[class*='정신과']").prop('disabled',true);
+						$("select option[class*='정신과']").addClass("bggray");
+						
+						$("select option[class*='이비인후과']").prop('disabled',true);
+						$("select option[class*='이비인후과']").addClass("bggray");
+
+					}else if(selectDeptNo == 6){
+						$("select option[class*='일반외과']").prop('disabled',true);
+						$("select option[class*='일반외과']").addClass("bggray");
+						
+						$("select option[class*='일반내과']").prop('disabled',false);
+						$("select option[class*='일반내과']").removeClass("bggray");
+						
+						$("select option[class*='정신과']").prop('disabled',true);
+						$("select option[class*='정신과']").addClass("bggray");
+						
+						$("select option[class*='이비인후과']").prop('disabled',true);
+						$("select option[class*='이비인후과']").addClass("bggray");
+						
+					}else if(selectDeptNo == 7){
+						$("select option[class*='일반외과']").prop('disabled',true);
+						$("select option[class*='일반외과']").addClass("bggray");
+						
+						$("select option[class*='일반내과']").prop('disabled',true);
+						$("select option[class*='일반내과']").addClass("bggray");
+						
+						$("select option[class*='정신과']").prop('disabled',false);
+						$("select option[class*='정신과']").removeClass("bggray");
+						
+						$("select option[class*='이비인후과']").prop('disabled',true);
+						$("select option[class*='이비인후과']").addClass("bggray");
+						
+					}else if(selectDeptNo == 8){
+						$("select option[class*='일반외과']").prop('disabled',true);
+						$("select option[class*='일반외과']").addClass("bggray");
+						
+						$("select option[class*='일반내과']").prop('disabled',true);
+						$("select option[class*='일반내과']").addClass("bggray");
+						
+						$("select option[class*='정신과']").prop('disabled',true);
+						$("select option[class*='정신과']").addClass("bggray");
+						
+						$("select option[class*='이비인후과']").prop('disabled',false);
+						$("select option[class*='이비인후과']").removeClass("bggray");
+					}
+					
 				}
 				
 				
