@@ -364,7 +364,7 @@ img {
 			$(function() {
 				$("#patientList>tbody>tr").click(function() {
 					var popupWidth = 500;
-					var popupHeight = 588;
+					var popupHeight = 690;
 
 					var popupX = (window.screen.width / 2) - (popupWidth / 2);
 					var popupY= (window.screen.height / 2) - (popupHeight / 2);

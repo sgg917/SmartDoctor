@@ -345,7 +345,13 @@ public class ReceptionController {
 		
 		// 환자 정보 조회
 		Patient p = rService.selectPatient(chartNo);
-		System.out.println(p);
+		
+		String beforeFV = p.getFirstVisit();
+		p.setFirstVisit(beforeFV.substring(0, 11));
+		String beforeLV = p.getLastVisit();
+		p.setLastVisit(beforeLV.substring(0, 11));
+		
+		//System.out.println(p);
 		mv.addObject("p", p).setViewName("kmj/updatePatient");
 
 		return mv;
@@ -519,7 +525,7 @@ public class ReceptionController {
 		int result = rService.updatePatient(p);
 
 		if (result > 0) { // 성공 => alert, url 재요청
-			System.out.println("성공");
+			System.out.println("환자 정보 변경 성공");
 			session.setAttribute("alertMsg", "성공적으로 수정되었습니다.");
 			return "redirect:updatePage.pt?chartNo="+p.getChartNo();
 		}else {
@@ -533,7 +539,7 @@ public class ReceptionController {
 	@RequestMapping(value = "wlist.pt")
 	public Map<String, Object> returnWaitingMap(String deptNo) throws Exception {
 		
-		System.out.println(deptNo);
+		//System.out.println(deptNo);
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		ArrayList<Clinic> wlist = rService.ajaxWaitingListDeptCondition(deptNo);
@@ -549,7 +555,7 @@ public class ReceptionController {
 	@RequestMapping(value = "plist.pt")
 	public Map<String, Object> returnIngMap(String deptNo) throws Exception {
 		
-		System.out.println(deptNo);
+		//System.out.println(deptNo);
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		ArrayList<Clinic> wlist = rService.ajaxIngListDeptCondition(deptNo);
