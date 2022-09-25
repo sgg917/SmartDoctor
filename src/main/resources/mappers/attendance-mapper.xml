@@ -233,7 +233,7 @@
 		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
 	</select>
 	
-	<!-- ` 여부 -->
+	<!-- 퇴근 여부 -->
 	<select id="selectEndTime" resultType="String">
 		select
 		       end_time
@@ -321,6 +321,7 @@
 		 where v.emp_no = #{empNo}
 	</select>
 	
+	<!-- 근태 정보 수정 -->
 	<update id="updateAttendance">
 		update attendance
 		   set status = #{status}
@@ -333,6 +334,7 @@
 		   and att_date = #{attDate}
 	</update>
 	
+	<!-- 전사 근태 검색 수 -->
 	<select id="ajaxSearchAttListCount" resultType="_int">
 		SELECT COUNT(*)
 		  FROM (
@@ -375,7 +377,6 @@
 		                ) C ON (ATT_DATE = WORKING_DAY AND A.EMP_NO = C.EMP_NO)
 		     WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
 		       AND WEEK IN ('월', '화', '수', '목', '금')
-		       AND NVL(TO_DATE(ATT_DATE), TO_DATE(WORKING_DAY)) BETWEEN TO_DATE('2022-09-01') AND TO_DATE('2022-09-15')
 		       AND NVL(A.STATUS, '결근') IN ('정상', '지각', '결근', '휴가')
 		   <choose>
 		   	<when test="type == 'dept_name'">
@@ -389,6 +390,7 @@
 		 	)
 	</select>
 	
+	<!-- 전사 근태 검색 -->
 	<select id="ajaxSearchAttendance" resultMap="attendanceResult">
 		SELECT
 	           NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "ATT_DATE"
@@ -429,7 +431,6 @@
 	                ) C ON (ATT_DATE = WORKING_DAY AND A.EMP_NO = C.EMP_NO)
 	     WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
 	       AND WEEK IN ('월', '화', '수', '목', '금')
-	       AND NVL(TO_DATE(ATT_DATE), TO_DATE(WORKING_DAY)) BETWEEN TO_DATE('2022-09-01') AND TO_DATE('2022-09-15')
 	       AND NVL(A.STATUS, '결근') IN ('정상', '지각', '결근', '휴가')
 	   <choose>
 	   	<when test="type == 'dept_name'">
