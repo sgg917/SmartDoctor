@@ -97,9 +97,9 @@ content="width=device-width, initial-scale=1, shrink-to-fit=no">
             </li>
             <!-- 채팅아이콘 -->
             <li class="nav-item d-none d-lg-block full-screen-link" style="cursor:pointer;" >
-              <a class="nav-link" href="chatPage.ch"> 
-                <i class="mdi mdi-comment-processing-outline" id="fullscreen-button" ></i>
-              </a>
+              <button class="nav-link" onclick="window.open('chatview.do','chatview','_blank');" style="background-color:white; border:0px;"> 
+                <i class="mdi mdi-comment-processing-outline" id="fullscreen-button"  ></i>
+              </button>
             </li>
             <!-- 메일 아이콘 -->
             <li class="nav-item dropdown">
@@ -379,7 +379,7 @@ content="width=device-width, initial-scale=1, shrink-to-fit=no">
                     <!--<li class="nav-item"> <a class="nav-link" href="">임시메일함</a></li>-->
                     <li class="nav-item"> <a class="nav-link" href="ilist.mil?currentPage=1&mailOwn=${loginUser.empNo }">중요보관함</a></li>
                     <li class="nav-item"> <a class="nav-link" href="dlist.mil?currentPage=1&mailOwn=${loginUser.empNo }">휴지통</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">주소록</a></li>
+                    <!--  <li class="nav-item"> <a class="nav-link" href="">주소록</a></li>-->
                 </ul>
               </div>
             </li>

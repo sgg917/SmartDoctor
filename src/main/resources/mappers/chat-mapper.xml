@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chatMapper">
+	
+	<resultMap type="Member" id="memberResultSet">
+		
+		<result column="emp_no" property="empNo" />
+		<result column="emp_name" property="empName" />
+		<result column="emp_pwd" property="empPwd" />
+		<result column="phone" property="phone" />
+		<result column="email" property="email" />
+		<result column="profile_originname" property="originName" />
+		<result column="profile_path" property="path" />
+		<result column="status" property="status" />
+		<result column="vac_all" property="vacAll" />
+		<result column="job_no" property="jobNo" />
+		<result column="dept_no" property="deptNo" />
+		<result column="job_name" property="jobName" />
+		<result column="dept_name" property="deptName" />
+		<result column="chat_yn" property="out_yn"/>
+	</resultMap>
+	
+	
+	
+	<resultMap type="Chat" id="chatResultSet">
+		<result property="id" column="ID"/>
+		<result property="id2" column="ID2"/>
+		<result property="co_no" column="CO_NO"/>
+		<result property="ol_no" column="OL_NO"/>
+		<result property="ol_cont" column="OL_CONT"/>
+		<result property="ol_date" column="OL_DATE"/>
+		<result property="rename_file" column="RENAME_FILE"/>
+		<result property="name" column="NAME"/>
+		<result property="count" column="COUNT"/>
+		<result property="ol_yn" column="OL_YN"/>
+		<result property="ol_img" column="OL_IMG"/>
+	</resultMap>
+	
+	<resultMap type="openChat" id="openChatRoomResultSet">
+		<result property="cm_no" column="CM_NO"/>
+		<result property="cm_title" column="CM_TITLE"/>
+		<result property="cm_pwd" column="CM_PWD"/>
+		<result property="cm_max" column="CM_MAX"/>
+		<result property="cm_cot" column="CM_COT"/>
+		<result property="cm_con" column="CM_CON"/>
+		<result property="cm_id" column="CM_ID"/>
+		<result property="ml_no" column="ML_NO"/>
+		<result property="id" column="ID"/>
+		<result property="ml_cont" column="ML_CONT"/>
+		<result property="ml_date" column="ML_DATE"/>
+		<result property="rename_file" column="RENAME_FILE"/>
+		<result property="nickname" column="NICKNAME"/>
+	</resultMap>
+<select id="selectfriendName" parameterType="string" resultType="string">
+	SELECT EMP_NAME
+	FROM MEMBER
+	WHERE EMP_NO=#{loginUser.empNO}
+</select>
+
+<select id="selectMember" parameterType="map" resultMap="memberResultSet">
+<!-- 
+	SELECT *
+	FROM MEMBER
+	WHERE NAME = #{name}
+	 -->
+	SELECT *
+	FROM MEMBER
+</select>
+
+
+
+<insert id="insertFriendList" parameterType="hashmap">
+	INSERT INTO FRIEND_LIST
+	VALUES(SEQ_FL.NEXTVAL
+			,#{loginUser.EmpNo}
+			,#{friend_id}
+			,DEFAULT)
+</insert>
+
+<select id="selectFriend" resultType="string" resultMap="memberResultSet">
+	SELECT M.*
+	FROM FRIEND_LIST FL
+	JOIN MEMBER M ON (FL.FL_ID = M.EMP_NO)
+	WHERE FL.ID= #{id}
+</select>
+
+<select id="selectChatOnetoOne" resultType="hashmap" resultMap="chatResultSet">
+	SELECT *
+	FROM CHAT_ONETOONE
+	WHERE ID IN(#{id},#{friendId})
+	AND   ID2 IN(#{id},#{friendId})
+</select>
+<insert id="insertChatOneToOne" parameterType="hashmap">
+INSERT INTO CHAT_ONETOONE
+		VALUES(SEQ_CO.NEXTVAL
+			   ,#{id}
+			   ,#{friendId})
+        
+</insert>
+
+<insert id="insertChatmsg" parameterType="hashmap">
+	INSERT INTO ONETOONE_LIST
+		VALUES(SEQ_OL.NEXTVAL
+				,#{co_no}
+				,#{id}
+				,#{message}
+				,SYSDATE
+				,#{yn}
+				,NULL)
+</insert>
+
+<insert id="insertChatmsg2" parameterType="hashmap">
+	INSERT INTO ONETOONE_LIST
+		VALUES(SEQ_OL.NEXTVAL
+				,#{co_no}
+				,#{id}
+				,#{message}
+				,SYSDATE
+				,#{yn}
+				,#{img})
+</insert>
+<select id="selectcount" resultMap="chatResultSet">
+    SELECT ID ,CO_NO,COUNT(OL_YN) COUNT
+    FROM ONETOONE_LIST
+    WHERE OL_YN='N'
+    GROUP BY CO_NO,ID
+    ORDER BY CO_NO
+</select>
+<select id="selectchatroom" parameterType="string" resultMap="chatResultSet">
+		
+		    SELECT CO.CO_NO ,CO.ID2 ,M.EMP_NAME, OL.OL_CONT
+			FROM CHAT_ONETOONE CO
+		    JOIN MEMBER M ON(CO.ID2 = M.EMP_NO)
+             JOIN ONETOONE_LIST OL ON(OL.CO_NO = CO.CO_NO)
+			WHERE CO.ID2 != 'admin' AND CO.ID = #{id} AND OL.OL_NO IN(
+                                                SELECT MAX(OL_NO)
+                                                FROM ONETOONE_LIST
+                                                GROUP BY CO_NO
+                                                )
+    ORDER BY CO.CO_NO
+</select>
+
+<select id="selectchatroom2" parameterType="string" resultMap="chatResultSet">
+	 SELECT CO.CO_NO ,CO.ID ,M.EMP_NAME, OL.OL_CONT
+	FROM CHAT_ONETOONE CO
+    JOIN MEMBER M ON(CO.ID = M.EMP_NO)
+    JOIN ONETOONE_LIST OL ON(OL.CO_NO = CO.CO_NO)
+	WHERE CO.ID2 = #{id} AND OL.OL_NO IN(
+                                                SELECT MAX(OL_NO)
+                                                FROM ONETOONE_LIST
+                                                GROUP BY CO_NO
+                                                )
+    ORDER BY CO.CO_NO
+</select>
+
+<select id="selectOnechatroom" parameterType="string" resultMap="chatResultSet">
+	SELECT *
+	FROM CHAT_ONETOONE
+	WHERE CO_NO= #{co_no}
+</select>
+
+<insert id="openchatroominsert" parameterType="openChat">
+	INSERT INTO CHAT_MULTI
+		VALUES(SEQ_CM.NEXTVAL
+				,#{cm_title}
+				,#{cm_pwd}
+				,#{cm_max}
+				,0
+				,#{cm_con}
+				,#{cm_id})
+</insert>
+
+<select id="selectopenchatroom" parameterType="openChat" resultType="int">
+	SELECT CM_NO
+	FROM CHAT_MULTI
+	WHERE CM_TITLE=#{cm_title} 
+		AND CM_ID=#{cm_id}
+		AND CM_CON=#{cm_con} 
+</select>
+
+<select id="selectopenchatroomdetail" parameterType="int" resultMap="openChatRoomResultSet">
+
+	SELECT *
+	FROM CHAT_MULTI
+	WHERE CM_NO=#{cm_no}
+</select>
+
+<insert id="insertOpenChatmsg" parameterType="hashmap">
+	INSERT INTO MULTICHAT_LIST
+	VALUES(SEQ_ML.NEXTVAL
+			,#{cm_no}
+			,#{id}
+			,#{message}
+			,SYSDATE)
+</insert>
+
+<select id="selectopenchatroomlist" resultMap="openChatRoomResultSet">
+	SELECT * 
+	FROM CHAT_MULTI
+	ORDER BY CM_NO
+</select>
+
+<select id="selectchatlist" parameterType="int" resultMap="openChatRoomResultSet">
+	SELECT ML.ML_NO, ML.CM_NO, ML.ID, ML.ML_CONT ,ML.ML_DATE
+	FROM MULTICHAT_LIST ML
+    JOIN MEMBER M ON(ML.ID = M.EMP_NO)
+    WHERE CM_NO = #{cm_no}
+	ORDER BY ML_DATE
+</select>
+
+<select id="passwordcheck" parameterType="hashmap" resultMap="openChatRoomResultSet">
+	SELECT *
+	FROM CHAT_MULTI
+	WHERE CM_NO=#{cm_no}
+			AND CM_PWD=#{pwd}
+</select>
+
+<update id="openchatroomOut" parameterType="map">
+	UPDATE CHAT_MULTI
+	SET CM_COT= CM_COT-1
+	WHERE CM_NO= #{cm_no}
+</update>
+
+<update id="joinchatroom" parameterType="map">
+	UPDATE CHAT_MULTI
+	SET CM_COT= CM_COT+1
+	WHERE CM_NO= #{cm_no}
+</update>
+
+<delete id="deletefriend" parameterType="hashmap">
+	DELETE
+	FROM FRIEND_LIST
+	WHERE  ID=#{id}
+		 AND FL_ID=#{friendid}
+
+</delete>
+
+<select id="recommendList" parameterType="string" resultMap="memberResultSet">
+	SELECT  M.*
+	FROM FRIEND_LIST FL
+	JOIN MEMBER M ON (FL.ID = M.EMP_NO)
+	WHERE  FL.FL_ID = #{id}
+	     AND FL.ID NOT IN (SELECT FL_ID
+	                        FROM FRIEND_LIST
+	                        WHERE ID=#{id}
+	        )
+
+</select>
+
+<update id="chatReadCheck" parameterType="map">
+	UPDATE ONETOONE_LIST
+	SET OL_YN = 'Y'
+	WHERE CO_NO= #{co_no}
+			AND OL_YN = 'N'
+			  AND ID != #{id}
+</update>
+<select id="selectOneToOnechatlist" parameterType="int" resultMap="chatResultSet">
+		SELECT OL.OL_NO, OL.CO_NO, OL.ID, OL.OL_CONT, OL.OL_DATE, OL.OL_YN, M.EMP_NAME,OL.OL_YN,OL.OL_IMG
+		FROM ONETOONE_LIST OL
+		JOIN MEMBER M ON(OL.ID = M.EMP_NO)
+		WHERE CO_NO=#{co_no}
+		ORDER BY OL.OL_NO ASC
+</select>
+
+<select id="selectMyChatRoomNo" parameterType="string" resultMap="chatResultSet">
+    SELECT CO_NO, ID
+    FROM CHAT_ONETOONE
+    WHERE ID=#{loginUserid}
+     
+     UNION ALL
+     
+    SELECT CO_NO, ID2
+    FROM CHAT_ONETOONE
+    WHERE ID2=#{loginUserid}
+
+</select>
+<insert id="insertreport" parameterType="hashmap">
+	INSERT INTO REPORT
+	VALUES(SEQ_RP.NEXTVAL
+			,#{id}
+			,#{chatid}
+			,SYSDATE
+			,#{option}
+			,#{content}
+			,1
+			,NULL
+			,0)
+</insert>
+<delete id="deleteopenchatroom">
+	DELETE
+	FROM CHAT_MULTI
+	WHERE CM_NO=#{cm_no}
+</delete>
+<delete id="deleteopenchatlist">
+	DELETE
+	FROM MULTICHAT_LIST
+	WHERE CM_NO=#{cm_no}
+</delete>
+
+<select id="selectmanagerchat" parameterType="string" resultMap="chatResultSet">
+	SELECT *
+	FROM CHAT_ONETOONE
+	WHERE ID=#{user}
+		AND ID2='admin'
+</select>
+
+<insert id="insertmanagerchat" parameterType="string">
+INSERT INTO CHAT_ONETOONE
+		VALUES(SEQ_CO.NEXTVAL
+			   ,#{user}
+			   ,'admin')
+</insert>
+
+<select id="selectreportchk" parameterType="string" resultType="string">
+SELECT CHAT_YN
+FROM MEMBER
+WHERE EMP_NO=#{user}
+</select>
+
+<select id="unreadcount" parameterType="string" resultType="_int">
+	SELECT COUNT(OL.OL_YN)
+	FROM CHAT_ONETOONE CO
+	JOIN ONETOONE_LIST OL ON( CO.CO_NO = OL.CO_NO)
+	WHERE (CO.ID=#{loginUser.empNo} OR CO.ID2=#{loginUser.empNo} )AND CO.ID2 !='admin' 
+	        AND OL.OL_YN ='N' AND OL.ID != #{loginUser.empNo}
+</select>
+</mapper>
+

@@ -47,6 +47,53 @@
 		<result column="dept_name" property="deptName" />
 	</resultMap>
 	
+	<!-- 채팅 
+	<resultMap id="chatMemResult" type="ChatMem">
+		<result column="mymem_no" property="myMemNo"/>	
+		<result column="comem_no" property="coMemNo"/>	
+		<result column="del_status" property="delStatus"/>	
+		<result column="my_img_path" property="myImgPath"/>	
+		<result column="co_img_path" property="coImgPath"/>	
+		<result column="my_name_and_rank" property="myNameAndRank"/>	
+		<result column="co_name_and_rank" property="coNameAndRank"/>	
+		<result column="room_no" property="roomNo"/>	
+	</resultMap>
+	
+	<resultMap id="chatroomResult" type="ChatRoom">
+		<result column="room_no" property="roomNo"/>	
+		<result column="room_name" property="roomName"/>	
+		<result column="create_date" property="createDate"/>	
+		<result column="update_date" property="updateDate"/>	
+		<result column="group_status" property="groupStatus"/>	
+		<result column="chat_content" property="lastChatContent"/>	
+		<result column="chat_date" property="lastChatDate"/>	
+		<result column="unread_count" property="unreadChatCount"/>	
+		<collection property="memList" ofType="com.fp.smartDoctor.member.model.vo.Member">
+			<result column="emp_no" property="memNo"/>	
+			<result column="path" property="path"/>	
+		</collection>
+	</resultMap>
+	
+	<resultMap id="chatdayFormatResult" type="ChatDayFormat">
+		<result column="daily_basic" property="dailyBasic"/>	
+		<result column="formatted_date" property="formattedDate"/>	
+		
+		<collection property="chatList" ofType="com.fp.smartDoctor.messenger.model.vo.ChatLog">
+			<result column="chatlog_no" property="chatlogNo"/>	
+			<result column="mem_no" property="memNo"/>	
+			<result column="name_and_rank" property="nameAndRank"/>	
+			<result column="room_no" property="roomNo"/>	
+			<result column="chat_content" property="chatContent"/>	
+			<result column="chat_time" property="chatDate"/>	
+			<result column="path" property="path"/>				
+		</collection>
+	</resultMap>
+	-->
+	
+	
+	
+	
+	
 	
 	
 	<!-- 받은 메일 -->
@@ -537,5 +584,8 @@
 		 </choose>
 		order by emp_name		 
 	</select>
+	
+	
+	<!-- 채팅 -->
 	
 </mapper>

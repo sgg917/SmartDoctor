@@ -275,7 +275,7 @@
 			
 			<div style="height:10px;"></div>
 			<!-- 메일 목록 -->
-			<table class="boardTable mailTable">
+			<table class="boardTable mailTable" style="border:0px solid white;">
 				<thead>
 					<tr>
 						<th width="80">

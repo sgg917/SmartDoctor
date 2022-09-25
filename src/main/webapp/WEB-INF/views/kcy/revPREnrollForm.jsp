@@ -280,7 +280,7 @@ th {
 					let data = [];/* 내가 넘겨주고자 하는 값을 리스트로 다시 담아줘야함! */
 					for (let i = 0; i < list.length; i++) {
 						let obj = {
-							title : list[i].pbookingNo,
+							title : list[i].proomNo+'호',
 							start : list[i].enterDate,
 							end : list[i].leaveDate,
 							textColor : list[i].textColor,

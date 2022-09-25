@@ -330,7 +330,7 @@ public class AttendanceController {
 	@RequestMapping(value="allSearch.att", produces="application/json; charset=utf-8")
 	public String ajaxSearchAllAttendance(int cpage, String type, String keyword) {
 		
-		System.out.println("type:" + type + ", keyword:" + keyword);
+		//System.out.println("type:" + type + ", keyword:" + keyword);
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("type", type);
 		hm.put("keyword", keyword);

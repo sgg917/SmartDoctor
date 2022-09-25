@@ -34,13 +34,13 @@ public class MemberController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	
-	
+	// 로그인 화면 호출
 	@RequestMapping("login.me")
 	public String loginMember() {
 		return "ljy/loginMember";
 	}
 	
-	
+	// 로그인
 	@RequestMapping("enter.me")
 	public ModelAndView loginMember(Member m, HttpSession session, ModelAndView mv) {
 		
@@ -52,25 +52,28 @@ public class MemberController {
 			mv.setViewName("main");
 		} else {
 			System.out.println("로그인 실패");
-			mv.addObject("errorMsg", "로그인 실패");
-			mv.setViewName("common/errorPage");
+			session.setAttribute("alertMsg", "아이디와 비밀번호를 다시 확인해주세요!");
+			
 		}
 
 		return mv;
 		
 	}
 	
+	// 로그아웃
 	@RequestMapping("logout.me")
 	public String logoutMember(HttpSession session) {
 		session.invalidate();
 		return "ljy/loginMember";
 	}
 	
+	// 비밀번호 변경 화면 호출
 	@RequestMapping("changePwd.me")
 	public String changePwd() {
 		return "ljy/changePwd";
 	}
 	
+	// 비밀번호 변경
 	@RequestMapping("updatePwd.me")
 	public String updatePwd(Member m, String updatePwd, HttpSession session) {
 		
@@ -82,7 +85,7 @@ public class MemberController {
 			if(result > 0) { //비밀번호 변경 성공
 				session.setAttribute("loginUser", mService.loginMember(m));
 				session.setAttribute("alertMsg", "비밀번호 변경 성공!");
-				return "redirect:/";
+				return "main";
 				
 			}else { //비밀번호 변경실패
 				System.out.println("비밀번호변경실패");
@@ -184,12 +187,12 @@ public class MemberController {
 				if(result2 > 0) {
 					// 관리자 승격 성공
 					session.setAttribute("alertMsg", "관리자로 가입되었습니다.");
-					return "redirect:/";
+					return "main";
 				}
 			}
 			
 			session.setAttribute("alertMsg", "성공적으로 가입되었습니다.");
-			return "redirect:/";
+			return "main";
 		}else {
 			session.setAttribute("errorMsg", "가입 실패");
 			return "ljy/memberEnrollForm";

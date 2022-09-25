@@ -3,9 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd">
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<annotation-driven />
@@ -50,17 +53,48 @@
 		<beans:property name="maxUploadSize" value="10000000" />
 	</beans:bean>
 	
-	<!-- 웹소켓 핸들러
+	<!--  웹소켓 핸들러
 	<websocket:handlers>
 		<websocket:mapping handler="echoHandler" path="/echo" />
-		<websocket:handshake-interceptors>
-			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></beans:bean>
-		</websocket:handshake-interceptors>
+			<websocket:handshake-interceptors>
+			<beans:bean
+				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+			</websocket:handshake-interceptors>
+		<websocket:sockjs />
 	</websocket:handlers>
     
-	<beans:bean id="echoHandler" class="com.fp.smartDoctor.chat.controller.EchoHandler"></beans:bean>
-	
+	<beans:bean id="echoHandler" class="com.fp.smartDoctor.messenger.model.vo.EchoHandler"></beans:bean>
 	 -->
+	 
+	<websocket:handlers allowed-origins="http://192.168.0.13:8889, http://localhost:8889">
+		<websocket:mapping handler="openChatHandler" path="/echoroom"/>
+		<websocket:mapping handler="oneToOneChatHandler" path="/echo"/>
+		<websocket:mapping handler="oneToOneChatlistHandler" path="/echolist"/>
+		<websocket:mapping handler="chatAllCountHandler" path="/allcountecho"/>
+		<websocket:handshake-interceptors>
+			<beans:bean
+				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+		<websocket:sockjs/>
+	</websocket:handlers>
+	
+	<beans:bean id="oneToOneChatHandler"
+		class="com.fp.smartDoctor.chat.handler.oneToOneChatHandler"/>
+	
+	<beans:bean id="openChatHandler"
+		class="com.fp.smartDoctor.chat.handler.openChatHandler">
+	</beans:bean>
+	
+	<beans:bean id="oneToOneChatlistHandler"
+		class="com.fp.smartDoctor.chat.handler.oneToOneChatlistHandler">
+	</beans:bean>
+	
+	<beans:bean id="chatAllCountHandler"
+		class="com.fp.smartDoctor.chat.handler.UnreadChatCountHandler">
+	</beans:bean>
+	
+	
+	
 	
 	
 	

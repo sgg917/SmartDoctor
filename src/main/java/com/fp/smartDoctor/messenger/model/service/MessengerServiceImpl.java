@@ -1,10 +1,12 @@
 package com.fp.smartDoctor.messenger.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Member;
@@ -188,4 +190,12 @@ public class MessengerServiceImpl implements MessengerService {
 	public ArrayList<Member> selectEmpListSearch(Search search) {
 		return mDao.selectEmpListSearch(sqlSession, search);
 	}
+	
+	
+	
+	
+	//---------------------------------------------------채팅
+
+	
+
 }

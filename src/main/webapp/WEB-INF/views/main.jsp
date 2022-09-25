@@ -70,10 +70,13 @@
 		<!--팝업배너 끝-->
 
 		<jsp:include page="common/navbar.jsp" />
-
+		
 		<div class="main-panel">
 			<div class="content-wrapper">
-				<!-- 이 안에서 작업해 주세요 -->
+				
+
+
+
 
 				<!-- 내원 환자 수 카드 -->
 				<div class="row" id="patientCountArea">

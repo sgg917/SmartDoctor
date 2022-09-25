@@ -39,7 +39,9 @@
 		<typeAlias type="com.fp.smartDoctor.reception.model.vo.Receipt" alias="Receipt"/>
 		<typeAlias type="com.fp.smartDoctor.reception.model.vo.ProomCalendar" alias="ProomCalendar"/>
 		
-	
+		<typeAlias type="com.fp.smartDoctor.chat.model.vo.Chat" alias="Chat"/>
+		<typeAlias type="com.fp.smartDoctor.chat.model.vo.openChat" alias="openChat"/>
+		
 		
 		
 	</typeAliases>
@@ -62,6 +64,7 @@
 	 	<mapper resource="/mappers/treatment-mapper.xml"/>
 	 	<mapper resource="/mappers/notice-mapper.xml"/>
 	 	<mapper resource="/mappers/reception-mapper.xml"/>
+	 	<mapper resource="/mappers/chat-mapper.xml"/>
 	 	
 	 </mappers>
 </configuration>

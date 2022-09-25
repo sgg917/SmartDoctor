@@ -173,6 +173,7 @@
 				<table class="bas">
 					<tr>
 						<td id="leftArea">
+							<button class="smallBtn listBtn" type="button" onclick="location.href='list.mil?currentPage=1&mailOwn=${loginUser.empNo}'">목록</button>
 							<button class="smallBtn takeReplyBtn">답장</button>&nbsp;
 							<button class="smallBtn takeTransBtn" style="background:gray;">전달</button>&nbsp;
 							<button class="smallBtn takeManyBtn" style="background:rgb(190, 190, 190);">삭제</button>
@@ -212,23 +213,11 @@
 				</table>
 					</div>
 				</div>
-				
-				<div class="mailContentZone">
-				
-				<div style="height:1px;"></div>
-				<hr>
-				<div class="onlyContent">
-					<pre class="contentPre" name="mailContent">${e.mailContent }</pre>
-				</div>
-				<div style="height:1px;"></div>
-				<hr>
-				</div>
-				
 				<div class="mailAttachFile">
 					<table class="fileTable">
 						<tr>
 							<td width="100">
-								<b class="fileShow">첨부파일</b>
+								<b class="fileShow">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 첨부파일</b>
 							</td>
 							<td>
 								<img class="fileShow"src="resources/images/save_alt.png" style="transform:translate(0,-2px) scale(0.5);" class="bigBtn fileShow">
@@ -241,6 +230,7 @@
 										
 								            <table id="fileListTable" width="100%" border="0px">
 								                <tbody id="fileTableTbody">
+								               
 								                </tbody>
 								            </table>
 								        
@@ -249,11 +239,21 @@
 					</table>
 					<br><br>
 				</div>
+				<div class="mailContentZone">
+				
+				<div style="height:1px;"></div>
+				<hr>
+				<div class="onlyContent">
+					<pre class="contentPre" name="mailContent">${e.mailContent }</pre>
+				</div>
+				<div style="height:1px;"></div>
+				<hr>
+				</div>
+				
+				
 			</div>
 			<br><br>
-			<div id="btnArea">
-				<button class="bigBtn listBtn" type="button" onclick="location.href='list.mil?currentPage=1&mailOwn=${loginUser.empNo}'">목록</button>
-			</div>
+			
 			
 			<br><br><br><br>
 		</div>
