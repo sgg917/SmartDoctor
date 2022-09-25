@@ -43,8 +43,8 @@
 						</div>
 						<div class="row mt-5">
 							<div class="col-12 text-center mt-xl-2">
-								<a class="text-white font-weight-medium" href="../../index.html">돌아가기</a>
-							</div>
+								<a class="text-white font-weight-medium" onclick="history.back()" href="#">돌아가기</a>
+							</div><!-- href="../../index.html" -->
 						</div>
 						<div class="row mt-5">
 							<div class="col-12 mt-xl-2">

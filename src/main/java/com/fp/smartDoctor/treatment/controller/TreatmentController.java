@@ -361,7 +361,7 @@ public class TreatmentController {
 		
 		if(clinicResult > 0 && preResult > 0 && pResult >= 0 && updateResult > 0) {
 			
-			System.out.println("1차성공");
+			//System.out.println("1차성공");
 			
 			//System.out.println(pre.getPreMedList()); // 입력한 약 list 보기
 			
