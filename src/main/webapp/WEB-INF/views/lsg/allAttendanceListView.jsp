@@ -287,7 +287,7 @@ th {
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="endTime" class="col-sm-3 col-form-label">출근시간</label>
+								<label for="endTime" class="col-sm-3 col-form-label">퇴근시간</label>
 								<div class="col-sm-9">
 									<input type="time" class="form-control" id="endTime" name="endTime">
 								</div>

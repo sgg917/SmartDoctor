@@ -217,6 +217,7 @@ public class AttendanceController {
 		return mv;
 	}
 	
+	// 전사 휴가리스트
 	@RequestMapping("allList.vac")
 	public ModelAndView selectAllVacationList(@RequestParam(value="cpage", defaultValue="1")int cpage, ModelAndView mv) {
 		
