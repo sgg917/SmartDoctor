@@ -66,7 +66,7 @@
 	<beans:bean id="echoHandler" class="com.fp.smartDoctor.messenger.model.vo.EchoHandler"></beans:bean>
 	 -->
 	 
-	<websocket:handlers allowed-origins="http://192.168.0.13:8889, http://localhost:8889">
+	<websocket:handlers allowed-origins="http://192.168.0.13:8889, http://localhost:8889, http://192.168.9.7:8889">
 		<websocket:mapping handler="openChatHandler" path="/echoroom"/>
 		<websocket:mapping handler="oneToOneChatHandler" path="/echo"/>
 		<websocket:mapping handler="oneToOneChatlistHandler" path="/echolist"/>

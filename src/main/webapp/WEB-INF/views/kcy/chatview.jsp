@@ -357,11 +357,6 @@
 							question_answer
 						</span>
 					</button>
-					<button type="button" class="deletebtn"style="outline:none;">
-						<span class="material-icons minus">
-							remove_circle_outline
-						</span>
-					</button>
 			    	<input type="hidden" name="userid" value="${fl.empNo}" class="userid">
 			    	<input type="hidden" name="username" value="${fl.empName}" class="username">
 		    	</div>
