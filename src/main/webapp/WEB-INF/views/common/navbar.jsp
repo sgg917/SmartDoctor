@@ -71,8 +71,8 @@ content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo goodeelogo" href="index.jsp"><img src="resources/images/logo.png" alt="logo" style="width:250px; height:57px;"/></a>
-          <a class="navbar-brand brand-logo-mini" href="index.jsp"><img src="resources/images/favicon2.jpg" alt="logo" /></a>
+          <a class="navbar-brand brand-logo goodeelogo" href="home.jy"><img src="resources/images/logo.png" alt="logo" style="width:250px; height:57px;"/></a>
+          <a class="navbar-brand brand-logo-mini" href="home.jy"><img src="resources/images/favicon2.jpg" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -289,7 +289,7 @@ content="width=device-width, initial-scale=1, shrink-to-fit=no">
               </a>
               <div class="collapse" id="numberone">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">진료 대기</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="waiting.pt">진료 대기</a></li>
                   <c:if test="${ loginUser.jobNo eq '2' }">
                   	<li class="nav-item"> <a class="nav-link" href="enroll.tmt">진료 입력</a></li>
                   </c:if>
@@ -342,7 +342,6 @@ content="width=device-width, initial-scale=1, shrink-to-fit=no">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="apprEnrollForm.si">결재문 작성</a></li>
                   <li class="nav-item"> <a class="nav-link" href="apprStandbyList.si">결재대기 문서</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">결재예정 문서</a></li>
                   <li class="nav-item"> <a class="nav-link" href="apprReportList.si">기안문서함</a></li>
                   <li class="nav-item"> <a class="nav-link" href="apprGetList.si">결재문서함</a></li>
                   <li class="nav-item"> <a class="nav-link" href="apprReferList.si">참조문서함</a></li>

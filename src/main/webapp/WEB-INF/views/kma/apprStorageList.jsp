@@ -6,6 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>임시저장함</title>
+<style>
+    #appr-all-table>tbody>tr:hover{
+		cursor: pointer;
+    }
+</style>
 </head>
 <body>
 	<jsp:include page="../common/navbar.jsp" />

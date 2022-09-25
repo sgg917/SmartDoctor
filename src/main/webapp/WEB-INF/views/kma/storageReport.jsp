@@ -106,7 +106,7 @@
 	}
 	.appr-line-div{
 		width:500px; 
-		height:150px; 
+		height:145px; 
 		border: 1px solid #DFDFDF;
 	}
 	.appr-line-div>button{
@@ -494,11 +494,11 @@
 				$("input[name=apprTotal]").attr('value', apprTotal); // 총결재자수
 				
 				$("#apprLine").children(".ap-md-bd").each(function(index, item){ // 결재자들 
-					$("#insertAppr").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='lineList[" + index + "].empNo'>")
+					$("#insertAppr").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='lineList[" + index + "].empNo'>");
 				})
 				
 				$("#apprRef").children(".ap-md-bd").each(function(index, item){ // 참조자들
-					$("#insertAppr").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='RefList[" + index + "].empNo'>")
+					$("#insertAppr").append("<input type='hidden' value='" + $(item).children('.empId').text() + "' name='RefList[" + index + "].empNo'>");
 				})
 				
 			})	

@@ -22,7 +22,7 @@
 					<br>
 					<div class="appr-table-wrapper" style="margin-left:30px;">
 					
-						<button type="button" class="btn btn-success appr-write-btn" 
+						<button type="button" class="btn appr-write-btn" 
                                 data-bs-toggle="modal" data-bs-target="#apprModal" width="80px">
                           <i class="mdi mdi-check" style="color:white;"></i>&nbsp;
                           <span>결재하기</span>
@@ -289,7 +289,7 @@
 	                 <button type="button" class="btn btn-success btn-sm" 
 	                 		 style="background:RGB(29, 92, 99); color:white;" onclick="postFormSubmit('endApprove.si');">전결</button>
 	                 <button type="button" class="btn btn-success btn-sm" 
-	                 		 style="background:RGB(29, 92, 99); color:white;" onclick="postFormSubmit('Approve.si');">결재</button>
+	                 		 style="background:RGB(29, 92, 99); color:white;" onclick="postFormSubmit('approve.si');">결재</button>
 	               </div>
                </form>
              </div>

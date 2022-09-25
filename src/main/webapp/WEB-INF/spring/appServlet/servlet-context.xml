@@ -114,6 +114,10 @@
 			<mapping path="/allList.att"/>
 			<mapping path="/allList.vac"/>
 			<mapping path="/adOrgChart.me"/>
+			<mapping path="/changePwd.me"/>
+			<mapping path="/enroll.no"/>
+			<mapping path="/enroll.tmt"/>
+			<mapping path="/insert.me"/>
 			<beans:bean class="com.fp.smartDoctor.common.interceptor.LoginInterceptor" id="loginInterceptor"/>
 		</interceptor>
 	</interceptors>

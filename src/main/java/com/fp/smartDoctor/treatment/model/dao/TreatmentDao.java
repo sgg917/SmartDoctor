@@ -160,4 +160,9 @@ public class TreatmentDao {
 	public int updatePatient(SqlSessionTemplate sqlSession, String chartNo) {
 		return sqlSession.update("treatmentMapper.updatePatient", chartNo);
 	}
+	
+	// 진료 대기 환자 조회
+	public ArrayList<Clinic> ajaxWaitingPList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("treatmentMapper.ajaxWaitingPList");
+	}
 }

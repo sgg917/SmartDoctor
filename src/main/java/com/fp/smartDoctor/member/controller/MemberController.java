@@ -53,7 +53,8 @@ public class MemberController {
 		} else {
 			System.out.println("로그인 실패");
 			session.setAttribute("alertMsg", "아이디와 비밀번호를 다시 확인해주세요!");
-			
+			mv.setViewName("common/errorPage");
+			return mv;
 		}
 
 		return mv;
@@ -261,5 +262,10 @@ public class MemberController {
 		int result = mService.insertDept(deptName);
 		
 		return result > 0 ? "성공적으로 추가되었습니다." : "부서 추가에 실패하였습니다.";
+	}
+	
+	@RequestMapping("home.jy")
+	public String main() {
+		return "main";
 	}
 }

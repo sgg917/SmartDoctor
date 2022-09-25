@@ -144,7 +144,7 @@
 						<input type="hidden" value="${ loginUser.empNo }" name="empNo">
 						<input type="hidden" value="" name="formNo">
 						<div class="appr-table-wrapper">
-							<button type="button" class="btn btn-success appr-write-btn" onclick="postFormSubmit('apprInsert.si');">
+							<button type="button" class="btn appr-write-btn" onclick="postFormSubmit('apprInsert.si');">
 								<i class="mdi mdi-arrow-up-bold" style="color: white;"></i>&nbsp;
 								<span>결재요청</span>
 							</button>

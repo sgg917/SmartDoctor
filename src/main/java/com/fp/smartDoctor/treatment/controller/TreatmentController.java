@@ -3,6 +3,7 @@ package com.fp.smartDoctor.treatment.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -361,7 +362,7 @@ public class TreatmentController {
 		
 		if(clinicResult > 0 && preResult > 0 && pResult >= 0 && updateResult > 0) {
 			
-			System.out.println("1차성공");
+			//System.out.println("1차성공");
 			
 			//System.out.println(pre.getPreMedList()); // 입력한 약 list 보기
 			
@@ -405,6 +406,29 @@ public class TreatmentController {
 			return "ljy/enrollTreatment";
 		}
 	}
+	
+	//대기 페이지 조회
+	@RequestMapping("waiting.pt")
+	public String rsvWaiting() {
+		return "ljy/patientWaiting";
+	}
+	
+	//대기 환자 조회 
+	@ResponseBody
+	@RequestMapping(value = "selectWaitingList.pt")
+	public Map<String, Object> selectWaitingPatientList() throws Exception {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		ArrayList<Clinic> list = tService.ajaxWaitingPList();
+		
+		//System.out.println(list);
+
+		map.put("list", list);
+
+		return map;
+	}
+	
 	
 	
 	/*

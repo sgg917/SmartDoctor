@@ -6,6 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+    .appr-report-tb>tbody>tr:hover{
+ 		cursor: pointer;
+    }
+</style>
 </head>
 <body>
 	<jsp:include page="../common/navbar.jsp" />

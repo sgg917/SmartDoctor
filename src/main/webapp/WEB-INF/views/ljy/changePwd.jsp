@@ -33,7 +33,7 @@
                     <input type="password" class="form-control form-control-lg" name="empPwd" id="empPwd" placeholder="현재 비밀번호 입력해주세요">
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control form-control-lg" name="updatePwd" id="updatePwd" placeholder="변경할 비밀번호를 입력해주세요">
+                    <input type="password" class="form-control form-control-lg" name="updatePwd" id="updatePwd" placeholder="변경할 비밀번호를 입력해주세요" required>
                   </div>
                   <div class="mt-3" align="center">
                     <button type="submit" class="btn btn-block btn-gradient-primary btn-lg auth-form-btn font-weight-medium" style="background: rgb(29, 92, 99); width: 100%; font-weight: bold; font-size: 18px;">변경하기</button>

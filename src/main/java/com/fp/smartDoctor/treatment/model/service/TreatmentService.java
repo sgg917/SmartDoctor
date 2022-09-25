@@ -93,4 +93,7 @@ public interface TreatmentService {
 	// 환자 초진/재진 여부 업데이트
 	int updatePatient(String chartNo);
 	
+	// 대기 환자 조회
+	ArrayList<Clinic> ajaxWaitingPList();
+	
 }
