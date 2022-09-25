@@ -293,8 +293,8 @@ content="width=device-width, initial-scale=1, shrink-to-fit=no">
                   <c:if test="${ loginUser.jobNo eq '2' }">
                   	<li class="nav-item"> <a class="nav-link" href="enroll.tmt">진료 입력</a></li>
                   </c:if>
-                  <li class="nav-item"> <a class="nav-link" href="detail.op">수술실 예약 조회</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="">입원실 예약 조회</a></li>
+                  <!-- <li class="nav-item"> <a class="nav-link" href="detail.op">수술실 예약 조회</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="">입원실 예약 조회</a></li> -->
                 </ul>
               </div>
             </li>
@@ -353,7 +353,7 @@ content="width=device-width, initial-scale=1, shrink-to-fit=no">
                 </ul>
               </div>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#numbertwo" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">캘린더</span>
                 <i class="menu-arrow"></i>
@@ -365,7 +365,7 @@ content="width=device-width, initial-scale=1, shrink-to-fit=no">
                   <li class="nav-item"> <a class="nav-link" href="personalCalender.mj">개인 캘린더</a></li>
                 </ul>
               </div>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#number4" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">메일</span>

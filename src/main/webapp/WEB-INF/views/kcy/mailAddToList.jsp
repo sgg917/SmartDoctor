@@ -24,7 +24,6 @@ html, body {
 	overflow-x: hidden;
 }
 
-/* 현재팝업창 사이즈조절 */
 .popup-outer {
 	width: 1250px;
 	height: 860px;
@@ -638,7 +637,6 @@ div {
 	
 	
 	
-	<!-- 팝업창 자동 사이즈맞춤용 스크립트 -->
 	<script>
 		$(document).ready(function() {
 							// 팝업 창 크기를 HTML 크기에 맞추어 자동으로 크기를 조정하는 함수.

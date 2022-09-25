@@ -193,7 +193,8 @@ th {
 									<tr>
 										<th>퇴원날짜</th>
 										<td>
-										<input type="date" class="datepicker" name="leaveDate" style="width: 300px; height: 25.2px;">
+										<input id="leaveDate" type="date" class="datepicker" name="leaveDate" style="width: 300px; height: 25.2px;">
+								   		<input id="stayDate" type="hidden" name="stayDate" value=${c.stayDate }>
 								   <br>
 								   </td>
 									</tr>
@@ -228,7 +229,18 @@ th {
 
 
 
-
+	<script>
+	/* 입원일수 */
+			$('#date-btn').click(function(){
+				
+				let dateDiff = 0;
+				let ed = new Date($("input[name='enterDate']").val());
+				let ld = new Date($("input[name='leaveDate']").val());
+				dateDiff = Math.ceil((ld.getTime()-ed.getTime())/(1000*3600*24))+1;
+				
+				$("input[name='stayDate']").attr('value', dateDiff);
+			})
+		</script>
 
 
 

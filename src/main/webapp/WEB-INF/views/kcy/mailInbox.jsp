@@ -55,8 +55,6 @@
 .middleBtn:hover {
 	cursor: pointer;
 }
-/* 중간버튼 스타일 */
-/* 검색창 스타일 */
 
 
 .searchBar>select {
@@ -89,7 +87,6 @@
 	cursor: pointer;
 	opacity: 70%;
 }
-/* 검색창 스타일 */
 
 .bas {
 	width: 1400px;
@@ -105,7 +102,6 @@
 
 
 
-/* 게시판 스타일 */
 
 
 .boardTable, .boardTable th, .boardTable td {
@@ -132,15 +128,12 @@
 	cursor: pointer;
 }
 
-/* 게시판 스타일 */
 
-/* 체크박스 모양 변경 */
 
 .importbox {
 	display:none;
 }
 
-/* 변경된 체크박스 이미지 위치 조정 */
 .mailTable tr td label img, .mailTable tr th label img {
 	 margin-top:3.5px;
 }
@@ -149,7 +142,6 @@
 	width:100%;
 }
 
-/* 계정 주소 표시를 위한 ToolTip 설정 */
 [data-tooltip-text]:hover {
 	position: relative;
 }
@@ -190,7 +182,6 @@
 	}
 	
 	
-/* 페이징바 스타일 */
 .pagingBar {
 	list-style: none;
 	margin-left: 400px;
@@ -228,7 +219,6 @@
 	border: 1px solid rgb(26, 188, 156);
 }
 
-/* 페이징바 스타일 */
 </style>   
 </head>
 <body>
@@ -382,10 +372,10 @@
 						<li class="pstyle"><a style="width: 50px;" class="pstyle" href="search.mil?condition=${condition}&keyword=${keyword}&currentPage=1">first</a></li>
 						<c:choose>
 							<c:when test="${ pi.currentPage eq 1 }">
-								<li><a class="pstyle disabled" href="#" style="width: 70px;">previous</a></li>
+								<li><a class="pstyle disabled" href="#" style="width: 80px;">previous</a></li>
 							</c:when>
 			                <c:otherwise>
-			                	<li class="pstyle"><a href="search.mil?condition=${condition}&keyword=${keyword}&currentPage=${ pi.currentPage-1 }" style="width: 70px;">previous</a></li>
+			                	<li class="pstyle"><a href="search.mil?condition=${condition}&keyword=${keyword}&currentPage=${ pi.currentPage-1 }" style="width: 80px;">previous</a></li>
 			                </c:otherwise>
 			            </c:choose>
 			        
@@ -418,10 +408,10 @@
 						<li class="pstyle"><a style="width: 50px;" class="pstyle" href="list.mil?currentPage=1&mailOwn=${loginUser.empNo }">first</a></li>
 						<c:choose>
 							<c:when test="${ pi.currentPage eq 1 }">
-								<li><a style="width: 50px;" class="pstyle disabled" href="#">next</a></li>
+								<li><a style="width: 80px;" class="pstyle disabled" href="#">previous</a></li>
 							</c:when>
 			                <c:otherwise>
-			                	<li class="pstyle"><a style="width: 70px;" href="list.mil?currentPage=${ pi.currentPage-1 }&mailOwn=${loginUser.empNo }">previous</a></li>
+			                	<li class="pstyle"><a style="width: 80px;" href="list.mil?currentPage=${ pi.currentPage-1 }&mailOwn=${loginUser.empNo }">previous</a></li>
 			                </c:otherwise>
 			            </c:choose>
 			        

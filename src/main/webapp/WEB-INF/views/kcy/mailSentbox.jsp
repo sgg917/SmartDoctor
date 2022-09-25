@@ -34,14 +34,12 @@
 
 
     
-    /* 콘텐츠영역 */
     .contentArea {
        margin:auto;
        width:90%;
     }
 
 
-/* 중간버튼 스타일 */
 .middleBtn {
 	width: 90px;
 	height: 35px;
@@ -55,8 +53,6 @@
 .middleBtn:hover {
 	cursor: pointer;
 }
-/* 중간버튼 스타일 */
-/* 검색창 스타일 */
 
 
 .searchBar>select {
@@ -89,7 +85,6 @@
 	cursor: pointer;
 	opacity: 70%;
 }
-/* 검색창 스타일 */
 
 .bas {
 	width: 1400px;
@@ -105,7 +100,6 @@
 
 
 
-/* 게시판 스타일 */
 
 
 .boardTable, .boardTable th, .boardTable td {
@@ -132,15 +126,12 @@
 	cursor: pointer;
 }
 
-/* 게시판 스타일 */
 
-/* 체크박스 모양 변경 */
 
 .importbox {
 	display:none;
 }
 
-/* 변경된 체크박스 이미지 위치 조정 */
 .mailTable tr td label img, .mailTable tr th label img {
 	 margin-top:3.5px;
 }
@@ -149,7 +140,6 @@
 	width:100%;
 }
 
-/* 계정 주소 표시를 위한 ToolTip 설정 */
 [data-tooltip-text]:hover {
 	position: relative;
 }
@@ -188,6 +178,43 @@
 		text-align : left;
 		margin:auto;
 	}
+	
+	.pagingBar {
+	list-style: none;
+	margin-left: 400px;
+}
+
+.pagingBar li {
+	float: left;
+}
+
+.pagingBar li * {
+	float: left;
+	padding: 4px;
+	margin-right: 3px;
+	width: 20px;
+	color: rgb(190, 190, 190);
+	font: bold 12px tahoma;
+	border: 1px solid rgb(190, 190, 190);
+	text-align: center;
+	text-decoration: none;
+	font-size: 15px;
+}
+
+.pagingBar .pstyle>span {
+	color: rgb(26, 188, 156);
+	border: 1px solid rgb(26, 188, 156);
+}
+
+.pagingBar .pstyle a:hover {
+	color: rgb(26, 188, 156);
+	border: 1px solid rgb(26, 188, 156);
+}
+
+.pagingBar li .crt{
+	color: rgb(26, 188, 156);
+	border: 1px solid rgb(26, 188, 156);
+}
 </style>   
 </head>
 <body>
@@ -266,7 +293,7 @@
 				</thead>
 				
 				<c:choose>
-					<c:when test="${fn:length(list) eq 15}">
+					<c:when test="${fn:length(list) eq 10}">
 						<c:forEach items="${ list }" var="b">
 						<tr>
 							<td>
@@ -315,7 +342,7 @@
 							<td>${b.mailDateStr }</td>
 						</tr>
 						</c:forEach>
-						<c:forEach var="b" begin="1" end="${15-fn:length(list)}">
+						<c:forEach var="b" begin="1" end="${10-fn:length(list)}">
     					<tr>
 							<td class="nonContent">
 								<label>
@@ -335,86 +362,82 @@
 				
 			</table>
 			<!-- 메일 -->
-			
-			<nav aria-label="Page navigation example" class="appr-page">			
-						<!-- 페이징바 -->
 			<br>
 			<c:choose>
 				<c:when test="${sc eq 1}">
 					<!-- 페이징바 -->
-					<ul class="pagination">
-						<li class="pstyle"><a class="pstyle" href="isearch.mil?condition=${condition}&keyword=${keyword}&currentPage=1">First</a></li>
+					<ul class="pagingBar">
+						<li class="pstyle"><a style="width: 50px;" class="pstyle" href="fsearch.mil?condition=${condition}&keyword=${keyword}&currentPage=1">first</a></li>
 						<c:choose>
 							<c:when test="${ pi.currentPage eq 1 }">
-								<li class="page-item disabled"><a class="page-link">Previous</a></li>
+								<li><a class="pstyle disabled" href="#" style="width: 80px;">previous</a></li>
 							</c:when>
 			                <c:otherwise>
-			                	<li class="page-item"><a class="page-link" href="isearch.mil?condition=${condition}&keyword=${keyword}&currentPage=${ pi.currentPage-1 }">Previous</a></li>
+			                	<li class="pstyle"><a href="fsearch.mil?condition=${condition}&keyword=${keyword}&currentPage=${ pi.currentPage-1 }" style="width: 80px;">previous</a></li>
 			                </c:otherwise>
 			            </c:choose>
 			        
 			        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 			            <c:choose>
 		                    <c:when test="${ p eq pi.currentPage }">
-		                    	<li class="page-item"><a class="page-link" href="#">${p}</a></li>
+		                    	<li><a class="crt disabled" href="#">${p}</a></li>
 		                    </c:when>
 			                <c:otherwise>
-			                    <li class="pstyle"><a href="isearch.mil?condition=${condition}&keyword=${keyword}&currentPage=${ p }">${ p }</a></li>
+			                    <li class="pstyle"><a href="fsearch.mil?condition=${condition}&keyword=${keyword}&currentPage=${ p }">${ p }</a></li>
 			                </c:otherwise>
 		                </c:choose>
 					 </c:forEach>
 						
 						<c:choose>
 			                <c:when test="${ pi.currentPage eq pi.maxPage }">
-			                  <li class="page-item disabled"><a class="page-link">Next</a></li>
+			                    <li><a class="disabled" href="#" style="width: 50px;">next</a></li>
 							</c:when>
 				            <c:otherwise>
-				                <li class="page-item"><a class="page-link" href="isearch.mil?condition=${condition}&keyword=${keyword}&currentPage=${ pi.currentPage+1 }">Next</a></li>
+				                <li class="pstyle"><a href="fsearch.mil?condition=${condition}&keyword=${keyword}&currentPage=${ pi.currentPage+1 }" style="width: 50px;">next</a></li>
 				            </c:otherwise>
 			            </c:choose>
-					<li class="page-item"><a class="page-link" href="isearch.mil?condition=${condition}&keyword=${keyword}&currentPage=${ pi.maxPage }">Last</a></li>
+					<li class="pstyle"><a href="fsearch.mil?condition=${condition}&keyword=${keyword}&currentPage=${ pi.maxPage }" style="width: 50px;">last</a></li>
 					</ul>
 					<!-- 페이징바 -->
 				</c:when>
 				<c:otherwise>
 					<!-- 페이징바 -->
-					<ul class="pagination">
-						<li class="page-item disabled"><a class="page-link" href="ilist.mil?currentPage=1">First</a></li>
+					<ul class="pagingBar">
+						<li class="pstyle"><a style="width: 50px;" class="pstyle" href="flist.mil?currentPage=1&mailOwn=${loginUser.empNo }">first</a></li>
 						<c:choose>
 							<c:when test="${ pi.currentPage eq 1 }">
-								<li class="page-item disabled"><a class="page-link">Previous</a></li>
+								<li><a style="width: 80px;" class="pstyle disabled" href="#">previous</a></li>
 							</c:when>
 			                <c:otherwise>
-			                	<li class="page-item"><a class="page-link" href="ilist.mil?currentPage=${ pi.currentPage-1 }">Previous</a></li>
+			                	<li class="pstyle"><a style="width: 80px;" href="flist.mil?currentPage=${ pi.currentPage-1 }&mailOwn=${loginUser.empNo }">previous</a></li>
 			                </c:otherwise>
 			            </c:choose>
 			        
 			        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 			            <c:choose>
 		                    <c:when test="${ p eq pi.currentPage }">
-		                    	<li class="page-item"><a class="page-link" href="#">${p}</a></li>
+		                    	<li><a class="crt disabled" href="#">${p}</a></li>
 		                    </c:when>
 			                <c:otherwise>
-			                    <li class="pstyle"><a href="ilist.mil?currentPage=${ p }">${ p }</a></li>
+			                    <li class="pstyle"><a href="flist.mil?currentPage=${ p }&mailOwn=${loginUser.empNo }">${ p }</a></li>
 			                </c:otherwise>
 		                </c:choose>
 					 </c:forEach>
 						
 						<c:choose>
 			                <c:when test="${ pi.currentPage eq pi.maxPage }">
-			                  <li class="page-item disabled"><a class="page-link">Next</a></li>
+			                    <li><a style="width: 50px;" class="disabled" href="#">next</a></li>
 							</c:when>
 				            <c:otherwise>
-				                <li class="page-item"><a class="page-link" href="ilist.mil?currentPage=${ pi.currentPage+1 }">Next</a></li>
+				                <li class="pstyle"><a style="width: 50px;" href="flist.mil?currentPage=${ pi.currentPage+1 }&mailOwn=${loginUser.empNo }">next</a></li>
 				            </c:otherwise>
 			            </c:choose>
-					 <li class="page-item"><a class="page-link" href="ilist.mil?currentPage=${ pi.maxPage }">Last</a></li>
+					<li class="pstyle"><a style="width: 50px;" href="flist.mil?currentPage=${ pi.maxPage }&mailOwn=${loginUser.empNo }">last</a></li>
 					</ul>
 					<!-- 페이징바 -->
 				</c:otherwise>
 			</c:choose>
 			<!-- 페이징바 -->
-				</nav>	
 				<br><br><br>
 		</div>
 	</div>

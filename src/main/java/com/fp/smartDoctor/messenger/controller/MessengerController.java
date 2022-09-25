@@ -144,7 +144,7 @@ public class MessengerController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", slist);
-		model.addAttribute("sc", 1);	// 검색된 값인지 일반 게시글 리스트인지 구별하기 위한 값 반환 (sc가 1이면 검색결과, sc라는 키값이 없으면 일반 글목록)
+		model.addAttribute("sc", 1);
 		return "kcy/mailInbox";
 	}
 	
@@ -178,7 +178,7 @@ public class MessengerController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", slist);
-		model.addAttribute("sc", 1);	// 검색된 값인지 일반 게시글 리스트인지 구별하기 위한 값 반환 (sc가 1이면 검색결과, sc라는 키값이 없으면 일반 글목록)
+		model.addAttribute("sc", 1);	
 		return "kcy/mailSentbox";
 	}
 	
@@ -213,7 +213,7 @@ public class MessengerController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", slist);
-		model.addAttribute("sc", 1);	// 검색된 값인지 일반 게시글 리스트인지 구별하기 위한 값 반환 (sc가 1이면 검색결과, sc라는 키값이 없으면 일반 글목록)
+		model.addAttribute("sc", 1);	
 		return "kcy/mailImportantbox";
 	}
 	
