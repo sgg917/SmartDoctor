@@ -161,7 +161,7 @@ th {
 											<tr>
 										</c:when>
 										<c:otherwise>
-											<tr class="open-modal" data-bs-toggle="modal" data-bs-target="#updateAttModal">
+											<tr class="open-modal">
 										</c:otherwise>
 									</c:choose>
 										<input type="hidden" value="${ a.empNo }">
@@ -227,21 +227,134 @@ th {
 				<br>
 			</div>
 		</div>
+		
+		<script>
+			//-------------------- 전사 근태 검색 ajax ---------------------
+			searchAllAtt = function(no){
+			
+			//function searchAllAtt(no){
+				
+				// 키워드 입력 칸이 빈칸이면 검색 불가능
+				if($('input[name=keyword]').val() == null || $('input[name=keyword]').val() == "" ){
+					alert("키워드를 입력해 주세요.");
+					return false;
+				}
+				
+				$.ajax({
+					url:"allSearch.att",
+					type:"POST",
+					data:{
+						cpage:no,
+						type:$('option[name=condition]:selected').val(),
+						keyword:$('input[name=keyword]').val()
+					},
+					success:function(map){
+						
+						console.log(map);
+						
+						// 검색 결과 변수에 담기
+						var newPi = map.pi;
+						var newList = map.list;
+						//console.log(newPi.currentPage);
+						
+						var txt = "";
+						var ptxt = "";
+						
+						if(newList == null || newList == ""){
+							txt += '<tr>';
+							txt += 	'<td colspan="7" style="text-align:center;">';
+							txt +=		'조회 내역이 없습니다.';
+							txt +=	'</td>';
+							txt += '</tr>';
+						}else {
+							for(let i=0; i<newList.length; i++){
+								
+								// 결근인 근태 정보는 수정 불가
+								if(newList[i].status == '결근'){
+									txt += '<tr>'
+								}else{
+									txt += '<tr class="open-modal">';
+								}
+								
+								txt += '<input type="hidden" value="' + newList[i].empNo + '">';
+								txt += '<td class="attDate">' + newList[i].attDate + '</td>';
+								if(newList[i].deptName == null){
+									txt += '<td class="deptName"> </td>';
+								}else{
+									txt += '<td class="deptName">' + newList[i].deptName + '</td>';
+								}
+								txt += '<td class="empName">' + newList[i].empName + '</td>';
+								txt += '<td class="startTime">' + newList[i].startTime + '</td>';
+								txt += '<td class="endTime">' + newList[i].endTime + '</td>';
+								
+								if(newList[i].totalTime == '0'){
+									txt += '<td class="totalTime">' + newList[i].totalTime + '</td>';
+								}else{
+									if(newList[i].totalTime < 60){
+										txt += '<td class="totalTime">' + newList[i].totalTime + '</td>';
+									}else{
+										txt += '<td class="totalTime">' + Math.ceil(newList[i].totalTime/60) + '</td>';
+									}
+								}
+								
+								txt += '<td class="status">' + newList[i].status + '</td>';
+								txt += '</tr>';
+							}
+						}
+						
+						if(newPi.currentPage != 1){
+							ptxt += '<li class="page-item"><a class="page-link" onclick="searchAllAtt(' + (newPi.currentPage-1) + ');">&lt;</a></li>';
+						}
+						
+						for(let p=newPi.startPage; p<=newPi.endPage; p++){
+							
+							if(p == newPi.currentPage){
+								ptxt += '<li class="page-item active"><a class="page-link" onclick="searchAllAtt(' + p + ');">' + p + '</a></li>';
+							}else{
+								ptxt += '<li class="page-item"><a class="page-link" onclick="searchAllAtt(' + p + ');">' + p + '</a></li>';
+							}
+						}
+						
+						if(newPi.currentPage != newPi.maxPage){
+							ptxt += '<li class="page-item"><a class="page-link" onclick="searchAllAtt(' + (newPi.currentPage+1) + ');">&gt;</a></li>';
+						}
+						
+						$('#memAtt>tbody').empty();
+						$('#memAtt>tbody').append(txt);
+						$('#pageArea').empty();
+						$('#pageArea').append(ptxt);
+						
+					},error:function(){
+						console.log("전사 근태 검색 ajax통신 실패");
+					}
+				})
+				
+			}
+		</script>
 
 		<script>
-			$(function() {
-				$('.open-modal').click(function() {
-					// input 요소에 근태 정보 넣어주기
-					$('input[type=hidden]').val( $(this).children('input[type=hidden]').val() );
-					$('input[name=attDate]').val( $(this).children(".attDate").text() );
-					$('input[name=deptName]').val( $(this).children('.deptName').text() );
-					$('input[name=empName]').val( $(this).children('.empName').text() );
-					$('input[name=startTime]').val( $(this).children('.startTime').text() );
-					$('input[name=endTime]').val( $(this).children('.endTime').text() );
-					$('input[name=totalTime]').val( $(this).children('.totalTime').text() );
-					$('option[value=' + $(this).children(".status").text() + ']').attr('selected', true);
-					$('#updateAttModal').modal('show');
-				})
+			$(document).on("click", ".open-modal", function(){
+				// input 요소에 근태 정보 넣어주기
+				var empNo = $(this).children('input[type=hidden]').val();
+				var attDate = $(this).children(".attDate").text();
+				var deptName = $(this).children('.deptName').text();
+				var empName = $(this).children('.empName').text();
+				var startTime = $(this).children('.startTime').text();
+				var endTime = $(this).children('.endTime').text();
+				var totalTime = $(this).children('.totalTime').text();
+				var status = $(this).children(".status").text();
+				
+				console.log("empNo : " + empNo + ", attDate : " + attDate + ", deptName : " + deptName + 
+						", startTime : " + startTime + ", endTime : " + endTime + ", totalTime : " + totalTime + ',status : ' + status);
+				$('input[type=hidden]').val( $(this).children('input[type=hidden]').val() );
+				$('input[name=attDate]').val( $(this).children(".attDate").text() );
+				$('input[name=deptName]').val( $(this).children('.deptName').text() );
+				$('input[name=empName]').val( $(this).children('.empName').text() );
+				$('input[name=startTime]').val( $(this).children('.startTime').text() );
+				$('input[name=endTime]').val( $(this).children('.endTime').text() );
+				$('input[name=totalTime]').val( $(this).children('.totalTime').text() );
+				$('option[value=' + $(this).children(".status").text() + ']').attr('selected', true);
+				$('#updateAttModal').modal('show');
 			})
 		</script>
 
@@ -322,110 +435,6 @@ th {
 			</div>
 		</div>
 		<!-- 근태 정보 수정 모달 끝 -->
-
-		<script>
-			//-------------------- 전사 근태 검색 ajax ---------------------
-			searchAllAtt = function(no){
-			
-			//function searchAllAtt(no){
-				
-				// 키워드 입력 칸이 빈칸이면 검색 불가능
-				if($('input[name=keyword]').val() == null || $('input[name=keyword]').val() == "" ){
-					alert("키워드를 입력해 주세요.");
-					return false;
-				}
-				
-				$.ajax({
-					url:"allSearch.att",
-					type:"POST",
-					data:{
-						cpage:no,
-						type:$('option[name=condition]:selected').val(),
-						keyword:$('input[name=keyword]').val()
-					},
-					success:function(map){
-						
-						//console.log(map);
-						
-						// 검색 결과 변수에 담기
-						var newPi = map.pi;
-						var newList = map.list;
-						//console.log(newPi.currentPage);
-						
-						var txt = "";
-						var ptxt = "";
-						
-						if(newList == null || newList == ""){
-							txt += '<tr>';
-							txt += 	'<td colspan="7" style="text-align:center;">';
-							txt +=		'조회 내역이 없습니다.';
-							txt +=	'</td>';
-							txt += '</tr>';
-						}else {
-							for(let i=0; i<newList.length; i++){
-								
-								// 결근인 근태 정보는 수정 불가
-								if(newList[i].status == '결근'){
-									txt += '<tr>'
-								}else{
-									txt += '<tr class="open-modal" data-bs-toggle="modal" data-bs-target="#updateAttModal">';
-								}
-								
-								txt += '<input type="hidden" value="' + newList[i].empNo + '">';
-								txt += '<td class="attDate">' + newList[i].attDate + '</td>';
-								if(newList[i].deptName == null){
-									txt += '<td class="deptName"> </td>';
-								}else{
-									txt += '<td class="deptName">' + newList[i].deptName + '</td>';
-								}
-								txt += '<td class="empName">' + newList[i].empName + '</td>';
-								txt += '<td class="startTime">' + newList[i].startTime + '</td>';
-								txt += '<td class="endTime">' + newList[i].endTime + '</td>';
-								
-								if(newList[i].totalTime == '0'){
-									txt += '<td class="totalTime">' + newList[i].totalTime + '</td>';
-								}else{
-									if(newList[i].totalTime < 60){
-										txt += '<td class="totalTime">' + newList[i].totalTime + '</td>';
-									}else{
-										txt += '<td class="totalTime">' + Math.ceil(newList[i].totalTime/60) + '</td>';
-									}
-								}
-								
-								txt += '<td class="status">' + newList[i].status + '</td>';
-								txt += '</tr>';
-							}
-						}
-						
-						if(newPi.currentPage != 1){
-							ptxt += '<li class="page-item"><a class="page-link" onclick="searchAllAtt(' + (newPi.currentPage-1) + ');">&lt;</a></li>';
-						}
-						
-						for(let p=newPi.startPage; p<=newPi.endPage; p++){
-							
-							if(p == newPi.currentPage){
-								ptxt += '<li class="page-item active"><a class="page-link" onclick="searchAllAtt(' + p + ');">' + p + '</a></li>';
-							}else{
-								ptxt += '<li class="page-item"><a class="page-link" onclick="searchAllAtt(' + p + ');">' + p + '</a></li>';
-							}
-						}
-						
-						if(newPi.currentPage != newPi.maxPage){
-							ptxt += '<li class="page-item"><a class="page-link" onclick="searchAllAtt(' + (newPi.currentPage+1) + ');">&gt;</a></li>';
-						}
-						
-						$('#memAtt>tbody').empty();
-						$('#memAtt>tbody').append(txt);
-						$('#pageArea').empty();
-						$('#pageArea').append(ptxt);
-						
-					},error:function(){
-						console.log("전사 근태 검색 ajax통신 실패");
-					}
-				})
-				
-			}
-		</script>
 
 		<!-- content-wrapper ends -->
 		<!-- !!!내용 작성 끝!!! -->
