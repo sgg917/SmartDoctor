@@ -177,5 +177,11 @@ public class TreatmentServiceImpl implements TreatmentService{
 		return tDao.updatePatient(sqlSession, chartNo);
 	}
 
+	// 대기 환자 조회
+	@Override
+	public ArrayList<Clinic> ajaxWaitingPList() {
+		return tDao.ajaxWaitingPList(sqlSession);
+	}
+
 	
 }

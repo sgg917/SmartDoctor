@@ -289,7 +289,7 @@ content="width=device-width, initial-scale=1, shrink-to-fit=no">
               </a>
               <div class="collapse" id="numberone">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="">진료 대기</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="waiting.pt">진료 대기</a></li>
                   <c:if test="${ loginUser.jobNo eq '2' }">
                   	<li class="nav-item"> <a class="nav-link" href="enroll.tmt">진료 입력</a></li>
                   </c:if>
