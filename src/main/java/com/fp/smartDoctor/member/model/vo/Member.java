@@ -27,5 +27,6 @@ public class Member {
 	private int upperNo;
 	private String jobName;
 	private String deptName;
+	private String out_yn;
 
 }

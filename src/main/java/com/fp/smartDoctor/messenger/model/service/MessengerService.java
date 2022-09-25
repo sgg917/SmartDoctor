@@ -2,6 +2,7 @@ package com.fp.smartDoctor.messenger.model.service;
 
 import java.util.ArrayList;
 
+
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Member;
 import com.fp.smartDoctor.messenger.model.vo.Email;
@@ -11,6 +12,8 @@ import com.fp.smartDoctor.messenger.model.vo.SearchCondition;
 
 public interface MessengerService{
 	
+	
+	//-------------------------------------------------------메일
 	// 받은메일
 	int selectListCount(String mailTo);
 	ArrayList<Email> selectList(PageInfo pi, String mailTo);
@@ -69,4 +72,9 @@ public interface MessengerService{
 	ArrayList<Member> selectDeptEmpList(String keyword);
 	// 주소록 키워드 검색 
 	ArrayList<Member> selectEmpListSearch(Search search);
+	
+	
+	
+	//-----------------------------------------------------채팅
+	
 }

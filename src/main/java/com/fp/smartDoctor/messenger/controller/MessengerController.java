@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.common.template.Pagination;
@@ -37,17 +40,20 @@ import com.google.gson.Gson;
 public class MessengerController {
 
 	@Autowired 
-	private MessengerService milService;
+	private MessengerService mService;
 	
 
 
+	//-----------------------메일--------------------------------
+	
+	
 	@RequestMapping("list.mil")
 	public String selectList(int currentPage, String mailOwn, Model model) {
-		int listCount = milService.selectListCount(mailOwn);
+		int listCount = mService.selectListCount(mailOwn);
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
 		
-		ArrayList<Email> list = milService.selectList(pi, mailOwn);
+		ArrayList<Email> list = mService.selectList(pi, mailOwn);
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		for(int i=0; i<list.size(); i++) {
 			list.get(i).setMailDateStr(format1.format(list.get(i).getMailDate()));
@@ -64,11 +70,11 @@ public class MessengerController {
 	@RequestMapping("flist.mil")
 	public String selectToList(int currentPage, String mailOwn, Model model) {
 
-		int listCount = milService.fselectListCount(mailOwn);
+		int listCount = mService.fselectListCount(mailOwn);
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
 		
-		ArrayList<Email> list = milService.fselectList(pi, mailOwn);
+		ArrayList<Email> list = mService.fselectList(pi, mailOwn);
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		for(int i=0; i<list.size(); i++) {
 			list.get(i).setMailDateStr(format1.format(list.get(i).getMailDate()));
@@ -84,11 +90,11 @@ public class MessengerController {
 	@RequestMapping("ilist.mil")
 	public String selectImportToList(int currentPage, String mailOwn, Model model) {
 
-		int listCount = milService.iselectListCount(mailOwn);
+		int listCount = mService.iselectListCount(mailOwn);
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
 		
-		ArrayList<Email> list = milService.iselectList(pi, mailOwn);
+		ArrayList<Email> list = mService.iselectList(pi, mailOwn);
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		for(int i=0; i<list.size(); i++) {
 			list.get(i).setMailDateStr(format1.format(list.get(i).getMailDate()));
@@ -101,11 +107,11 @@ public class MessengerController {
 	
 	@RequestMapping("dlist.mil")
 	public String dselectList(int currentPage, String mailOwn, Model model) {
-		int listCount = milService.dselectListCount(mailOwn);
+		int listCount = mService.dselectListCount(mailOwn);
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
 		
-		ArrayList<Email> list = milService.dselectList(pi, mailOwn);
+		ArrayList<Email> list = mService.dselectList(pi, mailOwn);
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		for(int i=0; i<list.size(); i++) {
 			list.get(i).setMailDateStr(format1.format(list.get(i).getMailDate()));
@@ -131,11 +137,11 @@ public class MessengerController {
 		}
 		
 		
-		int searchListCount = milService.searchListCount(sc);
+		int searchListCount = mService.searchListCount(sc);
 		
 		PageInfo pi = Pagination.getPageInfo(searchListCount, currentPage, 5, 10);
 		
-		ArrayList<Email> slist = milService.searchList(pi,sc);
+		ArrayList<Email> slist = mService.searchList(pi,sc);
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		for(int i=0; i<slist.size(); i++) {
 			slist.get(i).setMailDateStr(format1.format(slist.get(i).getMailDate()));
@@ -164,11 +170,11 @@ public class MessengerController {
 		
 		
 		
-		int searchListCount = milService.searchListCount(sc);
+		int searchListCount = mService.searchListCount(sc);
 		
 		PageInfo pi = Pagination.getPageInfo(searchListCount, currentPage, 5, 10);
 		
-		ArrayList<Email> slist = milService.searchList(pi,sc);
+		ArrayList<Email> slist = mService.searchList(pi,sc);
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		for(int i=0; i<slist.size(); i++) {
 			slist.get(i).setMailDateStr(format1.format(slist.get(i).getMailDate()));
@@ -199,11 +205,11 @@ public class MessengerController {
 		
 		
 		
-		int searchListCount = milService.isearchListCount(sc);
+		int searchListCount = mService.isearchListCount(sc);
 		
 		PageInfo pi = Pagination.getPageInfo(searchListCount, currentPage, 5, 10);
 		
-		ArrayList<Email> slist = milService.isearchList(pi,sc);
+		ArrayList<Email> slist = mService.isearchList(pi,sc);
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		for(int i=0; i<slist.size(); i++) {
 			slist.get(i).setMailDateStr(format1.format(slist.get(i).getMailDate()));
@@ -222,8 +228,8 @@ public class MessengerController {
 	@RequestMapping("detail.mil")
 	public String detailMail(int mailNo, int currentPage, String mailOwn, Model model, String pt) {
 
-		int readResult = milService.readFlagUpdate(mailNo);
-		Email e = milService.selectMail(mailNo);
+		int readResult = mService.readFlagUpdate(mailNo);
+		Email e = mService.selectMail(mailNo);
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 		
 		e.setMailDateStr(format1.format(e.getMailDate()));
@@ -236,7 +242,7 @@ public class MessengerController {
 	@ResponseBody
 	@RequestMapping(value="detailFile.mil", produces="application/json; charset=utf-8")
 	public String fileList(int mailNo) {
-		ArrayList<MailAttachment> list = milService.fileList(mailNo);
+		ArrayList<MailAttachment> list = mService.fileList(mailNo);
 		return new Gson().toJson(list);
 	}
 	
@@ -275,14 +281,14 @@ public class MessengerController {
 		insertE.setMailnameWith(withname[0]);
 		insertE.setMailWith(with[0]);
 		if(toname[0].length() == 0) {
-			insertE.setMailnameTo(milService.loadMailnameTo(to[0]));
+			insertE.setMailnameTo(mService.loadMailnameTo(to[0]));
 		}
 		
 		insertE.setMailnameFrom(fromname[0]);
 		System.out.println(insertE);
 		
 		int result = 0;
-		result = milService.insertMail(insertE);
+		result = mService.insertMail(insertE);
 		String resources = form.getSession().getServletContext().getRealPath("resources");
 		String filePath = resources + "\\uploadFiles\\mail\\";
 		if(files.length > 0) {
@@ -302,12 +308,12 @@ public class MessengerController {
 				mt.setOriginName(files[i].getOriginalFilename());
 				mt.setMailFileSize(String.valueOf(files[i].getSize()));
 				mt.setFilePath(filePath);
-				result += milService.insertMailAttachment(mt);
+				result += mService.insertMailAttachment(mt);
 			}
 		}else {
-			Email currMail = milService.nowMailNo();
+			Email currMail = mService.nowMailNo();
 			int currNo = currMail.getMailNo();
-			result = milService.updateMailFlag(currNo);
+			result = mService.updateMailFlag(currNo);
 		}
 		
 		
@@ -367,7 +373,7 @@ public class MessengerController {
 		
 		int result = 0;
 		for(int i=0; i<mailNo.length; i++) {
-			result = milService.deleteMail(mailNo[i]);
+			result = mService.deleteMail(mailNo[i]);
 		}
 		
 		return "redirect:dlist.mil?currentPage=1&mailOwn=" + mailOwn;
@@ -378,7 +384,7 @@ public class MessengerController {
 		
 		int result = 0;
 		for(int i=0; i<mailNo.length; i++) {
-			result = milService.foreverdeleteMail(mailNo[i]);
+			result = mService.foreverdeleteMail(mailNo[i]);
 		}
 		
 		return "redirect:dlist.mil?currentPage=1&mailOwn=" + mailOwn;
@@ -391,12 +397,12 @@ public class MessengerController {
 	public int importFlagUpdate(int mailNo) {
 		
 		int result = 0;
-		Email e = milService.selectMail(mailNo);
+		Email e = mService.selectMail(mailNo);
 		if(e.getMailImportFlag().equals("Y")) {
 			
-			result = milService.unImportFlagUpdate(mailNo);
+			result = mService.unImportFlagUpdate(mailNo);
 		}else if(e.getMailImportFlag().equals("N")) {
-			result = milService.importFlagUpdate(mailNo);
+			result = mService.importFlagUpdate(mailNo);
 		}
 			
 		return result;
@@ -406,7 +412,7 @@ public class MessengerController {
 	
 	@RequestMapping("replyMail.mil")
 	public String replyMail(int mailNo, Model model) {
-		Email e = milService.selectMail(mailNo);
+		Email e = mService.selectMail(mailNo);
 		model.addAttribute("m", e);
 		model.addAttribute("f", 0);
 		return "kcy/mailSentDetail";
@@ -416,7 +422,7 @@ public class MessengerController {
 	
 	@RequestMapping("transMail.mil")
 	public String transMail(int mailNo, Model model) {
-		Email e = milService.selectMail(mailNo);
+		Email e = mService.selectMail(mailNo);
 		model.addAttribute("m", e);
 		model.addAttribute("f", 1);
 		return "kcy/mailSentDetail";
@@ -429,9 +435,9 @@ public class MessengerController {
 	public MailCount mailCount(String mailOwn) {
 		
 		MailCount mc = new MailCount();
-		mc.setNotReadMail(milService.notReadMail(mailOwn));
-		mc.setFromMail(milService.fromMail(mailOwn));
-		mc.setImportMail(milService.importMail(mailOwn));
+		mc.setNotReadMail(mService.notReadMail(mailOwn));
+		mc.setFromMail(mService.fromMail(mailOwn));
+		mc.setImportMail(mService.importMail(mailOwn));
 			
 		return mc;
 	}
@@ -442,7 +448,7 @@ public class MessengerController {
 	@RequestMapping("miniFromMailList.mil")
 	public ArrayList<Email> miniFromMailList(String mailOwn) {
 		
-		ArrayList<Email> list = milService.miniFromMailList(mailOwn);
+		ArrayList<Email> list = mService.miniFromMailList(mailOwn);
 		return list;
 	}
 	
@@ -452,7 +458,7 @@ public class MessengerController {
 	@RequestMapping("miniToMailList.mil")
 	public ArrayList<Email> miniToMailList(String mailOwn) {
 		
-		ArrayList<Email> list = milService.miniToMailList(mailOwn);
+		ArrayList<Email> list = mService.miniToMailList(mailOwn);
 		return list;
 	}
 	
@@ -461,7 +467,7 @@ public class MessengerController {
 	@ResponseBody
 	@RequestMapping("miniImportMailList.mil")
 	public ArrayList<Email> miniImportMailList(String mailOwn) {
-		ArrayList<Email> list = milService.miniImportMailList(mailOwn);
+		ArrayList<Email> list = mService.miniImportMailList(mailOwn);
 		return list;
 	}
 	
@@ -477,7 +483,7 @@ public class MessengerController {
 	@RequestMapping(value="deptEmpList.gr", produces="application/json; charset=utf-8")
 	public String selectDeptEmpList(String keyword) {
 		
-		ArrayList<Member> array = milService.selectDeptEmpList(keyword);
+		ArrayList<Member> array = mService.selectDeptEmpList(keyword);
 		return new Gson().toJson(array);
 	}
 	
@@ -488,7 +494,21 @@ public class MessengerController {
 	@RequestMapping(value="empListSearch.gr", produces="application/json; charset=utf-8" )
 	public String selectEmpListSearch(Search search) {
 		
-		ArrayList<Member> array = milService.selectEmpListSearch(search);
+		ArrayList<Member> array = mService.selectEmpListSearch(search);
 		return new Gson().toJson(array);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	//-----------------채팅-------------------
+	
+
+	
+
+
 }

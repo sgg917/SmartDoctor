@@ -1,10 +1,12 @@
 package com.fp.smartDoctor.messenger.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
 
 import com.fp.smartDoctor.common.model.vo.PageInfo;
 import com.fp.smartDoctor.member.model.vo.Member;
@@ -16,6 +18,7 @@ import com.fp.smartDoctor.messenger.model.vo.SearchCondition;
 @Repository
 public class MessengerDao {
 
+	//----------------------------메일
 	
 	// 받은 메일
 	public int selectListCount(SqlSessionTemplate sqlSession, String mailTo) {
@@ -200,4 +203,16 @@ public class MessengerDao {
 	public ArrayList<Member> selectEmpListSearch(SqlSessionTemplate sqlSession, Search search) {
 		return (ArrayList)sqlSession.selectList("messengerMapper.selectEmpListSearch", search);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	//--------------------------------채팅
+	
+	
+	
 }
