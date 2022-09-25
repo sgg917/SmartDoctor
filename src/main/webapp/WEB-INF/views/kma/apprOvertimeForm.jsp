@@ -133,12 +133,13 @@
 									<th>근무종료시간</th>
 									<td>
 										<input type="time" name="endTime" style="width: 105px;"> &nbsp;
-										<button type="button" id="time-btn" class="btn btn-sm" style="background:#DFDFDF; height:25px; line-height:3px;">확인</button>
+										<!-- <button type="button" id="time-btn" class="btn btn-sm" s
+												tyle="background:#DFDFDF; height:25px; line-height:3px;">확인</button> -->
 									</td>
 								</tr>
 								<tr>
 									<th>총근무시간</th>
-									<td><input type="number" name="totalTime"></td>
+									<td><input type="number" name="totalTime" value="1"></td>
 								</tr>
 								<tr>
 									<th>근무사유</th>
@@ -151,10 +152,6 @@
 				</div>
 			</div>
 		</div>
-		
-		<script>
-		
-		</script>
 		
 		<!-- 결재라인 모달창 -->
 		<div class="modal fade" id="lineModal" tabindex="-1"

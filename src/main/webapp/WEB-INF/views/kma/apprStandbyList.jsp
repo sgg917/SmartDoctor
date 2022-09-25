@@ -11,14 +11,12 @@
 		float: left; 
 		height: 35px;
 	}
-	.appr-doc-btn:hover{
-		background:darkgreen; 
-	    color:white;
-	    border:none; 
-	}
 	.appr-doc-btn>i{
 		color: white;
 	}
+    .appr-standby-tb>tbody>tr:hover{
+  		cursor: pointer;
+    }
 </style>
 </head>
 <body>
@@ -35,7 +33,7 @@
 					<br><br>
 					<div class="appr-table-wrapper" style="margin-left:40px;">
 						<form id="allApprove" action="" method="post">
-							<button type="button" class="btn btn-outline-success appr-doc-btn"
+							<button type="button" class="btn appr-doc-btn"
 								onclick="allApprove('allApprove.si');">
 								<i class="mdi mdi-playlist-check"></i>&nbsp;
 								<span>일괄결재</span>

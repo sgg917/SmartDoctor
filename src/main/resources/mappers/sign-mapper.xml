@@ -320,6 +320,8 @@
 		  join department d on (m.dept_no = d.dept_no)
 		 where l.appr_no = #{apprNo}
 		   and line_refer = 'N'
+		 order
+		    by m.job_no desc
 	</select>
 	
 	<!-- 사용자_참조자 담기 -->

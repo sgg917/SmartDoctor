@@ -11,6 +11,18 @@
 	#line-dept>*{
 		display:none
 	}
+	.disappr-tb{
+	 	color:red; 
+	 	margin:0; 
+	 	margin-top:5px; 
+	 	margin-bottom:12.9px;
+	 }
+	 .endappr-tb{
+	 	color:RGB(65, 125, 122);
+	 	margin:0; 
+	 	margin-top:5px; 
+	 	margin-bottom:12.9px;
+	 }
 </style>
 </head>
 <body>
@@ -139,12 +151,16 @@
 												let empNoArr = [];
 												let dateArr = [];
 												let deptArr = [];
+												let disArr = [];
+												let endArr = [];
 												<c:forEach var="i" items="${ line }">
 													jobArr.push( "${i.jobName}" );
 													empArr.push( "${i.empName}" );
 													empNoArr.push( "${i.empNo}" );
 													deptArr.push("${i.deptName}");
 													dateArr.push( "${i.lineDate}" );
+													disArr.push( "${i.lineDisappr}" );
+													endArr.push( "${i.lineEnd}" );
 												</c:forEach>
 												
 												$('#line-job').children().each(function(index, item){ // 직급 출력
@@ -171,7 +187,16 @@
 												$('#line-appr').children().each(function(index, item){ // 승인도장 + 날짜 출력
 													
 													if( dateArr[index] != "" && typeof dateArr[index] != 'undefined' ){ 
-														$(item).html("<img src='resources/images/kma/approved.png'>" + dateArr[index]);
+														
+														if( disArr[index] == "Y" ){ // 반려일 경우
+															$(item).html("<p class='disappr-tb'>(반려)</p>" + dateArr[index]);
+														
+														}else if( endArr[index] == "Y" ){ // 전결일 경우
+															$(item).html("<p class='endappr-tb'>(전결)</p>" + dateArr[index]);
+														
+														}else{ // 승인일 경우
+															$(item).html("<img src='resources/images/kma/approved.png'>" + dateArr[index]);
+														}
 													}												
 												})
 												
