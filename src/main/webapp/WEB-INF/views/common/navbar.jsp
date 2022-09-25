@@ -380,7 +380,7 @@ content="width=device-width, initial-scale=1, shrink-to-fit=no">
                     <!--<li class="nav-item"> <a class="nav-link" href="">임시메일함</a></li>-->
                     <li class="nav-item"> <a class="nav-link" href="ilist.mil?currentPage=1&mailOwn=${loginUser.empNo }">중요보관함</a></li>
                     <li class="nav-item"> <a class="nav-link" href="dlist.mil?currentPage=1&mailOwn=${loginUser.empNo }">휴지통</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">주소록</a></li>
+                    <!--  <li class="nav-item"> <a class="nav-link" href="">주소록</a></li>-->
                 </ul>
               </div>
             </li>

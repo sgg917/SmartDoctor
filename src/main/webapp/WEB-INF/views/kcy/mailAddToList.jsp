@@ -279,7 +279,6 @@ div {
 			<script>
 				$(document).on("click","#signerSubmit",function(){
 					
-					//opener.testConsole("zzzz");
 					//window.close();
 					
 					var v = $(".signSel tbody").text();

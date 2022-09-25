@@ -277,7 +277,7 @@
 			</div>
 			
 			<div style="height:10px;"></div>
-			<table class="boardTable mailTable">
+			<table class="boardTable mailTable" style="border:0px solid white;">
 				<thead>
 					<tr>
 						<th width="80">

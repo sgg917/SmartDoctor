@@ -12,7 +12,7 @@
 </head>
 <style>
 	body {
-		background: aliceblue !important;
+		background: RGB(237, 230, 214) !important;
 	}
 
 	#message{
@@ -33,7 +33,7 @@
 	    justify-content: center;
 	    width: 100%;
 	    height: 22%;
-	    background: #f3f3f3;
+	    background: #f2f2f2;
 	        border-top: 1px solid #e1e1e1;
 			
 	}
@@ -41,7 +41,7 @@
 	.default-btn {
 		margin-left: 20px;
     	height: 70% !important;
-    	background: #ffed95;
+    	background: RGB(65, 125, 122) ;
 	}
 	
 	.tri-left {
@@ -75,7 +75,6 @@
 	    border: 1px solid #e8e8e8;
 	    
 	}
-	/*이게머지?*/
 	.text-con-someone {
 		width: 100%;
 	    background: white;
@@ -87,7 +86,7 @@
 	
 	.chat-area {
 	height: 100%;
-    background: aliceblue;
+    background: RGB(237, 230, 214);
 	}
 	
 	.chat-area::-webkit-scrollbar {
@@ -195,13 +194,13 @@
 	}
 	
 	.big-area {
-        border-bottom: 10px solid aliceblue;
+        border-bottom: 10px solid #f2f2f2;
 	    height: 61%;
 	    position: relative;
 	    display: flex;
 	    flex-direction: column;
 	    overflow-y: scroll;
-	    background: aliceblue;
+	    background: #f2f2f2;
 	}
 	
 	.big-area::-webkit-scrollbar {
@@ -320,14 +319,7 @@
 					<div class="text-con"><span>${cl.ol_cont }</span></div>
 				</c:if>
 				<div class="tri-left"></div>
-				<div class="profile-img">
-				<c:if test="${!empty loginUser.path }">
-				<img src='${loginUser.path}'>
-				</c:if>
-				<c:if test="${empty loginUser.path }">
-				<img src='resources/images/icons/profile_white.png'>
-				</c:if>
-				</div>
+				
 			</div>
 		</c:if>
 		<c:if test="${cl.id ne loginUser.empNo }">
@@ -336,14 +328,7 @@
 			 </c:if>
 		<div id="chatdata" class="left">	<!--  받는사람한테 class="left" 추가 -->
 			
-			<div class="profile-img">
-			<c:if test="${empty cl.rename_file }">
-				<img src='resources/images/icons/profile_white.png'>
-			</c:if>
-			<c:if test="${!empty cl.rename_file }">
-				<img src='resources/muploadFiles/${cl.rename_file}'>
-			</c:if>
-			</div>
+			
 			<div class="tri-right"></div>
 			<div class="text-con-area">
 				<div>${cl.name }</div>

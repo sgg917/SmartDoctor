@@ -373,13 +373,13 @@
 	
 	function cancleBack(){
 		if('${param.pageFrom}'=='inbox'){
-			location.href="list.mil?currentPage=1&mailOwn=" + '${loginUser.empNo}';
+			location.href="enrollForm.mil';
 		}else if('${param.pageFrom}'=='detail'){
-			location.href="list.mil?currentPage=1&mailOwn=" + '${loginUser.empNo}';
+			location.href="enrollForm.mil';
 		}else if('${param.pageFrom}'=='import'){
-			location.href="ilist.mil?currentPage=1&mailOwn=" + '${loginUser.empNo}';
+			location.href="enrollForm.mil';
 		}else{
-			location.href="flist.mil?currentPage=1&mailOwn=" + '${loginUser.empNo}';
+			location.href="enrollForm.mil';
 		}
 		
 	}
