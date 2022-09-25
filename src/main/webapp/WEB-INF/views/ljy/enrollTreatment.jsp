@@ -148,6 +148,10 @@
                     <input type="hidden" name="newOne" value="${ nowPatient.newOne }">
                     <br><br>
                       <table id="outout"style="text-align: center; margin:auto;">
+                      	
+                      	<tr style="float: left;">
+                      		<td colspan="2">&lt; <span>${ loginUser.empName} ${loginUser.jobName } &gt; &nbsp;</span> 진료과 &nbsp; : &nbsp; ${ loginUser.deptName }</td>
+                      	</tr>
 
                         <tr>
                           <td colspan="2">
@@ -264,13 +268,9 @@
                           		console.log($("#sickness>option:selected").val());
                           		
                           		$("#dCode").val(($("#sickness>option:selected").val()));
+                          		//$("#saveTmt").attr("disabled", false);
                           	})
                           	
-                          	if($("#dCode").val().length() == 0){
-                          		$("#saveMed").attr("disabled", true);
-                          	}else{
-                          		$("#saveMed").attr("disabled", false);
-                          	}
                           </script>
                             
                           </td>
@@ -305,6 +305,7 @@
                                 		$("#sCode").prop('disabled', false);
                                 	}
                             		
+                            		//$("#saveTmt").prop('disabled', false);
                             	})
                             	
                             
@@ -350,7 +351,7 @@
                       </table>
                       
                        <div class="template-demo">
-	                      <button type="submit" class="btn btn-gradient-primary btn-sm" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 100px;">저장</button>
+	                      <button type="submit" class="btn btn-gradient-primary btn-sm" id="saveTmt" style="float: right; background: rgb(29, 92, 99); color: white; border: none; width: 100px;" disabled>저장</button>
 	                      <button type="reset" class="btn btn-gradient-primary btn-sm" style="float: right; background: gray; color: white; border: none; width: 100px;">초기화</button>
 	                      <br><br>
 	                    </div>
@@ -403,8 +404,8 @@
                       
                       	<br>
                         <span>총 투여일수</span><br><br>
-                        <select name="injectDay" class="custom-select">
-                          <option selected required>선택</option>
+                        <select name="injectDay" id="injectDay" class="custom-select">
+                          <option selected value="0" required>선택</option>
                           <option value="3">3일</option>
                           <option value="4">4일</option>
                           <option value="5">5일</option>
@@ -419,7 +420,7 @@
                       <!-- Modal footer -->
                       <div class="modal-footer">
                       	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button>
-                        <button type="button" class="btn btn-secondary btn-sm" id="saveMed" data-dismiss="modal" style="background: rgb(29, 92, 99); color: white;">저장</button>
+                        <button type="button" class="btn btn-secondary btn-sm" id="saveMed" data-dismiss="modal" style="background: rgb(29, 92, 99); color: white;" disabled>저장</button>
                       </div>
                       
                     </div>
@@ -431,6 +432,17 @@
               
               
               <script>
+              
+              	$("select[name=injectDay]").click(function(){
+              		
+              		if($("#injectDay").val() == 0){
+              			$("#saveMed").prop("disabled", true);
+                  	}else{
+                  		$("#saveMed").prop("disabled", false);
+                  	}
+	      		})
+              
+              
             	$("#saveMed").click(function(){
             		
             		let list = []; // [{medNo:xxxx, medName:xxxx}, {medNo:xxxx, medName:xxxx}, ..]
@@ -449,8 +461,8 @@
 		   				     		+ '<td>' + '<span name="medNo">' + '<input type="hidden" value="' + obj.medNo + '" name="preMedList[' + index + '].medNo">' + obj.medNo + '</span>' + '</td>'
 		   				     		+ '<td>' + obj.medName + '</td>'
 		   				     		+ '<td>' +  
-		   				     					'<select name="preMedList[' + index + '].dosetime" class="custom-select">'
-		   				     				 +    '<option selected required>선택</option>'
+		   				     					'<select name="preMedList[' + index + '].dosetime" class="custom-select" id="preMedList">'
+		   				     				 +    '<option selected value="0">선택</option>'
 		   				     				 +	  '<option value="1">1회</option>'
 		   				     				 +    '<option value="2">2회</option>'
 		   				     				 +    '<option value="3">3회</option>'
@@ -458,10 +470,22 @@
 		   				     		+ '<td>' +  '<span name="tiems">' + obj.times + "</span>" + '</td>'
 		   				     	 + '</tr>';
             			$("#table1").append(row);
-            		})
             			
+            		})
+            
             		
             		
+            		
+              	$("#preMedList").change(function(){
+              		
+              		if($("#preMedList option:selected").val() != 0){
+              			console.log($("#preMedList option:selected").val());
+              			$("#saveTmt").prop("disabled", false);
+              		}else{
+              			$("#saveTmt").prop("disabled", true);
+              		}
+              		
+	      		})
             		
             		/*
             		if($("input:checkbox[name=aa]:checked").length != 0){

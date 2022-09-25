@@ -140,7 +140,7 @@ public class TreatmentController {
 		}else { 
 
 			session.setAttribute("alertMsg", "진료중인 환자가 없습니다.");
-			mv.setViewName("redirect:/");
+			mv.setViewName("main");
 		}
 		return mv;
 	}
@@ -334,7 +334,7 @@ public class TreatmentController {
 		return mv;
 	}
 	
-	// 진료 저장
+	// 진료 저장(clinic -> Prescription -> Patient -> PreMed -> Pay)
 	@RequestMapping("insert.tmt")
 	public String insertTreatment(Clinic c, Prescription pre, HttpSession session, String injectDay, String chartNo, String newOne) {
 		
@@ -343,21 +343,25 @@ public class TreatmentController {
 		
 		// 진료테이블 업데이트
 		int clinicResult = tService.updateClinic(c); 
+		System.out.println("clinic : " + c);
 		
 		// 처방전 입력
 		int preResult = tService.insertPre(pre);
+		System.out.println("pre : "+ pre);
 		
 		// 환자 초진 or 재진 여부 업데이트
 		int pResult = 0;
 		
 		if(newOne.equals("초진")) {
 			pResult = tService.updatePatient(chartNo);
+			System.out.println("chartNo : " + chartNo);
 		}
+		
 		int updateResult = rService.updatePatientLastDept(c); // last_dept, last_visit 업데이트 -> 민주추가
 		
-		if(clinicResult > 0 && preResult > 0 && pResult > 0 && updateResult > 0) {
+		if(clinicResult > 0 && preResult > 0 && pResult >= 0 && updateResult > 0) {
 			
-			//System.out.println("1차성공");
+			System.out.println("1차성공");
 			
 			//System.out.println(pre.getPreMedList()); // 입력한 약 list 보기
 			
@@ -367,15 +371,15 @@ public class TreatmentController {
 			
 			for(PreMed pmd : pre.getPreMedList()) {
 				pMedResult = tService.insertPmed(pmd);
+				System.out.println("pmd : " + pmd);
 			}
-			
-			System.out.println("안녕하세요");
 			
 			if(c.getSurgeryNo2() != null) { // 수술코드가 null이 아니면 == 수술을 한다면
 				ArrayList<Surgery> sList = tService.selectSurgeryList();
 				for(int i = 0; i<sList.size(); i++) {
 					if(sList.get(i).getSurgeryNo().equals(c.getSurgeryNo2())) {
 						meals = Integer.toString(Integer.parseInt(sList.get(i).getPeriod()) * 15000);
+						System.out.println("meals : " + meals);
 					}
 				}
 		
@@ -388,8 +392,8 @@ public class TreatmentController {
 			
 			if(pMedResult > 0 && payResult > 0) {
 				session.setAttribute("alertMsg", "진료 완료되었습니다!");
-				// System.out.println("2차성공");
-				return "redirect:/";
+				System.out.println("2차성공");
+				return "main";
 			}else {
 				session.setAttribute("errorMsg", "진료 실패");
 				return "ljy/enrollTreatment";
