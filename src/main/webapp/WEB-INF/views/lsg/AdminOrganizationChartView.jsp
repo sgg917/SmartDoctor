@@ -59,6 +59,9 @@ li {
 }
 
 /* 사원 조회 테이블 스타일 */
+#org-mem {
+	height: 95%;
+}
 #org-mem hr {
   width: 90%;
   margin-left: 35px;
@@ -410,7 +413,7 @@ input, select {
                         txt +=    '</select>';
                         txt += 	'</th>';
                         txt += 	'<td class="empName"><input class="form-control" type="text" name="empName" value="' + list[i].empName + '" required></td>';
-                        txt +=  '<td class="email"><input class="form-control" type="email" name="email" value="' + list[i].email + '" required></td>';
+                        txt +=  '<td class="phone"><input class="form-control" type="tel" name="phone" value="' + list[i].phone + '" required></td>';
                         txt +=  '<td style="vertical-align:middle;">';
                         txt += 		'<i class="deleteBtn mdi mdi-close" data-bs-toggle="modal" data-bs-target="#deleteMemModal" data-id="' + list[i].empNo + '"></i>';
                     	txt +=  	' <i class="updateBtn mdi mdi-account-settings"></i>';
@@ -582,7 +585,7 @@ input, select {
 		//console.log( $(this).parent().siblings('input[name=empNo]').val() );
 		//console.log( $(this).parent().siblings('.jobNo').children('select[name=jobNo]').val() ); 
 		//console.log( $(this).parent().siblings('.empName').children('input[name=empName]').val() ); 
-		//console.log( $(this).parent().siblings('.email').children('input[name=email]').val() ); 
+		//console.log( $(this).parent().siblings('.phone').children('input[name=phone]').val() ); 
 		//console.log( $(this).parent().siblings('input[name=deptNo]').val() );
 		
 		$.ajax({
@@ -592,7 +595,7 @@ input, select {
 				empNo:parseInt($(this).parent().siblings('input[name=empNo]').val()),
 				jobNo:parseInt($(this).parent().siblings('.jobNo').children('select[name=jobNo]').val()),
 				empName:$(this).parent().siblings('.empName').children('input[name=empName]').val(),
-				email:$(this).parent().siblings('.email').children('input[name=email]').val(),
+				phone:$(this).parent().siblings('.phone').children('input[name=phone]').val(),
 				deptNo:$(this).parent().siblings('input[name=deptNo]').val()
 			},
 			success:function(str){

@@ -31,7 +31,6 @@ body{
 
 /* 조직도 영역 스타일 */
 .org-wrap {
-  /* height:500px; */
   margin:auto;
   margin-top:50px;
   padding-bottom:50px;
@@ -60,6 +59,9 @@ li {
 	font-size:1rem;
 }
 /* 사원 조회 테이블 스타일 */
+#org-mem {
+	height: 95%;
+}
 #org-mem hr {
   width: 90%;
   margin-left: 35px;
@@ -352,7 +354,7 @@ li {
 				        txt +=       '<td><img src="' + list[i].path + '"></td>';
 				        txt +=       '<th>' + list[i].jobName + '</th>';
 				        txt +=       '<td>' + list[i].empName + '</td>';
-				        txt +=       '<td>' + list[i].email + '</td>';
+				        txt +=       '<td>' + list[i].phone + '</td>';
 				        txt +=  '</tr>';
 					}
 				}

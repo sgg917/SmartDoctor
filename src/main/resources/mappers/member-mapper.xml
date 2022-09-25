@@ -186,7 +186,7 @@
 		select 
 		       emp_no
 		     , emp_name
-		     , email
+		     , phone
 		     , profile_originname
 		     , job_name
 		     , dept_no
@@ -226,7 +226,7 @@
 		select 
 		       emp_no
 		     , emp_name
-		     , email
+		     , phone
 		     , profile_path
 		     , dept_name
 		     , job_name
@@ -328,7 +328,7 @@
 		update member
 		   set emp_name = #{empName}
 		     , job_no = #{jobNo}
-		     , email = #{email}
+		     , phone = #{phone}
 	<if test="deptNo == 4">
 		<choose>
 			<when test="jobNo == 6 or jobNo == 7">

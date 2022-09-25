@@ -161,7 +161,7 @@ th {
 											<tr>
 										</c:when>
 										<c:otherwise>
-											<tr class="open-modal" data-bs-toggle="modal" data-bs-target="#updateAttModal">
+											<tr class="open-modal">
 										</c:otherwise>
 									</c:choose>
 										<input type="hidden" value="${ a.empNo }">
@@ -227,102 +227,7 @@ th {
 				<br>
 			</div>
 		</div>
-
-		<script>
-			$(function() {
-				$('.open-modal').click(function() {
-					// input 요소에 근태 정보 넣어주기
-					$('input[type=hidden]').val( $(this).children('input[type=hidden]').val() );
-					$('input[name=attDate]').val( $(this).children(".attDate").text() );
-					$('input[name=deptName]').val( $(this).children('.deptName').text() );
-					$('input[name=empName]').val( $(this).children('.empName').text() );
-					$('input[name=startTime]').val( $(this).children('.startTime').text() );
-					$('input[name=endTime]').val( $(this).children('.endTime').text() );
-					$('input[name=totalTime]').val( $(this).children('.totalTime').text() );
-					$('option[value=' + $(this).children(".status").text() + ']').attr('selected', true);
-					$('#updateAttModal').modal('show');
-				})
-			})
-		</script>
-
-		<!-- 근태 정보 수정 모달  -->
-		<div class="modal fade" id="updateAttModal">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-
-					<!-- Modal Header -->
-					<div class="modal-header" style="background: white;">
-						<h4 class="modal-title" style="margin:10px auto;">
-							<b>근태 정보 수정</b>
-						</h4>
-					</div>
-
-					<!-- Modal body -->
-					<div class="modal-body" style="background: white;">
-						<form class="forms-sample" action="update.att" method="post">
-							<input type="hidden" name="empNo">
-							<input type="hidden" name="modifyNo" value="${ loginUser.empNo }">
-							<div class="form-group row">
-								<label for="attDate" class="col-sm-3 col-form-label">날짜</label>
-								<div class="col-sm-9">
-									<input type="text" class="form-control" name="attDate" readonly>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="deptName" class="col-sm-3 col-form-label">부서</label>
-								<div class="col-sm-9">
-									<input type="email" class="form-control" name="deptName" disabled>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="empName" class="col-sm-3 col-form-label">이름</label>
-								<div class="col-sm-9">
-									<input type="text" class="form-control" name="empName" disabled>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="startTime" class="col-sm-3 col-form-label">출근시간</label>
-								<div class="col-sm-9">
-									<input type="time" class="form-control" id="startTime" name="startTime">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="endTime" class="col-sm-3 col-form-label">출근시간</label>
-								<div class="col-sm-9">
-									<input type="time" class="form-control" id="endTime" name="endTime">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="totalTime" class="col-sm-3 col-form-label">근무시간</label>
-								<div class="col-sm-9">
-									<input type="number" class="form-control" id="totalTime" name="totalTime">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="status" class="col-sm-3 col-form-label">상태</label>
-								<div class="col-sm-9">
-									<div class="input-group">
-										<select name="status" id="status" class="form-control"
-											style="height: 40px;">
-											<option name="status" value="정상">정상</option>
-											<option name="status" value="지각">지각</option>
-											<option name="status" value="휴가">휴가</option>
-											<option name="status" value="결근">결근</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<br>
-							<button type="submit" class="btn btn-gradient-primary me-2" style="margin-left: 120px;">수정</button>
-							<button type="button" class="btn btn-light" data-bs-dismiss="modal" >취소</button>
-						</form>
-					</div>
-
-				</div>
-			</div>
-		</div>
-		<!-- 근태 정보 수정 모달 끝 -->
-
+		
 		<script>
 			//-------------------- 전사 근태 검색 ajax ---------------------
 			searchAllAtt = function(no){
@@ -345,7 +250,7 @@ th {
 					},
 					success:function(map){
 						
-						//console.log(map);
+						console.log(map);
 						
 						// 검색 결과 변수에 담기
 						var newPi = map.pi;
@@ -368,7 +273,7 @@ th {
 								if(newList[i].status == '결근'){
 									txt += '<tr>'
 								}else{
-									txt += '<tr class="open-modal" data-bs-toggle="modal" data-bs-target="#updateAttModal">';
+									txt += '<tr class="open-modal">';
 								}
 								
 								txt += '<input type="hidden" value="' + newList[i].empNo + '">';
@@ -426,6 +331,110 @@ th {
 				
 			}
 		</script>
+
+		<script>
+			$(document).on("click", ".open-modal", function(){
+				// input 요소에 근태 정보 넣어주기
+				var empNo = $(this).children('input[type=hidden]').val();
+				var attDate = $(this).children(".attDate").text();
+				var deptName = $(this).children('.deptName').text();
+				var empName = $(this).children('.empName').text();
+				var startTime = $(this).children('.startTime').text();
+				var endTime = $(this).children('.endTime').text();
+				var totalTime = $(this).children('.totalTime').text();
+				var status = $(this).children(".status").text();
+				
+				console.log("empNo : " + empNo + ", attDate : " + attDate + ", deptName : " + deptName + 
+						", startTime : " + startTime + ", endTime : " + endTime + ", totalTime : " + totalTime + ',status : ' + status);
+				$('input[type=hidden]').val( $(this).children('input[type=hidden]').val() );
+				$('input[name=attDate]').val( $(this).children(".attDate").text() );
+				$('input[name=deptName]').val( $(this).children('.deptName').text() );
+				$('input[name=empName]').val( $(this).children('.empName').text() );
+				$('input[name=startTime]').val( $(this).children('.startTime').text() );
+				$('input[name=endTime]').val( $(this).children('.endTime').text() );
+				$('input[name=totalTime]').val( $(this).children('.totalTime').text() );
+				$('option[value=' + $(this).children(".status").text() + ']').attr('selected', true);
+				$('#updateAttModal').modal('show');
+			})
+		</script>
+
+		<!-- 근태 정보 수정 모달  -->
+		<div class="modal fade" id="updateAttModal">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+
+					<!-- Modal Header -->
+					<div class="modal-header" style="background: white;">
+						<h4 class="modal-title" style="margin:10px auto;">
+							<b>근태 정보 수정</b>
+						</h4>
+					</div>
+
+					<!-- Modal body -->
+					<div class="modal-body" style="background: white;">
+						<form class="forms-sample" action="update.att" method="post">
+							<input type="hidden" name="empNo">
+							<input type="hidden" name="modifyNo" value="${ loginUser.empNo }">
+							<div class="form-group row">
+								<label for="attDate" class="col-sm-3 col-form-label">날짜</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" name="attDate" readonly>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="deptName" class="col-sm-3 col-form-label">부서</label>
+								<div class="col-sm-9">
+									<input type="email" class="form-control" name="deptName" disabled>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="empName" class="col-sm-3 col-form-label">이름</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" name="empName" disabled>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="startTime" class="col-sm-3 col-form-label">출근시간</label>
+								<div class="col-sm-9">
+									<input type="time" class="form-control" id="startTime" name="startTime">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="endTime" class="col-sm-3 col-form-label">퇴근시간</label>
+								<div class="col-sm-9">
+									<input type="time" class="form-control" id="endTime" name="endTime">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="totalTime" class="col-sm-3 col-form-label">근무시간</label>
+								<div class="col-sm-9">
+									<input type="number" class="form-control" id="totalTime" name="totalTime">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="status" class="col-sm-3 col-form-label">상태</label>
+								<div class="col-sm-9">
+									<div class="input-group">
+										<select name="status" id="status" class="form-control"
+											style="height: 40px;">
+											<option name="status" value="정상">정상</option>
+											<option name="status" value="지각">지각</option>
+											<option name="status" value="휴가">휴가</option>
+											<option name="status" value="결근">결근</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<br>
+							<button type="submit" class="btn btn-gradient-primary me-2" style="margin-left: 120px;">수정</button>
+							<button type="button" class="btn btn-light" data-bs-dismiss="modal" >취소</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- 근태 정보 수정 모달 끝 -->
 
 		<!-- content-wrapper ends -->
 		<!-- !!!내용 작성 끝!!! -->

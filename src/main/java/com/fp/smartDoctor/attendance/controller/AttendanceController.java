@@ -217,6 +217,7 @@ public class AttendanceController {
 		return mv;
 	}
 	
+	// 전사 휴가리스트
 	@RequestMapping("allList.vac")
 	public ModelAndView selectAllVacationList(@RequestParam(value="cpage", defaultValue="1")int cpage, ModelAndView mv) {
 		
@@ -324,11 +325,12 @@ public class AttendanceController {
 		}
 	}
 	
+	// 전사 근태 검색
 	@ResponseBody
 	@RequestMapping(value="allSearch.att", produces="application/json; charset=utf-8")
 	public String ajaxSearchAllAttendance(int cpage, String type, String keyword) {
 		
-		// System.out.println("type:" + type + ", keyword:" + keyword);
+		System.out.println("type:" + type + ", keyword:" + keyword);
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("type", type);
 		hm.put("keyword", keyword);
