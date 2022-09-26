@@ -194,7 +194,7 @@
 	}
 	
 	.big-area {
-        border-bottom: 10px solid #f2f2f2;
+        border-bottom: 10px solid RGB(237, 230, 214);
 	    height: 61%;
 	    position: relative;
 	    display: flex;
