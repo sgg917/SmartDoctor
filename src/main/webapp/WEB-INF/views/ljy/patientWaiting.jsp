@@ -95,13 +95,13 @@ input {
 	margin: auto;
 }
 
-#tableArea{
+/* #tableArea{
 	height: 220px;
 	width: 100%;
 	/* border: 1px solid black; */
 	text-align: center;
 	overflow: auto;
-}
+} */
 #tableArea>table{
 	width: 100%;
 	box-sizing: border-box;
