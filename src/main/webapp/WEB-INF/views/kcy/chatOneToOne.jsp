@@ -194,7 +194,7 @@
 	}
 	
 	.big-area {
-        border-bottom: 10px solid #f2f2f2;
+        border-bottom: 10px solid RGB(237, 230, 214);
 	    height: 61%;
 	    position: relative;
 	    display: flex;
@@ -624,16 +624,12 @@
 					+ "<div class='text-con'><span>"
 					+ message
 					+ "</span></div>"
-					+ "<div class='tri-left'></div>"
-					+ "<div class='profile-img'><img src='resources/images/icons/profile_white.png'>"
 					+ "</div>" + "</div>";
 			}else{
 				printHTML = "<div id='chatdata'>"
 					+ "<div class='text-con'><span>"
 					+ message
 					+ "</span></div>"
-					+ "<div class='tri-left'></div>"
-					+ "<div class='profile-img'><img src='resources/muploadFiles/${loginUser.path}'>"
 					+ "</div>" + "</div>";
 				
 				
@@ -642,8 +638,6 @@
 		} else{
 			if(img ==""){
 				printHTML = "<div id='chatdata' class='left'>"
-					+ "<div class='profile-img'><img src='resources/images/icons/profile_white.png'></div>"
-					+ "<div class='tri-right'></div>"
 					+"<div class='text-con-area'>"
 					+"<div>" + sessionid+"</div>"
 					+"<div class='text-con-someone'>"+message+"</div>";
@@ -651,8 +645,6 @@
 				
 			}else{
 				printHTML = "<div id='chatdata' class='left'>"
-					+ "<div class='profile-img'><img src='resources/muploadFiles/"+img+"'></div>"
-					+ "<div class='tri-right'></div>"
 					+"<div class='text-con-area'>"
 					+"<div>" + sessionid+"</div>"
 					+"<div class='text-con-someone'>"+message+"</div>";
