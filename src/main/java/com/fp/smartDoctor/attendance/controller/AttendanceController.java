@@ -80,8 +80,6 @@ public class AttendanceController {
 		// 검색될 근태 총 개수 조회
 		int listCount = aService.selectListCount(a);
 		
-		//System.out.println(a);
-		
 		// 페이지 정보 객체에 담기
 		PageInfo pi = new Pagination().getPageInfo(listCount, cpage, 5, 5);
 		
