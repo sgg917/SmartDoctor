@@ -36,21 +36,28 @@
 	SELECT COUNT(*)
 	  FROM (
 	        SELECT
-	               NVL(EMP_NO, #{empNo})
-	             , NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD'))
-	             , START_TIME
-	             , END_TIME
-	             , NVL(STATUS, '결근')
-	          FROM (SELECT * FROM ATTENDANCE WHERE EMP_NO = #{empNo})
-	         RIGHT JOIN (
-	                    SELECT TRUNC(TO_DATE(SYSDATE), 'MM') + LEVEL - 1 "WORKING_DAY"
-	                         , TO_CHAR(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'DY') "WEEK"
-	                      FROM DUAL
-	                    CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(SYSDATE), 'DD')
-	                    ) ON (ATT_DATE = WORKING_DAY)
-	         WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
-	           AND NVL(EMP_NO, #{empNo}) = #{empNo}
-	           AND WEEK IN ('월', '화', '수', '목', '금')
+			       NVL(EMP_NO, #{empNo}) "emp_no"
+			     , NVL(ATT_DATE, WORKING_DAY) "att_date"
+			     , START_TIME "start_time"
+			     , END_TIME "end_time"
+			     , NVL(STATUS, '결근') "status"
+			  FROM ( SELECT * FROM ATTENDANCE WHERE EMP_NO = #{empNo} )
+			 RIGHT JOIN (
+			            SELECT
+			                   TO_CHAR(START_DT + LEVEL - 1, 'YYYY-MM-DD') "WORKING_DAY"
+			                 , TO_CHAR(START_DT + LEVEL - 1, 'DY') "WEEK"
+			              FROM
+			              (
+			                SELECT
+			                       TO_DATE(SUBSTR(SYSDATE, 1, 2) || '0101') AS START_DT
+			                     , SYSDATE AS END_DT
+			                  FROM DUAL
+			              )
+			              CONNECT BY LEVEL &lt;= END_DT - START_DT + 1
+			            ) ON (ATT_DATE = WORKING_DAY)
+			 WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
+			     AND NVL(EMP_NO, #{empNo}) = #{empNo}
+			     AND WEEK IN ('월', '화', '수', '목', '금') 
 	         <choose>
 			 	<when test='startDate != null and endDate != null and !startDate.equals("") and !endDate.equals("")'>
 			 	   AND NVL(TO_DATE(ATT_DATE), WORKING_DAY) BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate})
@@ -78,20 +85,27 @@
 	<select id="selectAttendance" resultMap="attendanceResult">
 		SELECT
 		       NVL(EMP_NO, #{empNo}) "emp_no"
-		     , NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "att_date"
-		     , NVL(START_TIME, '-') as "start_time"
-			 , NVL(END_TIME, '-') as "end_time"
+		     , NVL(ATT_DATE, WORKING_DAY) "att_date"
+		     , NVL(START_TIME, '-') "start_time"
+		     , NVL(END_TIME, '-') "end_time"
 		     , NVL(STATUS, '결근') "status"
-		  FROM (SELECT * FROM ATTENDANCE WHERE EMP_NO = #{empNo})
+		  FROM ( SELECT * FROM ATTENDANCE WHERE EMP_NO = #{empNo} )
 		 RIGHT JOIN (
-		            SELECT TRUNC(TO_DATE(SYSDATE), 'MM') + LEVEL - 1 "WORKING_DAY"
-		                 , TO_CHAR(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'DY') "WEEK"
-		              FROM DUAL
-		            CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(SYSDATE), 'DD')
+		            SELECT
+		                   TO_CHAR(START_DT + LEVEL - 1, 'YYYY-MM-DD') "WORKING_DAY"
+		                 , TO_CHAR(START_DT + LEVEL - 1, 'DY') "WEEK"
+		              FROM
+		              (
+		                SELECT
+		                       TO_DATE(SUBSTR(SYSDATE, 1, 2) || '0101') AS START_DT
+		                     , SYSDATE AS END_DT
+		                  FROM DUAL
+		              )
+		              CONNECT BY LEVEL &lt;= END_DT - START_DT + 1
 		            ) ON (ATT_DATE = WORKING_DAY)
 		 WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
-		   AND NVL(EMP_NO, #{empNo}) = #{empNo}
-		   AND WEEK IN ('월', '화', '수', '목', '금')
+		     AND NVL(EMP_NO, #{empNo}) = #{empNo}
+		     AND WEEK IN ('월', '화', '수', '목', '금') 
 		<choose>
 			<when test='startDate != null and endDate != null and !startDate.equals("") and !endDate.equals("")'>
 			   AND NVL(TO_DATE(ATT_DATE), WORKING_DAY) BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate})
