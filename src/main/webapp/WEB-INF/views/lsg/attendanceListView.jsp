@@ -411,24 +411,24 @@ th {
 						// 검색 결과 페이징 처리
 						if(newPi.currentPage != 1){
 							
-							ptxt += '<li class="page-item"><a class="page-link" href="searchAtt(' + newPi.currentPage-1 + ')">Previous</a></li>';
+							ptxt += '<li class="page-item"><a class="page-link" href="javascript:searchAtt(' + newPi.currentPage-1 + ')">Previous</a></li>';
 						}
 						
 						for(var p = newPi.startPage; p <= newPi.endPage; p++){
 							
 							if(p == newPi.currentPage){
 								
-								ptxt += '<li class="page-item active"><a class="page-link" href="searchAtt(' + p + '">' + p + '</a></li>';
+								ptxt += '<li class="page-item active"><a class="page-link" href="javascript:searchAtt(' + p + ')">' + p + '</a></li>';
 								
 							}else{
-								ptxt += '<li class="page-item"><a class="page-link" href="searchAtt(' + p + ')">' + p + '</a></li>';
+								ptxt += '<li class="page-item"><a class="page-link" href="javascript:searchAtt(' + p + ')">' + p + '</a></li>';
 							}
 							
 						}
 						
 						if(newPi.currentPage != newPi.maxPage){
 							
-							ptxt += '<li class="page-item"><a class="page-link" href="searchAtt(' + newPi.currentPage+1 + ')">Next</a></li>';
+							ptxt += '<li class="page-item"><a class="page-link" href="javascript:searchAtt(' + newPi.currentPage+1 + ')">Next</a></li>';
 						}
 						
 						// 각 영역에 코드 넣어주기
