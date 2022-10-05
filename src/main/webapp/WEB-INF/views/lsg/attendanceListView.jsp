@@ -156,23 +156,7 @@ th {
 												<td>${ a.attDate }</td>
 												<td>${ a.startTime }</td>
 												<td>${ a.endTime }</td>
-												
-												<%-- <c:choose>
-													<c:when test="${ a.status eq 'Y' }">
-														<td>정상</td>
-													</c:when>
-													<c:when test="${ a.status eq 'L' }">
-														<td>지각</td>
-													</c:when>
-													<c:when test="${ a.status eq 'E' }">
-														<td>조퇴</td>
-													</c:when>
-													<c:otherwise>
-														<td>결근</td>
-													</c:otherwise>
-												</c:choose> --%>
 												<td>${ a.status }</td>
-												
 											</tr>
 										</c:forEach>
 									</c:otherwise>
@@ -208,6 +192,7 @@ th {
 								
 							</ul>
 						</div>
+						<!-- 테이블 페이징 끝 -->
 
 					</div>
 					<!-- 근태 상세 조회 영역 끝 -->
@@ -228,65 +213,63 @@ th {
 							<p id="eTime" style="height:20px">퇴근 &nbsp;&nbsp;&nbsp;&nbsp;  <p>
 							<hr>
 							<table id="att-count">
-									<tr>
-										<th>정상</th>
-										<th>지각</th>
-									</tr>
-									<tr>
-										<th>
-											<c:out value="${y}"/>
-										</th>
-										<th>
-											<c:out value="${l}"/>
-										</th>
-									</tr>
-									<tr>
-										<th>조퇴</th>
-										<th>결근</th>
-									</tr>
-									<tr>
-										<th>
-											<c:out value="${e}"/>
-										</th>
-										<th>
-											<c:out value="${n}"/>
-										</th>
-									</tr>
+								<tr>
+									<th>정상</th>
+									<th>지각</th>
+								</tr>
+								<tr>
+									<th>
+										<c:out value="${y}"/>
+									</th>
+									<th>
+										<c:out value="${l}"/>
+									</th>
+								</tr>
+								<tr>
+									<th>휴가</th>
+									<th>결근</th>
+								</tr>
+								<tr>
+									<th>
+										<c:out value="${e}"/>
+									</th>
+									<th>
+										<c:out value="${n}"/>
+									</th>
+								</tr>
 							</table>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+		
+		<!-- 퇴근 Modal -->
+		<div class="modal fade" id="endAttModal">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content" style="background:white;">
+					<!-- Modal body -->
+					<div class="modal-body" style="text-align:center;">
+						<br>
+						<c:set var="current" value="<%= new java.util.Date() %>"/>
+						<p><fmt:formatDate value="${current}" type="time" pattern="HH:mm"/></p>
+						<p>퇴근하시겠습니까?</p>
+					</div>
 
-			<!-- 퇴근 Modal -->
-			<div class="modal fade" id="endAttModal">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content" style="background:white;">
-							<!-- Modal body -->
-							<div class="modal-body" style="text-align:center;">
-								<br>
-								<c:set var="current" value="<%= new java.util.Date() %>"/>
-								<p><fmt:formatDate value="${current}" type="time" pattern="HH:mm"/></p>
-								<p>퇴근하시겠습니까?</p>
-								
-							</div>
-	
-							<!-- Modal footer -->
-							<div class="modal-footer" style="justify-content:center;">
-								<form action="end.att" method="POST">
-									<input type="hidden" name="no" value="${ loginUser.empNo }">
-									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-									<button class="btn green-btn">확인</button>
-								</form>
-							</div>
+					<!-- Modal footer -->
+					<div class="modal-footer" style="justify-content:center;">
+						<form action="end.att" method="POST">
+							<input type="hidden" name="no" value="${ loginUser.empNo }">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+							<button class="btn green-btn">확인</button>
+						</form>
 					</div>
 				</div>
 			</div>
-			<!-- 퇴근 Modal 끝 -->
 		</div>
+		<!-- 퇴근 Modal 끝 -->
 		
 		<script>
-		
 			// ----------- 페이지 로딩되자마자 실행할 내용 ------------
 			$(function(){
 				
@@ -347,8 +330,6 @@ th {
 						// 퇴근 시간 담기 (퇴근 시간 or NULL)
 						var eTime = check.endTime;
 						
-						//console.log(attResult);
-						
 						// 출퇴근함 => 출퇴근 버튼 비활성화, 출퇴근 시간 표시
 						if(attResult == 'YY'){
 							
@@ -385,9 +366,6 @@ th {
 					status.push($(this).val()); // ['Y', 'L', 'E']
 				})
 				
-				// 콘솔창에 배열 출력해보기
-				//console.log(status);
-				
 				// 근태 검색 ajax
 				$.ajax({
 					url:"search.att",
@@ -400,8 +378,6 @@ th {
 					},
 					type:"POST",
 					success:function(map){
-						
-						//console.log(map);
 						
 						// map에서 페이징/근태 정보 꺼내서 변수에 담기
 						const newPi = map.pi;
@@ -426,27 +402,9 @@ th {
 								txt +=	'<tr>' +
 											'<td>' + newList[i].attDate + '</td>' + 
 											'<td>' + newList[i].startTime + '</td>' + 
-											'<td>' + newList[i].endTime + '</td>';
-												
-								/* if(newList[i].status == '정상'){
-									
-									txt += '<td>정상</td>';
-									
-								}else if(newList[i].status == 'L'){
-									
-									txt += '<td>지각</td>';
-									
-								}else if(newList[i].status == 'E'){
-									
-									txt += '<td>조퇴</td>';
-									
-								}else{
-									
-									txt += '<td>결근</td>';
-								} */
-								txt += '<td>' + newList[i].status + '</td>';
-								
-								txt += '</tr>';
+											'<td>' + newList[i].endTime + '</td>' +
+											'<td>' + newList[i].status + '</td>'
+									 + '</tr>';
 							}	
 						}
 						
@@ -494,8 +452,10 @@ th {
 					},
 					success:function(startTime){
 						
-						console.log(startTime);
+						// 출근 시간 표시
 						$('#sTime').html("출근 &nbsp;&nbsp;&nbsp;&nbsp;" + startTime);
+						
+						// 출근 버튼 비활성화
 						$('#startAttBtn').attr('disabled', true);
 					},
 					error:function(){

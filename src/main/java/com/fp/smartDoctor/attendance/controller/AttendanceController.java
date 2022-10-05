@@ -56,12 +56,11 @@ public class AttendanceController {
 		int y = 0; int l = 0; int e = 0; int n = 0;
 		
 		for(Attendance i : alist) {
-			//System.out.println(i.getStatus());
 			switch(i.getStatus()) {
-			case "정상" : y++; break;
-			case "지각" : l++; break;
-			case "휴가" : e++; break;
-			case "결근" : n++; break;
+				case "정상" : y++; break;
+				case "지각" : l++; break;
+				case "휴가" : e++; break;
+				case "결근" : n++; break;
 			}
 		}
 		
@@ -139,14 +138,16 @@ public class AttendanceController {
 	@RequestMapping(value="insert.att", produces="text/html; charset=utf-8")
 	public String insetAttendance(int no) {
 		
+		// 출근 insert
 		int result = aService.insertAttendance(no);
 		
 		if(result > 0) {
-			
+		// 출근 성공 시 => 출근 시간 담아서 리턴
 			String startTime = aService.selectStartTime(no);
 			
 			return startTime;
 		}else {
+		// 출근 실패 시 => 출근 등록 실패 alert
 			return "출근 등록에 실패했습니다.";
 		}
 	}
@@ -155,14 +156,14 @@ public class AttendanceController {
 	@RequestMapping("end.att")
 	public String endAttendance(int no, HttpServletRequest request) {
 		
-		//System.out.println(a);
-		
 		// 퇴근시간, 근태 상태 update 결과 담기
 		int result = aService.endAttendance(no);
 		
 		if(result > 0) {
+		// 퇴근 성공 시 => 출퇴근 관리 페이지 url 재요청
 			return "redirect:list.att?no=" + no;
 		}else {
+		// 퇴근 실패 시 => 에러 페이지 포워딩
 			request.setAttribute("errorMsg", "퇴근 등록에 실패하였습니다.");
 			return "common/errorPage";
 		}
@@ -185,12 +186,9 @@ public class AttendanceController {
 		// 휴가 잔여일수 조회
 		int vacRemain = aService.selectVacRemain(no);
 		
+		// 휴가 리스트, 잔여일수, 페이징 정보 담아서 리턴
 		mv.addObject("pi", pi).addObject("list", list).addObject("vacRemain", vacRemain)
 		.setViewName("lsg/vacationListView");
-		
-		//System.out.println(listCount);
-		//System.out.println(pi);
-		//System.out.println(list);
 		
 		return mv;
 	}
@@ -208,9 +206,7 @@ public class AttendanceController {
 		// 전사 근태 리스트 조회
 		ArrayList<Attendance> list = aService.selectAllAttendanceList(pi);
 		
-		// System.out.println(pi);
-		// System.out.println(list);
-		
+		// 전사 근태 리스트, 페이징 정보 담아서 리턴
 		mv.addObject("pi", pi).addObject("list", list)
 		.setViewName("lsg/allAttendanceListView");
 		
@@ -224,6 +220,7 @@ public class AttendanceController {
 		// 병원장을 제외한 사원 수
 		int listCount = aService.selectMemListCount() - 1;
 		
+		// 사원 리스트 페이징 정보
 		PageInfo pi = new PageInfo();
 		pi = new Pagination().getPageInfo(listCount, cpage, 5, 10);
 		
@@ -233,39 +230,37 @@ public class AttendanceController {
 		// 사원들의 잔여 휴가일
 		ArrayList<Vacation> vacList = aService.selectMemVacRemain();
 		
-		/*
-		 * System.out.println(pi);
-		 * System.out.println(list);
-		 * System.out.println(vacList);
-		 */
-		
+		// 페이징 정보, 사원 리스트, 잔여 휴가일 담아서 리턴
 		mv.addObject("pi", pi).addObject("list", list).addObject("vacList", vacList)
 		.setViewName("lsg/allVacationListView");
 		return mv;
 	}
 	
+	// 한 사원의 휴가리스트
 	@ResponseBody
 	@RequestMapping(value="memList.vac", produces="application/json; charset=utf-8")
 	public String ajaxselectVacationList(int no) {
 		
+		// 한 사원의 휴가리스트 조회
 		ArrayList<Vacation> list = aService.ajaxSelectVacationList(no);
 		
 		return new Gson().toJson(list);
 	}
 	
+	// 사원 검색
 	@ResponseBody
 	@RequestMapping(value="search.vac", produces="application/json; charset=utf-8")
 	public String ajaxSearchVacationList(@RequestParam(value="cpage", defaultValue="1")int cpage, String type, String keyword) {
 		
+		// 전달받아온 검색 종류, 키워드 담기
 		HashMap<String, String> hm = new HashMap<>();
 		hm.put("type", type);
 		hm.put("keyword", keyword);
 		
-		//System.out.println(hm);
-		
 		// 검색 결과 사원 수
 		int listCount = aService.ajaxSearchListCount(hm);
 		
+		// 사원 페이징 정보
 		PageInfo pi = new PageInfo();
 		pi = new Pagination().getPageInfo(listCount, cpage, 5, 10);
 		
@@ -275,6 +270,7 @@ public class AttendanceController {
 		// 검색 결과 사원들의 잔여 휴가일
 		ArrayList<Vacation> vlist = aService.selectMemVacRemain();
 		
+		// 페이징 정보, 사원 리스트, 잔여 휴가일 담아서 전달
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("pi", pi);
 		map.put("list", list);
@@ -284,11 +280,13 @@ public class AttendanceController {
 		
 	}
 	
+	// 월간 근태 체크 페이지로 이동
 	@RequestMapping("goCalendar.att")
 	public String goAttendanceCalendar() {
 		return "lsg/attendanceCalendar";
 	}
 	
+	// 월간 근태 리스트 조회
 	@ResponseBody
 	@RequestMapping(value="calendar.att", produces="application/json; charset=utf-8")
 	public String attendanceCalendar(Attendance a) {
@@ -307,19 +305,19 @@ public class AttendanceController {
 		return new Gson().toJson(map);
 	}
 	
+	// 퇴근, 근태 상태 update
 	@RequestMapping("update.att")
 	public String updateAttendance(Attendance a, HttpSession session, Model model) {
 		
-		//System.out.println(a);
-		
-		// 근태 업데이트
+		// 근태 update
 		int result = aService.updateAttendance(a);
 		
 		if(result > 0) {
-			
+		// 근태 update 성공 시	=> 성공 alert 문구를 담아서 url 재요청
 			session.setAttribute("alertMsg", "성공적으로 수정되었습니다.");
 			return "redirect:allList.att";
 		}else {
+		// 근태 update 실패 시 => 실패 문구를 담아서 에러페이지 포워딩
 			model.addAttribute("errorMsg", "근태 수정에 실패하였습니다.");
 			return "common/errorPage";
 		}
@@ -330,17 +328,20 @@ public class AttendanceController {
 	@RequestMapping(value="allSearch.att", produces="application/json; charset=utf-8")
 	public String ajaxSearchAllAttendance(int cpage, String type, String keyword) {
 		
-		//System.out.println("type:" + type + ", keyword:" + keyword);
+		// 전달받아온 검색 종류, 키워드 담기
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("type", type);
 		hm.put("keyword", keyword);
 		
+		// 페이징 정보 담기
 		int listCount = aService.ajaxSearchAttListCount(hm);
 		PageInfo pi = new PageInfo();
 		pi = new Pagination().getPageInfo(listCount, cpage, 5, 10);
 		
+		// 검색 리스트 조회
 		ArrayList<Attendance> list = aService.ajaxSearchAttendance(pi, hm);
 		
+		// 검색 리스트, 페이징 정보 담아서 전달
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("pi", pi);
 		map.put("list", list);
