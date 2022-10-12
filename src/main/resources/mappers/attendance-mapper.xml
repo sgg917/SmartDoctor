@@ -285,12 +285,12 @@
 	<!-- 한 사원의 휴가 리스트 조회 -->
 	<select id="selectVacationList" resultMap="vacationResult">
 		select
-		       app_no "app_no"
+		       app_no
 		     , v.emp_no "emp_no"
 		     , to_char(v.enroll_date, 'YYYY-MM-DD') "enroll_date"
 		     , to_char(start_date, 'YYYY-MM-DD') "start_date"
 		     , to_char(end_date, 'YYYY-MM-DD') "end_date"
-		     , vac_cause "vac_cause"
+		     , vac_cause
 		     , appr_status "status"
 		  from vacation v
 		  join approval on (app_no = appr_no)
