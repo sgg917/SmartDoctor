@@ -55,7 +55,7 @@
 /* 사원 근태 조회 테이블 스타일 */
 #memAtt {
 	text-align: center;
-	width: 1400px;
+	width: 1400px; 
 	margin: 10px 80px;
 }
 th {
@@ -164,28 +164,14 @@ th {
 											<tr class="open-modal">
 										</c:otherwise>
 									</c:choose>
-									<input type="hidden" value="${ a.empNo }">
-									<td class="attDate">${ a.attDate }</td>
-									<td class="deptName">${ a.deptName }</td>
-									<td class="empName">${ a.empName }</td>
-									<td class="startTime">${ a.startTime }</td>
-									<td class="endTime">${ a.endTime }</td>
-									<c:choose>
-										<c:when test="${ a.totalTime eq '0' }">
-											<td class="totalTime">${ a.totalTime }</td>
-										</c:when>
-										<c:otherwise>
-											<c:choose>
-												<c:when test="${ a.totalTime lt 60 }">
-													<td class="totalTime">${ a.totalTime }</td>
-												</c:when>
-												<c:otherwise>
-													<td class="totalTime">${ Math.ceil(a.totalTime/60) }</td>
-												</c:otherwise>
-											</c:choose>
-										</c:otherwise>
-									</c:choose>
-									<td class="status">${ a.status }</td>
+										<input type="hidden" value="${ a.empNo }">
+										<td class="attDate">${ a.attDate }</td>
+										<td class="deptName">${ a.deptName }</td>
+										<td class="empName">${ a.empName }</td>
+										<td class="startTime">${ a.startTime }</td>
+										<td class="endTime">${ a.endTime }</td>
+										<td class="totalTime">${ a.totalTime }</td>
+										<td class="status">${ a.status }</td>
 									</tr>
 								</c:forEach>
 							</c:otherwise>
@@ -322,19 +308,9 @@ th {
 		</script>
 
 		<script>
-			// tr 요소 클릭 시 근태 정보 수정 모달 나타나게	
+			// tr 요소 클릭 시 근태 정보 수정 모달 나타나게
 			$(document).on("click", ".open-modal", function(){
-				
-				// input 요소에 근태 정보 넣어주기
-				var empNo = $(this).children('input[type=hidden]').val();
-				var attDate = $(this).children(".attDate").text();
-				var deptName = $(this).children('.deptName').text();
-				var empName = $(this).children('.empName').text();
-				var startTime = $(this).children('.startTime').text();
-				var endTime = $(this).children('.endTime').text();
-				var totalTime = $(this).children('.totalTime').text();
-				var status = $(this).children(".status").text();
-				
+				// 모달창의 input 요소에 근태 정보 넣어주기
 				$('input[type=hidden]').val( $(this).children('input[type=hidden]').val() );
 				$('input[name=attDate]').val( $(this).children(".attDate").text() );
 				$('input[name=deptName]').val( $(this).children('.deptName').text() );
