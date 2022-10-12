@@ -168,7 +168,7 @@ public class AttendanceController {
 			
 	}
 	
-	// 휴가 리스트 조회
+	// 휴가 관리 페이지
 	@RequestMapping("list.vac")
 	public ModelAndView selectVacationList(@RequestParam(value="cpage", defaultValue="1")int cpage, int no, ModelAndView mv) {
 		
@@ -189,6 +189,27 @@ public class AttendanceController {
 		.setViewName("lsg/vacationListView");
 		
 		return mv;
+	}
+	
+	// 월간 근태 체크 페이지로 이동
+	@RequestMapping("goCalendar.att")
+	public String goAttendanceCalendar() {
+		return "lsg/attendanceCalendar";
+	}
+	
+	// 월간 근태 리스트 조회
+	@ResponseBody
+	@RequestMapping(value="calendar.att", produces="application/json; charset=utf-8")
+	public String attendanceCalendar(Attendance a) {
+		
+		// 근태 리스트 조회
+		ArrayList<Attendance> list = aService.selectAttendance(a);
+		
+		// 리스트를 Map에 담아서 리턴
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("list", list);
+		
+		return new Gson().toJson(map);
 	}
 	
 	// 사원 근태 관리 페이지 조회
@@ -276,31 +297,6 @@ public class AttendanceController {
 		
 		return new Gson().toJson(map);
 		
-	}
-	
-	// 월간 근태 체크 페이지로 이동
-	@RequestMapping("goCalendar.att")
-	public String goAttendanceCalendar() {
-		return "lsg/attendanceCalendar";
-	}
-	
-	// 월간 근태 리스트 조회
-	@ResponseBody
-	@RequestMapping(value="calendar.att", produces="application/json; charset=utf-8")
-	public String attendanceCalendar(Attendance a) {
-		
-		// 근태 리스트 조회
-		ArrayList<Attendance> alist = aService.selectAttendance(a);
-		
-		// 휴가 리스트 조회
-		ArrayList<Vacation> vlist = aService.ajaxSelectVacationList(a.getEmpNo());
-		
-		// 리스트 두개를 Map에 담아서 리턴
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("alist", alist);
-		map.put("vlist", vlist);
-		
-		return new Gson().toJson(map);
 	}
 	
 	// 퇴근, 근태 상태 update
