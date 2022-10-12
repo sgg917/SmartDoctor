@@ -20,13 +20,11 @@ public class AttendanceDao {
 	}
 
 	public ArrayList<Attendance> selectAttendance(SqlSessionTemplate sqlSession, PageInfo pi, Attendance a){
-		
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttendance", a, rowBounds);
-		
+		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttendance", a, rowBounds);		
 	}
 	
 	public int insertAttendance(SqlSessionTemplate sqlSession, int empNo) {
@@ -50,7 +48,6 @@ public class AttendanceDao {
 	}
 	
 	public ArrayList<Vacation> selectVacationList(SqlSessionTemplate sqlSession, PageInfo pi, int empNo){
-		
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
@@ -67,7 +64,6 @@ public class AttendanceDao {
 	}
 	
 	public ArrayList<Attendance> selectAllAttendanceList(SqlSessionTemplate sqlSession, PageInfo pi){
-		
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;
 		
@@ -81,7 +77,6 @@ public class AttendanceDao {
 	}
 	
 	public ArrayList<Member> selectMemberList(SqlSessionTemplate sqlSession, PageInfo pi){
-		
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
@@ -102,7 +97,6 @@ public class AttendanceDao {
 	}
 	
 	public ArrayList<Member> ajaxSearchList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap hm){
-		
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;
 		
