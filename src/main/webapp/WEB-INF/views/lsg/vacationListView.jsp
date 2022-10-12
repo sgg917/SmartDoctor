@@ -44,12 +44,12 @@
 	background:rgb(65, 125, 122) !important;
 	color:white;
 }
-.pagination ul {
+/* .pagination ul {
 	font-size:1rem;
 }
 .page-link {
 	padding: 0.7rem 1rem !important;
-}
+} */
 
 /* 연차 테이블 스타일 */
 #my-vacation {text-align:center;}
@@ -140,7 +140,7 @@ th {
 			                            <c:choose>
 				                            <c:when test="${ v.status eq '반려' }">
 					                            <td>
-					                              <a class="modal-btn" data-bs-toggle="modal" data-id="중요한 회사 일정 있음." href="#lineCommentModal">${ v.status }</a>
+					                              <a class="modal-btn" data-bs-toggle="modal" data-id="${ v.vacCause }" href="#lineCommentModal">${ v.status }</a>
 					                            </td>
 				                            </c:when>
 				                            <c:otherwise>
@@ -178,7 +178,7 @@ th {
               
                <!-- 테이블 페이징 -->
                <div class="pagination">
-                  <ul class="pagination">
+                  <ul class="pagination" style="margin-left:400px;">
                   
                     <c:if test="${ pi.currentPage ne 1 }">
 						<li class="page-item"><a class="page-link" href="list.vac?cpage=${pi.currentPage-1}&no=${loginUser.empNo}">&lt;</a></li>
@@ -188,7 +188,7 @@ th {
 						
 						<c:choose>
 							<c:when test="${ p eq pi.currentPage }">
-								<li class="page-item active"><a class="page-link" href="list.vac?cpage=${p}&no=${loginUser.empNo}" style="margin-left:700px;">${p}</a></li>
+								<li class="page-item active"><a class="page-link" href="list.vac?cpage=${p}&no=${loginUser.empNo}">${p}</a></li>
 							</c:when>
 							<c:otherwise>
 								<li class="page-item"><a class="page-link" href="list.vac?cpage=${p}&no=${loginUser.empNo}">${p}</a></li>
@@ -200,10 +200,10 @@ th {
                     <c:choose>
                     	<c:when test="${ pi.currentPage ne pi.maxPage }">
                     		<li class="page-item"><a class="page-link" href="list.vac?cpage=${pi.currentPage+1}&no=${loginUser.empNo}">&gt;</a></li>
-                    		<li style="width:680px;"><button class="btn green-btn medium-btn" style="float:right;" onclick="location.href='vacationForm.si';">휴가 신청</button></li>
+                    		<li style="width:450px;"><button class="btn green-btn medium-btn" style="float:right;" onclick="location.href='vacationForm.si';">휴가 신청</button></li>
                   		</c:when>
                   		<c:otherwise>
-                  			<li style="width:680px;"><button class="btn green-btn medium-btn" style="float:right;" onclick="location.href='vacationForm.si';">휴가 신청</button></li>
+                  			<li style="width:550px;"><button class="btn green-btn medium-btn" style="float:right;" onclick="location.href='vacationForm.si';">휴가 신청</button></li>
                   		</c:otherwise>
                   	</c:choose>
                   </ul>
