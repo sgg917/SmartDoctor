@@ -41,7 +41,7 @@
 }
 
 .btn-gradient-primary {
-	background:#1D5C83 !important;
+	background: #1D5C83 !important;
 }
 
 /* 조건 검색 테이블 스타일 */
@@ -49,38 +49,40 @@
 	margin-top: 50px;
 }
 #memAtt-condition tr * {
-	font-size:1rem;
+	font-size: 1rem;
 }
 
 /* 사원 근태 조회 테이블 스타일 */
 #memAtt {
 	text-align: center;
+	width: 1400px;
+	margin: 10px 80px;
 }
 th {
 	font-weight: bold !important;
 	background: #f2f2f2 !important;
 }
 #memAtt th, #memAtt td {
-	font-size:1rem !important;
+	font-size: 1rem !important;
 }
 #memAtt>tbody>tr:hover {
 	cursor: pointer;
 }
 #memAtt tr {
-	height:40px !important;
+	height: 40px !important;
 }
 
 /* 페이징 스타일 */
 .page-item {
-	background:none;
-	color:rgb(65, 125, 122);
+	background: none;
+	color: rgb(65, 125, 122);
 }
 .page-item .active {
-	background:rgb(65, 125, 122) !important;
-	color:white;
+	background: rgb(65, 125, 122) !important;
+	color: white;
 }
 .pagination ul {
-	font-size:1rem;
+	font-size: 1rem;
 }
 .page-link {
 	padding: 0.7rem 1rem !important;
@@ -88,10 +90,10 @@ th {
 
 /* 근태 정보 수정 모달 스타일 */
 #updateAttModal .modal-body * {
-	font-size:1rem !important;
+	font-size: 1rem !important;
 }
 #updateAttModal input {
-	height:40px !important;
+	height: 40px !important;
 }
 </style>
 </head>
@@ -102,9 +104,7 @@ th {
 	<!-- partial !!!여기서부터 내용 작성!!! -->
 	<div class="main-panel">
 		<div class="content-wrapper">
-			<h3>
-				<b>사원 근태 관리</b>
-			</h3>
+			<h3><b>사원 근태 관리</b></h3>
 			<br>
 			<hr>
 
@@ -114,13 +114,14 @@ th {
 				<div class="form-group" style="margin-left: 80px;">
 					<table id="memAtt-condition">
 						<tr height="40px">
-							<td width="100px;"><select class="form-control"
-								name="condition" id="condition">
+							<td width="100px;">
+								<select class="form-control" name="condition" id="condition">
 									<option name="condition" value="dept_name">부서명</option>
 									<option name="condition" value="emp_name">이름</option>
-							</select></td>
-							<td width="200px;"><input class="form-control" type="text"
-								name="keyword" placeholder="키워드를 입력해 주세요.">
+								</select>
+							</td>
+							<td width="200px;">
+								<input class="form-control" type="text" name="keyword" placeholder="키워드를 입력해 주세요.">
 							</td>
 							<td width="100px;" style="text-align:right;">
 								<button class="green-btn small-btn" onclick="searchAllAtt(1);">조회</button>
@@ -131,8 +132,7 @@ th {
 				<!-- 조건 검색 테이블 끝-->
 
 				<!-- 사원 근태 조회 테이블 -->
-				<table id="memAtt" class="table"
-					style="width:1400px; margin: 10px 80px;">
+				<table id="memAtt" class="table">
 					<thead>
 						<tr>
 							<th width="20%">날짜</th>
@@ -155,37 +155,37 @@ th {
 							</c:when>
 							<c:otherwise>
 								<c:forEach var="a" items="${ list }">
-									<!-- 결근인 근태 정보는 수정 불가 -->
+									<!-- 결근, 휴가인 근태 정보는 수정 불가 -->
 									<c:choose>
-										<c:when test="${ a.status eq '결근' }">
+										<c:when test="${ a.status eq '결근' or a.status eq '휴가' }">
 											<tr>
 										</c:when>
 										<c:otherwise>
 											<tr class="open-modal">
 										</c:otherwise>
 									</c:choose>
-										<input type="hidden" value="${ a.empNo }">
-										<td class="attDate">${ a.attDate }</td>
-										<td class="deptName">${ a.deptName }</td>
-										<td class="empName">${ a.empName }</td>
-										<td class="startTime">${ a.startTime }</td>
-										<td class="endTime">${ a.endTime }</td>
-										<c:choose>
-											<c:when test="${ a.totalTime eq '0' }">
-												<td class="totalTime">${ a.totalTime }</td>
-											</c:when>
-											<c:otherwise>
-												<c:choose>
-													<c:when test="${ a.totalTime lt 60 }">
-														<td class="totalTime">${ a.totalTime }</td>
-													</c:when>
-													<c:otherwise>
-														<td class="totalTime">${ Math.ceil(a.totalTime/60) }</td>
-													</c:otherwise>
-												</c:choose>
-											</c:otherwise>
-										</c:choose>
-										<td class="status">${ a.status }</td>
+									<input type="hidden" value="${ a.empNo }">
+									<td class="attDate">${ a.attDate }</td>
+									<td class="deptName">${ a.deptName }</td>
+									<td class="empName">${ a.empName }</td>
+									<td class="startTime">${ a.startTime }</td>
+									<td class="endTime">${ a.endTime }</td>
+									<c:choose>
+										<c:when test="${ a.totalTime eq '0' }">
+											<td class="totalTime">${ a.totalTime }</td>
+										</c:when>
+										<c:otherwise>
+											<c:choose>
+												<c:when test="${ a.totalTime lt 60 }">
+													<td class="totalTime">${ a.totalTime }</td>
+												</c:when>
+												<c:otherwise>
+													<td class="totalTime">${ Math.ceil(a.totalTime/60) }</td>
+												</c:otherwise>
+											</c:choose>
+										</c:otherwise>
+									</c:choose>
+									<td class="status">${ a.status }</td>
 									</tr>
 								</c:forEach>
 							</c:otherwise>
@@ -231,8 +231,6 @@ th {
 		<script>
 			//-------------------- 전사 근태 검색 ajax ---------------------
 			searchAllAtt = function(no){
-			
-			//function searchAllAtt(no){
 				
 				// 키워드 입력 칸이 빈칸이면 검색 불가능
 				if($('input[name=keyword]').val() == null || $('input[name=keyword]').val() == "" ){
@@ -250,12 +248,9 @@ th {
 					},
 					success:function(map){
 						
-						console.log(map);
-						
 						// 검색 결과 변수에 담기
 						var newPi = map.pi;
 						var newList = map.list;
-						//console.log(newPi.currentPage);
 						
 						var txt = "";
 						var ptxt = "";
@@ -278,30 +273,24 @@ th {
 								
 								txt += '<input type="hidden" value="' + newList[i].empNo + '">';
 								txt += '<td class="attDate">' + newList[i].attDate + '</td>';
+								
+								// 부서가 없는 사원(병원장)은 공백
 								if(newList[i].deptName == null){
 									txt += '<td class="deptName"> </td>';
 								}else{
 									txt += '<td class="deptName">' + newList[i].deptName + '</td>';
 								}
+								
 								txt += '<td class="empName">' + newList[i].empName + '</td>';
 								txt += '<td class="startTime">' + newList[i].startTime + '</td>';
 								txt += '<td class="endTime">' + newList[i].endTime + '</td>';
-								
-								if(newList[i].totalTime == '0'){
-									txt += '<td class="totalTime">' + newList[i].totalTime + '</td>';
-								}else{
-									if(newList[i].totalTime < 60){
-										txt += '<td class="totalTime">' + newList[i].totalTime + '</td>';
-									}else{
-										txt += '<td class="totalTime">' + Math.ceil(newList[i].totalTime/60) + '</td>';
-									}
-								}
-								
+								txt += '<td class="totalTime">' + newList[i].totalTime + '</td>';
 								txt += '<td class="status">' + newList[i].status + '</td>';
 								txt += '</tr>';
 							}
 						}
 						
+						// 검색 결과 페이징 바 담기
 						if(newPi.currentPage != 1){
 							ptxt += '<li class="page-item"><a class="page-link" onclick="searchAllAtt(' + (newPi.currentPage-1) + ');">&lt;</a></li>';
 						}
@@ -333,7 +322,9 @@ th {
 		</script>
 
 		<script>
+			// tr 요소 클릭 시 근태 정보 수정 모달 나타나게	
 			$(document).on("click", ".open-modal", function(){
+				
 				// input 요소에 근태 정보 넣어주기
 				var empNo = $(this).children('input[type=hidden]').val();
 				var attDate = $(this).children(".attDate").text();
@@ -344,8 +335,6 @@ th {
 				var totalTime = $(this).children('.totalTime').text();
 				var status = $(this).children(".status").text();
 				
-				console.log("empNo : " + empNo + ", attDate : " + attDate + ", deptName : " + deptName + 
-						", startTime : " + startTime + ", endTime : " + endTime + ", totalTime : " + totalTime + ',status : ' + status);
 				$('input[type=hidden]').val( $(this).children('input[type=hidden]').val() );
 				$('input[name=attDate]').val( $(this).children(".attDate").text() );
 				$('input[name=deptName]').val( $(this).children('.deptName').text() );
@@ -354,6 +343,8 @@ th {
 				$('input[name=endTime]').val( $(this).children('.endTime').text() );
 				$('input[name=totalTime]').val( $(this).children('.totalTime').text() );
 				$('option[value=' + $(this).children(".status").text() + ']').attr('selected', true);
+				
+				// 모달 띄우기
 				$('#updateAttModal').modal('show');
 			})
 		</script>
