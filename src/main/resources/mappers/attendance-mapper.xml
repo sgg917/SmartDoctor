@@ -132,53 +132,57 @@
 	<select id="selectAllListCount" resultType="_int">
 		SELECT COUNT(*)
 		  FROM (
-		        SELECT
-		               NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "ATT_DATE"
-		             , C.DEPT_NAME
-		             , C.EMP_NAME
-		             , NVL(START_TIME, '-') "START_TIME"
-		             , NVL(END_TIME, '-') "END_TIME"
-		             , NVL(TOTAL_TIME, 0) "TOTAL_TIME"
-		             , NVL(A.STATUS, '결근') "STATUS"
-		          FROM ATTENDANCE A
-		         RIGHT JOIN (
-		                    SELECT WORKING_DAY, WEEK, EMP_NO, EMP_NAME, DEPT_NAME
-		                      FROM (
-		                            SELECT TRUNC(TO_DATE(SYSDATE), 'MM') + LEVEL - 1 "WORKING_DAY"
-		                                 , TO_CHAR(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'DY') "WEEK"
-		                              FROM DUAL
-		                            CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(TO_DATE(SYSDATE)), 'DD')
-		                            ), (
-		                                SELECT E.EMP_NO
-		                                     , E.EMP_NAME
-		                                     , CASE WHEN D.DEPT_NAME != E.DEPT_NAME THEN D.DEPT_NAME || ' ' || E.DEPT_NAME
-		                                            ELSE D.DEPT_NAME
-		                                             END "DEPT_NAME"
-		                                  FROM (
-		                                        SELECT 
-		                                               EMP_NO
-		                                             , EMP_NAME
-		                                             , CASE WHEN D1.UPPER_NO = 0 THEN D1.DEPT_NO
-		                                                    ELSE D1.UPPER_NO
-		                                                END AS DEPT_NO
-		                                             , DEPT_NAME
-		                                          FROM MEMBER M
-		                                          LEFT JOIN DEPARTMENT D1 ON (D1.DEPT_NO = M.DEPT_NO)
-		                                        ) E
-		                                  LEFT JOIN DEPARTMENT D ON (E.DEPT_NO = D.DEPT_NO)
-		                                )
-		                    ) C ON (ATT_DATE = WORKING_DAY AND A.EMP_NO = C.EMP_NO)
-		         WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
-		           AND WEEK IN ('월', '화', '수', '목', '금')
-		           AND NVL(A.STATUS, '결근') IN ('정상', '지각', '결근', '휴가')
-		         ORDER BY WORKING_DAY DESC 
+				SELECT
+				       NVL(A.ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "ATT_DATE"
+				     , C.DEPT_NAME
+				     , C.EMP_NO
+				     , C.EMP_NAME
+				     , NVL(START_TIME, '-') "START_TIME"
+				     , NVL(END_TIME, '-') "END_TIME"
+				     , NVL(TOTAL_TIME, 0) "TOTAL_TIME"
+				     , NVL(A.STATUS, '결근') "STATUS"
+				  FROM ATTENDANCE A
+				 RIGHT JOIN (
+				            SELECT WORKING_DAY, WEEK, EMP_NO, EMP_NAME, DEPT_NAME
+				              FROM (
+				                    SELECT START_DT + LEVEL - 1 "WORKING_DAY"
+				                         , TO_CHAR(START_DT + LEVEL - 1, 'DY') "WEEK"
+				                      FROM (
+				                      		SELECT TO_DATE(SUBSTR(SYSDATE, 1, 2) || '0101') "START_DT"
+				                      			 , SYSDATE "END_DT"
+				                      		  FROM DUAL
+				                      		)
+				                    CONNECT BY LEVEL &lt;= END_DT - START_DT + 1
+				                    ), (
+				                        SELECT E.EMP_NO
+				                             , E.EMP_NAME
+				                             , CASE WHEN D.DEPT_NAME != E.DEPT_NAME THEN D.DEPT_NAME || ' ' || E.DEPT_NAME
+				                                    ELSE D.DEPT_NAME
+				                                     END "DEPT_NAME"
+				                          FROM (
+				                                SELECT 
+				                                       EMP_NO
+				                                     , EMP_NAME
+				                                     , CASE WHEN D1.UPPER_NO = 0 THEN D1.DEPT_NO
+				                                            ELSE D1.UPPER_NO
+				                                        END AS DEPT_NO
+				                                     , DEPT_NAME
+				                                  FROM MEMBER M
+				                                  LEFT JOIN DEPARTMENT D1 ON (D1.DEPT_NO = M.DEPT_NO)
+				                                ) E
+				                          LEFT JOIN DEPARTMENT D ON (E.DEPT_NO = D.DEPT_NO)
+				                        )
+				            ) C ON (ATT_DATE = WORKING_DAY AND A.EMP_NO = C.EMP_NO)
+				 WHERE WORKING_DAY &lt; TO_DATE(SYSDATE)
+				   AND WEEK IN ('월', '화', '수', '목', '금')
+				   AND NVL(A.STATUS, '결근') IN ('정상', '지각', '결근', '휴가')
 		        )
 	</select>
 	
 	<!-- 전사 근태 리스트 조회 -->
 	<select id="selectAllAttendanceList" resultMap="attendanceResult">
 		SELECT
-		       NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "ATT_DATE"
+		       NVL(A.ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "ATT_DATE"
 		     , C.DEPT_NAME
 		     , C.EMP_NO
 		     , C.EMP_NAME
@@ -190,10 +194,14 @@
 		 RIGHT JOIN (
 		            SELECT WORKING_DAY, WEEK, EMP_NO, EMP_NAME, DEPT_NAME
 		              FROM (
-		                    SELECT TRUNC(TO_DATE(SYSDATE), 'MM') + LEVEL - 1 "WORKING_DAY"
-		                         , TO_CHAR(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'DY') "WEEK"
-		                      FROM DUAL
-		                    CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(TO_DATE(SYSDATE)), 'DD')
+		                    SELECT START_DT + LEVEL - 1 "WORKING_DAY"
+		                         , TO_CHAR(START_DT + LEVEL - 1, 'DY') "WEEK"
+		                      FROM (
+		                      		SELECT TO_DATE(SUBSTR(SYSDATE, 1, 2) || '0101') "START_DT"
+		                      			 , SYSDATE "END_DT"
+		                      		  FROM DUAL
+		                      		)
+		                    CONNECT BY LEVEL &lt;= END_DT - START_DT + 1
 		                    ), (
 		                        SELECT E.EMP_NO
 		                             , E.EMP_NAME
@@ -308,52 +316,12 @@
 		   and appr_status = '완료'
 	</select>
 	
-	<!-- 휴가를 사용한 사원들의 휴가잔여일수 조회 -->
-	<select id="selectMemVacRemain" resultMap="vacationResult">
-		select 
-		       v.emp_no
-		     , 20 - sum(vac_days) "vac_remain"
-		  from vacation v
-		  join approval on (app_no = appr_no)
-		 where appr_status = '완료'
-		 group by v.emp_no
-	</select>
-	
-	<!-- 한 사원의 휴가 리스트 조회 (페이징 x) -->
-	<select id="ajaxSelectVacationList" resultMap="vacationResult">
-		select
-		       app_no "app_no"
-		     , emp_name "emp_name"
-		     , to_char(v.enroll_date, 'YYYY-MM-DD') "enroll_date"
-		     , to_char(start_date, 'YYYY-MM-DD') "start_date"
-		     , to_char(end_date, 'YYYY-MM-DD') "end_date"
-		     , vac_cause "vac_cause"
-		     , appr_status "status"
-		  from vacation v
-		  join member m on (v.emp_no = m.emp_no)
-		  join approval on (app_no = appr_no)
-		 where v.emp_no = #{empNo}
-	</select>
-	
-	<!-- 근태 정보 수정 -->
-	<update id="updateAttendance">
-		update attendance
-		   set status = #{status}
-		   	 , start_time = #{startTime}
-		     , end_time = #{endTime}
-		     , total_time = #{totalTime}
-		     , modify_no = #{modifyNo}
-		     , modify_date = to_char(sysdate, 'YYYY-MM-DD')
-		 where emp_no = #{empNo}
-		   and att_date = #{attDate}
-	</update>
-	
 	<!-- 전사 근태 검색 수 -->
 	<select id="ajaxSearchAttListCount" resultType="_int">
 		SELECT COUNT(*)
 		  FROM (
 		    SELECT
-		           NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "ATT_DATE"
+		           NVL(A.ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "ATT_DATE"
 		         , C.EMP_NO
 		         , C.DEPT_NAME
 		         , C.EMP_NAME
@@ -365,10 +333,14 @@
 		     RIGHT JOIN (
 		                SELECT WORKING_DAY, WEEK, EMP_NO, EMP_NAME, DEPT_NAME
 		                  FROM (
-		                        SELECT TRUNC(TO_DATE(SYSDATE), 'MM') + LEVEL - 1 "WORKING_DAY"
-		                             , TO_CHAR(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'DY') "WEEK"
-		                          FROM DUAL
-		                        CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(TO_DATE(SYSDATE)), 'DD')
+		                        SELECT START_DT + LEVEL - 1 "WORKING_DAY"
+		                             , TO_CHAR(START_DT + LEVEL - 1, 'DY') "WEEK"
+		                          FROM (
+		                          		SELECT TO_DATE(SUBSTR(SYSDATE, 1, 2) || '0101') "START_DT"
+		                          			 , SYSDATE "END_DT"
+		                          		  FROM DUAL
+		                          		)
+		                        CONNECT BY LEVEL &lt;= END_DT - START_DT + 1
 		                        ), (
 		                            SELECT E.EMP_NO
 		                                 , E.EMP_NAME
@@ -407,7 +379,7 @@
 	<!-- 전사 근태 검색 -->
 	<select id="ajaxSearchAttendance" resultMap="attendanceResult">
 		SELECT
-	           NVL(ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "ATT_DATE"
+	           NVL(A.ATT_DATE, TO_CHAR(WORKING_DAY, 'YYYY-MM-DD')) "ATT_DATE"
 	         , C.EMP_NO
 	         , C.DEPT_NAME
 	         , C.EMP_NAME
@@ -419,10 +391,14 @@
 	     RIGHT JOIN (
 	                SELECT WORKING_DAY, WEEK, EMP_NO, EMP_NAME, DEPT_NAME
 	                  FROM (
-	                        SELECT TRUNC(TO_DATE(SYSDATE), 'MM') + LEVEL - 1 "WORKING_DAY"
-	                             , TO_CHAR(TRUNC(SYSDATE, 'MM') + LEVEL - 1, 'DY') "WEEK"
-	                          FROM DUAL
-	                        CONNECT BY LEVEL &lt;= TO_CHAR(LAST_DAY(TO_DATE(SYSDATE)), 'DD')
+	                        SELECT START_DT + LEVEL - 1 "WORKING_DAY"
+	                             , TO_CHAR(START_DT + LEVEL - 1, 'DY') "WEEK"
+	                          FROM (
+	                          		SELECT TO_DATE(SUBSTR(SYSDATE, 1, 2) || '0101') "START_DT"
+	                          			 , SYSDATE "END_DT"
+	                          		  FROM DUAL
+	                          		)
+	                        CONNECT BY LEVEL &lt;= END_DT - START_DT + 1
 	                        ), (
 	                            SELECT E.EMP_NO
 	                                 , E.EMP_NAME
@@ -455,6 +431,46 @@
 	   	</otherwise>
 	   </choose>
 	 ORDER BY WORKING_DAY DESC
+	</select>
+		
+	<!-- 근태 정보 수정 -->
+	<update id="updateAttendance">
+		update attendance
+		   set status = #{status}
+		   	 , start_time = #{startTime}
+		     , end_time = #{endTime}
+		     , total_time = #{totalTime}
+		     , modify_no = #{modifyNo}
+		     , modify_date = to_char(sysdate, 'YYYY-MM-DD')
+		 where emp_no = #{empNo}
+		   and att_date = #{attDate}
+	</update>
+	
+	<!-- 휴가를 사용한 사원들의 휴가잔여일수 조회 -->
+	<select id="selectMemVacRemain" resultMap="vacationResult">
+		select 
+		       v.emp_no
+		     , 20 - sum(vac_days) "vac_remain"
+		  from vacation v
+		  join approval on (app_no = appr_no)
+		 where appr_status = '완료'
+		 group by v.emp_no
+	</select>
+	
+	<!-- 한 사원의 휴가 리스트 조회 (페이징 x) -->
+	<select id="ajaxSelectVacationList" resultMap="vacationResult">
+		select
+		       app_no "app_no"
+		     , emp_name "emp_name"
+		     , to_char(v.enroll_date, 'YYYY-MM-DD') "enroll_date"
+		     , to_char(start_date, 'YYYY-MM-DD') "start_date"
+		     , to_char(end_date, 'YYYY-MM-DD') "end_date"
+		     , vac_cause "vac_cause"
+		     , appr_status "status"
+		  from vacation v
+		  join member m on (v.emp_no = m.emp_no)
+		  join approval on (app_no = appr_no)
+		 where v.emp_no = #{empNo}
 	</select>
 
 	<!-- 전자결재_휴가 신청 -->
