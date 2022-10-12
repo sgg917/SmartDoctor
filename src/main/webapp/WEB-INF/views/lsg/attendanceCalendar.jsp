@@ -96,26 +96,25 @@
 				success:function(map){
 					
 					// 근태 리스트
-					var alist = map.alist;
-					// 휴가 리스트
-					var vlist = map.vlist;
+					var list = map.list;
 					
 					// 넘겨줄 값 리스트로 다시 담기
 					var data = [];
-					for(let i=0; i<alist.length; i++){
+					for(let i=0; i<list.length; i++){
 						
-						if(alist[i].status == '정상' || alist[i].status == '지각'){
+						// 출근한 날 출퇴근 시간 표시
+						if(list[i].status == '정상' || list[i].status == '지각'){
 							let start = {
 									title : '출근',
-									start : alist[i].attDate + 'T' + alist[i].startTime,
-									end:alist[i].attDate + 'T' + alist[i].startTime,
+									start : list[i].attDate + 'T' + list[i].startTime,
+									end : list[i].attDate + 'T' + list[i].startTime,
 									allDay : false,
 									editable : false,
 										}
 							let end = {
 									title : '퇴근',
-									start : alist[i].attDate + 'T' + alist[i].endTime,
-									end:alist[i].attDate + 'T' + alist[i].endTime,
+									start : list[i].attDate + 'T' + list[i].endTime,
+									end : list[i].attDate + 'T' + list[i].endTime,
 									allDay : false,
 									editable : false
 									  }
@@ -123,22 +122,17 @@
 							data.push(end);
 						}
 						
-					}
-					
-					for(let i=0; i<vlist.length; i++){
-						if(vlist[i].empName == '${loginUser.empName}' && vlist[i].status == '완료'){
+						// 휴가 표시
+						if(list[i].status == '휴가'){
 							let vac = {
 									title : '휴가',
-									start : vlist[i].startDate,
-									end : vlist[i].endDate,
-									allDay : true,
+									start : list[i].attDate,
 									editable : false
-									}
+									  }
 							data.push(vac);
 						}
+						
 					}
-					
-					console.log(data);
 					
 					// 캘린더 렌더링
 					var calendarEl = document.getElementById('calendar');
@@ -155,7 +149,7 @@
 						locale : 'ko',
 						events : data,
 						eventColor : '#417D7A',
-						eventTimeFormat : { // like '14:30:00'
+						eventTimeFormat : {
 							hour : '2-digit',
 							minute : '2-digit',
 							meridiem : false
