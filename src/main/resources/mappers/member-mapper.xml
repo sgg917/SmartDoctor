@@ -198,7 +198,7 @@
 		  order by job_no, emp_name
 	</select>
 	
-	<!-- 부서별 사원 수 조회 -->
+	<!-- 조직도 부서별 사원 수 조회 -->
 	<select id="selectEmpCount" resultType="_int">
 		select count(*)
 		  from member m
@@ -221,7 +221,7 @@
 		</choose>
 	</select>
 	
-	<!-- 부서별 사원 조회 -->
+	<!-- 조직도 부서별 사원 조회 -->
 	<select id="selectEmp" resultMap="memberResult">
 		select 
 		       emp_no
@@ -316,7 +316,7 @@
 		  )
 	</insert>
 	
-	<!-- 조직도 사원 삭제(퇴사처리) -->
+	<!-- 조직도 사원 퇴사 -->
 	<update id="deleteEmp">
 		update member
 	   	   set status = 'N'

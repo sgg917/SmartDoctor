@@ -26,10 +26,10 @@ public interface MemberService {
 	// 조직도 부서별 사원 조회
 	ArrayList<Member> selectEmp(Dept d);
 	
-	// 조직도 사원 삭제
+	// 조직도 사원 퇴사
 	int deleteEmp(String empNo);
 	
-	// 조직도 사원 수정
+	// 조직도 사원 정보 수정
 	int updateEmp(Member m);
 	
 	// 조직도 부서명 수정

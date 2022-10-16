@@ -34,21 +34,25 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.updatePwd(sqlSession, m, updatePwd);
 	}
 
+	// 조직도 부서 조회
 	@Override
 	public ArrayList<Dept> selectOrgChartDept() {
 		return mDao.selectOrgChartDept(sqlSession);
 	}
 
+	// 조직도 사원 조회
 	@Override
 	public ArrayList<Member> selectOrgChartEmp() {
 		return mDao.selectOrgChartEmp(sqlSession);
 	}
 
+	// 조직도 부서별 사원 수 조회
 	@Override
 	public int selectEmpCount(Dept d) {
 		return mDao.selectEmpCount(sqlSession, d);
 	}
 
+	// 조직도 부서별 사원 조회
 	@Override
 	public ArrayList<Member> selectEmp(Dept d) {
 		return mDao.selectEmp(sqlSession, d);
@@ -60,13 +64,13 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.insertMember(sqlSession, m);
 	}
 
-	// 조직도 사원 삭제
+	// 조직도 사원 퇴사
 	@Override
 	public int deleteEmp(String empNo) {
 		return mDao.deleteEmp(sqlSession, empNo);
 	}
 
-	// 조직도 사원 수정
+	// 조직도 사원 정보 수정
 	@Override
 	public int updateEmp(Member m) {
 		return mDao.updateEmp(sqlSession, m);
