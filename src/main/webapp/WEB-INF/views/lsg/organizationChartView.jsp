@@ -142,12 +142,9 @@ li {
                     <div class="org-wrap" id="org-chart" style="width:80%; margin-right:20px;">
                         <br>
                         <h4><b><i class="mdi mdi-hospital-building"></i>율제병원</b></h4>
-                        <ul id="chartArea">
-                          로딩중...
-                        </ul>
+                        <ul id="chartArea">로딩중...</ul>
                     </div>
                 </div>
-                
                 
                 <!-- 부서별 사원 조회 영역 (오른쪽) -->
                 <div class="col-8">
@@ -156,13 +153,11 @@ li {
                         <p style="float:right;"></p>
                         <br><br>
                         <hr>
-
-                        <table id="mem-tb" class="table">
-                            
-                        </table>
+                        <table id="mem-tb" class="table"></table>
                         <br><br>
                     </div>
                 </div>
+                
             </div>
 
         </div>
@@ -174,6 +169,7 @@ li {
 		selectOrg();
 	})
 	
+	// 조직도 구성
 	function selectOrg(){
 	
 		$.ajax({
@@ -186,8 +182,6 @@ li {
 				
 				// 사원 리스트 꺼내담기
 				var mlist = map.mlist;
-				
-				// console.log(dlist); console.log(mlist);
 				
 				// 병원장 담기
 				var txt = "";
@@ -203,6 +197,8 @@ li {
 						txt += '</li>';
 					}
 				}
+				
+				// 병원장 넣어주기
 				$("#chartArea").empty();
 				$('#chartArea').append(txt);
 				
@@ -214,7 +210,6 @@ li {
 					var upper = "";
 					if(dlist[i].level == 1 && dlist[i].upperNo == 0){
 						upper = '<li class="nav-item" id="nav' + dlist[i].deptNo + '">';
-						//upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic">';
 						upper += 	'<a class="nav-link" data-bs-toggle="collapse" href="#dept' + dlist[i].deptNo + '" aria-expanded="false" aria-controls="ui-basic" onclick="selectMem(' + 0 + ',' + dlist[i].deptNo + ')">';
 						upper += 		'<i class="mdi mdi-chevron-double-right"></i> ';
 						upper += 		'<span class="menu-title">' + dlist[i].deptName + '</span>';
@@ -225,11 +220,11 @@ li {
 						upper += 	'</div>';
 						upper += '</li>';
 						
+						// 상위부서 넣어주기
 						$('#chartArea').append(upper);
-						num++;
+						num++; // num == 상위부서 개수
                     }
 				}
-				//console.log(num); // num == 4(상위부서 개수)
 				
 				// 하위부서 담기
 				for(let i=0; i<dlist.length; i++){
@@ -268,6 +263,7 @@ li {
                             lower += 	'</ul>';
                         	lower += '</div>';
 							
+                        	// 하위부서 넣어주기
                             $('#dept' + j + '>ul').append(lower);
                         }
 					}
@@ -282,6 +278,7 @@ li {
 	                		
 	                		emp = '<li class="nav-item"><a class="nav-link">' + mlist[i].empName + " " + mlist[i].jobName + '</a></li>';
 	                		
+	                		// 사원 넣어주기
 	                		if(dlist[j].level == 2 && dlist[j].upperNo != 0){
 	                		// 부서가 '과'일 경우
 	                			$('#dept' + dlist[j].upperNo + "-" + dlist[j].deptNo + ">ul").append(emp);
@@ -293,9 +290,7 @@ li {
 	                		}
 	                	}
                 	}
-                	
                 }
-						
 				
 			},error:function(){
 				console.log("조직도 출력용 ajax통신 실패");
@@ -306,7 +301,6 @@ li {
 	//------------- 부서 별 사원 정보 조회 --------------
 	function selectMem(upperNo,deptNo){
 		
-		// console.log(upperNo + "," + deptNo);
 		$.ajax({
 			url:"select.me",
 			type:"POST",
@@ -341,6 +335,8 @@ li {
 				// 병원장일 경우
 					$('#org-mem>h4>b').html("<i class='mdi mdi-check-circle-outline'></i> " + list[0].jobName);
 				}
+				
+				// 총 인원 표시
 				$('#org-mem>p').html("총 인원 : " + listCount + "명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 				
 				// 부서별 사원 조회 결과 담기
@@ -358,24 +354,15 @@ li {
 				        txt +=  '</tr>';
 					}
 				}
+				
+				// 부서별 사원 정보 넣어주기
 				$('#mem-tb').empty();
 				$('#mem-tb').append(txt);
-				
-				// 
 				
 			},error:function(){
 				console.log("부서별 사원 조회용 ajxa통신 실패");
 			}
 		})
-		
-		// 하위부서 없는 부서일 경우
-		//if(upperNo == 0 && deptNo != 0){
-		//	location.href="#dept"+deptNo;
-			
-		//}else if(upperNo != 0 && deptNo != null){
-		// 하위부서 있는 부서일 경우
-		//	location.href="#dept"+upperNo+"-"+deptNo;
-		//}
 	}
 	</script>
 

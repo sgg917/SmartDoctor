@@ -119,8 +119,7 @@ th {
 				<!-- 조건 검색 테이블 끝-->
 
 				<!-- 사원 연차 테이블 -->
-				<table id="mem-vacation" class="table"
-					style="width: 90%; margin: 0 auto;">
+				<table id="mem-vacation" class="table" style="width: 90%; margin: 0 auto;">
 					<thead>
 						<tr>
 							<th>부서</th>
@@ -239,14 +238,12 @@ th {
 		
 		<script>
 		
-			// ----------- 사원별 연차 리스트 조회 ajax ------------
+			// ----------- 사원별 연차 내역 모달 ajax ------------
 			function selectVac(empNo, empName){
-				
-				//console.log("empNo : " + empNo);
-				//console.log("empName : " + empName);
-				
+				// 모달 제목에 사원 이름 표시
 				$('.modal-title>b').text(empName + "님의 연차 내역");
 				
+				// 사원별 연차 내역 조회
 				$.ajax({
 					url:"memList.vac",
 					type:"POST",
@@ -255,12 +252,8 @@ th {
 					},
 					success:function(data){
 						
-						// 사원별 연차 리스트 담기
+						// 사원별 연차 내역 담기
 						var newList = data;
-						
-						console.log(newList);
-						
-						// 
 						var txt = "";
 						
 						if( newList != null && newList.length != 0 ){
@@ -292,7 +285,7 @@ th {
 							txt += "</tr>";
 						}
 						
-						// 모달창 테이블 tbody 내용
+						// 모달창에 내용 넣어주기
 						$('.modal-body tbody').empty();
 						$('.modal-body tbody').append(txt);
 						
@@ -331,10 +324,6 @@ th {
 						var txt = "";
 						// 검색 결과를 페이징 처리할 변수
 						var ptxt = "";
-						
-						//console.log(newList);
-						//console.log(newPi);
-						//console.log(vlist);
 						
 						// 검색 결과
 						if( newList == null || newList == "" ){
@@ -401,7 +390,6 @@ th {
 						$('#pageArea').append(ptxt);
 						
 					},error:function(){
-						
 						console.log("키워드로 사원 검색용 ajax 통신 실패");
 					}
 					})

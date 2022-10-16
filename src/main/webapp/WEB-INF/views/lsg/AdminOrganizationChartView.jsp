@@ -171,13 +171,12 @@ input, select {
                     <div class="org-wrap" id="org-chart" style="width:80%; margin-right:10px;">
                         <br>
                         <h4><b><i class="mdi mdi-hospital-building"></i> 율제병원</b></h4>
-                        <ul id="chartArea">
-                         	로딩중...
-                        </ul>
+                        <ul id="chartArea">로딩중...<ul>
+                        
+                        <!-- 부서 추가 버튼 -->
                         <span style="margin-left:30px;"><i class="mdi mdi-plus" data-bs-toggle="modal" data-bs-target="#insertDeptModal"></i></span>
                     </div>
                 </div>
-                
                 
                 <!-- 부서별 사원 조회 영역 (오른쪽) -->
                 <div class="col-8">
@@ -186,9 +185,7 @@ input, select {
                         <p style="float:right;"></p>
                         <br><br>
                         <hr>
-                        <table id="mem-tb" class="table">
-                           
-                        </table>
+                        <table id="mem-tb" class="table"></table>
                         <br><br>
                     </div>
                 </div>
@@ -203,6 +200,7 @@ input, select {
 		selectOrg();
 	})
 	
+	// 조직도 구성
 	function selectOrg(){
 	
 		$.ajax({
@@ -215,8 +213,6 @@ input, select {
 				
 				// 사원 리스트 꺼내담기
 				var mlist = map.mlist;
-				
-				// console.log(dlist); console.log(mlist);
 				
 				// 병원장 담기
 				var txt = "";
@@ -232,6 +228,8 @@ input, select {
 						txt += '</li>';
 					}
 				}
+				
+				// 병원장 넣어주기
 				$("#chartArea").empty();
 				$('#chartArea').append(txt);
 				
@@ -260,11 +258,11 @@ input, select {
 						upper += 	'</div>';
 						upper += '</li>';
 						
+						// 상위부서 넣어주기
 						$('#chartArea').append(upper);
-						num++;
+						num++; // num == 상위부서 개수
                     }
 				}
-				//console.log(num); // num == 4(상위부서 개수)
 				
 				// 하위부서 담기
 				for(let i=0; i<dlist.length; i++){
@@ -303,6 +301,8 @@ input, select {
                             lower += 	'<ul class="nav flex-column sub-menu" style="padding-left:20px;">';
                             lower += 	'</ul>';
                         	lower += '</div>';
+                        	
+                        	// 하위부서 넣어주기
                             $('#dept' + j + '>ul').append(lower);
                         }
 					}
@@ -317,6 +317,7 @@ input, select {
 	                		
 	                		emp = '<li class="nav-item"><a class="nav-link">' + mlist[i].empName + " " + mlist[i].jobName + '</a></li>';
 	                		
+	                		// 사원 넣어주기
 	                		if(dlist[j].level == 2 && dlist[j].upperNo != 0){
 	                		// 부서가 '과'일 경우
 	                			$('#dept' + dlist[j].upperNo + "-" + dlist[j].deptNo + ">ul").append(emp);
@@ -328,9 +329,7 @@ input, select {
 	                		}
 	                	}
                 	}
-                	
                 }
-						
 				
 			},error:function(){
 				console.log("조직도 출력용 ajax통신 실패");
@@ -340,8 +339,6 @@ input, select {
 	
 	//------------- 부서 별 사원 정보 조회 --------------
 	function selectMem(upperNo,deptNo){
-		
-		//console.log(upperNo + "," + deptNo);
 		
 		$.ajax({
 			url:"select.me",
@@ -377,6 +374,8 @@ input, select {
 				// 병원장일 경우
 					$('#org-mem>h4>b').html("<i class='mdi mdi-check-circle-outline'></i> " + list[0].jobName);
 				}
+				
+				// 총 인원 표시
 				$('#org-mem>p').html("총 인원 : " + listCount + "명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 				
 				// 부서별 사원 조회 결과 담기
@@ -423,6 +422,7 @@ input, select {
 					}
 				}
 				
+				// 부서별 사원 정보 넣어주기
 				$('#mem-tb').empty();
 				$('#mem-tb').append(txt);
 				
@@ -439,15 +439,6 @@ input, select {
 				console.log("부서별 사원 조회용 ajxa통신 실패");
 			}
 		})
-		
-		// 하위부서 없는 부서일 경우
-		//if(upperNo == 0 && deptNo != 0){
-		//	location.href="#dept"+deptNo;
-			
-		//}else if(upperNo != 0 && deptNo != null){
-		// 하위부서 있는 부서일 경우
-		//	location.href="#dept"+upperNo+"-"+deptNo;
-		//}
 	}
 	</script>
 	
@@ -579,15 +570,8 @@ input, select {
 	})
 	
 	// ---------------- 사원 수정 함수 ---------------
-	//$(".updateBtn").click(function(){
 	$(document).on("click", ".updateBtn", function(){
 	
-		//console.log( $(this).parent().siblings('input[name=empNo]').val() );
-		//console.log( $(this).parent().siblings('.jobNo').children('select[name=jobNo]').val() ); 
-		//console.log( $(this).parent().siblings('.empName').children('input[name=empName]').val() ); 
-		//console.log( $(this).parent().siblings('.phone').children('input[name=phone]').val() ); 
-		//console.log( $(this).parent().siblings('input[name=deptNo]').val() );
-		
 		$.ajax({
 			url:"updateEmp.me",
 			type:"POST",
@@ -599,8 +583,6 @@ input, select {
 				deptNo:$(this).parent().siblings('input[name=deptNo]').val()
 			},
 			success:function(str){
-				
-				console.log(str);
 				
 				// alert 대체용 모달에 문자열 전해주기
 				$('#alertModal .modal-body').html(str);
@@ -627,8 +609,6 @@ input, select {
 		$('#deptModal').modal('hide');
 		var deptName = $('#deptModal input[name=deptName]').val();
 		var deptNo = $('#deptModal input[type=hidden]').val();
-		
-		//console.log("deptName : " + deptName + ", deptNo : " + deptNo);
 		
 		$.ajax({
 			url:"update.de",
@@ -676,9 +656,7 @@ input, select {
 	})
 	
 	//---------------------- 부서 추가 함수 --------------------
-	function insertDept(){
-		
-		//console.log($('#insertDeptModal input[name=deptName]').val());	
+	function insertDept(){	
 	
 		// 부서 추가 모달 숨기기
 		$('#insertDeptModal').modal('hide');
