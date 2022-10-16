@@ -232,74 +232,7 @@ public class AttendanceController {
 		return mv;
 	}
 	
-	// 전사 휴가리스트
-	@RequestMapping("allList.vac")
-	public ModelAndView selectAllVacationList(@RequestParam(value="cpage", defaultValue="1")int cpage, ModelAndView mv) {
-		
-		// 병원장을 제외한 사원 수
-		int listCount = aService.selectMemListCount() - 1;
-		
-		// 사원 리스트 페이징 정보
-		PageInfo pi = new PageInfo();
-		pi = new Pagination().getPageInfo(listCount, cpage, 5, 10);
-		
-		// 사원 리스트
-		ArrayList<Member> list = aService.selectMemberList(pi);
-		
-		// 사원들의 잔여 휴가일
-		ArrayList<Vacation> vacList = aService.selectMemVacRemain();
-		
-		// 페이징 정보, 사원 리스트, 잔여 휴가일 담아서 리턴
-		mv.addObject("pi", pi).addObject("list", list).addObject("vacList", vacList)
-		.setViewName("lsg/allVacationListView");
-		return mv;
-	}
-	
-	// 한 사원의 휴가리스트
-	@ResponseBody
-	@RequestMapping(value="memList.vac", produces="application/json; charset=utf-8")
-	public String ajaxselectVacationList(int no) {
-		
-		// 한 사원의 휴가리스트 조회
-		ArrayList<Vacation> list = aService.ajaxSelectVacationList(no);
-		
-		return new Gson().toJson(list);
-	}
-	
-	// 사원 검색
-	@ResponseBody
-	@RequestMapping(value="search.vac", produces="application/json; charset=utf-8")
-	public String ajaxSearchVacationList(@RequestParam(value="cpage", defaultValue="1")int cpage, String type, String keyword) {
-		
-		// 전달받아온 검색 종류, 키워드 담기
-		HashMap<String, String> hm = new HashMap<>();
-		hm.put("type", type);
-		hm.put("keyword", keyword);
-		
-		// 검색 결과 사원 수
-		int listCount = aService.ajaxSearchListCount(hm);
-		
-		// 사원 페이징 정보
-		PageInfo pi = new PageInfo();
-		pi = new Pagination().getPageInfo(listCount, cpage, 5, 10);
-		
-		// 검색 결과 사원 리스트
-		ArrayList<Member> list = aService.ajaxSearchList(pi, hm);
-		
-		// 검색 결과 사원들의 잔여 휴가일
-		ArrayList<Vacation> vlist = aService.selectMemVacRemain();
-		
-		// 페이징 정보, 사원 리스트, 잔여 휴가일 담아서 전달
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("pi", pi);
-		map.put("list", list);
-		map.put("vlist",  vlist);
-		
-		return new Gson().toJson(map);
-		
-	}
-	
-	// 퇴근, 근태 상태 update
+	// 근태 정보 수정
 	@RequestMapping("update.att")
 	public String updateAttendance(Attendance a, HttpSession session, Model model) {
 		
@@ -341,5 +274,72 @@ public class AttendanceController {
 		map.put("list", list);
 		
 		return new Gson().toJson(map);
+	}
+	
+	// 전사 휴가리스트
+	@RequestMapping("allList.vac")
+	public ModelAndView selectAllVacationList(@RequestParam(value="cpage", defaultValue="1")int cpage, ModelAndView mv) {
+		
+		// 병원장을 제외한 사원 수
+		int listCount = aService.selectMemListCount() - 1;
+		
+		// 사원 리스트 페이징 정보
+		PageInfo pi = new PageInfo();
+		pi = new Pagination().getPageInfo(listCount, cpage, 5, 10);
+		
+		// 사원 리스트
+		ArrayList<Member> list = aService.selectMemberList(pi);
+		
+		// 사원들의 잔여 휴가일
+		ArrayList<Vacation> vacList = aService.selectMemVacRemain();
+		
+		// 페이징 정보, 사원 리스트, 잔여 휴가일 담아서 리턴
+		mv.addObject("pi", pi).addObject("list", list).addObject("vacList", vacList)
+		.setViewName("lsg/allVacationListView");
+		return mv;
+	}
+	
+	// 한 사원의 휴가리스트
+	@ResponseBody
+	@RequestMapping(value="memList.vac", produces="application/json; charset=utf-8")
+	public String ajaxselectVacationList(int no) {
+		
+		// 한 사원의 휴가리스트 조회
+		ArrayList<Vacation> list = aService.selectVacationList(no);
+		
+		return new Gson().toJson(list);
+	}
+	
+	// 사원 검색
+	@ResponseBody
+	@RequestMapping(value="search.vac", produces="application/json; charset=utf-8")
+	public String ajaxSearchVacationList(@RequestParam(value="cpage", defaultValue="1")int cpage, String type, String keyword) {
+		
+		// 전달받아온 검색 종류, 키워드 담기
+		HashMap<String, String> hm = new HashMap<>();
+		hm.put("type", type);
+		hm.put("keyword", keyword);
+		
+		// 검색 결과 사원 수
+		int listCount = aService.ajaxSearchListCount(hm);
+		
+		// 사원 페이징 정보
+		PageInfo pi = new PageInfo();
+		pi = new Pagination().getPageInfo(listCount, cpage, 5, 10);
+		
+		// 검색 결과 사원 리스트
+		ArrayList<Member> list = aService.ajaxSearchList(pi, hm);
+		
+		// 사원들의 잔여 휴가일
+		ArrayList<Vacation> vlist = aService.selectMemVacRemain();
+		
+		// 페이징 정보, 사원 리스트, 잔여 휴가일 담아서 전달
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("pi", pi);
+		map.put("list", list);
+		map.put("vlist",  vlist);
+		
+		return new Gson().toJson(map);
+		
 	}
 }

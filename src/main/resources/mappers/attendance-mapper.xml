@@ -128,6 +128,96 @@
 		 ORDER BY WORKING_DAY DESC
 	</select>
 	
+	<!-- 출근 여부 -->
+	<select id="selectStartTime" resultType="String">
+		select start_time
+		  from attendance
+		 where emp_no = #{empNo}
+		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
+	</select>
+	
+	<!-- 퇴근 여부 -->
+	<select id="selectEndTime" resultType="String">
+		select
+		       end_time
+		  from attendance
+		 where emp_no = #{empNo}
+		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
+	</select>
+		
+	<!-- 출근 insert -->
+	<insert id="insertAttendance">
+		insert 
+		  into attendance
+		  (
+		    att_no
+		  , emp_no
+		  , att_date
+		  , start_time
+		  )
+		  values
+		  (
+		    seq_attno.nextval
+		  , #{empNo}
+		  , to_char(sysdate, 'YYYY-MM-DD')
+		  , to_char(sysdate, 'HH24:MI')
+		  )
+	</insert>
+	
+	<!-- 퇴근 & 근태 상태 update -->
+	<update id="endAttendance">
+		update attendance
+		   set end_time = to_char(sysdate, 'HH24:MI')
+		     , total_time = 
+		     case when (to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24 &lt; 5
+	              then round( (to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24, 0) 
+	              when (to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24 &gt;= 5
+	              then round( (to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24, 0) - 1
+	         end
+		     , status = 
+		     case when to_date(start_time, 'HH24:MI') &gt; to_date('09:00', 'HH24:MI') then '지각'
+		          when to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') &gt;= to_date('18:00', 'HH24:MI') then '정상'
+		     end
+		 where emp_no = #{empNo}
+		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
+	</update>
+	
+	<!-- 한 사원의 휴가 개수 조회 -->
+	<select id="selectVacListCount" resultType="_int">
+		select
+			   count(*)
+		  from vacation
+		 where emp_no = #{empNo}
+	</select>
+	
+	<!-- 한 사원의 휴가 리스트 조회 -->
+	<select id="selectVacationList" resultMap="vacationResult">
+		select
+		       app_no
+		     , emp_name
+		     , v.emp_no "emp_no"
+		     , to_char(v.enroll_date, 'YYYY-MM-DD') "enroll_date"
+		     , to_char(start_date, 'YYYY-MM-DD') "start_date"
+		     , to_char(end_date, 'YYYY-MM-DD') "end_date"
+		     , vac_cause
+		     , appr_status "status"
+		  from vacation v
+		  join member m on (v.emp_no = m.emp_no)
+		  join approval on (app_no = appr_no)
+		 where v.emp_no = #{empNo}
+		 order
+		    by app_no desc
+	</select>
+	
+	<!-- 한 사원의 휴가 잔여일수 조회 -->
+	<select id="selectVacRemain" resultType="_int">
+		select 20 - nvl( sum(vac_days), 0)
+		  from vacation v
+		  join approval on (app_no = appr_no)
+		 where v.emp_no = #{empNo}
+		   and appr_status = '완료'
+	</select>
+	
 	<!-- 전사 근태 개수 조회 -->
 	<select id="selectAllListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -227,94 +317,19 @@
 		   AND NVL(A.STATUS, '결근') IN ('정상', '지각', '결근', '휴가')
 		 ORDER BY WORKING_DAY DESC, EMP_NAME
 	</select>
-	
-	<!-- 출근 insert -->
-	<insert id="insertAttendance">
-		insert 
-		  into attendance
-		  (
-		    att_no
-		  , emp_no
-		  , att_date
-		  , start_time
-		  )
-		  values
-		  (
-		    seq_attno.nextval
-		  , #{empNo}
-		  , to_char(sysdate, 'YYYY-MM-DD')
-		  , to_char(sysdate, 'HH24:MI')
-		  )
-	</insert>
-	
-	<!-- 출근 여부 -->
-	<select id="selectStartTime" resultType="String">
-		select start_time
-		  from attendance
-		 where emp_no = #{empNo}
-		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
-	</select>
-	
-	<!-- 퇴근 여부 -->
-	<select id="selectEndTime" resultType="String">
-		select
-		       end_time
-		  from attendance
-		 where emp_no = #{empNo}
-		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
-	</select>
-	
-	<!-- 퇴근 & 근태 상태 update -->
-	<update id="endAttendance">
+		
+	<!-- 근태 정보 수정 -->
+	<update id="updateAttendance">
 		update attendance
-		   set end_time = to_char(sysdate, 'HH24:MI')
-		     , total_time = 
-		     case when (to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24 &lt; 5
-	              then round( (to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24, 0) 
-	              when (to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24 &gt;= 5
-	              then round( (to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') - to_date(start_time, 'HH24:MI')) * 24, 0) - 1
-	         end
-		     , status = 
-		     case when to_date(start_time, 'HH24:MI') &gt; to_date('09:00', 'HH24:MI') then '지각'
-		          when to_date(to_char(sysdate, 'HH24:MI'), 'HH24:MI') &gt;= to_date('18:00', 'HH24:MI') then '정상'
-		     end
+		   set status = #{status}
+		   	 , start_time = #{startTime}
+		     , end_time = #{endTime}
+		     , total_time = #{totalTime}
+		     , modify_no = #{modifyNo}
+		     , modify_date = to_char(sysdate, 'YYYY-MM-DD')
 		 where emp_no = #{empNo}
-		   and att_date = to_char(sysdate, 'YYYY-MM-DD')
+		   and att_date = #{attDate}
 	</update>
-	
-	<!-- 한 사원의 휴가 개수 조회 -->
-	<select id="selectVacListCount" resultType="_int">
-		select
-			   count(*)
-		  from vacation
-		 where emp_no = #{empNo}
-	</select>
-	
-	<!-- 한 사원의 휴가 리스트 조회 -->
-	<select id="selectVacationList" resultMap="vacationResult">
-		select
-		       app_no
-		     , v.emp_no "emp_no"
-		     , to_char(v.enroll_date, 'YYYY-MM-DD') "enroll_date"
-		     , to_char(start_date, 'YYYY-MM-DD') "start_date"
-		     , to_char(end_date, 'YYYY-MM-DD') "end_date"
-		     , vac_cause
-		     , appr_status "status"
-		  from vacation v
-		  join approval on (app_no = appr_no)
-		 where v.emp_no = #{empNo}
-		 order
-		    by app_no desc
-	</select>
-	
-	<!-- 한 사원의 휴가 잔여일수 조회 -->
-	<select id="selectVacRemain" resultType="_int">
-		select 20 - nvl( sum(vac_days), 0)
-		  from vacation v
-		  join approval on (app_no = appr_no)
-		 where v.emp_no = #{empNo}
-		   and appr_status = '완료'
-	</select>
 	
 	<!-- 전사 근태 검색 수 -->
 	<select id="ajaxSearchAttListCount" resultType="_int">
@@ -432,19 +447,6 @@
 	   </choose>
 	 ORDER BY WORKING_DAY DESC
 	</select>
-		
-	<!-- 근태 정보 수정 -->
-	<update id="updateAttendance">
-		update attendance
-		   set status = #{status}
-		   	 , start_time = #{startTime}
-		     , end_time = #{endTime}
-		     , total_time = #{totalTime}
-		     , modify_no = #{modifyNo}
-		     , modify_date = to_char(sysdate, 'YYYY-MM-DD')
-		 where emp_no = #{empNo}
-		   and att_date = #{attDate}
-	</update>
 	
 	<!-- 휴가를 사용한 사원들의 휴가잔여일수 조회 -->
 	<select id="selectMemVacRemain" resultMap="vacationResult">
@@ -455,22 +457,6 @@
 		  join approval on (app_no = appr_no)
 		 where appr_status = '완료'
 		 group by v.emp_no
-	</select>
-	
-	<!-- 한 사원의 휴가 리스트 조회 (페이징 x) -->
-	<select id="ajaxSelectVacationList" resultMap="vacationResult">
-		select
-		       app_no "app_no"
-		     , emp_name "emp_name"
-		     , to_char(v.enroll_date, 'YYYY-MM-DD') "enroll_date"
-		     , to_char(start_date, 'YYYY-MM-DD') "start_date"
-		     , to_char(end_date, 'YYYY-MM-DD') "end_date"
-		     , vac_cause "vac_cause"
-		     , appr_status "status"
-		  from vacation v
-		  join member m on (v.emp_no = m.emp_no)
-		  join approval on (app_no = appr_no)
-		 where v.emp_no = #{empNo}
 	</select>
 
 	<!-- 전자결재_휴가 신청 -->

@@ -27,8 +27,8 @@ public class AttendanceDao {
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttendance", a, rowBounds);		
 	}
 	
-	public int insertAttendance(SqlSessionTemplate sqlSession, int empNo) {
-		return sqlSession.insert("attendanceMapper.insertAttendance", empNo);
+	public ArrayList<Attendance> selectAttendance(SqlSessionTemplate sqlSession, Attendance a){
+		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttendance", a);
 	}
 	
 	public String selectStartTime(SqlSessionTemplate sqlSession, int empNo) {
@@ -37,6 +37,10 @@ public class AttendanceDao {
 	
 	public String selectEndTime(SqlSessionTemplate sqlSession, int empNo) {
 		return sqlSession.selectOne("attendanceMapper.selectEndTime", empNo);
+	}
+	
+	public int insertAttendance(SqlSessionTemplate sqlSession, int empNo) {
+		return sqlSession.insert("attendanceMapper.insertAttendance", empNo);
 	}
 	
 	public int endAttendance(SqlSessionTemplate sqlSession, int empNo) {
@@ -72,43 +76,6 @@ public class AttendanceDao {
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAllAttendanceList", null, rowBounds);
 	}
 	
-	public int selectMemListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("memberMapper.selectListCount");
-	}
-	
-	public ArrayList<Member> selectMemberList(SqlSessionTemplate sqlSession, PageInfo pi){
-		int limit = pi.getBoardLimit();
-		int offset = (pi.getCurrentPage() - 1) * limit;
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberList", null, rowBounds);
-	}
-	
-	public ArrayList<Vacation> selectMemVacRemain(SqlSessionTemplate sqlSession){
-		return (ArrayList)sqlSession.selectList("attendanceMapper.selectMemVacRemain");
-	}
-	
-	public ArrayList<Vacation> ajaxSelectVacationList(SqlSessionTemplate sqlSession, int empNo){
-		return (ArrayList)sqlSession.selectList("attendanceMapper.ajaxSelectVacationList", empNo);
-	}
-	
-	public int ajaxSearchListCount(SqlSessionTemplate sqlSession, HashMap hm) {
-		return sqlSession.selectOne("memberMapper.ajaxSearchListCount", hm);
-	}
-	
-	public ArrayList<Member> ajaxSearchList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap hm){
-		int limit = pi.getBoardLimit();
-		int offset = (pi.getCurrentPage() - 1) * limit;
-		
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		return (ArrayList)sqlSession.selectList("memberMapper.ajaxSearchList", hm, rowBounds);
-	}
-	
-	public ArrayList<Attendance> selectAttendance(SqlSessionTemplate sqlSession, Attendance a){
-		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttendance", a);
-	}
-	
 	public int updateAttendance(SqlSessionTemplate sqlSession, Attendance a) {
 		return sqlSession.update("attendanceMapper.updateAttendance", a);
 	}
@@ -125,4 +92,38 @@ public class AttendanceDao {
 		
 		return (ArrayList)sqlSession.selectList("attendanceMapper.ajaxSearchAttendance", hm, rowBounds);
 	}
+	
+	public int selectMemListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.selectListCount");
+	}
+	
+	public ArrayList<Member> selectMemberList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMemberList", null, rowBounds);
+	}
+	
+	public ArrayList<Vacation> selectMemVacRemain(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("attendanceMapper.selectMemVacRemain");
+	}
+	
+	public ArrayList<Vacation> selectVacationList(SqlSessionTemplate sqlSession, int empNo){
+		return (ArrayList)sqlSession.selectList("attendanceMapper.selectVacationList", empNo);
+	}
+	
+	public int ajaxSearchListCount(SqlSessionTemplate sqlSession, HashMap hm) {
+		return sqlSession.selectOne("memberMapper.ajaxSearchListCount", hm);
+	}
+	
+	public ArrayList<Member> ajaxSearchList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap hm){
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.ajaxSearchList", hm, rowBounds);
+	}
+	
 }

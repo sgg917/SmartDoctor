@@ -22,13 +22,13 @@ public interface AttendanceService {
 	// 오늘 출근 시간 조회용 메소드
 	String selectStartTime(int empNo);
 	
-	// 오늘 퇴근 시간 조회용  메소드
+	// 오늘 퇴근 시간 조회용 메소드
 	String selectEndTime(int empNo);
 	
-	// 출근 insert 메소드(insert)
+	// 출근 insert 메소드
 	int insertAttendance(int empNo);
 	
-	// 퇴근 + 근태상태 update 메소드
+	// 퇴근, 근태상태 update 메소드
 	int endAttendance(int empNo);
 	
 	// 휴가 총 개수 조회용 메소드
@@ -43,8 +43,17 @@ public interface AttendanceService {
 	// 전사 근태 개수 조회용 메소드
 	int selectAllListCount();
 	
-	// 전사 근태 리스트 조회용 메소드 (페이징 ㅇ)
+	// 전사 근태 리스트 조회용 메소드
 	ArrayList<Attendance> selectAllAttendanceList(PageInfo pi);
+	
+	// 근태 정보 수정용 메소드
+	int updateAttendance(Attendance a);
+	
+	// 검색한 근태 수 조회용 메소드
+	int ajaxSearchAttListCount(HashMap hm);
+	
+	// 검색한 근태 정보 조회용 메소드
+	ArrayList<Attendance> ajaxSearchAttendance(PageInfo pi, HashMap hm);
 	
 	// 전체 사원 수 조회용 메소드
 	int selectMemListCount();
@@ -56,7 +65,7 @@ public interface AttendanceService {
 	ArrayList<Vacation> selectMemVacRemain();
 	
 	// 휴가 리스트 조회용 메소드 (페이징 x)
-	ArrayList<Vacation> ajaxSelectVacationList(int empNo);
+	ArrayList<Vacation> selectVacationList(int empNo);
 	
 	// 검색한 사원 수 조회용 메소드
 	int ajaxSearchListCount(HashMap hm);
@@ -64,12 +73,4 @@ public interface AttendanceService {
 	// 검색한 사원 리스트 조회용 메소드
 	ArrayList<Member> ajaxSearchList(PageInfo pi, HashMap hm);
 	
-	// 근태 수정용 메소드
-	int updateAttendance(Attendance a);
-	
-	// 검색한 근태 수 조회용 메소드
-	int ajaxSearchAttListCount(HashMap hm);
-	
-	// 검색한 근태 정보 조회용 메소드
-	ArrayList<Attendance> ajaxSearchAttendance(PageInfo pi, HashMap hm);
 }
