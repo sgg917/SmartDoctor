@@ -99,6 +99,7 @@ public class MemberController {
 		
 	}
 	
+	// 조직도 조회 페이지 호출
 	@RequestMapping("orgChart.me")
 	public String goOrgChart() {
 		return "lsg/organizationChartView";
@@ -108,6 +109,7 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value="select.org", produces="application/json; charset=utf-8")
 	public String ajaxSelectOrganization() {
+		
 		// 조직도 부서 조회
 		ArrayList<Dept> dlist = mService.selectOrgChartDept();
 		
@@ -126,7 +128,6 @@ public class MemberController {
 	@RequestMapping(value="select.me", produces="application/json; charset=utf-8")
 	public String ajaxSelectMember(Dept d) {
 		
-		//System.out.println(d);
 		// 부서별 사원 수 조회
 		int listCount = mService.selectEmpCount(d);
 		
@@ -204,8 +205,6 @@ public class MemberController {
 	// 사원 퇴사
 	@RequestMapping("deleteEmp.me")
 	public String deleteEmp(String empNo, HttpSession session, Model model) {
-		
-		System.out.println("empNo : " + empNo);
 		
 		// 사원 삭제 update
 		int result = mService.deleteEmp(empNo);
